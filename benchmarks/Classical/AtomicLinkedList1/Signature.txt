@@ -1,0 +1,7 @@
+def insertHead(k, len, len1):
+
+def popHead(len, ret1, len1):
+
+def inv1(k, N, len):
+
+def inv2(len, items_processed, N): 

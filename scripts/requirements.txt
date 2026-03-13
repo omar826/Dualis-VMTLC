@@ -1,0 +1,4 @@
+google-generativeai
+openai
+python-dotenv
+z3-solver

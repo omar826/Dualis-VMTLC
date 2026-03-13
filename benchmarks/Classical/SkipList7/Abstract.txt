@@ -1,0 +1,14 @@
+assume(N > 0);
+
+min = INT_MAX;
+max = INT_MIN;
+i = 0
+
+while (i < N) {
+    Value v = *;
+    (isPresent1, min1, max1, len1) = insert(v, isPresent, min, max, len)
+    i++;
+}
+k = max
+lb_ret1 = lower_bound(k min max)
+assert(lb_ret1 == max)

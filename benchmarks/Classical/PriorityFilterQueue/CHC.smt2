@@ -1,0 +1,23 @@
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var minPrio Int)
+(declare-var minPrio1 Int)
+(declare-var maxPacketSize Int)
+(declare-var maxPacketSize1 Int)
+(declare-var packetSize Int)
+(declare-var prio Int)
+(declare-rel append (Int Int Int Int Int Int Int Int))
+(declare-rel processQueue (Int Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+
+
+(rule (=> (and (= len 0) (= minPrio -1) (= maxPacketSize -1)) (inv len minPrio maxPacketSize)))
+
+(rule (=> (and (inv len minPrio maxPacketSize) (and (= prio 1) (> packetSize 0) (< packetSize 500)) (append prio packetSize len minPrio maxPacketSize len1 minPrio1 maxPacketSize1)) (inv len1 minPrio1 maxPacketSize1)))
+
+(rule (=> (and (inv len minPrio maxPacketSize) (not (and (= prio 1) (> packetSize 0) (< packetSize 500)))) (inv len minPrio maxPacketSize)))
+
+(rule (=> (and (inv len minPrio maxPacketSize) (processQueue len minPrio maxPacketSize len1 minPrio1 maxPacketSize1) (not (=> (= len1 0) (and (= minPrio1 -1) (= maxPacketSize1 -1))))) fail))
+
+(query fail :print-certificate true)

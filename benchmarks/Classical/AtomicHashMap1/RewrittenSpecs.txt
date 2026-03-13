@@ -1,0 +1,7 @@
+insert
+(placeholder for declaration)
+(( (len == 0) ? (len1 == 1) : ( (!((k >= min) && (k <= max))) ? (len1 == (len + 1)) : (len1 == len) ) ) && ( (len == 0) ? (min1 == k) : (min1 == ((k < min) ? k : min)) ) && ( (len == 0) ? (max1 == k) : (max1 == ((k > max) ? k : max)) ))
+
+find
+(placeholder for declaration)
+((k >= min && k <= max) ? (ret1 != -129) : (ret1 == -129))

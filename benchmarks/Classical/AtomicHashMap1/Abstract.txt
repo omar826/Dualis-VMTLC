@@ -1,0 +1,25 @@
+assume(N > 0);
+
+k = 0
+len = 0
+min = MAX
+max = MIN
+containsk = false
+i = 0
+
+while (i < N) {
+     k = i 
+     v = i
+     (len1, min1, max1) = insert(k, v, len, min, max);
+     v = i+1
+     (len1, min1, max1) = insert(k, v, len, min, max);
+     i++;
+}
+
+k = *
+(assume 0 <= k < N)
+ret1 = find(k, len, min, max)
+assert(ret1 != MIN)
+
+%ignore parameters like kveq, kveq in the counterexamples
+

@@ -1,0 +1,23 @@
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var remove_count Int)
+(declare-var remove_count1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel remove_none (Int Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+
+(rule (=> (and (> N 0) (= i 0)  (= len 0)) (inv1 i N len)))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk) (not (< i N)) (= remove_count 0) (remove_none len remove_count len1 remove_count1) (not (and (= remove_count1 0) (= len N)))) fail))
+
+(query fail :print-certificate true)

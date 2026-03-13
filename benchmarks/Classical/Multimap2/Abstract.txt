@@ -1,0 +1,24 @@
+(assume N > 0)
+
+i = 0
+len = 0
+countko = 0
+countkt = 0
+
+while(i < N) {
+	k = 1
+	v = *
+	(countko1, countkt1, len1) = emplace(k, v, countko, countkt len);
+	i++;
+}
+
+v = *
+k = 2
+(countko, countkt1, len1) = emplace(k, v, countko, countkt, len)
+
+
+assert(countko == N);
+assert(countkt1 == 1);
+
+============================================
+assert(len1 == N+1);

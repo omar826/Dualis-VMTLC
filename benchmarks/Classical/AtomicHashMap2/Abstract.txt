@@ -1,0 +1,28 @@
+assume(N > 3);
+
+// capturing the initial state of the datastructure
+len = 0
+i = 0
+min = MAX
+max = MIN
+containsk = false
+
+while (i < N) {
+      k = i
+      v = i
+     (len1, min1, max1, kveq1) = insert(k, v, len, min, max, kveq);
+     i++;
+}
+
+i = 0
+while (i < N) {
+      k = i
+      v = i
+     (len1, min1, max1, kveq1) = insert(k, v, len, min, max, kveq);
+    i++:
+}
+
+k = *
+(assume k != max && k != min && 0 <= k < N)
+ret1 = find(k, len, min, max, kveq)
+assert(ret1 == k)

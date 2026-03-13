@@ -1,0 +1,3 @@
+def inv(val_param, max_val_param):
+
+def push(val_in, max_in, max_out):

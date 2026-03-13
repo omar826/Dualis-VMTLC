@@ -1,0 +1,16 @@
+len = 0;
+minPrio = -1;
+maxPacketSize = -1;
+
+while (*) {
+    int packetSize = *;
+    int prio = *;
+    if (packetSize > 0) {
+        if(prio == 1 && packetSize < 500){
+	( len1, minPrio1, maxPacketSize1) = append(prio, packetSize, len, minPrio, maxPacketSize);
+        }
+    }
+}
+
+len1, minPrio1, maxPacketSize1 = processQueue(len, minPrio, maxPacketSize)
+assert(len1 == 0 ==> (minPrio1 == -1 && maxPacketSize1 == -1))

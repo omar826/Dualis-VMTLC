@@ -1,0 +1,3 @@
+(inv1 i N len )
+(insert k v len containsk len1 containsk1)
+(remove_all len remove_count len1 remove_count1)

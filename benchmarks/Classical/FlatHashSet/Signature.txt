@@ -1,0 +1,6 @@
+(inv1 i N len containsv min max)
+(inv2 i N len containsv min max)
+(inv3 i N len containsv min max)
+(insert v len containsv min max len1 containsv1 min1 max1)
+(erase v len containsv min max len1 containsv1 min1 max1)
+(reserve len N len1)

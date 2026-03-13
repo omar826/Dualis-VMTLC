@@ -1,0 +1,15 @@
+i1 = 1
+isHeap1 = true
+len1 = 0
+
+assume(N > 0);
+
+while (i < N) {
+       (isHeap1, len1) = insert(i, isHeap, len);
+       i++;
+}
+
+(len1, ret1, isHeap1) = deleteTop(len, isHeap)
+(isHeap2) = downheap()
+
+assert(isHeap2 == true)

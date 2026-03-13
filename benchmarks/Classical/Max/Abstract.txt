@@ -1,0 +1,13 @@
+lmax = INT_MIN
+gmax = INT_MIN
+
+while (*) {
+    v = *;
+    append(v, lmax, lmax1, len, len1)
+
+    if (gmax < v){
+        gmax = v;
+    }
+}
+
+assert( gmax == lmax)

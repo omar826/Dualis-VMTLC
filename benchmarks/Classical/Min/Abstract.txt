@@ -1,0 +1,13 @@
+lmin = INT_MAX
+gmin = INT_MAX
+
+while (*) {
+    v = *
+    append(v, lmin, lmin1)
+
+    if (gmin > v){
+        gmin = v;
+    }
+}
+
+assert(gmin == lmin)

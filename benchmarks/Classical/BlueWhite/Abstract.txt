@@ -1,0 +1,18 @@
+main(){
+    inserted_blue = false;
+    bcount = 0;
+    
+
+    while(*)    { // inv (inserted_blue, blue_count) 
+    // inserted_blue == false ==> bcount == 0 && inserted_blue == true ==> bcount == 1
+        color = non_det() // {blue, white}
+        if (color == blue && inserted_blue == false){
+            push(color, bcount, bcount')
+            // color == blue ==> bcount' = bcount + 1 && color != blue ==> bcount' == bcount
+            inserted_blue := true;
+        } else if (color == white){
+            push(color, bcount, bcount')
+        }
+    }
+    assert(inserted_blue == true ==> bcount == 1)
+}

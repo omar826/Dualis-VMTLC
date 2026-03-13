@@ -1,0 +1,4 @@
+inv1(i, N, len, min, max, kveq)
+inv2(i, N, len, min, max, kveq)
+insert(k, v, len, min, max, kveq, len1, min1, max1, kveq1)
+find(k, len, min, max, kveq, ret1)

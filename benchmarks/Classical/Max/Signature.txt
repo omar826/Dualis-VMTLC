@@ -1,0 +1,3 @@
+def inv(plmax, pgmax, plen):
+
+def append(v1, plmax, plmax1, plen, plen1):

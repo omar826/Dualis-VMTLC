@@ -1,0 +1,103 @@
+You are an expert programmer specializing in formal verification with Z3Py. 
+Your primary task is to analyze an abstract program description and its corresponding Constrained Horn Clause
+ (CHC) specification. Based on this analysis, you will define a set of Python functions that use Z3Py to model 
+ the relations declared in the CHC file. These Python functions should return Z3 boolean expressions. 
+ The ultimate goal is for these generated Z3Py function definitions to make all CHC rules 
+ (when interpreted as Z3 implications) VALID.
+
+**I. System Behavior Overview:**
+
+Please analyze the following abstract program description to understand the intended behavior, state variables,
+ and operations. This provides semantic context for the relations you will define.
+
+```
+[Abst_Program.txt]
+```
+Z3 integer variables are used to model the non-deterministic choices are indicated by '*'.
+**II. Formal CHC Specification Context:**
+
+Please analyze the following CHC content. This is the formal basis for your task.
+
+1.  **`declare-rel` statements:** These define the names and expected arguments (types and order) for the Python/Z3Py functions you must create.
+2.  **`declare-var` statements:** These list the symbolic variables used within the CHC rules.
+3.  **`rule` statements:** These are the most critical part. Each rule `(=> antecedent_formula consequent_formula)` defines a logical implication. Your Z3Py function definitions must ensure that *every one of these rules translates into a VALID Z3 implication*.
+
+
+```
+[CHC.txt]
+```
+
+**III. Pre-defined Z3 Variables and Constants in the Testing Environment:**
+
+The Python script where your generated functions will be inserted has ALREADY DEFINED global Z3 variables and Python constants. **DO NOT redefine these in your output.** The parameters of your functions will be called with these Z3 variables (or expressions derived from them) in the testing script.
+
+  * **Globally Available Z3 Integer Variables (These are examples; refer to the `declare-var` statements in the CHC.txt you pasted above to understand which variables are relevant for the current benchmark):**
+      * `nexttime`, `len`, `min_ttw` (representing current state values for some benchmarks)
+      * `nexttime1`, `len1`, `min_ttw1` (representing next state values for some benchmarks)
+      * `packetSize_input`, `prio_input` (representing non-deterministic inputs to a loop iteration, if applicable to the benchmark)
+  * **Globally Available Z3 Boolean Variables (if applicable, based on `declare-var`):**
+      * `ret1_pq` (e.g., for a return status)
+  * **Globally Available Python Constants (These are examples; refer to `define-fun` in CHC.txt or initial values in `Abst_Program.txt` for benchmark-specific constants):**
+      * `INT_MAX = 32767`
+      * `INIT_MIN_PRIO = 1`
+      * `INIT_MAX_PACKET_SIZE = 499`
+
+**IV. Your Task: Define Z3Py Function Bodies for Declared Relations**
+
+1.  **Identify Target Functions:** For each `(declare-rel relation_name (Type1 Type2 ...))` statement in the CHC content (Section II), you must define a corresponding Python function.
+2.  **Function Documentation:**
+      These are the function documentations:
+        ```
+        Function: insert
+
+        Signature: insert(n, min_in, min_out, isEmpty_in, isEmpty_out)
+        Description: This function models adding a new integer n to a data structure that tracks its minimum element.
+        After the operation, the data structure is guaranteed to be non-empty, so isEmpty_out will always be False.
+        If the data structure was empty before the call (isEmpty_in was True), its new minimum value (min_out) becomes the value n that was just inserted.
+        If the data structure was already non-empty (isEmpty_in was False), its new minimum value (min_out) is the smaller of the previous minimum (min_in) and the newly inserted value n.
+
+        
+        Function: search
+
+        Signature: search(v, min_in, isEmpty_in, ret_out)
+        Description: This function models searching for an integer v within a data structure. The result is returned in the boolean ret_out.
+        A search can only succeed (i.e., ret_out can only be True) if the data structure is not empty. If isEmpty_in is True, the search must fail (ret_out must be False).
+        The client's search function is efficient. For a search to succeed, the value v being searched for cannot be less than the minimum element (min_in) currently in the entire data structure. If v is less than min_in, the search is guaranteed to fail.
+        ```
+3.  **Function Logic (The Core Task):**
+      * The body of each Python function must construct and return a single Z3 boolean expression.
+      * This Z3 expression *is* the definition of the relation.
+      * The logic for this expression should be derived from your understanding of the `Abst_Program.txt` (Section I) and, most importantly, by analyzing how the relation is used within the **`rule` statements** of the `CHC.txt` (Section II). The goal is to define the relation such that all rules involving it become valid implications.
+      * For example, an `inv_loop` function should define properties that make the CHC rules for initialization and preservation hold. An `append_op` function should define state changes that are consistent with the rules where `append_op` appears.
+
+**V. Expected Output Format:**
+
+Provide **ONLY** the complete Python code definitions for the required functions. Do not include any surrounding text, explanations, or `from z3 import *`. Do not redefine any global Z3 variables or constants (as per Section III).
+
+**Example of Expected Output Structure (for a hypothetical benchmark):**
+
+```python
+def inv_relation_from_chc(p_arg1, p_arg2):
+    # Logic using p_arg1, p_arg2, and implicitly relying on how these
+    # parameters will be mapped to global Z3 variables in the CHC rules.
+    # Constants like INT_MAX can be used if they are listed in Section III.
+    return And(p_arg1 > 0, p_arg2 < INT_MAX)
+
+def operation_relation_from_chc(p_curr_state_arg, p_next_state_arg, p_input_arg):
+    # Logic defining the transition
+    return (p_next_state_arg == p_curr_state_arg + p_input_arg - 1)
+```
+
+**VI. Additional Guidelines & Goal Clarification:**
+
+  * **Primary Goal: Validity.** The most important objective is that your generated Z3Py function definitions make ALL CHC rules (from Section II), when translated into Z3 implications, **VALID**.
+  * **Plausibility:** The definitions should also be plausible models of the operations described in the `Abst_Program.txt`.
+  * For the key verification conditions (like invariant preservation for different paths), the antecedent of the implication should be satisfiable.
+  * **Maximal Specification (Secondary Goal, Strive For):**
+        * Once validity is achieved, aim for your specifications to be "maximal." Think of a specification (like an invariant inv(state) or an operation op(current_state, next_state)) as defining a set of allowed states or state transitions.
+        * A valid specification is maximal if you cannot add any more states (for an invariant) or any more input/output state pairs (for an operation) to the set it accepts without making the specification invalid (i.e., without causing one of the CHC rules to no longer hold).
+        * Essentially, try to make your Z3 definitions as general or "permissive" as possible, including all behaviors that are consistent with the CHC rules and the abstract program's intent. Avoid being overly restrictive if a more general valid definition exists.
+        * There might be multiple different maximal specifications. Your goal is to find one that is as comprehensive as possible.
+        * Crucially, prioritize achieving VALIDITY of all CHC rules above striving for maximality if there's a conflict. A valid, slightly less general specification is much better than a more general but invalid one.
+  * Consider edge cases (e.g., empty queues if `len` is a variable) as implied by the abstract program and CHC rules.
+  * Pay close attention to how variables declared with `(declare-var ...)` in the CHC rules are used as arguments to your functions within those rules. This mapping is key.

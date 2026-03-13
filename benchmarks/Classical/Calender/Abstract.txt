@@ -1,0 +1,16 @@
+Cart c;
+int len = 0;
+int maxDiff = INT_MIN;
+
+while (*) {
+    int ev1 = *;
+    int ev2 = *;
+    if (((ev1 >=0  && ev1 <= 3) && (ev2 >= 0 && ev2 <= 3)) &&
+       (absl(ev1 - ev2) < 2)) {
+       c.insert(len, len1,ev1, ev2, maxDiff, maxDiff1);    
+    }
+}
+
+assert( len > 0 => maxDiff < 2)
+
+

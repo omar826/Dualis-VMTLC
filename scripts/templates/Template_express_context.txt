@@ -1,0 +1,86 @@
+You are an expert in program semantics and formal verification. Your task is to analyze a specific client program and its corresponding CHC specification. For each relation (like inv, insert, etc.), you will generate a list of core arithmetic sub-expressions. These expressions must describe the relationships between the function parameters only as they occur within the specific execution flow of the client program.
+
+I. System Behavior Overview:
+
+Please analyze the following abstract program description to understand the intended behavior, state variables, and operations. This client program description defines the exact execution context for your analysis. The expressions you generate must be consistent with the state changes and variable values that can occur within this specific program.
+```
+[abstract]
+```
+II. Formal CHC Specification Context:
+
+Please analyze the following CHC content. This content primarily serves to:
+
+Identify the names and expected arguments (types and order) for the Python functions you must create (from declare-rel statements).
+Provide context on how these relations are used in logical rules, which will inform the plausible semantics you need to model.
+List the symbolic variables involved (from declare-var statements).
+```
+[CHC]
+```
+III. Pre-defined Variable and Constant Context:
+
+The CHC file may use pre-defined constants. Your analysis should be consistent with these definitions.
+
+
+Example: (define-fun INT_MAX () Int 32767) means INT_MAX is 32767.
+
+IV. Your Task: Generate Textual Expression Sets for Each Relation
+
+For each relation defined by a (declare-rel ...) statement in Section II, you must:
+
+Analyze its plausible behavior based on its name, its arguments, the abstract program, and its usage in the CHC rules.
+Identify the core arithmetic relationships between its parameters. For example, if a relation describes len1 = len + 1, a key expression is len1 - len.
+Format your output for that relation exactly as described in Section V below.
+Function Signatures: These are the function signatures:
+```
+[signatures]
+```
+Function Logic (The Core Task):
+
+From the behavior of these functions, you will extract key arithmetic or boolean terms.
+Canonical Form: Where possible, express relationships as terms that would be compared to zero. For example, if you infer a behavior x = y + 2, the corresponding expression to return in the list would be x - y. If you infer a > b, a good expression would be a - b.
+
+
+
+V. Expected Output Format:
+
+Provide your response as a block of text. For each relation, you must generate a multi-line entry strictly following this format:
+
+A header line: <relation_name> <num_parameters> <num_expressions>
+A list of parameter mappings, one per line: <index> <parameter_name>
+A list of the extracted expressions, one per line, using the parameter names you just defined.
+
+Example of the Required Output Format (for a hypothetical benchmark):
+```
+insert 5 7
+0 n
+1 min
+2 min1
+3 isEmpty
+4 isEmpty1
+n - min1
+min1 - n
+n - min
+min - n
+min1 - min
+min - min1
+min1 - n
+
+search 4 2
+0 v
+1 min
+2 isEmpty
+3 ret1
+v - min
+min - v
+
+```
+
+VI. Goal Clarification:
+
+Primary Goal: Useful Expressions. Your goal is to provide a rich set of fundamental expressions (building blocks). A downstream solver will take these expressions e and try to find a valid specification by combining them into predicates of the form e > c, or e = c (where c is a constant). Your generated expressions should be these e terms.
+
+Completeness: Aim to provide a comprehensive set of simple expressions that capture the relationships. For example, if a and b are compared, providing both a - b and b - a can be useful for the solver.
+
+Focus on Context, Not Generality: The expressions you generate should model the function's behavior only as it's called by the client program. For example, if the client's logic ensures an insert function is only ever called with positive integers, your expressions should reflect this constraint. You do not need to generate expressions for behaviors that are impossible within this specific client's execution flow.
+
+Allowed Symbols: Each expression should be constructed using variable names, and the symbols: '(' , ')', , '+', '-'. Integers, logical expressions etc are not allowed.

@@ -1,0 +1,21 @@
+int sl = 0;
+
+int main()
+{
+  int c=0, d=0, n;
+
+  sl = 0; // statement added
+
+  while (c < n)
+  {
+    push(n);
+    c = c+1;
+  }
+
+  while (sl != 0)
+  {
+    pop();
+    d = d+1;
+  }
+  _(assert d == n)
+}

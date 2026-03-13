@@ -1,0 +1,13 @@
+min, max
+while(*){ //insert 0 , min, max
+    push(0, min, min', max, max') (==>) && (==>)
+}
+assert(min == 0, max == 0)
+
+while(*){ inv(max0, max1, max2)
+    push(0, max0, max0',max1, max1', max2, max2')
+}
+
+push(1, max0, max0',max1, max1', max2, max2')
+push(2, max0, max0',max1, max1', max2, max2')
+assert((max0' and max1' and max2') or (!max0' and max1' and max2'))

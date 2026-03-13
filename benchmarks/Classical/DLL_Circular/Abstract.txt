@@ -1,0 +1,12 @@
+val = 0, max = 0
+
+while(*){ 
+    if (*){
+        if (val < 3){
+            val = val + 1
+        }
+    }
+    push(val, max, max')
+}
+
+assert ( max >= 0 && max <= 3)

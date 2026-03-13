@@ -1,0 +1,16 @@
+(assume N > 0)
+i = 0
+len = 0
+countko = 0
+while(i < N) {
+	k = 1
+	v = *
+	(countko1, len1) = emplace(k, v, countko, len);
+	i++;
+}
+
+assert(countko == N); // using this
+
+
+=================================
+assert(len == N);

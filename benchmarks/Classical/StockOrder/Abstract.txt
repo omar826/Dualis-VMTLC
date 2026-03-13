@@ -1,0 +1,12 @@
+len = 0;
+minDiff = INT_MAX;
+
+while (*) {
+    int stock, order;
+
+    if(stock >= 0 && order >= 0 && order <= stock) {
+        so.addStockOrder(stock, order, len, len', minDiff, minDiff')
+    }
+}
+
+assert(len >= 0 ==> minDiff >= 0)

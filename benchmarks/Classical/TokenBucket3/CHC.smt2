@@ -1,0 +1,20 @@
+(declare-var b_size Int)
+(declare-var c_rate Int)
+(declare-var avai_tokens Int)
+(declare-var avai_tokens1 Int)
+(declare-var consumed_tokens Int)
+(declare-var consumed_tokens1 Int)
+(declare-var token_counter Int)
+(declare-rel generateTokens (Int Int))
+(declare-rel consume (Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= b_size 1) (= avai_tokens1 1)) (generateTokens b_size avai_tokens1)))
+(rule (=> (and (= c_rate 1) (= avai_tokens 1) (= avai_tokens1 0)) (consume c_rate avai_tokens avai_tokens1)))
+
+(rule (=> (and (> b_size 0) (> c_rate 0) (>= b_size c_rate) (= consumed_tokens1 0) (generateTokens b_size avai_tokens1)) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
+(rule (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens)   (>= avai_tokens c_rate) (consume c_rate avai_tokens avai_tokens1) (= consumed_tokens1 (+ consumed_tokens c_rate))) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
+(rule (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens) (not (>= avai_tokens c_rate)) (not (<= consumed_tokens b_size) )) fail))
+
+(query fail :print-certificate true)
