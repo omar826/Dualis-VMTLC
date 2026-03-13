@@ -1,0 +1,22 @@
+(declare-var N Int)
+(declare-var k Int)
+(declare-var k1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var items_processed Int)
+(declare-var items_processed1 Int)
+(declare-var ret1 Int)
+(declare-rel insertHead (Int Int Int))
+(declare-rel popHead (Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+
+(rule (=> (and (> N 0) (= k1 0) (= len1 0)) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (< k N) (insertHead k len len1) (= k1 (+ k 1))) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (not (< k N)) (= items_processed 0)) (inv2 len items_processed N)))
+(rule (=> (and (inv2 len items_processed N) (not (= len 0)) (popHead len ret1 len1) (= items_processed1 (+ items_processed 1))) (inv2 len1 items_processed1 N)))
+(rule (=> (and (inv2 len items_processed N) (= len 0) (not (= items_processed N))) fail))
+
+(query fail :print-certificate true)

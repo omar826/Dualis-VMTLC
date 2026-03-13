@@ -1,0 +1,8 @@
+(inv1 i N isHeap min max len)
+
+(inv2 d N min max len isHeap ret)
+
+(insert i isHeap min max len isHeap1 min1 max1 len1)
+
+(deleteMin min max len isHeap min1 max1 len1 ret1 isHeap1)
+(downHeap isHeap2)

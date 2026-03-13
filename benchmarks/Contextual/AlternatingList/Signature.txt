@@ -1,0 +1,5 @@
+def inv(top len flag):
+
+def push(val top len top1 len1):
+
+def push1(val top len top1 len1):

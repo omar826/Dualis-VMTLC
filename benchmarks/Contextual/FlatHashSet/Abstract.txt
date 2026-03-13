@@ -1,0 +1,30 @@
+(assume N > 0)
+size = 0
+len = 0
+i = 0
+min = MAX
+max = MIN
+containsk = false
+
+while (i < N) {
+      v = i
+      (len1, containsv1, min1, max1) = insert(v, len, containsv, min, max);
+      i++
+      }
+
+i = 0
+while (i < N) {
+      v = i;
+      (len1, containsv1, min1, max1) = erase(v, len, containsv, min, max);
+      i++
+}
+
+len1 = reserve(len, N);
+
+i = 0
+while (i < N) {
+      v = i + N
+      (len1, containsv1, min1, max1) = insert(v, len, containsv, min, max);
+      i++;
+}
+assert(len == N);

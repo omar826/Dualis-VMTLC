@@ -1,0 +1,7 @@
+def inv(pnexttime, plen, pmin_ttw):
+
+
+def insert(pnexttime, plen, plen1, pmin_ttw, pmin_ttw1):
+
+
+def choosenext(plen, plen1, pmin_ttw, pmin_ttw1):

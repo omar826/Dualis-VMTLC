@@ -1,0 +1,3 @@
+inv(len,maxPrio, minPacketSize)
+append(prio_in, packetSize_in, len_in, maxPrio_in, minPacketSize_in, len_out, maxPrio_out, minPacketSize_out)
+processQueue(len_in, maxPrio_in, minPacketSize_in, len_out, maxPrio_out, minPacketSize_out)

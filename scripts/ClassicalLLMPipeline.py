@@ -6,6 +6,8 @@ import sys
 from dotenv import load_dotenv
 import importlib
 from z3 import *
+import json
+import shutil
 
 
 script_location = os.path.dirname(os.path.abspath(__file__))
@@ -15,6 +17,8 @@ PROJECT_ROOT = os.path.dirname(script_location)
 BENCHMARKS_DIR = os.path.join(PROJECT_ROOT, "benchmarks", "Classical")
 SCRIPTS_DIR = os.path.join(PROJECT_ROOT, "scripts")
 TEMPLATES_DIR = os.path.join(SCRIPTS_DIR, "templates")
+
+LOGS_DIR = os.path.join(PROJECT_ROOT, "logs", "ClassicalLLM")
 
 print(f"Project Root Detected: {PROJECT_ROOT}")
 print(f"Benchmarks Directory: {BENCHMARKS_DIR}")
@@ -305,7 +309,7 @@ def translate_z3_to_cpp(z3_function_code, model_to_use, spec_name, benchmark_nam
                         py_param, cpp_var = parts[1], parts[2]
                         variable_mapping_instructions += f"- The Python parameter `{py_param}` corresponds to the C++ local variable `{cpp_var}`.\n"
     except FileNotFoundError:
-        print(f"Warning: '{varmap_path}' not found. No variable mapping will be used.")
+        variable_mapping_instructions = "use the same variable names as in the Python code."
 
     if not variable_mapping_instructions:
          variable_mapping_instructions = "No special variable remapping is required. Use Python parameter names directly."
@@ -447,11 +451,11 @@ def z3_refinement_cycle(conversation_history, model_to_use, benchmark_name):
         print(f"\n--- Z3 Refinement Attempt {attempt}/{MAX_ATTEMPTS} ---")
 
 
-        import json
-        print("\n" + "-"*20 + " CONVERSATION HISTORY (SENT TO LLM) " + "-"*20)
+        # import json
+        # print("\n" + "-"*20 + " CONVERSATION HISTORY (SENT TO LLM) " + "-"*20)
 
-        print(json.dumps(conversation_history, indent=2))
-        print("-" * 65 + "\n")
+        # print(json.dumps(conversation_history, indent=2))
+        # print("-" * 65 + "\n")
 
 
         llm_code = get_llm_response(conversation_history, model_to_use)
@@ -474,6 +478,37 @@ def z3_refinement_cycle(conversation_history, model_to_use, benchmark_name):
             
             conversation_history.append({'role': 'user', 'content': feedback})
     return None
+
+def save_final_logs(benchmark_name, conversation_history):
+    """
+    Saves the final conversation history and the generated C++ specs 
+    to a dedicated logs folder for this benchmark.
+    """
+    # Create the specific log folder: logs/ClassicalLLM/benchmark_name
+    target_dir = os.path.join(LOGS_DIR, benchmark_name)
+    os.makedirs(target_dir, exist_ok=True)
+
+    # 1. Save the conversation history as a formatted JSON file
+    chat_file_path = os.path.join(target_dir, "conversation_history.json")
+    try:
+        with open(chat_file_path, 'w', encoding='utf-8') as f:
+            json.dump(conversation_history, f, indent=4)
+    except Exception as e:
+        print(f"Error saving conversation history: {e}")
+
+    # 2. Copy the final C++ specs from the benchmark folder
+    # We grab RewrittenSpecs.txt which was generated in Phase 2
+    source_specs_path = os.path.join(BENCHMARKS_DIR, benchmark_name, "RewrittenSpecs.txt")
+    target_specs_path = os.path.join(target_dir, "final_cpp_specs.txt")
+    
+    try:
+        if os.path.exists(source_specs_path):
+            shutil.copy(source_specs_path, target_specs_path)
+            print(f"\n Saved final conversation and C++ specs to: {target_dir}")
+        else:
+            print(f"\n Saved final conversation to: {target_dir} (No C++ specs were generated to save)")
+    except Exception as e:
+         print(f"Error saving C++ specs: {e}")
 
 def run_complete_pipeline(model_to_use, benchmark_name):
     """The main 'grand loop' that orchestrates the entire pipeline."""
@@ -504,6 +539,7 @@ def run_complete_pipeline(model_to_use, benchmark_name):
 
         if not counterexample_report:
             print("\n\n✅✅✅ PIPELINE COMPLETE: Specs passed all tests! ✅✅✅")
+            save_final_logs(benchmark_name, conversation_history)
             break
         
 
@@ -542,6 +578,7 @@ Your entire response must be valid Python code.
 
     else:
         print(f"\n❌ PIPELINE FAILED: Reached max iterations without a fully passing spec.")
+        save_final_logs(benchmark_name, conversation_history)
 
 
 

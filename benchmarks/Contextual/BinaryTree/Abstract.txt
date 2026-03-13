@@ -1,0 +1,18 @@
+BinaryTree b ;
+bool isEmpty = true;
+int min = INT_MAX;
+
+
+while(*) {
+    int n;   
+    if (n >= 0) { // only insert positive numbers
+        insert(n, min, min1, isEmpty, isEmpty1);
+    }
+}
+
+int v;
+assume(v < 0);
+ret = false
+assert( search(v, min, isEmpty, ret))
+
+

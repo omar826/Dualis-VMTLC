@@ -1,0 +1,3 @@
+inv1(i, N, length, contains_key)
+insert(key, value, len_in, containsk_in, len_out, containsk_out)
+remove_all(len_in, remove_count_in, len_out, remove_count_out)

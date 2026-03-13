@@ -1,0 +1,36 @@
+val = 0, max = 0
+
+while(*){ 
+    if (*){
+        if (val < 3){
+            val = val + 1
+        }
+    }
+    push(val, max, max')
+}
+
+assert ( max >= 0 && max <= 3)
+
+
+bool max0 = false, max1= false, max2=false, max3= false;
+// insert 0
+
+// insert only 1
+while(*){inv(max0, max1, max2, max3)
+	val = 1
+	insert(val, max0, max1, max2, max3)
+}
+
+// insert only 2
+while(*){inv(max0, max1, max2, max3)
+	val = 2
+	insert(val, max0, max1, max2, max3)
+}
+
+// insert only 3
+while(*){ inv(max0, max1, max2, max3)
+	val = 3
+	insert(val, max0, max1, max2, max3)
+}
+
+assert(max0 or (max0 and max1) or (max0 and max1 and max2) or (max0 and max1 and max2 and max3))

@@ -1,0 +1,21 @@
+(assume N >= 3)
+(assume size == N)
+len = 0
+i = 0
+containslru = false
+containsk = false
+lru = MAX // sentinel value
+
+while (i < N) {
+      k = i
+      v = i
+      (len1, mru1, containsmru1, ret1) = insert_or_assign(k, v, len, lru, size, containsmru);
+      i++;
+}
+
+(assume 0 <= k < N)
+(mru1) = find(k, containsk)
+
+assert(mru1 != MAX)
+
+%ignore other variables being used like kveq in the counterexamples

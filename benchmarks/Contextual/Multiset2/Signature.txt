@@ -1,0 +1,3 @@
+inv1(i, N, value_in_loop, count_val_one, count_val_two, length)
+emplace(value, countvo_in, countvt_in, len_in, countvo_out, countvt_out, len_out)
+emplace1(value, countvo_in, countvt_in, len_in, countvo_out, countvt_out, len_out)

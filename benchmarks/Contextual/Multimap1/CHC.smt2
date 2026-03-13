@@ -1,0 +1,18 @@
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0)) (inv1 i N countko len)))
+(rule (=> (and (inv1 i N countko len) (< i N) (= k 1) (emplace k v countko len countko1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 len1)))
+(rule (=> (and (inv1 i N countko len) (not (< i N)) (not (= countko N))) fail))
+
+(query fail :print-certificate true)

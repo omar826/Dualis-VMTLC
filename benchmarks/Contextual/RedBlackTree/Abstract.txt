@@ -1,0 +1,22 @@
+int max = INT_MIN;
+int min = INT_MAX;
+int max1 = INT_MIN;
+int min1 = INT_MAX;
+int len = 0;
+int len1 = 0;
+bool noDup = true;
+bool ret;
+
+assume(N > 0)
+
+int i = 0;
+while(i < N){
+	insert(i, max, min, max1, min1, len, len1, noDup, noDup1);
+	i = i + 1;
+}
+
+assume(data >= 0 && data < N)
+
+ret = search(data, min , max, len);
+
+assert(ret != false)

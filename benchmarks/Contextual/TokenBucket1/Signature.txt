@@ -1,0 +1,5 @@
+def generateTokens(b_size, avai_tokens1): 
+
+def consume(c_rate, avai_tokens, avai_tokens1): 
+
+def inv1(avai_tokens, b_size, c_rate, consumed_tokens): 

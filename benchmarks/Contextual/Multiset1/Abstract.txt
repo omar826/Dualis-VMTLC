@@ -1,0 +1,17 @@
+(assume N > 0)
+len = 0
+v = *
+i = 0
+countv = 0
+
+while (i < N) {
+    (countv1, len1) = emplace(v, countv, len);
+    i++;
+}
+
+assert(len == N);
+assert(countv1 == N);
+
+=================================
+
+insert any value N times and check that the count for the values is N

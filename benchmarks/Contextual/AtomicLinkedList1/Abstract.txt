@@ -1,0 +1,18 @@
+assume(N > 0);
+k = 0
+len1 = 0
+
+while(k < N) {
+    len1 = insertHead(k, len);
+    k++;
+}
+
+items_processed = 0;
+while (len > 0) {
+    (ret1, len1) = popHead(len);
+    items_processed++;
+}
+
+assert(items_processed == N);
+
+

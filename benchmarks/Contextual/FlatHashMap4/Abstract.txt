@@ -1,0 +1,24 @@
+(assume N > 1)
+
+i = 0
+len = 0
+containsk = false
+while (i < N) {
+      k = i
+      v = i
+      (len1, containsk1) = insert(k, v, len, containsk);
+      i++;
+}
+
+
+i = 0
+flag = 0 
+while(i < N){
+	k = i
+	(len1, ret1) = erase(k, len, flag); // erase when flag == 1
+   	i++;
+   	flag = 1 - flag; 
+}
+assert((flag == 1) ==> (ret == N-2))
+
+

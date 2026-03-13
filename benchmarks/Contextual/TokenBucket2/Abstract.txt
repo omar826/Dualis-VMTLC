@@ -1,0 +1,23 @@
+avai_tokens = 0
+token_counter = 0;
+
+(assume b_size > 0)
+(assume c_rate > 0)
+
+avaiToken1 = generateTokens(b_size)
+
+consumed_tokens = 0
+assume(b_size >= c_rate);
+assume(c_rate > 0);
+
+while (avai_tokens >= c_rate) {
+      avai_tokens1 = consume(c_rate, avai_tokens)
+      consumed_tokens += c_rate;
+}
+
+assert(consumed_tokens >= c_rate);
+
+====================================
+
+b_size // bucket size
+c_rate // consumption rate

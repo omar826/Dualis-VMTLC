@@ -1,0 +1,19 @@
+i = 0;
+isHeap = true
+len = 0
+assume(N > 0);
+
+while (i < N) { 
+       (isHeap1, len1, min1, max1) = insert(i, isHeap, len, min, max);
+       i++;
+}
+
+d = 0
+ret = MAX
+while(len != 0){
+	(len1, ret1, isHeap1, min, max1) = deleteMin(len, isHeap, min, max)
+	(isHeap2) = downheap()
+	d++;
+}
+
+assert(ret1 == MAX && isHeap == 1)

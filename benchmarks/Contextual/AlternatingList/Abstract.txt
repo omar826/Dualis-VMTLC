@@ -1,0 +1,14 @@
+flag = 1
+len = 0
+while(*) {
+  if (flag) {
+    val = 1
+    (top1, len1) = push(val, top, len)
+    flag = 0
+  } else {
+    val = 2
+    (top1, len1) = push1(val, top, len)
+    flag = 1
+  }
+}
+assert(len == 0 || flag == 0 ==> top == 1 && flag == 1 ==> top == 2)

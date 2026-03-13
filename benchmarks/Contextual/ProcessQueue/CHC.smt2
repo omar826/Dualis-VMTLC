@@ -1,0 +1,21 @@
+(declare-rel inv (Int Int Int))
+(declare-rel insert (Int Int Int Int Int))
+(declare-rel choosenext (Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int (- 129))
+(declare-var nexttime Int)
+(declare-var len Int)
+(declare-var min_ttw Int)
+(declare-var nexttime1 Int)
+(declare-var len1 Int)
+(declare-var min_ttw1 Int)
+
+
+(rule (=> (and (= len1 0) (= nexttime1 1) (= min_ttw1 MAX)) (inv nexttime1 len1 min_ttw1)))
+(rule (=> (and (inv nexttime len min_ttw) (insert nexttime len len1 min_ttw min_ttw1) (= nexttime1 (+ nexttime 1))) (inv nexttime1 len1 min_ttw1)))
+(rule (=> (and (inv nexttime len min_ttw) (and (> nexttime 1) (choosenext len len1 min_ttw min_ttw1) (= nexttime1 (- nexttime 1)))) (inv nexttime1 len1 min_ttw1)))
+(rule (=> (and (inv nexttime len min_ttw) (<= nexttime 1)) (inv nexttime len min_ttw)))
+(rule (=> (and (inv nexttime len min_ttw) (not(=> (> len 0) (>= min_ttw 1)))) fail))
+
+(query fail :print-certificate true)

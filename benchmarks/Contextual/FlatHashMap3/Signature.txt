@@ -1,0 +1,4 @@
+inv1(i, N, len, containsk)
+inv2(i, N, len, containsk, flag, ret)
+insert(k, value, len, containsk, len1, containsk1)
+erase(k, len, flag, len1, ret1)

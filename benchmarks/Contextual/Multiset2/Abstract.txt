@@ -1,0 +1,33 @@
+(assume N > 0)
+
+v = 1;
+i = 0
+countvo = 0
+countvt = 0
+len = 0
+
+while (i < N) {
+     (countvo1, countvt1, len1) = emplace(v, countvo, countvt, len);
+     i++;
+}
+
+v = 2;
+(countvo1, countvt1, len1) = emplace(v, countvo, countvt, len);
+
+
+// using these
+assert(len1 == N + 1);
+assert(countvt1 == 1);
+
+======================================
+assert(len1 > N);
+assert(countvt1 > 1);
+
+
+inv1 : i == len, countvo == i, countvt == 0, i<=N
+
+emplace : (v == 1 => countvo1 == countvo + 1) and (v == 2 => countvt1 == countvt + 1)
+	and len1 = len+1
+
+
+assert(set.count(V1) == N1);

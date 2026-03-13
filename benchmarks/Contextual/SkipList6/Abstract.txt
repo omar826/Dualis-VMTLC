@@ -1,0 +1,18 @@
+assume(N > 0);
+
+min = MAX;
+max = MIN;
+i = 0
+len = 0
+isPresent = false
+
+while (i < N) {
+    v = 1;
+    (isPresent1, min1, max1, len1) = insert(v, isPresent, min, max, len)
+    i++;
+}
+
+(assume k == 1)
+(len1, ret1) = remove(k, len);
+assert(len1 == 0)
+

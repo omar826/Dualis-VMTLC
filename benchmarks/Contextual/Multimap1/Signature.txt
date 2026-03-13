@@ -1,0 +1,2 @@
+inv1(i, N, countko, length)
+emplace(key, value, countko_in, len_in, countko_out, len_out)

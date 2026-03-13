@@ -1,0 +1,21 @@
+assume(N > 0);
+
+k = 0
+len = 0
+min = MIN
+max = MAX
+containsk = false
+
+while (k < N) {
+     v = k
+     (len1, min1, max1, containsk1) = insert(k, v, len, min, max, containsk);
+     v = k+1
+     (len1, min1, max1, containsk1) = insert(k, v, len, min, max, containsk);
+     k++;
+}
+
+k = *
+(assume 0 <= k < N)
+ret1 = find(k, len, min, max, containsk)
+assert(ret1 == k)
+

@@ -1,4 +1,3 @@
-
 import os
 import re
 import google.generativeai as genai
@@ -7,6 +6,8 @@ import sys
 from dotenv import load_dotenv
 import importlib
 from z3 import *
+import json
+import shutil
 
 script_location = os.path.dirname(os.path.abspath(__file__))
 
@@ -14,12 +15,13 @@ script_location = os.path.dirname(os.path.abspath(__file__))
 
 PROJECT_ROOT = os.path.dirname(script_location)
 
-# Now, define all key directories relative to the project root.
-BENCHMARKS_DIR = os.path.join(PROJECT_ROOT, "benchmarks")
+
+BENCHMARKS_DIR = os.path.join(PROJECT_ROOT, "benchmarks", "Contextual")
 SCRIPTS_DIR = os.path.join(PROJECT_ROOT, "scripts")
+TEMPLATES_DIR = os.path.join(SCRIPTS_DIR, "templates")
 
+LOGS_DIR = os.path.join(PROJECT_ROOT, "logs", "ContextualLLM")
 
-print(f"Project Root Detected: {PROJECT_ROOT}")
 
 
 def read_file_content(filepath):
@@ -42,23 +44,20 @@ def create_prompt_from_template(template_path, abst_path, chc_path, specs_path):
     Generates a complete LLM prompt by substituting content from benchmark files
     into a main template file.
     """
-    # Read the main template file
+
     template_content = read_file_content(template_path)
     if template_content is None:
         return None
 
-    # Read the content for each placeholder
+
     abst_content = read_file_content(abst_path)
     chc_content = read_file_content(chc_path)
     specs_content = read_file_content(specs_path)
 
-    # Ensure all content files were read successfully before proceeding
     if any(content is None for content in [abst_content, chc_content, specs_content]):
         print("\nAborting prompt creation due to one or more missing content files.")
         return None
 
-    # Perform the substitutions into the template's placeholders
-    # Note: .replace() is safe; if a placeholder isn't found, it does nothing.
     prompt = template_content.replace("[abstract]", abst_content)
     prompt = prompt.replace("[CHC]", chc_content)
     prompt = prompt.replace("[signatures]", specs_content)
@@ -75,40 +74,35 @@ def get_gemini_definitions(prompt_data, model_name="gemini-2.5-flash"):
     try:
         model = genai.GenerativeModel(model_name)
 
-        # --- Check input type to handle both scenarios ---
         
         if isinstance(prompt_data, list):
             # CASE 1: Input is a chat history (from refinement_loop)
             print("--- Detected chat history. Translating to Gemini format and using conversational mode. ---")
-            
-            # --- TRANSLATION STEP ---
-            # Convert the generic [{'role': ..., 'content': ...}] list to the
-            # specific [{'role': ..., 'parts': [...]}] list that Gemini requires.
+
             gemini_history = []
             for message in prompt_data:
                 gemini_history.append({
                     'role': message['role'],
-                    'parts': [message['content']] # Gemini expects content to be inside a 'parts' list
+                    'parts': [message['content']]
                 })
 
-            # The history for the chat session is everything EXCEPT the last message.
+
             history_for_session = gemini_history[:-1]
-            # The new message we want to send is the content of the last item.
+
             new_message = gemini_history[-1]['parts']
             
             chat = model.start_chat(history=history_for_session)
             response = chat.send_message(new_message)
             
         elif isinstance(prompt_data, str):
-            # CASE 2: Input is a single string prompt (from generate_all_benchmark_expressions)
+
             print("--- Detected single prompt. Using direct generation mode. ---")
             response = model.generate_content(prompt_data)
             
         else:
-            # Handle any other unexpected data types
+
             raise TypeError("prompt_data must be a list of chat messages or a single string.")
 
-        # --- The rest of the function is the same for both cases ---
         if response.parts:
             text_content = "".join(part.text for part in response.parts)
         else:
@@ -117,7 +111,7 @@ def get_gemini_definitions(prompt_data, model_name="gemini-2.5-flash"):
                 print(f"Prompt Feedback: {response.prompt_feedback}")
             return None
 
-        # Clean markdown fences
+
         text_content = re.sub(r'^```python\n', '', text_content.strip())
         text_content = re.sub(r'\n```$', '', text_content.strip())
         
@@ -153,7 +147,7 @@ def get_llm_definitions(prompt_text, model_name="gemini-2.0-flash"):
         # Extract the text content from the response object
         if response.parts:
             text_content = "".join(part.text for part in response.parts)
-        else: # Handle cases where response might be structured differently or blocked
+        else:
             print("Warning: LLM response was empty or blocked.")
             if response.prompt_feedback:
                 print(f"Prompt Feedback: {response.prompt_feedback}")
@@ -190,10 +184,9 @@ def execute_validity_checker(checker_script_name="validity_checker.py"):
 
     try:
         python_executable = sys.executable
-        # We use 'python3' as a common alias. If your system uses 'python', change it here.
-        # The subprocess runs the checker and captures stdout and stderr.
+
         process = subprocess.run(
-            [python_executable, checker_script_name], # <-- Use the variable here
+            [python_executable, checker_script_name], 
             capture_output=True,
             text=True,
             timeout=60,
@@ -202,13 +195,12 @@ def execute_validity_checker(checker_script_name="validity_checker.py"):
             errors='ignore' 
         )
 
-        # Combine standard output and standard error for a complete log.
         full_output = process.stdout
         if process.stderr:
             full_output += "\n--- Errors ---\n" + process.stderr
 
         # Determine success by checking the output for specific failure keywords.
-        # This is more robust than relying on the exit code alone.
+
         is_success = False
         if "qwertyasdfg" in process.stdout:
             is_success = True
@@ -308,78 +300,67 @@ import json # Make sure this is imported
 
 def run_contextual_fuzz_test(benchmark_name, specs_map, mode):
     """
-    Connects to the remote server and runs the fuzzing test in CONTEXTUAL mode,
+    Executes the fuzzing test locally in CONTEXTUAL mode,
     passing all specifications at once as a JSON string.
     Returns counterexample string on failure, None on success.
     """
-    # 1. SSH Connection Setup
-    REMOTE_HOST = "10.192.15.30"
-    REMOTE_USER = "omarmuhammad"
-    REMOTE_PROJECT_DIR = "/home/omarmuhammad/RapNLearn"
-    ssh = None
 
+    fuzzer_script_path = os.path.join(SCRIPTS_DIR, "run_llm_fuzz_test.py")
+    
+    print(f"\n--- Executing local run_llm_fuzz_test.py (Contextual) for '{benchmark_name}' ---")
+    
+
+    specs_map_json = json.dumps(specs_map)
+    
     try:
-        print("--- Establishing SSH connection for Contextual Test ---")
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(REMOTE_HOST, username=REMOTE_USER)
-        sftp = ssh.open_sftp() # Needed for downloading results later
-        print("    -> SSH connection successful.")
 
-        # 2. Convert the specs dictionary to a JSON string for safe command-line passing
-        specs_map_json = json.dumps(specs_map)
+        cmd = [
+            sys.executable, 
+            fuzzer_script_path, 
+            benchmark_name, 
+            specs_map_json, 
+            mode
+        ]
+        
+        process = subprocess.run(cmd, capture_output=True, text=True, check=False)
+        
 
-        # 3. Execute the remote script with the new arguments
-        print(f"\n--- Remotely executing run_llm_fuzz_test.py (Contextual) for '{benchmark_name}' ---")
-        remote_script_path = f"{REMOTE_PROJECT_DIR}/scripts/run_llm_fuzz_test.py" # Use the NEW remote script name
+        print("\n--- Fuzzer Output (stdout) ---")
+        if process.stdout:
+            for line in process.stdout.splitlines():
+                print(f"    [FUZZER] {line}")
+                
+        if process.stderr:
+            print("\n--- Fuzzer Errors (stderr) ---")
+            for line in process.stderr.splitlines():
+                print(f"    [ERROR] {line}")
 
-        # Note the change: spec_name and spec_rule are replaced by specs_map_json
-        command = (
-            f"python3 {remote_script_path} "
-            f"{shlex.quote(benchmark_name)} "
-            f"{shlex.quote(specs_map_json)} " # Pass the JSON string
-            f"{shlex.quote(mode)}"
-        )
 
-        stdin, stdout, stderr = ssh.exec_command(command)
+        print("\n--- Analyzing execution results ---")
+        
 
-        # Stream output (unchanged)
-        print("\n--- Remote Script Output (stdout) ---")
-        for line in iter(stdout.readline, ""):
-            print(f"    [REMOTE] {line.strip()}")
-        exit_status = stdout.channel.recv_exit_status()
-
-        error_output = stderr.read().decode('utf-8', 'ignore')
-        if error_output:
-            print("\n--- Remote Script Error Output (stderr) ---")
-            print(error_output)
-
-        # 4. Analyze Results and Download Counterexample on Failure
-        print("\n--- Analyzing remote execution results ---")
-        if exit_status == 0:
-            print("✅ TEST PASSED: Remote script completed successfully.")
+        if process.returncode == 0:
+            print("✅ TEST PASSED: Contextual fuzzer script completed successfully.")
             return None
         else:
-            print(f"❌ TEST FAILED: Remote script exited with code {exit_status}.")
-            # The contextual harness name follows the pattern BenchmarkNameCont_fuzzCE.txt
-            remote_ce_path = f"{REMOTE_PROJECT_DIR}/Benchmarks/working_temp/{benchmark_name}/{benchmark_name}_fuzzCE.txt"
-            print(f"    -> Attempting to download counterexample from: {remote_ce_path}")
+            print(f"❌ TEST FAILED: Contextual fuzzer script exited with code {process.returncode}.")
+            
+
+            ce_path = os.path.join(BENCHMARKS_DIR, "working_temp", benchmark_name, f"{benchmark_name}_fuzzCE.txt")
+            print(f"    -> Attempting to read counterexample from: {ce_path}")
+            
             try:
-                with sftp.open(remote_ce_path, 'r') as f:
-                    return f.read().decode('utf-8').strip()
+                with open(ce_path, 'r', encoding='utf-8') as f:
+                    return f.read().strip()
             except FileNotFoundError:
-                return f"Error: Remote script failed (code {exit_status}), but no CE file found at {remote_ce_path}."
+                return f"Error: Fuzzer failed (code {process.returncode}), but no CE file found at {ce_path}."
 
     except Exception as e:
+        print(f"\nAn error occurred during local contextual fuzzing: {e}")
         return f"An exception occurred: {e}"
-    finally:
-        if ssh:
-            sftp.close()
-            ssh.close()
-            print("\n--- SSH connection closed. ---")
 
 
-def translate_z3_to_cpp(z3_function_code, model_to_use, spec_name, benchmark_name, varpath ="varmap.txt" ): # <-- Add benchmark_name
+def translate_z3_to_cpp(z3_function_code, model_to_use, spec_name, benchmark_name, varpath ="varmap.txt" ):
     """
     Uses a new, clean, and highly specific LLM prompt to translate a single Z3
     function into a C++ infix expression, correctly mapping variable names based on a config file.
@@ -399,7 +380,7 @@ def translate_z3_to_cpp(z3_function_code, model_to_use, spec_name, benchmark_nam
                         variable_mapping_instructions += f"- The Python parameter `{py_param}` corresponds to the C++ local variable `{cpp_var}`.\n"
     except FileNotFoundError:
         print(f"Warning: '{varmap_path}' not found. No variable mapping will be used.")
-        # Decide if you want to proceed with no mapping or raise an error
+
 
     if not variable_mapping_instructions:
          variable_mapping_instructions = "No special variable remapping is required. Use Python parameter names directly."
@@ -447,29 +428,28 @@ def run_translation_and_testing_pipeline(final_z3_code, original_chat_history, m
     """
     print("\n\n" + "="*20 + " PHASE 2: Translation & Contextual Testing " + "="*20)
 
-    # 1. Parse Z3 functions
+
     function_definitions = ["def " + f for f in final_z3_code.split("def ")[1:]]
     if not function_definitions:
         return "ERROR: Could not parse Z3 functions."
 
-    # 2. Translate ALL functions and store them in a dictionary
+
     specs_map = {}
     SPECS_TO_SKIP_TRANSLATION = ("inv", "valid", "fail")
     for func_def in function_definitions:
         spec_name = func_def.split('(')[0][4:].strip()
         if spec_name.startswith(SPECS_TO_SKIP_TRANSLATION):
             continue
-        cpp_rule = translate_z3_to_cpp(func_def, MODEL_FOR_TRANSLATION, spec_name, benchmark_name) # Assuming MODEL_FOR_TRANSLATION is defined
+        cpp_rule = translate_z3_to_cpp(func_def, MODEL_FOR_TRANSLATION, spec_name, benchmark_name) 
         specs_map[spec_name] = cpp_rule
 
-    # 3. Check if any specs were translated
+
     if not specs_map:
         print("--- No translatable specifications found. Skipping testing phase. ---")
-        return None # Indicate success as there was nothing to test
+        return None 
 
-    # 4. Run the full remote contextual fuzzing suite ONCE
-    #    The mode now needs to reflect contextual fuzzing
-    contextual_mode = "ContextualLLMHornICEFUZZ" # Or the correct mode name for contextual fuzzing
+
+    contextual_mode = "ContextualLLMHornICEFUZZ"
     counterexample_report = run_contextual_fuzz_test(benchmark_name, specs_map, contextual_mode)
 
     # 5. Return the result
@@ -484,7 +464,7 @@ def save_definitions_file(code_content, output_filepath):
     with open(output_filepath, 'w', encoding='utf-8') as f_out:
         f_out.write("# This file is auto-generated. Do not edit directly.\n\n")
         f_out.write("from z3 import *\n")
-        #f_out.write("from globals import *\n\n")
+
         f_out.write("# --- LLM Generated Definitions ---\n")
         f_out.write(code_content)
     print("Save complete.")
@@ -501,8 +481,8 @@ def get_all_benchmarks(benchmarks_dir_path):
         benchmark_folders = [
             entry for entry in all_entries
             if os.path.isdir(os.path.join(benchmarks_dir_path, entry))
-            and not entry.startswith('.')  # Ignore hidden folders like .DS_Store
-            and not entry.startswith('__') # Ignore folders like __pycache__
+            and not entry.startswith('.') 
+            and not entry.startswith('__')
         ]
         print(f"Found {len(benchmark_folders)} benchmarks: {benchmark_folders}")
         return benchmark_folders
@@ -518,26 +498,23 @@ def z3_refinement_cycle(conversation_history, model_to_use, benchmark_name):
     """
     MAX_ATTEMPTS = 6 # Inner loop attempts
     for attempt in range(1, MAX_ATTEMPTS + 1):
-        # (The inner logic of your original refinement_loop goes here)
-        # ... call get_llm_response, save file, run validity_check_gen_ds.py ...
-        # ... if success, return the code; if failure, append feedback ...
-        # This is a condensed version for brevity:
+
         print(f"\n--- Z3 Refinement Attempt {attempt}/{MAX_ATTEMPTS} ---")
 
 
-        # --- Add this block for debugging ---
-        import json
-        print("\n" + "-"*20 + " CONVERSATION HISTORY (SENT TO LLM) " + "-"*20)
-        # Use json.dumps for pretty-printing the list of dictionaries
-        print(json.dumps(conversation_history, indent=2))
-        print("-" * 65 + "\n")
-        # --- End of debug block ---
+        # # --- Add this block for debugging ---
+        # import json
+        # print("\n" + "-"*20 + " CONVERSATION HISTORY (SENT TO LLM) " + "-"*20)
+        # # Use json.dumps for pretty-printing the list of dictionaries
+        # print(json.dumps(conversation_history, indent=2))
+        # print("-" * 65 + "\n")
+        # # --- End of debug block ---
 
         llm_code = get_llm_response(conversation_history, model_to_use)
         if not llm_code: continue
         conversation_history.append({'role': 'model', 'content': llm_code})
-        save_definitions_file(llm_code, os.path.join(benchmark_name, "llm_definitions.py"))
-        checker_output, is_success = execute_validity_checker(os.path.join(benchmark_name, "validity_check_gen_ds.py"))
+        save_definitions_file(llm_code, os.path.join(BENCHMARKS_DIR, benchmark_name, "llm_definitions.py"))
+        checker_output, is_success = execute_validity_checker(os.path.join(BENCHMARKS_DIR, benchmark_name, "validity_check_gen_ds.py"))
         if is_success:
             print("✅ Z3 Definitions passed validity check.")
             return llm_code
@@ -554,15 +531,47 @@ def z3_refinement_cycle(conversation_history, model_to_use, benchmark_name):
             conversation_history.append({'role': 'user', 'content': feedback})
     return None
 
+def save_final_logs(benchmark_name, conversation_history):
+    """
+    Saves the final conversation history and the generated C++ specs 
+    to a dedicated logs folder for this benchmark.
+    """
+    # Create the specific log folder: logs/ClassicalLLM/benchmark_name
+    target_dir = os.path.join(LOGS_DIR, benchmark_name)
+    os.makedirs(target_dir, exist_ok=True)
+
+    # 1. Save the conversation history as a formatted JSON file
+    chat_file_path = os.path.join(target_dir, "conversation_history.json")
+    try:
+        with open(chat_file_path, 'w', encoding='utf-8') as f:
+            json.dump(conversation_history, f, indent=4)
+    except Exception as e:
+        print(f"Error saving conversation history: {e}")
+
+    # 2. Copy the final C++ specs from the benchmark folder
+    # We grab RewrittenSpecs.txt which was generated in Phase 2
+    source_specs_path = os.path.join(BENCHMARKS_DIR, benchmark_name, "RewrittenSpecs.txt")
+    target_specs_path = os.path.join(target_dir, "final_cpp_specs.txt")
+    
+    try:
+        if os.path.exists(source_specs_path):
+            shutil.copy(source_specs_path, target_specs_path)
+            print(f"\n Saved final conversation and C++ specs to: {target_dir}")
+        else:
+            print(f"\n Saved final conversation to: {target_dir} (No C++ specs were generated to save)")
+    except Exception as e:
+         print(f"Error saving C++ specs: {e}")
+
+
 def run_complete_pipeline(model_to_use, benchmark_name):
     """The main 'grand loop' that orchestrates the entire pipeline."""
     # --- Initial Setup ---
-    # This setup logic comes from your original refinement_loop
+
     initial_prompt = create_prompt_from_template(
-        'template_contextual.txt', 
-        os.path.join(benchmark_name, 'Abstract.txt'), 
-        os.path.join(benchmark_name, 'CHC.smt2'), 
-        os.path.join(benchmark_name, 'Signature.txt')
+        os.path.join(TEMPLATES_DIR,'template_contextual.txt'), 
+        os.path.join(BENCHMARKS_DIR, benchmark_name, 'Abstract.txt'), 
+        os.path.join(BENCHMARKS_DIR, benchmark_name, 'CHC.smt2'), 
+        os.path.join(BENCHMARKS_DIR, benchmark_name, 'Signature.txt')
     )
     if not initial_prompt: return
     
@@ -579,20 +588,19 @@ def run_complete_pipeline(model_to_use, benchmark_name):
             break
 
         # Phase 2: Translate and Test
-        # This function now returns the counterexample report if tests fail
+
         counterexample_report = run_translation_and_testing_pipeline(valid_z3_code, conversation_history, model_to_use, benchmark_name)
 
         if not counterexample_report:
             print("\n\n✅✅✅ PIPELINE COMPLETE: Specs passed all tests! ✅✅✅")
+            save_final_logs(benchmark_name, conversation_history)
             break
         
 
         # Phase 3: Feed counterexample back into the main chat history
         print("\n--- Testing found a flaw. Feeding counterexample back to Z3 refinement loop. ---")
 
-        # Since this was a contextual test, the failure could be due to
-        # one or more functions or their interaction.
-        # We will provide the full counterexample report to the LLM.
+
         
         feedback_prompt = f"""The previous Z3 specification was syntactically valid but FAILED the contextual property-based test.
 This means the logic of one or more functions (or their interaction) is flawed.
@@ -614,6 +622,7 @@ Your entire response must be valid Python code.
 
     else:
         print(f"\n❌ PIPELINE FAILED: Reached max iterations without a fully passing spec.")
+        save_final_logs(benchmark_name, conversation_history)
 
 import time
 if __name__ == "__main__":
@@ -622,51 +631,44 @@ if __name__ == "__main__":
     gemini_api_key = os.environ.get("API_KEY")
     if gemini_api_key:
         genai.configure(api_key=gemini_api_key)
-    # Note: The OpenAI key is usually loaded automatically from OPENAI_API_KEY env var
+
     
     # --- Model Selection ---
-    # Centralize model choice here
-    MODEL_TO_USE = "gemini-2.5-pro"  # or "gemini-1.5-pro-latest", 
+
+    MODEL_TO_USE = "gemini-2.5-pro"
     MODEL_FOR_TRANSLATION = "gemini-2.5-flash"
 
     # --- Benchmark Discovery and Execution ---
-    # 1. Automatically find all benchmark folders
-    #all_benchmarks_to_run = get_all_benchmarks(BENCHMARKS_DIR)
-    all_benchmarks_to_run = ["BinaryHeap1"]
 
-    # You can optionally exclude benchmarks here if needed for testing
-    # excluded_benchmarks = {'some_broken_benchmark', 'another_one'}
-    # benchmarks_to_run = [b for b in all_benchmarks_to_run if b not in excluded_benchmarks]
+    all_benchmarks_to_run = ["BinaryHeap1"]
 
     if not all_benchmarks_to_run:
         print("No benchmarks found to run. Exiting.")
     else:
-        # 2. Loop through each benchmark and run the pipeline
+
         for i, benchmark_name in enumerate(all_benchmarks_to_run):
             print("\n\n" + "#" * 70)
             print(f"# STARTING BENCHMARK {i+1}/{len(all_benchmarks_to_run)}: {benchmark_name}")
             print("#" * 70 + "\n")
-            start = time.time()  # Start timer for this benchmark
+            start = time.time() 
 
             try:
-                # 3. Call the main pipeline function for the current benchmark
+
                 run_complete_pipeline(MODEL_TO_USE, benchmark_name)
 
                 print("\n" + "#" * 70)
                 print(f"# SUCCESSFULLY COMPLETED BENCHMARK: {benchmark_name}")
                 print("#" * 70 + "\n")
-                end = time.time()  # End timer for this benchmark
+                end = time.time() 
                 elapsed_time = end - start
                 print(f"Elapsed time for {benchmark_name}: {elapsed_time:.2f} seconds")
 
             except Exception as e:
-                # 4. Catch errors to prevent one failure from stopping the whole process
+
                 print("\n" + "!" * 70)
                 print(f"! An unexpected error occurred while running benchmark: {benchmark_name}")
                 print(f"! ERROR: {e}")
-                # For detailed debugging, you might want to print the full traceback
-                # import traceback
-                # traceback.print_exc()
+  
                 print("! Moving to the next benchmark...")
                 print("!" * 70 + "\n")
 

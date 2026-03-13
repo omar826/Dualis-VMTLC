@@ -1,0 +1,26 @@
+assume(N > 0);
+
+len = 0
+i = 0
+min = MAX
+max = MIN
+containsk = false
+
+while (i < N) {
+      k = i
+      v = i
+     (len1, min1, max1, containsk1) = insert(k, v, len, min, max, containsk);
+     i++;
+}
+
+i = 0
+while (i < N) {
+      k = i
+      v = i
+     (len1, min1, max1, containsk1) = insert(k, v, len, min, max, containsk);
+    i++:
+}
+
+k = max
+ret1 = find(k, len, min, max, containsk)
+assert(ret1 == max)
