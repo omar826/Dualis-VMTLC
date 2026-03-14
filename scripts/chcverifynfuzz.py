@@ -551,10 +551,6 @@ class HornICEPipeline(BasePipeline):
             print(f"FATAL ERROR: No .smt2 file found for benchmark '{self.benchmark_name}'")
             return
 
-        if not self.mappings_valid:
-            print("Aborting pipeline due to invalid attribute mapping file.")
-            return
-
         os.makedirs(self.working_dir, exist_ok=True)
         shutil.copy(self.chc_file_original, self.working_chc_file)
 
@@ -611,9 +607,9 @@ class HornICEPipeline(BasePipeline):
 
         finally:
             print("\n" + "="*20 + " Finalizing Pipeline " + "="*20)
-            # if os.path.isdir(self.working_dir):
-            #     shutil.rmtree(self.working_dir)
-            # print("   -> Temporary working directory and files cleaned up.")
+            if os.path.isdir(self.working_dir):
+                shutil.rmtree(self.working_dir)
+            print("   -> Temporary working directory and files cleaned up.")
 
         print("\n" + "="*22 + " Pipeline Finished " + "="*21)
         print(f"Total External Iterations: {self.external_iteration_count}")
@@ -774,7 +770,7 @@ class CVC5Pipeline(BasePipeline):
                     constraint = f"(constraint ({relation_from_file} {' '.join(f_values)}))"
 
                     if constraint not in self.ce_constraints:
-                        print(f"New Constraint : {constraint}")
+
                         self.ce_constraints.append(constraint)
                         newly_found_constraints += 1
 
@@ -801,29 +797,30 @@ class CVC5Pipeline(BasePipeline):
             self.working_sygus_file
         ]
 
+        success = False
         process = None
         try:
-            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            stdout, stderr = process.communicate(timeout=self.HI_TIMEOUT)
+            with open(log_path, 'w') as log_file:
+                process = subprocess.Popen(command, stdout=log_file, stderr=log_file, text=True)
+            process.communicate(timeout=self.HI_TIMEOUT)
 
             if process.returncode == 0:
-                with open(output_genspec_path, 'w') as f:
-                    f.write(stdout)
                 print(f"   -> {process_name} completed successfully.")
-                return True
+                success = True
             else:
                 print(f"   -> ERROR: {process_name} failed with exit code {process.returncode}.")
-                print(f"      -> Error Output:\n{stderr}")
-                return False
         except subprocess.TimeoutExpired:
             print(f"   -> ERROR: {process_name} timed out. Terminating.")
             if process:
                 process.kill()
                 process.communicate()
-            return False
         except Exception as e:
             print(f"   -> FATAL ERROR during {process_name}: {e}")
-            return False
+        finally:
+            if "der" in os.path.basename(self.chc_verifier_path) and os.path.exists(temp_der_attrs_file):
+                os.remove(temp_der_attrs_file)
+
+        return success
 
     def run(self):
         if not os.path.exists(self.sygus_original_file):
@@ -878,16 +875,16 @@ class CVC5Pipeline(BasePipeline):
                     if is_final_phase:
                         print("   -> Deep fuzzing found a counterexample! Reverting to rapid learning.")
                         is_final_phase = False
-                    break
+                        self.TIMEOUT = 900
 
                 shutil.copy(self.new_sygus_file, self.old_sygus_file)
                 shutil.copy(self.new_sygus_file, self.working_sygus_file)
 
         finally:
             print("\n" + "="*20 + " Finalizing Pipeline " + "="*20)
-            # if os.path.isdir(self.working_dir):
-            #     shutil.rmtree(self.working_dir)
-            # print("   -> Temporary working directory and files cleaned up.")
+            if os.path.isdir(self.working_dir):
+                shutil.rmtree(self.working_dir)
+            print("   -> Temporary working directory and files cleaned up.")
 
         print("\n" + "="*22 + " Pipeline Finished " + "="*21)
         print(f"Total External Iterations: {self.external_iteration_count}")
@@ -914,15 +911,12 @@ class CVC5Pipeline(BasePipeline):
                             content = f.read().strip()
                             if content:
                                 found_any = True
-                                print(f"  Contents of {os.path.basename(ce_file)}:")
-                                print(content)
             if not found_any: print("  (None)")
         elif self.contract_type == 'contextual':
             ce_file = os.path.join(self.working_dir, f"{self.benchmark_name}ContCE.txt")
             if os.path.exists(ce_file):
                 with open(ce_file, "r") as f:
                     content = f.read().strip()
-                    if content: print(content)
                     else: print("  (None)")
             else: print("  (None)")
 

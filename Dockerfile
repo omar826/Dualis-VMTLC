@@ -15,8 +15,16 @@ RUN apt-get update && apt-get install -y \
 COPY --from=seahorn_base /seahorn /seahorn
 ENV PATH="/seahorn/build/run/bin:${PATH}"
 
+COPY cvc5-files/bin/ /usr/local/bin/
+COPY cvc5-files/include/ /usr/local/include/
+COPY cvc5-files/lib/ /usr/local/lib/
+COPY cvc5-files/licenses/ /usr/local/share/licenses/cvc5/
+COPY cvc5-files/cvc5/ /usr/local/share/cvc5/
+
 COPY bin/ /usr/local/bin/
 RUN chmod +x /usr/local/bin/chc_verifier*
+
+RUN ldconfig
 
 COPY benchmarks /app/benchmarks
 COPY logs /app/logs
