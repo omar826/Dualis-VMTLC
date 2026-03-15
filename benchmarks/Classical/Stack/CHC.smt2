@@ -1,4 +1,4 @@
-(declare-rel pu (Int Int))
+(declare-rel pu (Int Int Int))
 (declare-rel po (Int Int))
 (declare-rel inv1 (Int Int Int Int))
 (declare-rel inv2 (Int Int Int Int))
@@ -14,7 +14,7 @@
 
 
 (rule (=> (and (> n 0) (= sl 0) (= c 0) (= d 0)) (inv1 c n d sl)))
-(rule (=> (and (inv1 c n d sl) (< c n) (= c1 (+ c 1)) (pu sl sl1)) (inv1 c1 n d sl1)))
+(rule (=> (and (inv1 c n d sl) (< c n) (= c1 (+ c 1)) (pu n sl sl1)) (inv1 c1 n d sl1)))
 (rule (=> (and (inv1 c n d sl) (not (< c n))) (inv2 c n d sl)))
 (rule (=> (and (inv2 c n d sl) (not (= sl 0)) (= d1 (+ d 1)) (po sl sl1)) (inv2 c n d1 sl1)))
 (rule (=> (and (inv2 c n d sl) (= sl 0) (not (= d n))) fail))

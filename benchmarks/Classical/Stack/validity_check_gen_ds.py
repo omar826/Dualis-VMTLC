@@ -36,7 +36,7 @@ def chk_val_invariant1():
     antecedent = And(inv1(c, n, d, sl) , 
                         (c < n), 
                         (c1 == (c + 1)), 
-                        pu(sl, sl1))
+                        pu(n, sl, sl1))
     consequent = inv1(c1, n, d, sl1)
     implication = Implies(antecedent, consequent)
 

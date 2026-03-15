@@ -14,7 +14,7 @@ ret1 = Int('ret1')
 chckval = 1  # Used to track if all checks pass
 
 try:
-    from llm_definitions import inv1, insert, deleteMin, downheap
+    from llm_definitions import inv1, insert, deleteMin, downHeap
     print("Successfully imported definitions from llm_definitions.py")
 except ImportError:
     print("ERROR: Could not import from 'llm_definitions.py'.")
@@ -116,7 +116,7 @@ def chk_post():
                         Not(i < N),
                         deleteMin(len, isHeap, len1, ret1, isHeap1),
                         is_valid(isHeap1),
-                        downheap(isHeap2),
+                        downHeap(isHeap2),
                         is_valid(isHeap2),
                         Not(correct_condition))
     ic_consequent = fail()

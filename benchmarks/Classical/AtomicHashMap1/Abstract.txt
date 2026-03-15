@@ -21,5 +21,3 @@ k = *
 ret1 = find(k, len, min, max)
 assert(ret1 != MIN)
 
-%ignore parameters like kveq, kveq in the counterexamples
-

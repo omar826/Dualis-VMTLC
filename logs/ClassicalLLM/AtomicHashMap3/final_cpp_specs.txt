@@ -1,0 +1,3 @@
+insert
+(placeholder for declaration)
+(k == len ? (len1 == len + 1 && min1 == (v < min ? v : min) && max1 == (v > max ? v : max) && containsk1 == 1) : (len1 == len && min1 == min && max1 == max && containsk1 == 1))

@@ -1,40 +1,45 @@
 from z3 import *
 
-# Define variables from CHC
+# --- Define variables from the new CHC ---
 N = Int('N')
-len_var = Int('len')
+len = Int('len')
 len1 = Int('len1')
 i = Int('i')
 i1 = Int('i1')
 i_old = Int('i_old')
-min_var = Int('min')
+min = Int('min')
 min1 = Int('min1')
-max_var = Int('max')
+max = Int('max')
 max1 = Int('max1')
-containsk = Int('containsk')
-containsk1 = Int('containsk1')
+kveq = Int('kveq')
+kveq1 = Int('kveq1')
 k = Int('k')
 v = Int('v')
 ret1 = Int('ret1')
+# Note: is_valid is a function, not a variable
+# Note: size, containsmru, etc. are not in this CHC
 
-# Define constants from CHC
+# --- Define constants from CHC ---
 MAX = 128
 MIN = -129
 
-# Global flag to track if all checks pass
+# Global flag to track validity
 chckval = 1
 
+# --- Import LLM-generated functions ---
 try:
-    # Note: The CHC uses 'insert' and 'insert1'. Both must be defined.
-    from llm_definitions import inv1, inv2, insert, find
+    # Import the relations defined in the new CHC
+    from llm_definitions import inv1, inv2, insert, find, insert1
     print("Successfully imported definitions from llm_definitions.py")
 except ImportError:
     print("ERROR: Could not import from 'llm_definitions.py'.")
+    print("Please ensure the file exists and defines: inv1, inv2, insert, find")
     exit()
 except Exception as e:
     print(f"An error occurred during import: {e}")
     exit()
 
+# --- CHC Helper Functions ---
 def is_valid(x):
     """CHC Helper: (define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))"""
     return Or(x == 1, x == 0)
@@ -46,135 +51,122 @@ def fail():
 # Create a single solver
 s = Solver()
 
-def chk_val_initial_conditions1():
+def check_implication(antecedent, consequent, rule_name):
+    """
+    Helper function to check a single Z3 implication.
+    Returns True if valid, False otherwise.
+    """
     global chckval
-    print("="*53)
-    print("Checking if initial conditions imply first loop invariant")
-    print("="*53)
-    # CHC Rule: (=> (and (> N 0) (= len 0) (= i 0) (= min MIN) (= max MAX) (= containsk 0)) (inv1 i N len min max containsk))
-    ic_antecedent = And(N > 0, len_var == 0, i == 0, min_var == MAX, max_var == MIN, containsk == 0)
-    ic_consequent = inv1(i, N, len_var, min_var, max_var, containsk)
-    ic_implication = Implies(ic_antecedent, ic_consequent)
-
-    s.push()
-    print("\nImplication:", ic_implication)
-    s.add(Not(ic_implication))
-    print("Checking validity of implication:")
-    if s.check() == sat:
-        print("Counterexample found (Implication is not valid):")
-        print("Model:", s.model())
-        chckval = 0
-    else:
-        print("Implication is valid")
-    s.pop()
-
-def chk_val_invariant1():
-    global chckval
-    print("="*40)
-    print("Checking for first loop inductiveness")
-    print("="*40)
-    # CHC Rule: (=> (and (inv1...) (< i N) (insert...) (= i1 (+ i 1))) (inv1...))
-    ic_antecedent = And(inv1(i, N, len_var, min_var, max_var, containsk), is_valid(containsk), i < N,
-                        k == i, v == i,
-                        insert(k, v, len_var, min_var, max_var, containsk, len1, min1, max1, containsk1),
-                        i1 == i + 1)
-    ic_consequent = inv1(i1, N, len1, min1, max1, containsk1)
-    ic_implication = Implies(ic_antecedent, ic_consequent)
-
-    s.push()
-    print("\nImplication:", ic_implication)
-    s.add(Not(ic_implication))
-    print("Checking validity of implication:")
-    if s.check() == sat:
-        print("Counterexample found (Implication is not valid):")
-        print("Model:", s.model())
-        chckval = 0
-    else:
-        print("Implication is valid")
-    s.pop()
-
-def chk_val_transition():
-    global chckval
-    print("="*51)
-    print("Checking transition from first loop to second loop")
-    print("="*51)
-    # CHC Rule: (=> (and (inv1 i_old...) (not (< i_old N)) (= i 0)) (inv2...))
-    ic_antecedent = And(inv1(i_old, N, len_var, min_var, max_var, containsk), is_valid(containsk), Not(i_old < N), i == 0)
-    ic_consequent = inv2(i, N, len_var, min_var, max_var, containsk)
-    ic_implication = Implies(ic_antecedent, ic_consequent)
-
-    s.push()
-    print("\nImplication:", ic_implication)
-    s.add(Not(ic_implication))
-    print("Checking validity of implication:")
-    if s.check() == sat:
-        print("Counterexample found (Implication is not valid):")
-        print("Model:", s.model())
-        chckval = 0
-    else:
-        print("Implication is valid")
-    s.pop()
-
-def chk_val_invariant2():
-    global chckval
-    print("="*41)
-    print("Checking for second loop inductiveness")
-    print("="*41)
-    # CHC Rule: (=> (and (inv2...) (< i N) (insert1...) (= i1 (+ i 1))) (inv2...))
-    ic_antecedent = And(inv2(i, N, len_var, min_var, max_var, containsk), is_valid(containsk), i < N,
-                        k == i, v == i,
-                        insert(k, v, len_var, min_var, max_var, containsk, len1, min1, max1, containsk1),
-                        i1 == i + 1)
-    ic_consequent = inv2(i1, N, len1, min1, max1, containsk1)
-    ic_implication = Implies(ic_antecedent, ic_consequent)
+    print("\n" + "="*52)
+    print(f"Checking Rule: {rule_name}")
+    print("="*52)
     
+    implication = Implies(antecedent, consequent)
+    
+    # Check if the antecedent (the "if" part) can even be true
+
+    # Check if the implication is valid (i.e., if Not(implication) is unsatisfiable)
     s.push()
-    print("\nImplication:", ic_implication)
-    s.add(Not(ic_implication))
-    print("Checking validity of implication:")
+    print("\nImplication:", implication)
+    s.add(Not(implication))
+    print("Checking validity of implication (searching for counterexample)...")
     if s.check() == sat:
-        print("Counterexample found (Implication is not valid):")
+        print("❌ COUNTEREXAMPLE FOUND (Implication is NOT valid):")
         print("Model:", s.model())
-        chckval = 0
+        chckval = 0 # This is a definite failure
+
     else:
-        print("Implication is valid")
+        print("✅ Implication is VALID")
     s.pop()
 
-def chk_post():
+def chk_rule_1_init():
+    """Checks: (rule (=> (and (> N 0) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))"""
+    antecedent = And(N > 0, len == 0, i == 0, min == MAX, max == MIN, kveq == 1)
+    consequent = inv1(i, N, len, min, max, kveq)
+    check_implication(antecedent, consequent, "Initial Conditions")
+
+def chk_rule_2_loop1():
+    """Checks: (rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))"""
+    antecedent = And(
+        inv1(i, N, len, min, max, kveq),
+        is_valid(kveq),
+        i < N,
+        k == i,
+        v == i,
+        insert(k, v, len, min, max, kveq, len1, min1, max1, kveq1), # 10 args
+        i1 == (i + 1)
+    )
+    consequent = inv1(i1, N, len1, min1, max1, kveq1)
+    check_implication(antecedent, consequent, "Loop 1 Inductiveness")
+
+def chk_rule_3_transition():
+    """Checks: (rule (=> (and (inv1 i_old N len min max kveq) (is_valid kveq) (not (< i_old N)) (= i 0)) (inv2 i N len min max kveq)))"""
+    antecedent = And(
+        inv1(i_old, N, len, min, max, kveq),
+        is_valid(kveq),
+        Not(i_old < N),
+        i == 0
+    )
+    consequent = inv2(i, N, len, min, max, kveq)
+    check_implication(antecedent, consequent, "Transition to Loop 2")
+
+def chk_rule_4_loop2():
+    """Checks: (rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))"""
+    antecedent = And(
+        inv2(i, N, len, min, max, kveq),
+        is_valid(kveq),
+        i < N,
+        k == i,
+        v == i,
+        insert1(k, v, len, min, max, kveq, len1, min1, max1, kveq1), # 10 args
+        i1 == (i + 1)
+    )
+    consequent = inv2(i1, N, len1, min1, max1, kveq1)
+    check_implication(antecedent, consequent, "Loop 2 Inductiveness")
+
+def chk_rule_5_fail():
+    """Checks: (rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (and (>= k 0) (< k N ) (= k min)) (find k len min max kveq ret1) (= ret1 MAX)) fail))"""
     global chckval
-    print("="*20)
-    print("   Checking post   ")
-    print("="*20)
-    # CHC Rule: (=> (and (inv2...) (not (< i N)) (= k min) (find...) (not (= ret1 min))) fail))
-    correct_condition = (ret1 == min_var)
-    ic_antecedent = And(inv2(i, N, len_var, min_var, max_var, containsk),
-                        is_valid(containsk),
-                        Not(i < N),
-                        k == min_var,
-                        find(k, len_var, min_var, max_var, containsk, ret1),
-                        Not(correct_condition))
-    ic_consequent = fail()
-    ic_implication = Implies(ic_antecedent, ic_consequent)
-
+    print("\n" + "="*52)
+    print("Checking Rule: Post-Condition (Fail)")
+    print("="*52)
+    
+    # This is the condition that leads to failure
+    antecedent = And(
+        inv2(i, N, len, min, max, kveq),
+        is_valid(kveq),
+        Not(i < N),
+        And(k >= 0, k < N, k == min),
+        find(k, len, min, max, kveq, ret1), # 6 args
+        ret1 == MAX
+    )
+    
+    # We check if this failure-inducing condition is *ever* satisfiable
     s.push()
-    print("\nImplication:", ic_implication)
-    s.add(Not(ic_implication))
-    print("Checking validity of implication:")
+    print("Antecedent (Fail Condition):", antecedent)
+    s.add(antecedent)
+    print("Checking if fail condition is satisfiable...")
     if s.check() == sat:
-        print("Counterexample found (Implication is not valid):")
+        print("❌ FAILURE: The fail condition is satisfiable (property is VIOLATED):")
         print("Model:", s.model())
         chckval = 0
     else:
-        print("Implication is valid (Property holds)")
+        print("✅ SUCCESS: The fail condition is NOT satisfiable (property holds).")
     s.pop()
+
 
 # --- Run all checks ---
-chk_val_initial_conditions1()
-chk_val_invariant1()
-chk_val_transition()
-chk_val_invariant2()
-chk_post()
+chk_rule_1_init()
+chk_rule_2_loop1()
+chk_rule_3_transition()
+chk_rule_4_loop2()
+chk_rule_5_fail()
 
-# --- Final result ---
+# --- Final check to print the success string ---
 if chckval == 1:
-    print("\nqwertyasdfg")
+    print("\n" + "="*52)
+    print("All implications are valid and the fail state is unreachable.")
+    print("qwertyasdfg")
+else:
+    print("\n" + "="*52)
+    print("One or more checks failed. See log above for details.")

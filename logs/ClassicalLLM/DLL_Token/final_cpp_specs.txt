@@ -1,0 +1,3 @@
+push
+(placeholder for declaration)
+(val == 0 ? (min_out == min_in && max_out == max_in) : true)

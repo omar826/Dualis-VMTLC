@@ -10,6 +10,6 @@ while (i < N) {
 }
 
 (len1, ret1, isHeap1) = deleteTop(len, isHeap)
-(isHeap2) = downheap()
+(isHeap2) = downHeap()
 
 assert(isHeap2 == true)

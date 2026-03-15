@@ -1,63 +1,21 @@
-(declare-rel inv    (Int Bool Int))
-(declare-rel insert (Int Int Int Bool Bool))
-(declare-rel search (Int Int Bool Bool))
-(declare-rel fail   ())
+(declare-var isEmpty Int)
+(declare-var isEmpty1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var n Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int))
+(declare-rel search (Int Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
 
-(define-fun True  () Bool true)
-(define-fun False () Bool false)
-(define-fun INT_MAX () Int 2147483647)
-
-(declare-var isEmpty  Bool)
-(declare-var isEmpty1 Bool)
-(declare-var min      Int)
-(declare-var min1     Int)
-(declare-var n        Int)
-(declare-var n1       Int)
-(declare-var v        Int)
-(declare-var ret1     Bool)
-
-;;— initialization rule: if isEmpty1 is true, then inv(min1, isEmpty1, n) must hold
-(rule
-  (=> 
-    isEmpty1
-    (inv min1 isEmpty1 n)
-  )
-)
-
-;;— loop‐body when n1 ≥ 0
-(rule
-  (=> 
-    (and 
-      (inv min isEmpty n)
-      (>= n1 0)
-      (insert n1 min min1 isEmpty isEmpty1)
-    )
-    (inv min1 isEmpty1 n1)
-  )
-)
-
-;;— loop‐body when n1 < 0
-(rule
-  (=> 
-    (and 
-      (inv min isEmpty n)
-      (< n1 0)
-    )
-    (inv min isEmpty n1)
-  )
-)
-
-;;— post‐condition: if v<0 and search(...) yields ret1=true, then fail
-(rule
-  (=> 
-    (and 
-      (inv min isEmpty n)
-      (< v 0)
-      (search v min isEmpty ret1)
-      ret1         ;; means (ret1 == true)
-    )
-    fail
-  )
-)
+(rule (=> (and (= isEmpty 1) (= min MAX)) (inv min isEmpty)))
+(rule (=> (and (inv min isEmpty) (is_valid isEmpty) (>= n 0) (insert n min min1 isEmpty isEmpty1)) (inv min1 isEmpty1)))
+(rule (=> (and (inv min isEmpty) (is_valid isEmpty) (< n 0)) (inv min isEmpty)))
+(rule (=> (and (inv min isEmpty) (is_valid isEmpty) (< v 0) (search v min isEmpty ret1) (not (= ret1 0))) fail))
 
 (query fail :print-certificate true)

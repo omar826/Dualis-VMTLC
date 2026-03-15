@@ -25,7 +25,7 @@ chckval = 1
 
 try:
     # Note: The CHC uses 'insert' and 'insert1'. Both must be defined.
-    from llm_definitions import inv1, inv2, insert
+    from llm_definitions import inv1, inv2, insert, insert1
     print("Successfully imported definitions from llm_definitions.py")
 except ImportError:
     print("ERROR: Could not import from 'llm_definitions.py'.")
@@ -122,7 +122,7 @@ def chk_val_invariant2():
     # CHC Rule: (=> (and (inv2...) (< i N) (insert1...) (= i1 (+ i 1))) (inv2...))
     ic_antecedent = And(inv2(i, N, len_var, min_var, max_var, containsk), is_valid(containsk), i < N,
                         k == i, v == i,
-                        insert(k, v, len_var, min_var, max_var, containsk, len1, min1, max1, containsk1),
+                        insert1(k, v, len_var, min_var, max_var, containsk, len1, min1, max1, containsk1),
                         i1 == i + 1)
     ic_consequent = inv2(i1, N, len1, min1, max1, containsk1)
     ic_implication = Implies(ic_antecedent, ic_consequent)

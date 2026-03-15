@@ -1,7 +1,7 @@
 insert
 (placeholder for declaration)
-((len == 0 || k < min || k > max) ? ((len1 == len + 1) && (min1 == (len == 0 ? k : (k < min ? k : min))) && (max1 == (len == 0 ? k : (k > max ? k : max)))) : ((len1 == len) && (min1 == min) && (max1 == max)))
+( (len == 0) ? (len1 == 1 && min1 == k && max1 == k) : ( (len == max - min + 1) ? (( (k >= min && k <= max) ? (len1 == len && min1 == min && max1 == max) : (len1 == len + 1 && min1 == (k < min ? k : min) && max1 == (k > max ? k : max)) )) : (( (!(k >= min && k <= max)) ? (len1 == len + 1 && min1 == (k < min ? k : min) && max1 == (k > max ? k : max)) : ((len1 == len && min1 == min && max1 == max) || (len1 == len + 1 && min1 == min && max1 == max)) )) ) )
 
 find
 (placeholder for declaration)
-((len > 0 && k >= min && k <= max) ? (ret1 != -129) : (ret1 == -129))
+((len > 0 && min <= k && k <= max) ? (ret1 != -129) : true)
