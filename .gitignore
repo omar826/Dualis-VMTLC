@@ -1,1 +1,3 @@
 .env
+/.vscode/launch.json
+/scripts/__pycache__/

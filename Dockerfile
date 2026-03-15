@@ -28,10 +28,12 @@ RUN chmod +x /usr/local/bin/chc_verifier*
 
 RUN ldconfig
 
-COPY benchmarks /app/benchmarks
-COPY logs /app/logs
-COPY scripts /app/scripts
+COPY benchmarks /Dualis/benchmarks
+COPY logs /Dualis/logs
+COPY scripts /Dualis/scripts
 
-RUN chmod +x /app/scripts/*.py
+RUN pip install --no-cache-dir -r /Dualis/scripts/requirements.txt
 
-WORKDIR /app/scripts
+RUN chmod +x /Dualis/scripts/*.py
+
+WORKDIR /Dualis/scripts

@@ -23,12 +23,13 @@ and run the image :
 docker run --rm -it dualis:latest
 ```
 
-### 3. Running Basic Tests (for kick the tires)
+### 3. Running Basic Tests
 
-In this phase we run all the three learners **LLM**, **HornICELLM**,
-**HornICE** for **BinaryTree** and **Stack** benchmarks.
+In this phase we run all the three learners, **LLM**, **HornICELLM**
+and, **HornICE** on **BinaryTree** and **Stack** benchmarks.
 
-Details on the Benchmarks:
+Before we proceed to execute the proof pipeline, following are the
+details on the Benchmarks:
 
 >> BinaryTree
 
@@ -54,28 +55,6 @@ int v = *;
 assume(v < 0);
 ret = bt.search(v)
 assert (ret == false);
-```
-
-We learn the following **modular** specifications. 
-
-```
-insert (n) := min'(o) = min(o) || min'(o) = n
-search (v) :=  v >= 0 || ret = false, ret has the return value of the method.
-inv := empty(o) || min(o) >= 0
-
-``` 
-
-Note the specifications of each of the functions make use of
-"observer" methods, _min(o)_, _min'(o)_, _empty(o)_ and
-_empty'(o)_. For more details on "observer" methods refer to
-the section Illustrative Example in the paper.
-
-And the following **contextual** specifications.
-
-```
-insert (n) := min'(o) = min(o) || min'(o) = n
-search (v) :=  v >= 0 || ret = false, ret captures the return value.
-inv := empty(o) || min(o) >= 0
 ```
 
 >> Stack
@@ -109,11 +88,24 @@ while (sl != 0) {
 assert (d == n)
 '''
 
-The following learners learn **equivalent** specifications to the ones
-discussed above.
+### Synthesizing VMTLC proofs
+
+Run this script ``kickthetyres.py`` in the ``Dualis/scripts
+directory`` to synthesize the specifications (Modular and Contextual)
+with LLM, HornICELLM and HornICE as the learners for BinaryTree and
+Stack.
+
+```
+```
+the output of the run, showing the specifications is present in <>.
+
+Following are the specifications synthesized for BinaryTree client
+using LLM as the learner.
 
 ### LLM
-**BinaryTree**
+## BinaryTree
+
+**Modular**
 
 ```
 insert(n) :=
@@ -121,7 +113,61 @@ search(v) :=
 inv := 
 ```
 
-**Stack**
+## Contextual
+
+```
+insert(n) :=
+search(v) :=
+inv := 
+```
+Using HornICELLM,
+
+### HornICELLM
+## BinaryTree
+
+**Modular**
+```
+insert(n) :=
+search(v) :=
+inv := 
+```
+**Contextual**
+```
+insert(n) :=
+search(v) :=
+inv := 
+```
+ and, finally using HornICE.
+### HornICE
+## BinaryTree
+
+**Modular**
+```
+insert(n) :=
+search(v) :=
+inv := 
+```
+
+**Contextual**
+```
+insert(n) :=
+search(v) :=
+inv := 
+```
+
+And similarly for the Stack client.
+### LLM
+## Stack
+
+**Modular**
+```
+insert(n) :=
+search(v) :=
+inv1 :=
+inv2 :=
+```
+
+**Contextual**
 
 ```
 push(n) :=
@@ -131,15 +177,17 @@ inv2 :=
 ```
 
 ### HornICELLM
-**BinaryTree**
+## Stack
 
+**Modular**
 ```
 insert(n) :=
 search(v) :=
-inv := 
+inv1 :=
+inv2 :=
 ```
 
-**Stack**
+**Contextual**
 
 ```
 push(n) :=
@@ -149,15 +197,17 @@ inv2 :=
 ```
 
 ### HornICE
-**BinaryTree**
+## Stack
 
+**Modular**
 ```
 insert(n) :=
 search(v) :=
-inv := 
+inv1 :=
+inv2 :=
 ```
 
-**Stack**
+**Contextual**
 
 ```
 push(n) :=
