@@ -8,6 +8,7 @@ import importlib
 from z3 import *
 import json
 import shutil
+import argparse
 
 script_location = os.path.dirname(os.path.abspath(__file__))
 
@@ -574,7 +575,7 @@ if __name__ == "__main__":
 
     # --- Benchmark Discovery and Execution ---
 
-    all_benchmarks_to_run = [ "AlternatingList", "AtomicHashMap1",
+    all_benchmarks = [ "AlternatingList", "AtomicHashMap1",
                        "AtomicHashMap2", "AtomicHashMap3", "AtomicHashMap4",
                        "AtomicHashMap5", "AtomicLinkedList1", "AtomicLinkedList2",
                        "BinaryHeap1", "BinaryHeap2", "BinaryTree", "BlueWhite",
@@ -586,6 +587,20 @@ if __name__ == "__main__":
                        "SkipList1", "SkipList2", "SkipList3", "SkipList4",
                        "SkipList5", "SkipList6", "SkipList7", "Stack", "StockOrder",
                        "TokenBucket1", "TokenBucket2", "TokenBucket3" ]
+
+
+    parser = argparse.ArgumentParser(description="Run the LLM Pipeline sequentially.")
+    parser.add_argument("benchmarks", nargs='*', default = ["all"],help="Benchmark names separated by space, or 'all' to run the full suite.")
+    args = parser.parse_args()
+
+
+    if len(args.benchmarks) == 1 and args.benchmarks[0].lower() == "all":
+        all_benchmarks_to_run = all_benchmarks
+        print(f"\n Mode: 'ALL'. Queueing the full suite of {len(all_benchmarks_to_run)} benchmarks...\n")
+    else:
+        all_benchmarks_to_run = args.benchmarks
+        print(f"\n Mode: 'CUSTOM'. Queueing {len(all_benchmarks_to_run)} benchmarks...\n")
+
 
     if not all_benchmarks_to_run:
         print("No benchmarks found to run. Exiting.")
