@@ -1,3 +1,5 @@
+# File: /home/omarmuhammad/RapNLearn/scripts/run_single_fuzzer.py
+
 import sys
 import os
 import argparse
@@ -9,6 +11,8 @@ def main():
     parser.add_argument("spec_name", help="The name of the spec/function to test (e.g., 'insert').")
     parser.add_argument("spec_rule", help="The C++ boolean expression string to inject.")
     parser.add_argument("mode", help="The pipeline mode (e.g., 'ClassicalLLMHornICEFUZZ').")
+    
+    parser.add_argument("--timeout", type=int, default=10, help="Fuzzer timeout in seconds.")
     args = parser.parse_args()
 
     print(f"--- [REMOTE] Running Single Fuzzer for: {args.benchmark_name}/{args.spec_name} ---")
@@ -17,6 +21,8 @@ def main():
 
         pipeline = HornICEPipeline(benchmark_name=args.benchmark_name, mode=args.mode)
 
+        pipeline.TIMEOUT = args.timeout
+        
         os.makedirs(pipeline.working_dir, exist_ok=True)
         ce_file_path = os.path.join(pipeline.working_dir, f"{args.spec_name}CE.txt")
         if os.path.exists(ce_file_path):

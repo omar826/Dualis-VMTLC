@@ -226,7 +226,7 @@ def execute_validity_checker(checker_script_name="validity_checker.py"):
         return error_message, False
     
 
-def run_single_fuzz_test(benchmark_name, spec_to_test, spec_to_inject, mode):
+def run_single_fuzz_test(benchmark_name, spec_to_test, spec_to_inject, mode, timeout):
     """
     Executes a single AFL++ test locally using subprocess.
     Determines success/failure by checking the local counterexample file.
@@ -245,7 +245,8 @@ def run_single_fuzz_test(benchmark_name, spec_to_test, spec_to_inject, mode):
             benchmark_name, 
             spec_to_test, 
             spec_to_inject, 
-            mode
+            mode,
+            "--timeout", str(timeout)
         ]
         
         process = subprocess.run(cmd, capture_output=True, text=True, check=False)
@@ -265,7 +266,7 @@ def run_single_fuzz_test(benchmark_name, spec_to_test, spec_to_inject, mode):
         
         # NOTE: Mak e sure this path correctly points to where the fuzzer outputs the CE!
         # Assuming working_temp is generated inside your BENCHMARKS_DIR
-        ce_path = os.path.join(BENCHMARKS_DIR, "working_temp", benchmark_name, f"{spec_to_test}CE.txt")   
+        ce_path = os.path.join(PROJECT_ROOT, "benchmarks", "working_temp", benchmark_name, f"{spec_to_test}CE.txt")   
         try:
             with open(ce_path, 'r', encoding='utf-8') as f:
                 lines = f.readlines()
@@ -349,7 +350,7 @@ def translate_z3_to_cpp(z3_function_code, model_to_use, spec_name, benchmark_nam
 
 PIPELINE_MODE = "ClassicalLLMHornICEFUZZ"
 
-def run_translation_and_testing_pipeline(final_z3_code, original_chat_history, model_to_use, benchmark_name):
+def run_translation_and_testing_pipeline(final_z3_code, original_chat_history, model_to_use, benchmark_name, timeout):
     """
     Orchestrates Phase 2 and 3: Translates Z3, runs tests, and now correctly
     reads and returns the actual counterexample data from the output files.
@@ -389,7 +390,8 @@ def run_translation_and_testing_pipeline(final_z3_code, original_chat_history, m
             benchmark_name, 
             spec_name, 
             spec_rule, 
-            PIPELINE_MODE 
+            PIPELINE_MODE,
+            timeout
         )
         
         if counterexample_result:
@@ -479,7 +481,7 @@ def z3_refinement_cycle(conversation_history, model_to_use, benchmark_name):
             conversation_history.append({'role': 'user', 'content': feedback})
     return None
 
-def save_final_logs(benchmark_name, conversation_history):
+def save_final_logs(benchmark_name, conversation_history, passed):
     """
     Saves the final conversation history and the generated C++ specs 
     to a dedicated logs folder for this benchmark.
@@ -501,14 +503,22 @@ def save_final_logs(benchmark_name, conversation_history):
     source_specs_path = os.path.join(BENCHMARKS_DIR, benchmark_name, "RewrittenSpecs.txt")
     target_specs_path = os.path.join(target_dir, "final_cpp_specs.txt")
     
-    try:
-        if os.path.exists(source_specs_path):
-            shutil.copy(source_specs_path, target_specs_path)
-            print(f"\n Saved final conversation and C++ specs to: {target_dir}")
-        else:
-            print(f"\n Saved final conversation to: {target_dir} (No C++ specs were generated to save)")
-    except Exception as e:
-         print(f"Error saving C++ specs: {e}")
+    if passed:
+        try:
+            if os.path.exists(source_specs_path):
+                shutil.copy(source_specs_path, target_specs_path)
+                print(f"\n Saved final conversation and C++ specs to: {target_dir}")
+            else:
+                print(f"\n Saved final conversation to: {target_dir} (No C++ specs were generated to save)")
+        except Exception as e:
+            print(f"Error saving C++ specs: {e}")
+    else:
+        try:
+            with open(target_specs_path, 'w', encoding='utf-8') as f:
+                f.write("did not pass\n")
+            print(f"\n Saved final conversation. Marked specs as FAILED in: {target_dir}")
+        except Exception as e:
+            print(f"Error writing failure status: {e}")
 
 def run_complete_pipeline(model_to_use, benchmark_name):
     """The main 'grand loop' that orchestrates the entire pipeline."""
@@ -534,12 +544,12 @@ def run_complete_pipeline(model_to_use, benchmark_name):
             break
 
         # Phase 2: Translate and Test
-        
-        counterexample_report = run_translation_and_testing_pipeline(valid_z3_code, conversation_history, model_to_use, benchmark_name)
+        current_timeout = min(20*i, 500)
+        counterexample_report = run_translation_and_testing_pipeline(valid_z3_code, conversation_history, model_to_use, benchmark_name, current_timeout)
 
         if not counterexample_report:
             print("\n\n✅✅✅ PIPELINE COMPLETE: Specs passed all tests! ✅✅✅")
-            save_final_logs(benchmark_name, conversation_history)
+            save_final_logs(benchmark_name, conversation_history, True)
             break
         
 
@@ -578,7 +588,7 @@ Your entire response must be valid Python code.
 
     else:
         print(f"\n❌ PIPELINE FAILED: Reached max iterations without a fully passing spec.")
-        save_final_logs(benchmark_name, conversation_history)
+        save_final_logs(benchmark_name, conversation_history, False)
 
 
 
@@ -596,8 +606,16 @@ if __name__ == "__main__":
     MODEL_FOR_TRANSLATION = "gemini-2.5-flash"
 
 
-    all_benchmarks_to_run = [
-                             "AtomicHashMap1"]
+    all_benchmarks_to_run = [ 
+                       "BinaryHeap2", "BinaryTree", "BlueWhite",
+                       "Calender", "DLL_Circular", "DLL_Token", "FlatHashMap1",
+                       "FlatHashMap2", "FlatHashSet",
+                        "Max", "Min", "Multimap1", "Multimap2",
+                       "Multiset1", "Multiset2", "NormalFilterQueue",
+                       "PriorityFilterQueue", "ProcessQueue", "RedBlackTree",
+                       "SkipList1", "SkipList2", "SkipList3", "SkipList4",
+                       "SkipList5", "SkipList6", "SkipList7", "Stack", "StockOrder",
+                       "TokenBucket1", "TokenBucket2", "TokenBucket3" ]
 
     if not all_benchmarks_to_run:
         print("No benchmarks found to run. Exiting.")

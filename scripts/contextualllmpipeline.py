@@ -220,85 +220,10 @@ def execute_validity_checker(checker_script_name="validity_checker.py"):
         error_message = f"An unexpected error occurred: {e}"
         print(error_message)
         return error_message, False
-    
 
-import paramiko
-import os
-import shlex
+import json
 
-def run_single_fuzz_test(benchmark_name, spec_to_test, spec_to_inject, mode):
-    """
-    Connects to a remote server to run a single AFL++ test.
-    Determines success/failure by checking the remote counterexample file.
-    """
-    # 1. SSH Connection Setup (unchanged)
-    REMOTE_HOST = "10.192.15.30"
-    REMOTE_USER = "omarmuhammad"
-    REMOTE_PROJECT_DIR = "/home/omarmuhammad/RapNLearn"
-    ssh = None
-    
-    try:
-        print("--- Establishing SSH connection to pillar2 ---")
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(REMOTE_HOST, username=REMOTE_USER)
-        sftp = ssh.open_sftp()
-        print("    -> SSH connection successful.")
-
-        # 2. Execute the remote script (unchanged)
-        print(f"\n--- Remotely executing run_single_fuzzer.py for '{spec_to_test}' ---")
-        remote_script_path = f"{REMOTE_PROJECT_DIR}/scripts/run_single_fuzzer.py"
-        command = (
-            f"python3 {remote_script_path} "
-            f"{shlex.quote(benchmark_name)} "
-            f"{shlex.quote(spec_to_test)} "
-            f"{shlex.quote(spec_to_inject)} "
-            f"{shlex.quote(mode)}"
-        )
-        stdin, stdout, stderr = ssh.exec_command(command)
-        
-        print("\n--- Remote Script Output (stdout) ---")
-        for line in iter(stdout.readline, ""):
-            print(f"    [REMOTE] {line.strip()}")
-        exit_status = stdout.channel.recv_exit_status() # We still wait for it to finish
-
-        # --- THIS IS THE NEW LOGIC ---
-        # 4. Analyze Results by checking the remote CE file
-        print("\n--- Analyzing remote execution results by checking CE file ---")
-        
-        # Path to the counterexample file on the remote server
-        remote_ce_path = f"{REMOTE_PROJECT_DIR}/Benchmarks/working_temp/{benchmark_name}/{spec_to_test}CE.txt"
-        
-        try:
-            with sftp.open(remote_ce_path, 'r') as f:
-                lines = f.readlines()
-            
-            # A real failure has more than 1 line (header + data).
-            if len(lines) > 0:
-                print(f"❌ TEST FAILED: Counterexample data found in '{os.path.basename(remote_ce_path)}'.")
-                return "".join(lines).strip() # Return the counterexample data
-            else:
-                print(f"✅ TEST PASSED: No counterexample data found in '{os.path.basename(remote_ce_path)}'.")
-                return None # Return None for success
-                
-        except FileNotFoundError:
-            # If the CE file doesn't even exist, it's a definite pass.
-            print(f"✅ TEST PASSED: No counterexample file was created.")
-            return None # Return None for success
-
-    except Exception as e:
-        print(f"\nAn error occurred during the remote pipeline: {e}")
-        return f"An exception occurred: {e}"
-    finally:
-        if ssh:
-            sftp.close()
-            ssh.close()
-            print("\n--- SSH connection closed. ---")
-
-
-import json # Make sure this is imported
-
-def run_contextual_fuzz_test(benchmark_name, specs_map, mode):
+def run_contextual_fuzz_test(benchmark_name, specs_map, mode, timeout):
     """
     Executes the fuzzing test locally in CONTEXTUAL mode,
     passing all specifications at once as a JSON string.
@@ -319,7 +244,8 @@ def run_contextual_fuzz_test(benchmark_name, specs_map, mode):
             fuzzer_script_path, 
             benchmark_name, 
             specs_map_json, 
-            mode
+            mode,
+            "--timeout", str(timeout)
         ]
         
         process = subprocess.run(cmd, capture_output=True, text=True, check=False)
@@ -346,7 +272,7 @@ def run_contextual_fuzz_test(benchmark_name, specs_map, mode):
             print(f"❌ TEST FAILED: Contextual fuzzer script exited with code {process.returncode}.")
             
 
-            ce_path = os.path.join(BENCHMARKS_DIR, "working_temp", benchmark_name, f"{benchmark_name}_fuzzCE.txt")
+            ce_path = os.path.join(PROJECT_ROOT, "benchmarks", "working_temp", benchmark_name, f"{benchmark_name}_fuzzCE.txt")
             print(f"    -> Attempting to read counterexample from: {ce_path}")
             
             try:
@@ -379,8 +305,7 @@ def translate_z3_to_cpp(z3_function_code, model_to_use, spec_name, benchmark_nam
                         py_param, cpp_var = parts[1], parts[2]
                         variable_mapping_instructions += f"- The Python parameter `{py_param}` corresponds to the C++ local variable `{cpp_var}`.\n"
     except FileNotFoundError:
-        print(f"Warning: '{varmap_path}' not found. No variable mapping will be used.")
-
+        variable_mapping_instructions = "use the same variable names as in the Python code."
 
     if not variable_mapping_instructions:
          variable_mapping_instructions = "No special variable remapping is required. Use Python parameter names directly."
@@ -421,7 +346,7 @@ def translate_z3_to_cpp(z3_function_code, model_to_use, spec_name, benchmark_nam
 PIPELINE_MODE = "ContextualLLMHornICEFUZZ"
 
 
-def run_translation_and_testing_pipeline(final_z3_code, original_chat_history, model_to_use, benchmark_name):
+def run_translation_and_testing_pipeline(final_z3_code, original_chat_history, model_to_use, benchmark_name, timeout):
     """
     Orchestrates Phase 2 & 3: Translates Z3, bundles specs, runs contextual
     AFL++ tests remotely, and returns counterexample data.
@@ -450,7 +375,7 @@ def run_translation_and_testing_pipeline(final_z3_code, original_chat_history, m
 
 
     contextual_mode = "ContextualLLMHornICEFUZZ"
-    counterexample_report = run_contextual_fuzz_test(benchmark_name, specs_map, contextual_mode)
+    counterexample_report = run_contextual_fuzz_test(benchmark_name, specs_map, contextual_mode, timeout)
 
     # 5. Return the result
     return counterexample_report
@@ -531,7 +456,7 @@ def z3_refinement_cycle(conversation_history, model_to_use, benchmark_name):
             conversation_history.append({'role': 'user', 'content': feedback})
     return None
 
-def save_final_logs(benchmark_name, conversation_history):
+def save_final_logs(benchmark_name, conversation_history, passed):
     """
     Saves the final conversation history and the generated C++ specs 
     to a dedicated logs folder for this benchmark.
@@ -553,14 +478,22 @@ def save_final_logs(benchmark_name, conversation_history):
     source_specs_path = os.path.join(BENCHMARKS_DIR, benchmark_name, "RewrittenSpecs.txt")
     target_specs_path = os.path.join(target_dir, "final_cpp_specs.txt")
     
-    try:
-        if os.path.exists(source_specs_path):
-            shutil.copy(source_specs_path, target_specs_path)
-            print(f"\n Saved final conversation and C++ specs to: {target_dir}")
-        else:
-            print(f"\n Saved final conversation to: {target_dir} (No C++ specs were generated to save)")
-    except Exception as e:
-         print(f"Error saving C++ specs: {e}")
+    if passed:
+        try:
+            if os.path.exists(source_specs_path):
+                shutil.copy(source_specs_path, target_specs_path)
+                print(f"\n Saved final conversation and C++ specs to: {target_dir}")
+            else:
+                print(f"\n Saved final conversation to: {target_dir} (No C++ specs were generated to save)")
+        except Exception as e:
+            print(f"Error saving C++ specs: {e}")
+    else:
+        try:
+            with open(target_specs_path, 'w', encoding='utf-8') as f:
+                f.write("did not pass\n")
+            print(f"\n Saved final conversation. Marked specs as FAILED in: {target_dir}")
+        except Exception as e:
+            print(f"Error writing failure status: {e}")
 
 
 def run_complete_pipeline(model_to_use, benchmark_name):
@@ -588,12 +521,13 @@ def run_complete_pipeline(model_to_use, benchmark_name):
             break
 
         # Phase 2: Translate and Test
+        current_timeout = min(20*i, 500)
 
-        counterexample_report = run_translation_and_testing_pipeline(valid_z3_code, conversation_history, model_to_use, benchmark_name)
+        counterexample_report = run_translation_and_testing_pipeline(valid_z3_code, conversation_history, model_to_use, benchmark_name, current_timeout)
 
         if not counterexample_report:
             print("\n\n✅✅✅ PIPELINE COMPLETE: Specs passed all tests! ✅✅✅")
-            save_final_logs(benchmark_name, conversation_history)
+            save_final_logs(benchmark_name, conversation_history, True)
             break
         
 
@@ -622,7 +556,7 @@ Your entire response must be valid Python code.
 
     else:
         print(f"\n❌ PIPELINE FAILED: Reached max iterations without a fully passing spec.")
-        save_final_logs(benchmark_name, conversation_history)
+        save_final_logs(benchmark_name, conversation_history, False)
 
 import time
 if __name__ == "__main__":
@@ -640,7 +574,18 @@ if __name__ == "__main__":
 
     # --- Benchmark Discovery and Execution ---
 
-    all_benchmarks_to_run = ["BinaryHeap1"]
+    all_benchmarks_to_run = [ "AlternatingList", "AtomicHashMap1",
+                       "AtomicHashMap2", "AtomicHashMap3", "AtomicHashMap4",
+                       "AtomicHashMap5", "AtomicLinkedList1", "AtomicLinkedList2",
+                       "BinaryHeap1", "BinaryHeap2", "BinaryTree", "BlueWhite",
+                       "Calender", "DLL_Circular", "DLL_Token", "FlatHashMap1",
+                       "FlatHashMap2", "FlatHashMap3", "FlatHashMap4", "FlatHashSet",
+                       "LruCache1", "Max", "Min", "Multimap1", "Multimap2",
+                       "Multiset1", "Multiset2", "NormalFilterQueue",
+                       "PriorityFilterQueue", "ProcessQueue", "RedBlackTree",
+                       "SkipList1", "SkipList2", "SkipList3", "SkipList4",
+                       "SkipList5", "SkipList6", "SkipList7", "Stack", "StockOrder",
+                       "TokenBucket1", "TokenBucket2", "TokenBucket3" ]
 
     if not all_benchmarks_to_run:
         print("No benchmarks found to run. Exiting.")

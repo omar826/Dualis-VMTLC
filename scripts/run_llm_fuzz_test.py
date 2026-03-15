@@ -1,3 +1,5 @@
+# --- Replace the main function in run_llm_fuzz_test.py on the SERVER ---
+
 import sys
 import os
 import argparse
@@ -13,6 +15,8 @@ def main():
     # This argument is now OPTIONAL, only used in Classical mode
     parser.add_argument("spec_rule", nargs='?', help="C++ expression string (Classical mode only).")
     parser.add_argument("mode", help="Pipeline mode (e.g., 'ContextualLLMHornICEFUZZ').")
+    parser.add_argument("--timeout", type=int, default=10, help="Fuzzer timeout in seconds.")
+
     args = parser.parse_args()
 
     print(f"--- [LLM FUZZ DRIVER] Running for: {args.benchmark_name} (Mode: {args.mode}) ---")
@@ -21,6 +25,7 @@ def main():
         # 1. Instantiate the pipeline object
         if 'hornice' in args.mode.lower():
             pipeline = HornICEPipeline(benchmark_name=args.benchmark_name, mode=args.mode)
+            pipeline.TIMEOUT = args.timeout
         else:
             print(f"FATAL ERROR: Unknown base mode in '{args.mode}'")
             sys.exit(1)
