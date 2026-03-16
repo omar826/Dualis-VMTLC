@@ -1,4 +1,0 @@
-(consume c_rate=255, avai_tokens=91, avai_tokens1=91)
-(consume c_rate=255, avai_tokens=0, avai_tokens1=0)
-(consume c_rate=29, avai_tokens=2, avai_tokens1=2)
-(consume c_rate=8, avai_tokens=1, avai_tokens1=1)

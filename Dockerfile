@@ -42,7 +42,7 @@ COPY --chown=dualis:dualis benchmarks /Dualis/benchmarks
 COPY --chown=dualis:dualis logs /Dualis/logs
 COPY --chown=dualis:dualis scripts /Dualis/scripts
 
-RUN pip install --no-cache-dir -r /Dualis/scripts/requirements.txt
+RUN pip install --no-cache-dir -r /Dualis/requirements.txt
 
 RUN chmod +x /Dualis/scripts/*.py
 

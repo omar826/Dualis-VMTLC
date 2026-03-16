@@ -1,6 +1,0 @@
-(find k=-1, len=2, min=-111, max=115, kveq = 1, ret1=128)
-(find k=-1, len=3, min=-33, max=26, kveq = 0, ret1=128)
-(find k=-1, len=2, min=-78, max=8, kveq = 1, ret1=128)
-(find k=-1, len=3, min=-24, max=46, kveq = 0, ret1=128)
-(find k=-1, len=2, min=-33, max=2, kveq = 0, ret1=128)
-(find k=-1, len=2, min=-48, max=46, kveq = 1, ret1=128)
