@@ -2,8 +2,10 @@
 
 from z3 import *
 # --- LLM Generated Definitions ---
-def inv(val_param, max_val_param):
-  return And(0 <= val_param, val_param <= 3, 0 <= max_val_param, max_val_param <= val_param)
+from z3 import *
 
-def push(val_in, max_in, max_out):
-  return max_out == If(val_in > max_in, val_in, max_in)
+def inv(val, max):
+  return And(val >= 0, val <= 3, max == val)
+
+def push(val, max, max1):
+  return max1 == If(val > max, val, max)

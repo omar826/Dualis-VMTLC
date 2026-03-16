@@ -1,3 +1,0 @@
-push
-(placeholder for declaration)
-((color == 0) ? (bcount1 == bcount + 1) : (bcount1 == bcount))

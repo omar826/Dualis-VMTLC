@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     READ_INT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 2, n);
 
     BT_INSERT_WITH_STATE(bt, n);
-    bool expr = (pisEmpty1 == false && pmin1 == (pn < pmin ? pn : pmin));
+    bool expr = (isEmpty1 == 0 && min1 == (n < min ? n : min));
 
     if (!expr) {
       LOG_BT_INSERT_STATE(ceFile, fuzzer_mode);

@@ -1,0 +1,6 @@
+(insert v=1, isPresent=0, min=0, max=0, len=1, isPresent1=1, min1=0, max1=1, len1=2)
+(insert v=-1, isPresent=1, min=-1, max=1, len=2, isPresent1=1, min1=-1, max1=1, len1=2)
+(insert v=18, isPresent=0, min=128, max=-129, len=0, isPresent1=0, min1=18, max1=18, len1=1)
+(insert v=-4, isPresent=0, min=128, max=-129, len=0, isPresent1=0, min1=-4, max1=-4, len1=1)
+(insert v=-27, isPresent=0, min=-27, max=-27, len=1, isPresent1=0, min1=-27, max1=-27, len1=1)
+(insert v=-1, isPresent=1, min=-1, max=1, len=2, isPresent1=1, min1=-1, max1=1, len1=2)

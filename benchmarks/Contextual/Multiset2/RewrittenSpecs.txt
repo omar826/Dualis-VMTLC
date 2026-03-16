@@ -1,0 +1,7 @@
+emplace
+(placeholder for declaration)
+(v == 1 ? ((countvo1 == countvo + 1) && (countvt1 == countvt) && (len1 == len + 1)) : (v == 2 ? ((countvo1 == countvo) && (countvt1 == countvt + 1) && (len1 == len + 1)) : false))
+
+emplace1
+(placeholder for declaration)
+(v == 1 ? (countvo1 == countvo + 1 && countvt1 == countvt && len1 == len + 1) : (v == 2 ? (countvo1 == countvo && countvt1 == countvt + 1 && len1 == len + 1) : false))

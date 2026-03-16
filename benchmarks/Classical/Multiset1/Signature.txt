@@ -1,2 +1,2 @@
-inv1(i, N, value, value_count, length)
-emplace(value, countv_in, len_in, countv_out, len_out)
+inv1(i, N, v, countv, len)
+emplace(v, countv, len, countv1, len1)

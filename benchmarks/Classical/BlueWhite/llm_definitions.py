@@ -5,22 +5,17 @@ from z3 import *
 from z3 import *
 
 def inv(inserted_blue, bcount, color):
-    # This invariant captures the core logic of the client program:
-    # If blue has not been inserted (inserted_blue == 0), the blue count must be 0.
-    # If blue has been inserted (inserted_blue == 1), the blue count must be 1.
-    # This property is established at initialization and preserved by all loop paths.
-    
-    # inserted_blue == 0 ==> bcount == 0
-    cond1 = Implies(inserted_blue == 0, bcount == 0)
-    
-    # inserted_blue == 1 ==> bcount == 1
-    cond2 = Implies(inserted_blue == 1, bcount == 1)
-    
-    return And(cond1, cond2)
+    # The invariant states that the number of blue items counted (bcount)
+    # is 1 if a blue item has been inserted, and 0 otherwise.
+    # This can be simplified to bcount == inserted_blue,
+    # where inserted_blue is 0 for false and 1 for true.
+    # The 'color' variable represents the non-deterministic choice for the
+    # *next* iteration, so the invariant on the *current* state does not depend on it.
+    return bcount == inserted_blue
 
 def push(color, bcount, bcount1):
-    # This function defines the general behavior of the 'push' operation.
-    # It is independent of the client's state (like 'inserted_blue').
-    # If the color pushed is blue (represented by 0), the count is incremented.
-    # For any other color, the count remains unchanged.
-    return If(color == 0, bcount1 == bcount + 1, bcount1 == bcount)
+    # The specification for the general-purpose push function.
+    # If the color pushed is blue (represented by 0), the blue count increments.
+    # For any other color (e.g., white, represented by 1), the count is unchanged.
+    blue = 0
+    return If(color == blue, bcount1 == bcount + 1, bcount1 == bcount)

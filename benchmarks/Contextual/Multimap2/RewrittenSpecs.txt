@@ -1,0 +1,7 @@
+emplace
+(placeholder for declaration)
+(countko1 == countko + 1 && countkt1 == countkt && len1 == len + 1)
+
+emplace1
+(placeholder for declaration)
+(countko1 == countko && countkt1 == countkt + 1 && len1 == len + 1)

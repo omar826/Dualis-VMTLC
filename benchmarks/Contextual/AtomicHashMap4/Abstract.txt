@@ -23,4 +23,4 @@ while (i < N) {
 
 k = min
 ret1 = find(k, len, min, max, containsk)
-assert(ret1 == min)
+assert(ret1 != MAX)

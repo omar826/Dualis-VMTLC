@@ -1,0 +1,5 @@
+(consume c_rate=24, avai_tokens=1, avai_tokens1=1)
+(consume c_rate=64, avai_tokens=2, avai_tokens1=2)
+(consume c_rate=22, avai_tokens=2, avai_tokens1=2)
+(consume c_rate=119, avai_tokens=42, avai_tokens1=42)
+(consume c_rate=48, avai_tokens=34, avai_tokens1=34)

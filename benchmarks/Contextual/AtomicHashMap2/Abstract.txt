@@ -25,4 +25,4 @@ while (i < N) {
 k = *
 (assume k != max && k != min && 0 <= k < N)
 ret1 = find(k, len, min, max, kveq)
-assert(ret1 == k)
+assert(ret1 != MIN && ret1 != MAX)

@@ -1,6 +1,6 @@
 BinaryTree b ;
 bool isEmpty = true;
-int min = INT_MAX;
+int min = MAX;
 
 
 while(*) {

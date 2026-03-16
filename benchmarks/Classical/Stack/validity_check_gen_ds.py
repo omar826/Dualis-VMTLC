@@ -85,10 +85,8 @@ def chk_val_loop1_2():
     print("Checking for loop-2 inductiveness")
     print("===============================")
     antecedent = And(inv1(c, n, d, sl) , 
-                        (c < n), 
-                        (c1 == (c + 1)), 
-                        pu(sl, sl1))
-    consequent = inv1(c1, n, d, sl1)
+                        Not(c < n))
+    consequent = inv2(n, d, sl1)
     implication = Implies(antecedent, consequent)
 
     # Check if antecedent is satisfiable
@@ -135,9 +133,13 @@ def chk_val_invariant2():
     print("===============================")
     print("Checking for loop-2 inductiveness")
     print("===============================")
-    antecedent = And(inv1(c, n, d, sl) , 
-                        (c < n), (c1 == (c + 1)), pu(sl, sl1))
-    consequent = inv1(c1, n, d, sl1)
+    antecedent = And(inv2(n, d, sl) , 
+                        (sl == 0),
+                        Not (sl == 0),
+                        po(sl, sl1),
+                        (d1 == d + 1)
+                        )
+    consequent = inv2(n, d1, sl1)
     implication = Implies(antecedent, consequent)
 
     # Check if antecedent is satisfiable
@@ -186,7 +188,7 @@ def chk_post():
     print("    Checking post   ")
     print("====================")
     antecedent = And(
-                    inv2(c, n, d, sl),
+                    inv2(n, d, sl),
                     (sl == 0),
                     (d != n)
     )

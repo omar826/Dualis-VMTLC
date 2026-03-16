@@ -1,0 +1,3 @@
+addStockOrder
+(placeholder for declaration)
+((len1 == len + 1) && (minDiff1 == ((stock - order) < minDiff ? (stock - order) : minDiff)))

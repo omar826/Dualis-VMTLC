@@ -10,7 +10,3 @@ while(i < N) {
 }
 
 assert(countko == N); // using this
-
-
-=================================
-assert(len == N);

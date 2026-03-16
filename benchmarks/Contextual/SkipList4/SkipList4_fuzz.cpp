@@ -26,8 +26,11 @@ int main(int argc, char *argv[]) {
 
     SkipList sl;
 
-    uint8_t N;
-    READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen -1, N);
+    uint8_t N_raw;
+    READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 1, N_raw);
+    
+    // Apply your fix: Cap N at 127
+    uint8_t N = N_raw % 128;
 
     if ( N <= 0){
       continue;

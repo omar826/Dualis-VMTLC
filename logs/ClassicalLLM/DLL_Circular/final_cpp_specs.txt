@@ -1,3 +1,0 @@
-push
-(placeholder for declaration)
-max_out == (val_in > max_in ? val_in : max_in)

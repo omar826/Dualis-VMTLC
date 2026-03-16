@@ -1,7 +1,0 @@
-insert
-(placeholder for declaration)
-(pisEmpty1 == false && pmin1 == (pn < pmin ? pn : pmin))
-
-search
-(placeholder for declaration)
-(! (pisEmpty || pv < pmin) || pret1 == 0)

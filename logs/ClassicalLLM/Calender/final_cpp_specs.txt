@@ -1,3 +1,0 @@
-insert
-(placeholder for declaration)
-((len_out == len_in + 1) && (max_diff_out == (max_diff_in > ((ev1 - ev2) >= 0 ? (ev1 - ev2) : -(ev1 - ev2)) ? max_diff_in : ((ev1 - ev2) >= 0 ? (ev1 - ev2) : -(ev1 - ev2)))))

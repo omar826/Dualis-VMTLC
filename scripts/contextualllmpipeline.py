@@ -393,6 +393,7 @@ def run_translation_and_testing_pipeline(final_z3_code, original_chat_history, m
 
 
     specs_map = {}
+    rewritten_specs_content = []
     SPECS_TO_SKIP_TRANSLATION = ("inv", "valid", "fail")
     for func_def in function_definitions:
         spec_name = func_def.split('(')[0][4:].strip()
@@ -401,11 +402,18 @@ def run_translation_and_testing_pipeline(final_z3_code, original_chat_history, m
         cpp_rule = translate_z3_to_cpp(func_def, MODEL_FOR_TRANSLATION, spec_name, benchmark_name) 
         specs_map[spec_name] = cpp_rule
 
+        rewritten_specs_content.append(f"{spec_name}\n(placeholder for declaration)\n{cpp_rule}\n")
+
+
 
     if not specs_map:
         print("--- No translatable specifications found. Skipping testing phase. ---")
         return None 
 
+    rewritten_specs_path = os.path.join(BENCHMARKS_DIR, benchmark_name, "RewrittenSpecs.txt")
+    with open(rewritten_specs_path, 'w') as f:
+        f.write("\n".join(rewritten_specs_content))
+    print(f"--- Wrote C++ specs to '{rewritten_specs_path}' ---")
 
     contextual_mode = "ContextualLLMHornICEFUZZ"
     counterexample_report = run_contextual_fuzz_test(benchmark_name, specs_map, contextual_mode, timeout)
@@ -551,6 +559,8 @@ def run_complete_pipeline(model_to_use, benchmark_name):
         valid_z3_code = z3_refinement_cycle(conversation_history, model_to_use, benchmark_name)
         if not valid_z3_code:
             print("\n❌ PIPELINE FAILED: Could not produce a valid Z3 spec.")
+            save_final_logs(benchmark_name, conversation_history, False)
+
             break
 
         # Phase 2: Translate and Test

@@ -1,4 +1,4 @@
 
-def inv(lmin, gmin, length):
+def inv(lmin, gmin, len):
 
-def append(v1, lmin_in, lmin_out, len_in, len_out):
+def append(v, lmin, lmin1, len, len1):

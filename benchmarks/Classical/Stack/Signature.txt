@@ -1,6 +1,6 @@
 def inv1(c, n, d, sl):
 
-def inv2(c, n, d, sl):
+def inv2(n, d, sl):
 
 def pu(n, sl, sl1):
 

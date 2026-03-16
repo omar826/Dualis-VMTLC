@@ -13,12 +13,3 @@ while (avai_tokens1 >= c_rate) {
       }
 
 assert(avai_tokens >= 0);
-
-
-=======================================
-
-cannot consume more that what is available
-
-considering that N time units have elapsed, generating min(N*g_rate, b_size)
-b_size, bucket size
-g_rate, generating rate
