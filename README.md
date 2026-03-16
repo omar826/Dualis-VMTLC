@@ -15,12 +15,15 @@ Navigate to the directory (Dualis) of the artifact (where the `Dockerfile`
 is located) and build the image:
 
 ```bash
-docker image build -t dualis:latest .
+docker image build \
+  --build-arg USER_ID=$(id -u) \
+  --build-arg GROUP_ID=$(id -g) \
+  -t dualis:latest .
 ```
 and run the image :
 
 ```bash
-docker run -it \
+docker run -u $(id -u):$(id -g) -it --rm \
   -v $(pwd)/logs:/Dualis/logs \
   -v $(pwd)/benchmarks:/Dualis/benchmarks \
   --name Dualis \
@@ -115,118 +118,118 @@ The output of the run, showing the specifications is present in ````.
 Following are the specifications synthesized for BinaryTree client
 using LLM as the learner.
 
-### LLM
-## BinaryTree
+<!-- ### LLM -->
+<!-- ## BinaryTree -->
 
-**Modular**
+<!-- **Modular** -->
 
-```
-insert(n) :=
-search(v) :=
-inv := 
-```
+<!-- ``` -->
+<!-- insert(n) := -->
+<!-- search(v) := -->
+<!-- inv :=  -->
+<!-- ``` -->
 
-## Contextual
+<!-- ## Contextual -->
 
-```
-insert(n) :=
-search(v) :=
-inv := 
-```
-Using HornICELLM,
+<!-- ``` -->
+<!-- insert(n) := -->
+<!-- search(v) := -->
+<!-- inv :=  -->
+<!-- ``` -->
+<!-- Using HornICELLM, -->
 
-### HornICELLM
-## BinaryTree
+<!-- ### HornICELLM -->
+<!-- ## BinaryTree -->
 
-**Modular**
-```
-insert(n) :=
-search(v) :=
-inv := 
-```
-**Contextual**
-```
-insert(n) :=
-search(v) :=
-inv := 
-```
- and, finally using HornICE.
-### HornICE
-## BinaryTree
+<!-- **Modular** -->
+<!-- ``` -->
+<!-- insert(n) := -->
+<!-- search(v) := -->
+<!-- inv :=  -->
+<!-- ``` -->
+<!-- **Contextual** -->
+<!-- ``` -->
+<!-- insert(n) := -->
+<!-- search(v) := -->
+<!-- inv :=  -->
+<!-- ``` -->
+<!--  and, finally using HornICE. -->
+<!-- ### HornICE -->
+<!-- ## BinaryTree -->
 
-**Modular**
-```
-insert(n) :=
-search(v) :=
-inv := 
-```
+<!-- **Modular** -->
+<!-- ``` -->
+<!-- insert(n) := -->
+<!-- search(v) := -->
+<!-- inv :=  -->
+<!-- ``` -->
 
-**Contextual**
-```
-insert(n) :=
-search(v) :=
-inv := 
-```
+<!-- **Contextual** -->
+<!-- ``` -->
+<!-- insert(n) := -->
+<!-- search(v) := -->
+<!-- inv :=  -->
+<!-- ``` -->
 
-And similarly for the Stack client.
-### LLM
-## Stack
+<!-- And similarly for the Stack client. -->
+<!-- ### LLM -->
+<!-- ## Stack -->
 
-**Modular**
-```
-insert(n) :=
-search(v) :=
-inv1 :=
-inv2 :=
-```
+<!-- **Modular** -->
+<!-- ``` -->
+<!-- insert(n) := -->
+<!-- search(v) := -->
+<!-- inv1 := -->
+<!-- inv2 := -->
+<!-- ``` -->
 
-**Contextual**
+<!-- **Contextual** -->
 
-```
-push(n) := 
-pop() :=
-inv1 :=
-inv2 :=
-```
+<!-- ``` -->
+<!-- push(n) :=  -->
+<!-- pop() := -->
+<!-- inv1 := -->
+<!-- inv2 := -->
+<!-- ``` -->
 
-### HornICELLM
-## Stack
+<!-- ### HornICELLM -->
+<!-- ## Stack -->
 
-**Modular**
-```
-push(n): (((sl1 - sl) <= 1) && ((sl1 - sl) > 0))
-po(): ((((sl > (-1)) && (sl1 <= 0) && ((sl - sl1) <= 0)) || ((sl - sl1) > 0)) && ((sl - sl1) <= 1))
-inv1: (((N - c) > (-1)) && ((sl - c) <= 0) && ((sl - c) > (-1)) && (d > (-1)) && (d <= 0))
-inv2: ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (d > (-1)))
-```
+<!-- **Modular** -->
+<!-- ``` -->
+<!-- push(n): (((sl1 - sl) <= 1) && ((sl1 - sl) > 0)) -->
+<!-- po(): ((((sl > (-1)) && (sl1 <= 0) && ((sl - sl1) <= 0)) || ((sl - sl1) > 0)) && ((sl - sl1) <= 1)) -->
+<!-- inv1: (((N - c) > (-1)) && ((sl - c) <= 0) && ((sl - c) > (-1)) && (d > (-1)) && (d <= 0)) -->
+<!-- inv2: ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (d > (-1))) -->
+<!-- ``` -->
 
-**Contextual**
+<!-- **Contextual** -->
 
-```
-push(n) : (((sl1 - sl) <= 1) && ((sl1 - sl) > 0))
-pop : (((sl - sl1) <= 1) && ((sl - sl1) > 0))
-inv1 : (((d <= 0) && (d > (-1)) && (c <= 1) && ((c - sl) <= 0) && ((sl - c) <= 0) && (N > 0) && (N <= 1)) || (((N - c) > (-1)) && ((sl - c) <= 0) && ((c - sl) <= 0) && (d <= 0) && (d > (-1)) && (N > 1)))
-inv2 : ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (d > (-1)))
-```
+<!-- ``` -->
+<!-- push(n) : (((sl1 - sl) <= 1) && ((sl1 - sl) > 0)) -->
+<!-- pop : (((sl - sl1) <= 1) && ((sl - sl1) > 0)) -->
+<!-- inv1 : (((d <= 0) && (d > (-1)) && (c <= 1) && ((c - sl) <= 0) && ((sl - c) <= 0) && (N > 0) && (N <= 1)) || (((N - c) > (-1)) && ((sl - c) <= 0) && ((c - sl) <= 0) && (d <= 0) && (d > (-1)) && (N > 1))) -->
+<!-- inv2 : ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (d > (-1))) -->
+<!-- ``` -->
 
-### HornICE
-## Stack
+<!-- ### HornICE -->
+<!-- ## Stack -->
 
-**Modular**
-```
-push(n): (((sl - sl1) <= (-1)) && ((sl - sl1) > (-2)))
-pop(): ((((sl > (-1)) && (sl <= 0) && ((sl - sl1) <= 0)) || ((sl - sl1) > 0)) && ((sl - sl1) <= 1))
-inv1: (((((d - N) + sl) <= 0) && (((d - c) + sl) <= 0) && (((c - d) - sl) <= 0) && (d <= 0) && (N > 0) && (N <= 1)) || ((((d - c) + sl) <= 0) && (((d - N) + sl) <= 0) && (((c - d) - sl) <= 0) && (N > 1)))
-inv2: ((((N - d) - sl) <= 0) && (((d - N) + sl) <= 0) && (((N - d) - sl) <= 1))
-```
+<!-- **Modular** -->
+<!-- ``` -->
+<!-- push(n): (((sl - sl1) <= (-1)) && ((sl - sl1) > (-2))) -->
+<!-- pop(): ((((sl > (-1)) && (sl <= 0) && ((sl - sl1) <= 0)) || ((sl - sl1) > 0)) && ((sl - sl1) <= 1)) -->
+<!-- inv1: (((((d - N) + sl) <= 0) && (((d - c) + sl) <= 0) && (((c - d) - sl) <= 0) && (d <= 0) && (N > 0) && (N <= 1)) || ((((d - c) + sl) <= 0) && (((d - N) + sl) <= 0) && (((c - d) - sl) <= 0) && (N > 1))) -->
+<!-- inv2: ((((N - d) - sl) <= 0) && (((d - N) + sl) <= 0) && (((N - d) - sl) <= 1)) -->
+<!-- ``` -->
 
-**Contextual**
+<!-- **Contextual** -->
 
-```
-push(n): (((sl1 - sl) <= 1) && ((sl1 - sl) > 0))
-pop(): (((sl - sl1) <= 1) && ((sl - sl1) > 0))
-inv1: (((N - c) > (-1)) && (d > (-1)) && (d <= 0) && ((sl - c) <= 0) && ((c - sl) <= 0) && (N > 0))
-inv2: ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (((N - sl) - d) <= 1) && (N > 0))
-```
+<!-- ``` -->
+<!-- push(n): (((sl1 - sl) <= 1) && ((sl1 - sl) > 0)) -->
+<!-- pop(): (((sl - sl1) <= 1) && ((sl - sl1) > 0)) -->
+<!-- inv1: (((N - c) > (-1)) && (d > (-1)) && (d <= 0) && ((sl - c) <= 0) && ((c - sl) <= 0) && (N > 0)) -->
+<!-- inv2: ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (((N - sl) - d) <= 1) && (N > 0)) -->
+<!-- ``` -->
 
-## Step-by-Step instructions for evaluations
+## step-by-Step instructions for evaluations

@@ -42,7 +42,7 @@ def run_benchmark_pipeline(mode, benchmark):
         print(f"[PID {pid}] An unexpected error occurred for '{benchmark}' ({mode}): {e}")
 
 def check_hornice_success(mode, benchmark):
-    log_path = os.path.join("..", "Logs", f"{mode}Pipeline_Logs", f"{benchmark}_pipeline.log")
+    log_path = os.path.join("..", "logs", f"{mode}Pipeline_Logs", f"{benchmark}_pipeline.log")
 
     if not os.path.exists(log_path):
         return False, f"Missing log file: {log_path}"
