@@ -292,7 +292,7 @@ class BasePipeline:
 
     def _check_fuzz_crashes(self, output_dir, executable, ce_filename=None):
         print("   -> Checking fuzzing outputs for counterexamples...")
-        dirs = ["crashes", "queue", "hangs"]
+        dirs = ["crashes", "queues", "hangs"]
 
         ce_filepath = os.path.join(self.working_dir, ce_filename) if ce_filename else None
 
@@ -311,21 +311,19 @@ class BasePipeline:
             for crash_file in crash_files:
                 crash_path = os.path.join(crashes_dir, crash_file)
                 try:
-                    env = dict(os.environ)
-                    env.update({"FUZZING":"0"})
-                    run_cmd = f'{executable} {os.path.join(self.working_dir, ce_filename)} < {crash_path}'
+                    run_cmd = [executable, os.path.join(self.working_dir, ce_filename)]
                     with open(crash_path, 'rb') as f:
-                        process = subprocess.Popen(run_cmd,
-                                               shell=True,
-                                               stdin=f,
-                                               stdout=subprocess.DEVNULL,
-                                               stderr=subprocess.PIPE,
-                                               env=env)
+                        process = subprocess.Popen(
+                            run_cmd,
+                            shell=False,
+                            stdin=f,
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.PIPE)
 
-                    _, stderr = process.communicate(timeout=5)
+                        _, stderr = process.communicate(timeout=5)
 
-                    if process.returncode != 0:
-                        print(f"   -> CRASH REPRODUCED with {crash_file}")
+                        if process.returncode != 0:
+                            print(f"   -> CRASH REPRODUCED with {crash_file}")
 
                 except subprocess.TimeoutExpired:
                     continue
@@ -623,7 +621,6 @@ class HornICEPipeline(BasePipeline):
                     print("   -> [FINAL VERIFICATION] Running 15-minute deep fuzzing phase...")
                     self.TIMEOUT = 900
                 print (f"TIMEOUT : {self.TIMEOUT}")
-
 
                 if not self._parse_chc_file(): return
                 if not self._run_hornice(): break
@@ -1089,12 +1086,12 @@ def main():
     parser = argparse.ArgumentParser(description="Run a Verification-Modulo-Testing pipeline.")
     parser.add_argument(
         "mode",
-        choices=['ClassicalHornICEFUZZ',
-                 'ClassicalLLMHornICEFUZZ',
-                 'ContextualHornICEFUZZ',
-                 'ContextualLLMHornICEFUZZ',
-                 'ClassicalCVC5FUZZ',
-                 'ContextualCVC5FUZZ',
+        choices=['ClassicalHornICE',
+                 'ClassicalLLMHornICE',
+                 'ContextualHornICE',
+                 'ContextualLLMHornICE',
+                 'ClassicalCVC5',
+                 'ContextualCVC5',
                  'ClassicalSeaHorn',
                  'ContextualSeaHorn'
                  ],

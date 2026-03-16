@@ -170,7 +170,7 @@ inv2 :=
 **Contextual**
 
 ```
-push(n) :=
+push(n) := 
 pop() :=
 inv1 :=
 inv2 :=
@@ -181,19 +181,19 @@ inv2 :=
 
 **Modular**
 ```
-insert(n) :=
-search(v) :=
-inv1 :=
-inv2 :=
+push(n): (((sl1 - sl) <= 1) && ((sl1 - sl) > 0))
+po(): ((((sl > (-1)) && (sl1 <= 0) && ((sl - sl1) <= 0)) || ((sl - sl1) > 0)) && ((sl - sl1) <= 1))
+inv1: (((N - c) > (-1)) && ((sl - c) <= 0) && ((sl - c) > (-1)) && (d > (-1)) && (d <= 0))
+inv2: ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (d > (-1)))
 ```
 
 **Contextual**
 
 ```
-push(n) :=
-pop() :=
-inv1 :=
-inv2 :=
+push(n) : (((sl1 - sl) <= 1) && ((sl1 - sl) > 0))
+pop : (((sl - sl1) <= 1) && ((sl - sl1) > 0))
+inv1 : (((d <= 0) && (d > (-1)) && (c <= 1) && ((c - sl) <= 0) && ((sl - c) <= 0) && (N > 0) && (N <= 1)) || (((N - c) > (-1)) && ((sl - c) <= 0) && ((c - sl) <= 0) && (d <= 0) && (d > (-1)) && (N > 1)))
+inv2 : ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (d > (-1)))
 ```
 
 ### HornICE
@@ -201,19 +201,19 @@ inv2 :=
 
 **Modular**
 ```
-insert(n) :=
-search(v) :=
-inv1 :=
-inv2 :=
+push(n): (((sl - sl1) <= (-1)) && ((sl - sl1) > (-2)))
+pop(): ((((sl > (-1)) && (sl <= 0) && ((sl - sl1) <= 0)) || ((sl - sl1) > 0)) && ((sl - sl1) <= 1))
+inv1: (((((d - N) + sl) <= 0) && (((d - c) + sl) <= 0) && (((c - d) - sl) <= 0) && (d <= 0) && (N > 0) && (N <= 1)) || ((((d - c) + sl) <= 0) && (((d - N) + sl) <= 0) && (((c - d) - sl) <= 0) && (N > 1)))
+inv2: ((((N - d) - sl) <= 0) && (((d - N) + sl) <= 0) && (((N - d) - sl) <= 1))
 ```
 
 **Contextual**
 
 ```
-push(n) :=
-pop() :=
-inv1 :=
-inv2 :=
+push(n): (((sl1 - sl) <= 1) && ((sl1 - sl) > 0))
+pop(): (((sl - sl1) <= 1) && ((sl - sl1) > 0))
+inv1: (((N - c) > (-1)) && (d > (-1)) && (d <= 0) && ((sl - c) <= 0) && ((c - sl) <= 0) && (N > 0))
+inv2: ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (((N - sl) - d) <= 1) && (N > 0))
 ```
 
 ## Step-by-Step instructions for evaluations

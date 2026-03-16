@@ -6,10 +6,10 @@ import sys
 MAIN_SCRIPT = "chcverifynfuzz.py"
 BENCHMARKS = ["BinaryTree", "Stack"]
 MODES = [
-    "ClassicalHornICEFUZZ",
-    "ContextualHornICEFUZZ",
-    "ClassicalLLMHornICEFUZZ",
-    "ContextualLLMHornICEFUZZ",
+    "ClassicalHornICE",
+    "ContextualHornICE",
+    "ClassicalLLMHornICE",
+    "ContextualLLMHornICE",
     "ClassicalLLMFUZZ",
     "ContextualLLMFUZZ"
 ]
