@@ -1,7 +1,0 @@
-Sum Result: -2026
-Sum Result: -2026
-Sum Result: -1770
-Sum Result: -1770
-Sum Result: -1638
-Sum Result: -1638
-Sum Result: -1770

@@ -1,1 +1,0 @@
-(insert n = 1, min = 2, min1 = 1, isEmpty = 0, isEmpty1 = 0)
