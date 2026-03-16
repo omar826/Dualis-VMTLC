@@ -2,3 +2,5 @@
 /.vscode/launch.json
 /scripts/__pycache__/
 **/__pycache__/
+/.venv/
+.venv/
