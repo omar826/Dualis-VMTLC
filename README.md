@@ -33,10 +33,10 @@ docker run -u $(id -u):$(id -g) -it --rm \
 ### 3. Running Basic Tests
 
 In this phase we run all the three learners, **LLM**, **HornICELLM**
-and, **HornICE** on **BinaryTree** and **Stack** benchmarks.
+and, **HornICE** on **BinaryTree** benchmark.
 
 Before we proceed to execute the proof pipeline, following are the
-details on the Benchmarks:
+details on the benchmark:
 
 #### BinaryTree
 
@@ -63,37 +63,6 @@ assume(v < 0);
 ret = bt.search(v)
 assert (ret == false);
 ```
-
-#### Stack
-
-The client uses an implementation of **Stack** (library). It first
-chooses a nondeterministic value `N` such that `N > 0`. In the first
-loop, the client pushes the value `N` onto the stack `N` times while
-incrementing the counter `c`. After this, the client repeatedly pops
-elements from the stack until the stack becomes empty, incrementing
-another counter `d` for every pop operation. Finally, the client
-asserts that the number of pop operations performed is equal to `N`.
-
-The abstract program is shown below.
-
-'''
-Stack st;
-int c = 0, d = 0, N = *;
-
-assume(N > 0)
-while (c < N)
-{
-	st.push(N);
-    c = c+1;
-}
-
-while (sl != 0) {
-    st.pop();
-    d = d+1;
-}
-
-assert (d == N)
-'''
 
 ### Synthesizing VMTLC proofs
 
