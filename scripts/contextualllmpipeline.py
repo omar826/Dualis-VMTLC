@@ -9,7 +9,8 @@ from z3 import *
 import json
 import shutil
 import argparse
-
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning)
 script_location = os.path.dirname(os.path.abspath(__file__))
 
 
