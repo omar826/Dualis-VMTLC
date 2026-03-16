@@ -4,7 +4,7 @@ import sys
 import os
 import argparse
 import json # Need json to parse the input string
-from chcverifynfuzz import HornICEPipeline, CVC5Pipeline
+from chcverifynfuzz import HornICEPipeline
 
 def main():
     parser = argparse.ArgumentParser(description="Run a single AFL++ test harness (Contextual or Classical).")

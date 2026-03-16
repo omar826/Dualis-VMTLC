@@ -13,6 +13,6 @@ while(*) {
 int v;
 assume(v < 0);
 ret = false
-assert( search(v, min, isEmpty, ret))
+assert( search(v, min, isEmpty, ret)) 
 
 

@@ -9,7 +9,7 @@ containsk = false
 while (i < N) {
       k = i
       v = i
-     (len1, min1, max1, containsk1) = insert(k, v, len, min, max, containsk);
+     (len1, min1, max1, kveq1) = insert(k, v, len, min, max, kveq);
      i++;
 }
 
@@ -17,13 +17,11 @@ i = 0
 while (i < N) {
       k = i
       v = i
-     (len1, min1, max1, containsk1) = insert(k, v, len, min, max, containsk);
+     (len1, min1, max1, kveq1) = insert(k, v, len, min, max, kveq);
     i++:
 }
 
 (0 <= k < N)
 k = min
-ret1 = find(k, len, min, max, containsk)
+ret1 = find(k, len, min, max, kveq)
 assert(ret1 != MAX)
-
-%ignore variables like containsk. The correct signature will be in the CHCs/ signature file

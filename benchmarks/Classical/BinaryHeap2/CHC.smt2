@@ -4,12 +4,13 @@
 (declare-var isHeap Int)
 (declare-var isHeap1 Int)
 (declare-var isHeap2 Int)
+(declare-var isHeap3 Int)	
 (declare-var len Int)
 (declare-var len1 Int)
 (declare-var ret1 Int)
 (declare-rel insert (Int Int Int Int Int))
 (declare-rel deleteMin (Int Int Int Int Int))
-(declare-rel downheap (Int))
+(declare-rel downHeap (Int))
 (declare-rel inv1 (Int Int Int Int ))
 (declare-rel fail ())
 (define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
@@ -17,6 +18,6 @@
 
 (rule (=> (and (> N 0) (= i1 0) (= isHeap1 1) (= len1 0)) (inv1 i1 N isHeap1 len1)))
 (rule (=> (and (inv1 i N isHeap len ) (is_valid isHeap) (< i N) (insert i isHeap len  isHeap1 len1) (= i1 (+ i 1))) (inv1 i1 N isHeap1 len1 )))
-(rule (=> (and (inv1 i N isHeap len) (is_valid isHeap) (not (< i N)) (deleteMin len isHeap len1 ret1 isHeap1) (is_valid isHeap1) (downheap isHeap2) (is_valid isHeap2) (not (= isHeap2 1))) fail))
+(rule (=> (and (inv1 i N isHeap len) (is_valid isHeap) (not (< i N)) (deleteMin len isHeap len1 ret1 isHeap1) (is_valid isHeap1) (downHeap isHeap2) (is_valid isHeap2) (not (= isHeap2 1))) fail))
 
 (query fail :print-certificate true)

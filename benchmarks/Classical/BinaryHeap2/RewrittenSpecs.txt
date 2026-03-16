@@ -1,0 +1,11 @@
+insert
+(placeholder for declaration)
+((len1 == len_var + 1) && (isHeap1 == isHeap))
+
+deleteMin
+(placeholder for declaration)
+(len1 == len_var - 1 && isHeap1 == false)
+
+downheap
+(placeholder for declaration)
+isHeap2 == 1

@@ -10,7 +10,7 @@ while (k < N) {
      v = k
      (len1, min1, max1, containsk1) = insert(k, v, len, min, max, containsk);
      v = k+1
-     (len1, min1, max1, containsk1) = insert(k, v, len, min, max, containsk);
+     (len1, min1, max1, containsk1) = insert1(k, v, len, min, max, containsk);
      k++;
 }
 

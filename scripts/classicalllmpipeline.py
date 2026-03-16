@@ -9,7 +9,8 @@ from z3 import *
 import json
 import shutil
 import argparse
-
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning)
 script_location = os.path.dirname(os.path.abspath(__file__))
 
 PROJECT_ROOT = os.path.dirname(script_location)
@@ -289,7 +290,17 @@ def run_single_fuzz_test(benchmark_name, spec_to_test, spec_to_inject, mode, tim
         return f"An exception occurred: {e}"
 
 
-
+def is_balanced(expression):
+    """Checks if a string has perfectly balanced brackets and parentheses."""
+    stack = []
+    pairs = {')': '(', ']': '[', '}': '{'}
+    for char in expression:
+        if char in pairs.values():
+            stack.append(char)
+        elif char in pairs.keys():
+            if not stack or stack.pop() != pairs[char]:
+                return False
+    return not stack
 
 def translate_z3_to_cpp(z3_function_code, model_to_use, spec_name, benchmark_name, varpath ="varmap.txt" ): # <-- Add benchmark_name
     """
@@ -336,14 +347,34 @@ def translate_z3_to_cpp(z3_function_code, model_to_use, spec_name, benchmark_nam
                              {z3_function_code}
                              ```
                              """
-    cpp_expression = get_llm_response(translation_prompt, model_to_use)
-    if cpp_expression:
+    
+    MAX_TRANSLATION_RETRIES = 3
+    current_prompt = translation_prompt
+    for attempt in range(1, MAX_TRANSLATION_RETRIES + 1):
+        cpp_expression = get_llm_response(current_prompt, model_to_use)
+        
+        if not cpp_expression:
+            print(f"    -> [Attempt {attempt}] LLM returned empty response.")
+            continue
+            
         cpp_expression = cpp_expression.strip().replace("`", "")
-        print(f"     Translation result: {cpp_expression}")
-        return cpp_expression
-    else:
-        print("     ERROR: LLM returned no translation.")
-        return "(false)"
+        
+        # Programmatically check the syntax before trusting it
+        if is_balanced(cpp_expression):
+            print(f"     Translation result: {cpp_expression}")
+            return cpp_expression
+        else:
+            print(f"    -> [Attempt {attempt}] WARNING: Unbalanced parentheses detected. Reprompting Translator LLM...")
+            # Append the specific failure to the prompt so the LLM knows what to fix
+            current_prompt = translation_prompt + (
+                f"\n\nYOUR PREVIOUS ATTEMPT:\n{cpp_expression}\n\n"
+                f"ERROR: Your previous attempt had unbalanced parentheses or syntax. "
+                f"Please carefully count your parentheses and provide a corrected, perfectly balanced C++ expression."
+            )
+            
+    # If it fails 3 times, fall back safely
+    print("     ERROR: Translator LLM failed to produce valid syntax after maximum retries.")
+    return "(false)"
     
 
 
@@ -606,13 +637,11 @@ if __name__ == "__main__":
     MODEL_FOR_TRANSLATION = "gemini-2.5-flash"
 
 
-    all_benchmarks = [ "AlternatingList", "AtomicHashMap1",
-                       "AtomicHashMap2", "AtomicHashMap3", "AtomicHashMap4",
-                       "AtomicHashMap5", "AtomicLinkedList1", "AtomicLinkedList2",
-                       "BinaryHeap1", "BinaryHeap2", "BinaryTree", "BlueWhite",
-                       "Calender", "DLL_Circular", "DLL_Token", "FlatHashMap1",
-                       "FlatHashMap2", "FlatHashMap3", "FlatHashMap4", "FlatHashSet",
-                       "LruCache1", "Max", "Min", "Multimap1", "Multimap2",
+    all_benchmarks = [
+                       "AtomicHashMap3",
+                        "BinaryHeap2", "BinaryTree",
+                       "Calender", "DLL_Circular", "DLL_Token", "FlatHashSet",
+                        "Max", "Min", "Multimap1", "Multimap2",
                        "Multiset1", "Multiset2", "NormalFilterQueue",
                        "PriorityFilterQueue", "ProcessQueue", "RedBlackTree",
                        "SkipList1", "SkipList2", "SkipList3", "SkipList4",

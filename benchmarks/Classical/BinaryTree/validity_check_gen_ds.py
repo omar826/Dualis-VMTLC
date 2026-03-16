@@ -1,9 +1,15 @@
 from z3 import *
 
-from globals import *
-
 # INT_MAX = 32767 (Globally available Python constant as per Section III)
-
+INT_MAX = 128
+isEmpty = Bool('isEmpty')
+min = Int('min')
+n = Int('n')
+v = Int('v')
+n1 = Int('n1')
+isEmpty1 = Bool('isEmpty1')
+min1 = Int('min1')
+ret1 = Int('ret1')
 chckval = 1
 
 try:
@@ -30,7 +36,7 @@ def chk_val_initial_conditions():
     print("===================================================")
     # initial conditions
     ic_antecedent = And(isEmpty1 == True,min1 == INT_MAX)
-    ic_consequent = inv(min1, isEmpty1, n)
+    ic_consequent = inv(min1, isEmpty1)
     print("Consequent : ", ic_consequent)
     ic_implication = Implies(ic_antecedent, ic_consequent)
 
@@ -79,10 +85,10 @@ def chk_val_invariant1():
     print("Checking for loop inductiveness - 1")
     print("===================================")
     ic_antecedent = And(
-        inv(min, isEmpty, n),
+        inv(min, isEmpty),
         (n1 >= 0),
         insert(n1, min, min1, isEmpty, isEmpty1))
-    ic_consequent = inv(min1, isEmpty1, n1)
+    ic_consequent = inv(min1, isEmpty1)
     ic_implication = Implies(ic_antecedent, ic_consequent)
 
     # Check if antecedent is satisfiable
@@ -130,9 +136,9 @@ def chk_val_invariant2():
     print("Checking for loop inductiveness - 2")
     print("===================================")
     ic_antecedent = And(
-        inv(min, isEmpty, n),
+        inv(min, isEmpty),
         (n1 < 0))
-    ic_consequent = inv(min, isEmpty, n1)
+    ic_consequent = inv(min, isEmpty)
     ic_implication = Implies(ic_antecedent, ic_consequent)
 
     # Check if antecedent is satisfiable
@@ -180,7 +186,7 @@ def chk_post():
     print("    Checking post   ")
     print("====================")
     ic_antecedent = And(
-        inv(min, isEmpty, n),
+        inv(min, isEmpty),
         (v < 0),
         search(v, min, isEmpty, ret1),
         (ret1 == True)

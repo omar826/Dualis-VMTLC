@@ -1,3 +1,4 @@
-inv1(i, N, len, min, max, containsk)
-inv2(i, N, len, min, max, containsk)
-insert(k, v, len, min, max, containsk, len1, min1, max1, containsk1)
+inv1(i, N, len, min, max, kveq)
+inv2(i, N, len, min, max, kveq)
+insert(k, v, len, min, max, kveq, len1, min1, max1, kveq1)
+insert1(k, v, len, min, max, kveq, len1, min1, max1, kveq1)
