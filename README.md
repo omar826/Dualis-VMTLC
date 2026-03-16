@@ -20,7 +20,11 @@ docker image build -t dualis:latest .
 and run the image :
 
 ```bash
-docker run --rm -it dualis:latest
+docker run -it \
+  -v $(pwd)/../logs:/Dualis/logs \
+  -v $(pwd)/../benchmarks:/Dualis/benchmarks \
+  --name Dualis \
+  dualis:latest
 ```
 
 ### 3. Running Basic Tests
@@ -90,7 +94,18 @@ assert (d == n)
 
 ### Synthesizing VMTLC proofs
 
-Run this script ``kickthetyres.py`` in the ``Dualis/scripts
+Run the command
+```
+python3 run_all.py -m \
+ClassicalLLM \
+ContextualLLM \
+ClassicalHornICE \
+ContextualHornICE \
+ClassicalLLMHornICE \
+ContextualLLMHornICE \
+-b Stack BinaryTree -p 8
+```
+in the ``Dualis/scripts
 directory`` to synthesize the specifications (Modular and Contextual)
 with LLM, HornICELLM and HornICE as the learners for BinaryTree and
 Stack.
