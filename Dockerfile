@@ -41,6 +41,8 @@ USER dualis
 COPY --chown=dualis:dualis benchmarks /Dualis/benchmarks
 COPY --chown=dualis:dualis logs /Dualis/logs
 COPY --chown=dualis:dualis scripts /Dualis/scripts
+COPY --chown=dualis:dualis requirements.txt /Dualis/requirements.txt
+COPY --chown=dualis:dualis .env /Dualis/.env
 
 RUN pip install --no-cache-dir -r /Dualis/requirements.txt
 

@@ -2,7 +2,7 @@
 
 This guide walks you through setting up the Docker environment and
 performing a basic "kick-the-tires" test to verify the artifact
-functions correctly. This initial phase is designed to take less than
+functions correctly. This initial phase is designed to take approx.
 30 minutes to complete.
 
 ### 1. Prerequisites
@@ -38,7 +38,7 @@ and, **HornICE** on **BinaryTree** and **Stack** benchmarks.
 Before we proceed to execute the proof pipeline, following are the
 details on the Benchmarks:
 
->> BinaryTree
+#### BinaryTree
 
 The client uses an implementation of **BinaryTree** (library). It
 executes a loop for `N` iterations (where `N` is chosen
@@ -64,7 +64,7 @@ ret = bt.search(v)
 assert (ret == false);
 ```
 
->> Stack
+#### Stack
 
 The client uses an implementation of **Stack** (library). It first
 chooses a nondeterministic value `N` such that `N > 0`. In the first
@@ -81,9 +81,9 @@ Stack st;
 int c = 0, d = 0, N = *;
 
 assume(N > 0)
-while (c < n)
+while (c < N)
 {
-	st.push(n);
+	st.push(N);
     c = c+1;
 }
 
@@ -92,144 +92,27 @@ while (sl != 0) {
     d = d+1;
 }
 
-assert (d == n)
+assert (d == N)
 '''
 
 ### Synthesizing VMTLC proofs
 
 Run the command
 ```
-python3 run_all.py -m \
-ClassicalLLM \
-ContextualLLM \
-ClassicalHornICE \
-ContextualHornICE \
-ClassicalLLMHornICE \
-ContextualLLMHornICE \
--b Stack BinaryTree -p 8
+bash ./kickthetyres.sh
 ```
 in the ``Dualis/scripts
 directory`` to synthesize the specifications (Modular and Contextual)
-with LLM, HornICELLM and HornICE as the learners for BinaryTree and
-Stack.
+with LLM, HornICELLM and HornICE as the learners for BinaryTree.
 
-The output of the run, showing the specifications is present in ````.
+The output of the run is present in ``evaluation_summary.txt``.
 
-Following are the specifications synthesized for BinaryTree client
-using LLM as the learner.
+Run
+```
+cat /Dualis/scripts/evaluation_summary.txt
+```
 
-<!-- ### LLM -->
-<!-- ## BinaryTree -->
-
-<!-- **Modular** -->
-
-<!-- ``` -->
-<!-- insert(n) := -->
-<!-- search(v) := -->
-<!-- inv :=  -->
-<!-- ``` -->
-
-<!-- ## Contextual -->
-
-<!-- ``` -->
-<!-- insert(n) := -->
-<!-- search(v) := -->
-<!-- inv :=  -->
-<!-- ``` -->
-<!-- Using HornICELLM, -->
-
-<!-- ### HornICELLM -->
-<!-- ## BinaryTree -->
-
-<!-- **Modular** -->
-<!-- ``` -->
-<!-- insert(n) := -->
-<!-- search(v) := -->
-<!-- inv :=  -->
-<!-- ``` -->
-<!-- **Contextual** -->
-<!-- ``` -->
-<!-- insert(n) := -->
-<!-- search(v) := -->
-<!-- inv :=  -->
-<!-- ``` -->
-<!--  and, finally using HornICE. -->
-<!-- ### HornICE -->
-<!-- ## BinaryTree -->
-
-<!-- **Modular** -->
-<!-- ``` -->
-<!-- insert(n) := -->
-<!-- search(v) := -->
-<!-- inv :=  -->
-<!-- ``` -->
-
-<!-- **Contextual** -->
-<!-- ``` -->
-<!-- insert(n) := -->
-<!-- search(v) := -->
-<!-- inv :=  -->
-<!-- ``` -->
-
-<!-- And similarly for the Stack client. -->
-<!-- ### LLM -->
-<!-- ## Stack -->
-
-<!-- **Modular** -->
-<!-- ``` -->
-<!-- insert(n) := -->
-<!-- search(v) := -->
-<!-- inv1 := -->
-<!-- inv2 := -->
-<!-- ``` -->
-
-<!-- **Contextual** -->
-
-<!-- ``` -->
-<!-- push(n) :=  -->
-<!-- pop() := -->
-<!-- inv1 := -->
-<!-- inv2 := -->
-<!-- ``` -->
-
-<!-- ### HornICELLM -->
-<!-- ## Stack -->
-
-<!-- **Modular** -->
-<!-- ``` -->
-<!-- push(n): (((sl1 - sl) <= 1) && ((sl1 - sl) > 0)) -->
-<!-- po(): ((((sl > (-1)) && (sl1 <= 0) && ((sl - sl1) <= 0)) || ((sl - sl1) > 0)) && ((sl - sl1) <= 1)) -->
-<!-- inv1: (((N - c) > (-1)) && ((sl - c) <= 0) && ((sl - c) > (-1)) && (d > (-1)) && (d <= 0)) -->
-<!-- inv2: ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (d > (-1))) -->
-<!-- ``` -->
-
-<!-- **Contextual** -->
-
-<!-- ``` -->
-<!-- push(n) : (((sl1 - sl) <= 1) && ((sl1 - sl) > 0)) -->
-<!-- pop : (((sl - sl1) <= 1) && ((sl - sl1) > 0)) -->
-<!-- inv1 : (((d <= 0) && (d > (-1)) && (c <= 1) && ((c - sl) <= 0) && ((sl - c) <= 0) && (N > 0) && (N <= 1)) || (((N - c) > (-1)) && ((sl - c) <= 0) && ((c - sl) <= 0) && (d <= 0) && (d > (-1)) && (N > 1))) -->
-<!-- inv2 : ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (d > (-1))) -->
-<!-- ``` -->
-
-<!-- ### HornICE -->
-<!-- ## Stack -->
-
-<!-- **Modular** -->
-<!-- ``` -->
-<!-- push(n): (((sl - sl1) <= (-1)) && ((sl - sl1) > (-2))) -->
-<!-- pop(): ((((sl > (-1)) && (sl <= 0) && ((sl - sl1) <= 0)) || ((sl - sl1) > 0)) && ((sl - sl1) <= 1)) -->
-<!-- inv1: (((((d - N) + sl) <= 0) && (((d - c) + sl) <= 0) && (((c - d) - sl) <= 0) && (d <= 0) && (N > 0) && (N <= 1)) || ((((d - c) + sl) <= 0) && (((d - N) + sl) <= 0) && (((c - d) - sl) <= 0) && (N > 1))) -->
-<!-- inv2: ((((N - d) - sl) <= 0) && (((d - N) + sl) <= 0) && (((N - d) - sl) <= 1)) -->
-<!-- ``` -->
-
-<!-- **Contextual** -->
-
-<!-- ``` -->
-<!-- push(n): (((sl1 - sl) <= 1) && ((sl1 - sl) > 0)) -->
-<!-- pop(): (((sl - sl1) <= 1) && ((sl - sl1) > 0)) -->
-<!-- inv1: (((N - c) > (-1)) && (d > (-1)) && (d <= 0) && ((sl - c) <= 0) && ((c - sl) <= 0) && (N > 0)) -->
-<!-- inv2: ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (((N - sl) - d) <= 1) && (N > 0)) -->
-<!-- ``` -->
+to view the status of the run and the final specifications for
+functions and loop invariants.
 
 ## step-by-Step instructions for evaluations
