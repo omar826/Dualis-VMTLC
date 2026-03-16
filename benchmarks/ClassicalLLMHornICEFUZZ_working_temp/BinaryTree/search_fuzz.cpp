@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
 
     BT_SEARCH_WITH_STATE(bt, v);
 
-    bool expr = (! (pisEmpty || pv < pmin) || pret1 == 0);
+    bool expr = (!(isEmpty == 1 || v < min) || (ret1 == 0));
         
     if (!expr) {
       LOG_BT_SEARCH_STATE(ceFile, fuzzer_mode);

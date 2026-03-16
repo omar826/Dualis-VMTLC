@@ -1,3 +1,3 @@
 push
 (placeholder for declaration)
-(val == 0 ? (min_out == min_in && max_out == max_in) : true)
+(len1 == len + 1 && (len == 0 ? (min1 == val && max1 == val) : (min1 == (val < min ? val : min) && max1 == (val > max ? val : max))))

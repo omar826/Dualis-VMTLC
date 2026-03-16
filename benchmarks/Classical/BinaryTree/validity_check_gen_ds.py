@@ -1,13 +1,13 @@
 from z3 import *
 
 # INT_MAX = 32767 (Globally available Python constant as per Section III)
-INT_MAX = 128
-isEmpty = Bool('isEmpty')
+MAX = 128
+isEmpty = Int('isEmpty')
 min = Int('min')
 n = Int('n')
 v = Int('v')
 n1 = Int('n1')
-isEmpty1 = Bool('isEmpty1')
+isEmpty1 = Int('isEmpty1')
 min1 = Int('min1')
 ret1 = Int('ret1')
 chckval = 1
@@ -26,6 +26,11 @@ except Exception as e:
 def fail():
     return z3.BoolVal(False)  # This relation always returns False, indicating failure.
 
+def is_valid(a):
+    if a==0 or a==1:
+        return True
+    return False
+
 # Create a single solver
 s = Solver()
 
@@ -35,7 +40,7 @@ def chk_val_initial_conditions():
     print("Checking if initial conditions imply loop invariant")
     print("===================================================")
     # initial conditions
-    ic_antecedent = And(isEmpty1 == True,min1 == INT_MAX)
+    ic_antecedent = And(isEmpty1 == 1,min1 == MAX)
     ic_consequent = inv(min1, isEmpty1)
     print("Consequent : ", ic_consequent)
     ic_implication = Implies(ic_antecedent, ic_consequent)
@@ -87,6 +92,7 @@ def chk_val_invariant1():
     ic_antecedent = And(
         inv(min, isEmpty),
         (n1 >= 0),
+        is_valid(isEmpty),
         insert(n1, min, min1, isEmpty, isEmpty1))
     ic_consequent = inv(min1, isEmpty1)
     ic_implication = Implies(ic_antecedent, ic_consequent)
@@ -137,7 +143,8 @@ def chk_val_invariant2():
     print("===================================")
     ic_antecedent = And(
         inv(min, isEmpty),
-        (n1 < 0))
+        (n1 < 0), 
+        is_valid(isEmpty))
     ic_consequent = inv(min, isEmpty)
     ic_implication = Implies(ic_antecedent, ic_consequent)
 
@@ -189,7 +196,8 @@ def chk_post():
         inv(min, isEmpty),
         (v < 0),
         search(v, min, isEmpty, ret1),
-        (ret1 == True)
+        is_valid(isEmpty),
+        (ret1 == 0)
     )
     ic_consequent = fail()
     ic_implication = Implies(ic_antecedent, ic_consequent)

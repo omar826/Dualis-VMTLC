@@ -1,6 +1,6 @@
-def inv (pmin, pisEmpty)
+def inv (min, isEmpty)
 
-def insert(pn, pmin, pmin1, pisEmpty, pisEmpty1)
+def insert(n, min, min1, isEmpty, isEmpty1)
 
-def search(pv, pmin, pisEmpty, pret1)
+def search(v, min, isEmpty, ret1)
 

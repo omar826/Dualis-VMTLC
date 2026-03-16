@@ -5,6 +5,6 @@
     },
     {
         "role": "model",
-        "content": "from z3 import *\n\ndef inv(top, len, flag):\n    initial_state = And(len == 0, flag == 1, top == 128)\n    loop_state = And(len > 0,\n                     And(Implies(flag == 0, top == 1),\n                         Implies(flag == 1, top == 2)))\n    return Or(initial_state, loop_state)\n\ndef push(val, top, len, top1, len1):\n    return And(top1 == val, len1 == len + 1)\n\ndef push1(val, top, len, top1, len1):\n    return And(top1 == val, len1 == len + 1)"
+        "content": "def push(val, top, len, top1, len1):\n    return And(top1 == val, len1 == len + 1)\n\ndef inv(top, len, flag):\n    return Or(len == 0, And(Implies(flag == 0, top == 1), Implies(flag == 1, top == 2)))\n\ndef push1(val, top, len, top1, len1):\n    return And(top1 == val, len1 == len + 1)"
     }
 ]
