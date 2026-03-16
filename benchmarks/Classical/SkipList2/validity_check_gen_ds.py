@@ -98,7 +98,7 @@ def chk_post():
     correct_condition = (lb_ret1 >= k)
     ic_antecedent = And(inv1(i, N, isPresent, min, max, len), is_valid(isPresent), Not(i < N),
                         k >= 0, k < N,
-                        lower_bound(k, lb_ret1),
+                        lower_bound(k, min, max, lb_ret1),
                         Not(correct_condition))
     ic_consequent = fail()
     ic_implication = Implies(ic_antecedent, ic_consequent)

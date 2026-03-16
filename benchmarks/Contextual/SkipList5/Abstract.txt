@@ -1,7 +1,7 @@
 assume(N > 0);
 
-min = MAX;
-max = MIN;
+min = INT_MAX;
+max = INT_MIN;
 i = 0
 len = 0
 isPresent = false
@@ -12,5 +12,6 @@ while (i < N) {
     i++;
 }
 
-lb_ret1 = lower_bound(min)
+k = min
+lb_ret1 = lower_bound(k, min, max)
 assert(lb_ret1 == min)

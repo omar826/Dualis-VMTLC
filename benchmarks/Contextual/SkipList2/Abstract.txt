@@ -11,6 +11,6 @@ while (i < N) {
 }
 
 (assume k >= 0 and k < N)
-lb_ret1 = lower_bound(k)
+lb_ret1 = lower_bound(k, min, max)
 assert(lb_ret1 >= k)
 

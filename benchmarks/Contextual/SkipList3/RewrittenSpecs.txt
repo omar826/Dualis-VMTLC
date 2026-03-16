@@ -1,7 +1,7 @@
 insert
 (placeholder for declaration)
-((isPresent1 == 1 && len1 == len + 1) && (isPresent == 0 ? (min1 == v && max1 == v) : (min1 == (v < min ? v : min) && max1 == (v > max ? v : max))))
+(len1 == len + 1) && (isPresent1 == 1) && (min1 == ((len == 0) ? v : (v < min ? v : min))) && (max1 == ((len == 0) ? v : (v > max ? v : max)))
 
 lower_bound
 (placeholder for declaration)
-lb_ret1 >= k
+lb_ret1 == k

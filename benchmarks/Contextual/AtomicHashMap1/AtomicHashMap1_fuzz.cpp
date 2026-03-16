@@ -66,12 +66,15 @@ int main(int argc, char *argv[]) {
 
     DECLARE_AHM_FIND_STATE_VARS();
     k = k_u8 % 128; 
-    AHM_FIND_WITH_STATE(ahm, k);
-    bool expr_find = (false);
-    if (!expr_find) {
-      LOG_AHM_FIND_STATE(ceFile, fuzzer_mode);
+    if (k>=0 && k < N) {
+        
+      AHM_FIND_WITH_STATE(ahm, k);
+      bool expr_find = (false);
+      if (!expr_find) {
+        LOG_AHM_FIND_STATE(ceFile, fuzzer_mode);
+      }
+      assert(expr_find);
     }
-    assert(expr_find);
 
     fuzzBuf.clear();
   }

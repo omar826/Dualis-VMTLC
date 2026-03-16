@@ -10,9 +10,10 @@
 (declare-var len Int)
 (declare-var len1 Int)
 (declare-var v Int)
+(declare-var k Int)
 (declare-var lb_ret1 Int)
 (declare-rel insert (Int Int Int Int Int Int Int Int Int))
-(declare-rel lower_bound (Int Int))
+(declare-rel lower_bound (Int Int Int Int))
 (declare-rel inv1 (Int Int Int Int Int Int))
 (declare-rel fail ())
 (define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
@@ -21,6 +22,6 @@
 
 (rule (=> (and (> N 0) (= min MAX) (= max MIN) (= len 0) (= isPresent 0) (= i 0)) (inv1 i N isPresent min max len)))
 (rule (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (< i N) (= v 1) (insert v isPresent min max len isPresent1 min1 max1 len1) (= i1 (+ i 1))) (inv1 i1 N isPresent1 min1 max1 len1)))
-(rule (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (not (< i N)) (lower_bound min lb_ret1) (not (= lb_ret1 min))) fail))
+(rule (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (not (< i N)) (= k min)(lower_bound k min max lb_ret1) (not (= lb_ret1 min))) fail))
 
 (query fail :print-certificate true)

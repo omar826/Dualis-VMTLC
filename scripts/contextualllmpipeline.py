@@ -518,12 +518,15 @@ def save_final_logs(benchmark_name, conversation_history, passed):
     # We grab RewrittenSpecs.txt which was generated in Phase 2
     source_specs_path = os.path.join(BENCHMARKS_DIR, benchmark_name, "RewrittenSpecs.txt")
     target_specs_path = os.path.join(target_dir, "final_cpp_specs.txt")
-    
+    specs_content = "No specs generated."
+
     if passed:
         try:
             if os.path.exists(source_specs_path):
                 shutil.copy(source_specs_path, target_specs_path)
                 print(f"\n Saved final conversation and C++ specs to: {target_dir}")
+                with open(source_specs_path, 'r', encoding='utf-8') as f:
+                    specs_content = f.read().strip()
             else:
                 print(f"\n Saved final conversation to: {target_dir} (No C++ specs were generated to save)")
         except Exception as e:
@@ -533,8 +536,27 @@ def save_final_logs(benchmark_name, conversation_history, passed):
             with open(target_specs_path, 'w', encoding='utf-8') as f:
                 f.write("did not pass\n")
             print(f"\n Saved final conversation. Marked specs as FAILED in: {target_dir}")
+            if os.path.exists(source_specs_path):
+                with open(source_specs_path, 'r', encoding='utf-8') as f:
+                    specs_content = f.read().strip()
         except Exception as e:
             print(f"Error writing failure status: {e}")
+    
+    summary_path = os.path.join(SCRIPTS_DIR, "evaluation_summary.txt")
+    try:
+        with open(summary_path, "a", encoding='utf-8') as report_file:
+            report_file.write(f"[TASK] Mode: ContextualLLM | Benchmark: {benchmark_name}\n")
+            report_file.write("-" * 40 + "\n")
+            
+            if passed:
+                report_file.write("STATUS: PASS\n")
+                report_file.write(f"SPECS:\n{specs_content}\n")
+            else:
+                report_file.write("STATUS: FAIL (Counterexample found or limits reached)\n")
+                
+            report_file.write("-" * 70 + "\n\n")
+    except Exception as e:
+        print(f"Error appending to evaluation summary: {e}")
 
 
 def run_complete_pipeline(model_to_use, benchmark_name):

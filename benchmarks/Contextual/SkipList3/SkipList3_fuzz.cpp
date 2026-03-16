@@ -43,8 +43,8 @@ int main(int argc, char *argv[]) {
     unsigned int current_offset = 2;
     for (int i = 0; i < N; ++i) {
       DECLARE_SL_INSERT_STATE_VARS();
-      READ_INT8_FROM_FUZZBUF(fuzzBuf, current_offset, v);
-      current_offset++;
+      
+      v = i;
 
       SL_INSERT_WITH_STATE(sl, v%128);
 

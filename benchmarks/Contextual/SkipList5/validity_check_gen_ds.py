@@ -97,7 +97,7 @@ def chk_post():
     # CHC Rule: (=> (and (inv1...) (not (< i N)) (lower_bound min lb_ret1) (not (= lb_ret1 min))) fail))
     correct_condition = (lb_ret1 == min)
     ic_antecedent = And(inv1(i, N, isPresent, min, max, len), is_valid(isPresent), Not(i < N),
-                        lower_bound(min, lb_ret1),
+                        lower_bound(min, min, max, lb_ret1),
                         Not(correct_condition))
     ic_consequent = fail()
     ic_implication = Implies(ic_antecedent, ic_consequent)

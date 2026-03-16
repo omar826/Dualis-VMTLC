@@ -71,7 +71,7 @@ def chk_val_invariant1():
     print("Checking for loop inductiveness")
     print("="*36)
     # CHC Rule: (=> (and (inv1...) (is_valid...) (< i N) (insert v ...) (= i1 (+ i 1))) (inv1...))
-    ic_antecedent = And(inv1(i, N, isPresent, min, max, len), is_valid(isPresent), i < N,
+    ic_antecedent = And(inv1(i, N, isPresent, min, max, len), is_valid(isPresent), i < N, v == i,
                         insert(v, isPresent, min, max, len, isPresent1, min1, max1, len1),
                         i1 == i + 1)
     ic_consequent = inv1(i1, N, isPresent1, min1, max1, len1)
@@ -97,7 +97,7 @@ def chk_post():
     # CHC Rule: (=> (and (inv1...) (not (< i N)) (lower_bound min lb_ret1) (not (>= lb_ret1 min))) fail))
     correct_condition = (lb_ret1 >= min)
     ic_antecedent = And(inv1(i, N, isPresent, min, max, len), is_valid(isPresent), Not(i < N),
-                        lower_bound(min, lb_ret1),
+                        lower_bound(min, min, max, lb_ret1),
                         Not(correct_condition))
     ic_consequent = fail()
     ic_implication = Implies(ic_antecedent, ic_consequent)
