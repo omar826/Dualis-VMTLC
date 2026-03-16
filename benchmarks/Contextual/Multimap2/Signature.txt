@@ -1,3 +1,3 @@
-inv1(i, N, count_k_one, count_k_two, length)
-emplace(key, value, countko_in, countkt_in, len_in, countko_out, countkt_out, len_out)
-emplace1(key, value, countko_in, countkt_in, len_in, countko_out, countkt_out, len_out)
+inv1(i, N, countko, countkt, len)
+emplace(k, v, countko, countkt, len, countko1, countkt1, len1)
+emplace1(k, v, countko, countkt, len, countko1, countkt1, len1)

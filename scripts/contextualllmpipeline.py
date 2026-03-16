@@ -559,6 +559,8 @@ def run_complete_pipeline(model_to_use, benchmark_name):
         valid_z3_code = z3_refinement_cycle(conversation_history, model_to_use, benchmark_name)
         if not valid_z3_code:
             print("\n❌ PIPELINE FAILED: Could not produce a valid Z3 spec.")
+            save_final_logs(benchmark_name, conversation_history, False)
+
             break
 
         # Phase 2: Translate and Test

@@ -4,17 +4,19 @@ from z3 import *
 # --- LLM Generated Definitions ---
 from z3 import *
 
-def inv(lmin, gmin, length):
+def inv(lmin, gmin, len):
   """
-  The invariant states that the minimum value tracked by the 'append' function
-  is always equal to the globally tracked minimum.
+  Invariant relation.
+  This invariant states that the local minimum 'lmin' tracked by the 'append' function
+  is always equal to the global minimum 'gmin' tracked by the main loop.
   """
   return lmin == gmin
 
-def append(v1, lmin_in, lmin_out, len_in, len_out):
+def append(v, lmin, lmin1, len, len1):
   """
-  The 'append' function models the update of a running minimum.
-  The output minimum (lmin_out) is the smaller of the new value (v1)
-  and the previous input minimum (lmin_in).
+  Append operation specification.
+  This function models the behavior of an operation that maintains a running minimum.
+  Given a new value 'v' and the current minimum 'lmin', the next minimum 'lmin1'
+  is the smaller of the two.
   """
-  return lmin_out == If(v1 < lmin_in, v1, lmin_in)
+  return lmin1 == If(v < lmin, v, lmin)

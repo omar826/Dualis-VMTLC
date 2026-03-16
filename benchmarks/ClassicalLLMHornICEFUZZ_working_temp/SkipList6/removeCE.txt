@@ -1,0 +1,8 @@
+(remove k =-60, min=-60, max=-60, len =1, min1=128, max1=-129, len1 =0, ret1 =-60)
+(remove k =-128, min=1, max=1, len =1, min1=1, max1=1, len1 =1, ret1 =-129)
+(remove k =98, min=1, max=1, len =1, min1=1, max1=1, len1 =1, ret1 =-129)
+(remove k =-7, min=-7, max=0, len =2, min1=0, max1=0, len1 =1, ret1 =-7)
+(remove k =1, min=0, max=1, len =2, min1=0, max1=0, len1 =1, ret1 =1)
+(remove k =91, min=91, max=91, len =1, min1=128, max1=-129, len1 =0, ret1 =91)
+(remove k =1, min=128, max=-129, len =0, min1=128, max1=-129, len1 =0, ret1 =-129)
+(remove k =1, min=128, max=-129, len =0, min1=128, max1=-129, len1 =0, ret1 =-129)

@@ -1,3 +1,0 @@
-append
-(placeholder for declaration)
-lmin_out == (v1 < lmin_in ? v1 : lmin_in)

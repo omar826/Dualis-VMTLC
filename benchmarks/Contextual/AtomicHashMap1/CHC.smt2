@@ -18,7 +18,6 @@
 (declare-var v1 Int)
 (declare-var ret1 Int)
 (declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
-(declare-rel insert1 (Int Int Int Int Int Int Int Int Int Int))
 (declare-rel find (Int Int Int Int Int Int))
 (declare-rel inv1 (Int Int Int Int Int Int))
 (declare-rel fail ())
@@ -27,8 +26,8 @@
 (define-fun MIN () Int -129)
 (define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
 
-(rule (=> (and (> N 0) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1) ) (inv1 i N len min max kveq)))
-(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq  len1 min1 max1 kveq1) (is_valid kveq1) (= v1 (+ i 1)) (insert1 k v1 len1 min1 max1 kveq1 len2 min2 max2 kveq2) (= i1 (+ i 1))) (inv1 i1 N len2 min2 max2 kveq2)))
-(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (<= 0 k) (< k N) (find k len min max kveq ret1) (or (= ret1 MAX) (= ret1 MIN))) fail))
+(rule (=> (and (> N 0) (= len 0) (= i 0) (= min MAX) (= max MIN) ) (inv1 i N len min max)))
+(rule (=> (and (inv1 i N len min max) (is_valid) (< i N) (= k i) (= v i) (insert k v len min max len1 min1 max1) (= v1 (+ i 1)) (insert1 k v1 len1 min1 max1 len2 min2 max2) (= i1 (+ i 1))) (inv1 i1 N len2 min2 max2)))
+(rule (=> (and (inv1 i N len min max) (is_valid) (not (< i N)) (<= 0 k) (< k N) (find k len min max ret1) (= ret1 MIN)) fail))
 
 (query fail :print-certificate true)

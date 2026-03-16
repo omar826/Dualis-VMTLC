@@ -1,3 +1,0 @@
-append
-(placeholder for declaration)
-plmax1 == (v1 > plmax ? v1 : plmax)

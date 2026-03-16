@@ -4,32 +4,25 @@ from z3 import *
 # --- LLM Generated Definitions ---
 from z3 import *
 
-def inv(length, max_diff):
-    """
-    Defines the loop invariant for the program.
-    - length must be non-negative, as it starts at 0 and only increases.
-    - max_diff must be less than or equal to 1.
-      This is because max_diff starts at 0 (INT_MIN in this context)
-      and is only updated with the maximum of its current value and
-      absl(ev1 - ev2). The loop condition `absl(ev1 - ev2) < 2` ensures
-      this difference is at most 1.
-    """
-    return And(length >= 0, max_diff <= 1)
+def inv(len, maxDiff):
+  # The invariant has two parts:
+  # 1. 'len' starts at 0 and is only incremented, so it's always non-negative.
+  # 2. 'maxDiff' starts at 0 (defined by INT_MIN) and is updated with the max
+  #    of its current value and abs(ev1 - ev2). The program logic ensures that
+  #    abs(ev1 - ev2) is always less than 2. Therefore, maxDiff itself will
+  #    always be less than 2.
+  return And(len >= 0, maxDiff < 2)
 
-def insert(len_in, len_out, ev1, ev2, max_diff_in, max_diff_out):
-    """
-    Defines the state transition for the insert operation.
-    - The length is incremented by 1.
-    - The new max_diff is the maximum of the previous max_diff and the
-      absolute difference between the current events ev1 and ev2.
-    """
-    # Calculate the absolute difference between ev1 and ev2 using If-Then-Else
-    diff_val = ev1 - ev2
-    abs_diff = If(diff_val >= 0, diff_val, -diff_val)
+def insert(len, len1, ev1, ev2, maxDiff, maxDiff1):
+  # This relation models the state update inside the 'if' block.
+  # 'len' is incremented.
+  len_update = (len1 == len + 1)
 
-    # Define the state updates
-    len_update = (len_out == len_in + 1)
-    # The new max_diff is the max of the old one and the new difference
-    max_diff_update = (max_diff_out == If(max_diff_in > abs_diff, max_diff_in, abs_diff))
+  # 'maxDiff' is updated to be the maximum of its previous value and the
+  # new absolute difference between ev1 and ev2.
+  # We model max(a, b) using Z3's If expression: If(a > b, a, b).
+  # We model abs(x) using Z3's If expression: If(x >= 0, x, -x).
+  current_diff = If(ev1 - ev2 >= 0, ev1 - ev2, -(ev1 - ev2))
+  maxDiff_update = (maxDiff1 == If(maxDiff > current_diff, maxDiff, current_diff))
 
-    return And(len_update, max_diff_update)
+  return And(len_update, maxDiff_update)

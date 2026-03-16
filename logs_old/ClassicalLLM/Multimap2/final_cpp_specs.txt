@@ -1,0 +1,3 @@
+emplace
+(placeholder for declaration)
+(len1 == len + 1 && (k == 1 ? (countko1 == countko + 1 && countkt1 == countkt) : (k == 2 ? (countko1 == countko && countkt1 == countkt + 1) : (countko1 == countko && countkt1 == countkt))))

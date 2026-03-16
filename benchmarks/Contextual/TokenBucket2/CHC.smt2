@@ -11,16 +11,6 @@
 (declare-rel fail ())
 
 
-(rule (=> (and (= b_size 8) (= avai_tokens1 8)) (generateTokens b_size avai_tokens1)))
-(rule (=> (and (= b_size 9) (= avai_tokens1 9)) (generateTokens b_size avai_tokens1)))
-(rule (=> (and (= b_size 7) (= avai_tokens1 7)) (generateTokens b_size avai_tokens1)))
-(rule (=> (and (= b_size 6) (= avai_tokens1 6)) (generateTokens b_size avai_tokens1)))
-(rule (=> (and (= b_size 5) (= avai_tokens1 5)) (generateTokens b_size avai_tokens1)))
-(rule (=> (and (= b_size 4) (= avai_tokens1 4)) (generateTokens b_size avai_tokens1)))
-(rule (=> (and (= b_size 3) (= avai_tokens1 3)) (generateTokens b_size avai_tokens1)))
-(rule (=> (and (= b_size 2) (= avai_tokens1 2)) (generateTokens b_size avai_tokens1)))
-(rule (=> (and (= b_size 1) (= avai_tokens1 1)) (generateTokens b_size avai_tokens1)))
-(rule (=> (and (= c_rate 1) (= avai_tokens 1) (= avai_tokens1 0)) (consume c_rate avai_tokens avai_tokens1)))
 (rule (=> (and (> b_size 0) (> c_rate 0) (>= b_size c_rate) (= consumed_tokens1 0) (generateTokens b_size avai_tokens1)) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
 (rule (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens)   (>= avai_tokens c_rate) (consume c_rate avai_tokens avai_tokens1) (= consumed_tokens1 (+ consumed_tokens c_rate))) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
 (rule (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens) (not (>= avai_tokens c_rate)) (not (>= consumed_tokens c_rate))) fail))

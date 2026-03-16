@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
 
       DLC_PUSH_WITH_STATE(dlc, current_val);
 
-      bool expr_push = max_out == (val_in > max_in ? val_in : max_in);
+      bool expr_push = max1 == (val > max ? val : max);
       
       if (!expr_push) {
         LOG_DLC_PUSH_STATE(ceFile, fuzzer_mode);

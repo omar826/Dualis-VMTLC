@@ -4,24 +4,40 @@ from z3 import *
 # --- LLM Generated Definitions ---
 from z3 import *
 
-def inv(val, min_val, max_val):
-  """
-  Defines the invariant for the loop.
-  Based on the CHC rules, the property to be proven is that min and max are always 0.
-  This property itself serves as the strongest and simplest invariant.
-  - Rule 1 (initialization): inv(0, 0, 0) must be true.
-  - Rule 3 (property): inv(v, m, x) must imply m == 0 and x == 0.
-  This leads to the definition: inv(v, m, x) := (m == 0 and x == 0).
-  """
-  return And(min_val == 0, max_val == 0)
+# Pre-defined global constants based on CHC 'define-fun'
+MAX = 128
+MIN = -129
 
-def push(val, min_in, min_out, max_in, max_out):
+def inv(len, min, max):
   """
-  Defines the state transition for the 'push' operation.
-  To preserve the invariant inv(v, m, x) := (m == 0 and x == 0), the push operation
-  must ensure that if the input state has min_in=0 and max_in=0, the output state
-  must have min_out=0 and max_out=0.
-  The simplest transition that satisfies this is the identity function, where the
-  state does not change.
+  Defines the loop invariant for the program.
+  The program can be in one of two states:
+  1. The initial empty state: length is 0, min is MAX, max is MIN.
+  2. A state after pushing one or more 0s: length is positive, min is 0, max is 0.
   """
-  return And(min_out == min_in, max_out == max_in)
+  initial_state = And(len == 0, min == MAX, max == MIN)
+  loop_state = And(len > 0, min == 0, max == 0)
+  return Or(initial_state, loop_state)
+
+def push(val, min, len, max, min1, len1, max1):
+  """
+  Defines the state transition for the push operation.
+  - The length always increases by 1.
+  - If the collection was empty (len == 0), the new min and max are both equal to the pushed value.
+  - If the collection was not empty, the new min and max are updated accordingly.
+  """
+  # Logic for updating min and max when the collection is not empty
+  updated_min = If(val < min, val, min)
+  updated_max = If(val > max, val, max)
+
+  # The full transition relation
+  return And(
+    len1 == len + 1,
+    If(
+      len == 0,
+      # Case for the first element being added
+      And(min1 == val, max1 == val),
+      # Case for adding to a non-empty collection
+      And(min1 == updated_min, max1 == updated_max)
+    )
+  )

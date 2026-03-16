@@ -1,0 +1,15 @@
+# environment variables:
+AFL_CMPLOG_ONLY_NEW=1
+AFL_CUSTOM_INFO_PROGRAM=/home/omarmuhammad/Dualis/scripts/../benchmarks/ClassicalLLMHornICEFUZZ_working_temp/Min/append_fuzz
+AFL_CUSTOM_INFO_PROGRAM_ARGV=/home/omarmuhammad/Dualis/scripts/../benchmarks/ClassicalLLMHornICEFUZZ_working_temp/Min/appendCE.txt
+AFL_CUSTOM_INFO_OUT=/home/omarmuhammad/Dualis/scripts/../benchmarks/ClassicalLLMHornICEFUZZ_working_temp/Min/afl_out/default
+AFL_DEBUG_CHILD=1
+AFL_DONT_OPTIMIZE=1
+AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES=1
+AFL_IGNORE_PROBLEMS=1
+AFL_LLVM_CMPLOG=1
+AFL_LLVM_LAF_ALL=1
+AFL_NO_UI=1
+AFL_SKIP_CPUFREQ=1
+# command line:
+'afl-fuzz' '-i' '/home/omarmuhammad/Dualis/scripts/../benchmarks/ClassicalLLMHornICEFUZZ_working_temp/Min/afl_in' '-o' '/home/omarmuhammad/Dualis/scripts/../benchmarks/ClassicalLLMHornICEFUZZ_working_temp/Min/afl_out' '-t' '2000' '-p' 'exploit' '-V' '20' '/home/omarmuhammad/Dualis/scripts/../benchmarks/ClassicalLLMHornICEFUZZ_working_temp/Min/append_fuzz' '/home/omarmuhammad/Dualis/scripts/../benchmarks/ClassicalLLMHornICEFUZZ_working_temp/Min/appendCE.txt'

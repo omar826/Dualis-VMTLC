@@ -70,10 +70,10 @@ class StockOrder {
   int md;
 
  public:
-  StockOrder() : md(0) {}
+  StockOrder() : md(MAX) {}
 
   StockOrder(vector<pair<int, int>> elements) {
-    md = 0;
+    md = MAX;
     for (auto e : elements) {
       addStockOrder(e);
     }

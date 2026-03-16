@@ -91,7 +91,7 @@ def chk_val_invariant():
                         insert(k, v, len_var, min_var, max_var, len1, min1, max1),
                         is_valid(kveq1),
                         v1 == (i + 1),
-                        insert1(k, v1, len1, min1, max1, kveq1, len2, min2, max2, kveq2),
+                        insert1(k, v1, len1, min1, max1, len2, min2, max2),
                         i1 == (i + 1))
     ic_consequent = inv1(i1, N, len2, min2, max2)
     ic_implication = Implies(ic_antecedent, ic_consequent)

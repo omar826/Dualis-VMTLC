@@ -1,0 +1,5 @@
+def inv(inserted_blue, bcount, color):
+
+def push(color, bcount, bcount1):
+
+def push1(color, bcount, bcount1):

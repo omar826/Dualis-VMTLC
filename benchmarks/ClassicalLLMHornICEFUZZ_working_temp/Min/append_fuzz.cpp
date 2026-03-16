@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
     MIN_APPEND_WITH_STATE(mn, v);
 
-    bool expr = lmin_out == (v1 < lmin_in ? v1 : lmin_in);
+    bool expr = lmin1 == (v < lmin ? v : lmin);
     
     if(!expr){
       if (ceFile.is_open()){

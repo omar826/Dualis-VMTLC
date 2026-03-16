@@ -1,4 +1,4 @@
-inv1(i, N, len, min, max, kveq)
-insert(k, v, len, min, max, kveq, len1, min1, max1, kveq1)
-insert1(k, v, len, min, max, kveq, len1, min1, max1, kveq1)
-find(k, len, min, max, kveq, ret1)
+(inv1 i N len min max)
+(insert k v len min max  len1 min1 max1)
+(insert1 k v len min max  len1 min1 max1)
+(find k len min max ret1)

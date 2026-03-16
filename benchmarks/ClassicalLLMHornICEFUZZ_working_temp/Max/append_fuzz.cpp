@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 
     MAXL_APPEND_WITH_STATE(mx, v);
     
-    bool expr = plmax1 == (v1 > plmax ? v1 : plmax);
+    bool expr = lmax1 == (v > lmax ? v : lmax);
 
     if(!expr){
       if (ceFile.is_open()){

@@ -6,6 +6,8 @@ min = Int('min')
 min1 = Int('min1')
 max = Int('max')
 max1 = Int('max1')
+len = Int('len')
+len1 = Int('len1')
 
 try:
     from llm_definitions import inv, push
@@ -32,8 +34,8 @@ def chk_initial_conditions():
     print("Checking if initial conditions imply loop invariant")
     print("===================================================")
 
-    ic_antecedent = And(min == 0, max == 0, val == 0)
-    ic_consequent = inv(val, min, max)
+    ic_antecedent = And(min == 128, max == -129, len == 0)
+    ic_consequent = inv(len, min, max)
     ic_implication = Implies(ic_antecedent, ic_consequent)
 
     s.push()
@@ -76,8 +78,8 @@ def chk_invariant_preservation():
     print("Checking for loop inductiveness")
     print("===================================")
 
-    antecedent = And(inv(val, min, max), push(val, min, min1, max, max1))
-    consequent = inv(val, min1, max1)
+    antecedent = And(inv(len, min, max), push(val, min, len, max, min1, len1, max1), val == 0)
+    consequent = inv(len1, min1, max1)
     implication = Implies(antecedent, consequent)
 
     s.push()
@@ -120,7 +122,7 @@ def chk_post_condition():
     print("    Checking post   ")
     print("====================")
 
-    antecedent = And(inv(val, min, max), Not(And(min == 0, max == 0)))
+    antecedent = And(inv(len, min, max), Not(Or(len == 0, And(min == 0, max == 0))))
     consequent = fail()
     implication = Implies(antecedent, consequent)
 

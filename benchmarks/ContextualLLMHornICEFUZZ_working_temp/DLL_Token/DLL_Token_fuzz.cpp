@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
       val = 0;
       DLT_PUSH_WITH_STATE(dt, val);
             
-      bool expr_push = (min_out == min_in && max_out == max_in);
+      bool expr_push = (len1 == len + 1 && (len == 0 ? (min1 == val && max1 == val) : (min1 == (val < min ? val : min) && max1 == (val > max ? val : max))));
 
       if (!expr_push) {
 	LOG_DLT_PUSH_STATE(ceFile, fuzzer_mode);

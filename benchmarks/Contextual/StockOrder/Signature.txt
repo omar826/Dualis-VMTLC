@@ -1,3 +1,3 @@
-def inv(length, min_diff):
+(inv len minDiff)
 
-def addStockOrder(len_in, len_out, stock, order, min_diff_in, min_diff_out):
+(addStockOrder stock order len minDiff len1 minDiff1)

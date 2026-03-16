@@ -1,2 +1,2 @@
-inv1(i, N, is_present, min_val, max_val, length)
-insert(value, isPresent_in, min_in, max_in, len_in, isPresent_out, min_out, max_out, len_out)
+inv1(i, N, isPresent, min, max, len)
+insert(v, isPresent, min, max, len, isPresent1, min1, max1, len1)

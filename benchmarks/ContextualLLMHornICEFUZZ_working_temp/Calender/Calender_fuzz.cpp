@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
       CAL_INSERT_WITH_STATE(cal, ev1, ev2);
 
 
-      bool expr_insert = (len_out == len_in + 1) && (max_diff_out == (max_diff_in > ((ev1 - ev2) >= 0 ? (ev1 - ev2) : -(ev1 - ev2)) ? max_diff_in : ((ev1 - ev2) >= 0 ? (ev1 - ev2) : -(ev1 - ev2))));
+      bool expr_insert = ((len1 == len + 1) && (maxDiff1 == ((maxDiff > ((ev1 - ev2 >= 0) ? (ev1 - ev2) : -(ev1 - ev2))) ? maxDiff : ((ev1 - ev2 >= 0) ? (ev1 - ev2) : -(ev1 - ev2)))));
 
       if (!expr_insert) {
         LOG_CAL_INSERT_STATE(ceFile, fuzzer_mode);

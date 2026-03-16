@@ -1,7 +1,7 @@
 from z3 import *
 
 # Define constants
-INT_MAX = 32767
+MAX = 128
 
 # Define variables
 stock = Int('stock')
@@ -35,7 +35,7 @@ def chk_val_initial_conditions():
     print("===================================================")
     print("Checking if initial conditions imply loop invariant")
     print("===================================================")
-    ic_antecedent = And(len1 == 0, minDiff1 == INT_MAX)
+    ic_antecedent = And(len1 == 0, minDiff1 == MAX)
     ic_consequent = inv(len1, minDiff1)
     ic_implication = Implies(ic_antecedent, ic_consequent)
 
@@ -86,7 +86,7 @@ def chk_val_invariant1():
         stock >= 0,
         order >= 0,
         order <= stock,
-        addStockOrder(len, len1, stock, order, minDiff, minDiff1)
+        addStockOrder(stock, order, len, minDiff, len1, minDiff1)
     )
     ic_consequent = inv(len1, minDiff1)
     ic_implication = Implies(ic_antecedent, ic_consequent)

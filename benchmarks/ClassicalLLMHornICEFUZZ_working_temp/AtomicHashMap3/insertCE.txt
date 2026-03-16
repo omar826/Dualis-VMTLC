@@ -1,0 +1,8 @@
+(insert k=89, v=-2, len=1, min=89, max=89, kveq=1, len1=1, min1=89, max1=89, kveq1=1)
+(insert k=0, v=-1, len=1, min=2, max=2, kveq=1, len1=2, min1=0, max1=2, kveq1=0)
+(insert k=-4, v=2, len=2, min=-78, max=-4, kveq=1, len1=2, min1=-78, max1=-4, kveq1=1)
+(insert k=-1, v=2, len=1, min=-1, max=-1, kveq=0, len1=1, min1=-1, max1=-1, kveq1=0)
+(insert k=2, v=-1, len=2, min=-87, max=2, kveq=0, len1=2, min1=-87, max1=2, kveq1=0)
+(insert k=2, v=-30, len=3, min=0, max=124, kveq=0, len1=4, min1=0, max1=124, kveq1=0)
+(insert k=-123, v=-123, len=1, min=-123, max=-123, kveq=1, len1=1, min1=-123, max1=-123, kveq1=1)
+(insert k=127, v=4, len=1, min=127, max=127, kveq=1, len1=1, min1=127, max1=127, kveq1=1)

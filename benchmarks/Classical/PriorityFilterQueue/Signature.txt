@@ -1,5 +1,5 @@
-def inv(length, min_prio, max_packet_size):
+def inv(len, minPrio, maxPacketSize):
 
-def append(prio_in, packetSize_in, len_in, minPrio_in, maxPacketSize_in, len_out, minPrio_out, maxPacketSize_out):
+def append(prio, packetSize, len, minPrio, maxPacketSize, len1, minPrio1, maxPacketSize1):
 
-def processQueue(len_in, minPrio_in, maxPacketSize_in, len_out, minPrio_out, maxPacketSize_out):
+def processQueue(len, minPrio, maxPacketSize, len1, minPrio1, maxPacketSize1):

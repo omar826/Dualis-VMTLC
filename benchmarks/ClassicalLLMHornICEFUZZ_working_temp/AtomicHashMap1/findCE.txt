@@ -1,0 +1,8 @@
+(find k=1, len=0, min=128, max=-129, kveq = 1, ret1=128)
+(find k=-1, len=1, min=1, max=1, kveq = 0, ret1=128)
+(find k=-1, len=0, min=128, max=-129, kveq = 1, ret1=128)
+(find k=-93, len=1, min=-93, max=-93, kveq = 1, ret1=-93)
+(find k=-1, len=2, min=-1, max=2, kveq = 0, ret1=0)
+(find k=31, len=0, min=128, max=-129, kveq = 1, ret1=128)
+(find k=24, len=0, min=128, max=-129, kveq = 1, ret1=128)
+(find k=33, len=1, min=2, max=2, kveq = 0, ret1=128)

@@ -1,7 +1,7 @@
-def inv1(pi, pN, pmax, pmin, plen, pnoDup):
+def inv1(i, N, max, min, len, noDup):
 
-def insert(pi, pmax, pmin, plen, pnoDup,pmax1, pmin1,plen1, pnoDup1):
+def insert(i, max, min, len, noDup, max1, min1, len1, noDup1):
 
-def search(pdata, pmin, pmax, plen, pret1):
+def search(data, min, max, len, ret1):
 
     

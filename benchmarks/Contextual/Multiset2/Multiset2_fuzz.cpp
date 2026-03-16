@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
         
     for (int i = 0; i < N; ++i) {
       DECLARE_MS_EMPLACE1_STATE_VARS();
-      READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen -2, v);
+      v = 1;
       MS_EMPLACE1_WITH_STATE(set, v%128);
 
       bool expr_emplace = (false); // <-- REMOVED
@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
     }
     {
       DECLARE_MS_EMPLACE1_STATE_VARS();
-      READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen -3, v);
+      v = 2;
       
       MS_EMPLACE1_WITH_STATE(set, v%128);
 
