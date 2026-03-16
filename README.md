@@ -21,8 +21,8 @@ and run the image :
 
 ```bash
 docker run -it \
-  -v $(pwd)/../logs:/Dualis/logs \
-  -v $(pwd)/../benchmarks:/Dualis/benchmarks \
+  -v $(pwd)/logs:/Dualis/logs \
+  -v $(pwd)/benchmarks:/Dualis/benchmarks \
   --name Dualis \
   dualis:latest
 ```
@@ -110,9 +110,7 @@ directory`` to synthesize the specifications (Modular and Contextual)
 with LLM, HornICELLM and HornICE as the learners for BinaryTree and
 Stack.
 
-```
-```
-the output of the run, showing the specifications is present in <>.
+The output of the run, showing the specifications is present in ````.
 
 Following are the specifications synthesized for BinaryTree client
 using LLM as the learner.
