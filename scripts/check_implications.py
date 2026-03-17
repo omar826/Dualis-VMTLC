@@ -3,7 +3,8 @@ import importlib.util
 import inspect
 import z3
 
-PROJECT_ROOT = os.getcwd()
+script_location = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(script_location)
 BENCHMARKS_DIR = os.path.join(PROJECT_ROOT, "benchmarks")
 VETTED_DIR = os.path.join(PROJECT_ROOT, "logs_old", "Vetted_Specs")
 REPORT_PATH = os.path.join(PROJECT_ROOT,"scripts", "implication_report.txt")
