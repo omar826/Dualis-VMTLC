@@ -1,7 +1,7 @@
-def insertHead(k, len, len1): 
+(insertHead k min max len min1 max1 len1)
 
-def popHead(len, len1, max1, ret1): 
+(popHead min max len min1 max1 len1 ret1)
 
-def inv1(k, N, len): 
+(inv1 k N min max len)
 
-def inv2(len, items_processed, max, ret): 
+(inv2 len min max items_processed ret)

@@ -1,0 +1,11 @@
+insert
+(placeholder for declaration)
+(len1 == len + 1) && (min1 == (k < min ? k : min)) && (max1 == (k > max ? k : max)) && (kveq1 == (k == v ? 1 : 0))
+
+insert1
+(placeholder for declaration)
+(len1 == len && min1 == min && max1 == max && kveq1 == (k == v ? 1 : 0))
+
+find
+(placeholder for declaration)
+((k >= min && k <= max && len > 0) ? (ret1 == k) : (ret1 == 128))

@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
     }
 
     for (int i_loop = 0; i_loop < N; ++i_loop) {
-            
+
       DECLARE_RBT_INSERT_STATE_VARS();
       RBT_INSERT_WITH_STATE(rbt, i_loop);
 
@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
     {
       DECLARE_RBT_SEARCH_STATE_VARS();
 
+      uint8_t data_raw;
       READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 2, data_raw);
       data = data_raw % N;
       RBT_SEARCH_WITH_STATE(rbt, data);

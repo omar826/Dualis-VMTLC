@@ -11,13 +11,9 @@
 (declare-rel inv (Int Int Int))
 (declare-rel fail ())
 
-
-(rule (=> (and (= len 0) (= minPrio 1) (= maxPacketSize 499)) (inv len minPrio maxPacketSize)))
-
+(rule (=> (and (= len 0) (= minPrio -1) (= maxPacketSize -1)) (inv len minPrio maxPacketSize)))
 (rule (=> (and (inv len minPrio maxPacketSize) (and (= prio 1) (> packetSize 0) (< packetSize 500)) (append prio packetSize len minPrio maxPacketSize len1 minPrio1 maxPacketSize1)) (inv len1 minPrio1 maxPacketSize1)))
-
 (rule (=> (and (inv len minPrio maxPacketSize) (not (and (= prio 1) (> packetSize 0) (< packetSize 500)))) (inv len minPrio maxPacketSize)))
-
-(rule (=> (and (inv len minPrio maxPacketSize) (processQueue len minPrio maxPacketSize len1 minPrio1 maxPacketSize1) (not (=> (= len1 0) (and (= minPrio1 minPrio) (= maxPacketSize1 499))))) fail))
+(rule (=> (and (inv len minPrio maxPacketSize) (processQueue len minPrio maxPacketSize len1 minPrio1 maxPacketSize1) (not (=> (= len1 0) (and (= minPrio1 -1) (= maxPacketSize1 -1))))) fail))
 
 (query fail :print-certificate true)

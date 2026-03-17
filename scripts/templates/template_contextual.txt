@@ -90,3 +90,5 @@ To succeed, you MUST follow this strategic guidance:
 4. ** The code is not wrong:** There are no issues from my side. Rethink the logic if you think you are stuck.
 
 5. ** keep it simple:** Try to find simple contracts that satisfy validity.
+
+6. ** Make the functions independent** The functions should not call each other. 

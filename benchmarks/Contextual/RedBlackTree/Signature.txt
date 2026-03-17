@@ -1,6 +1,6 @@
-def inv1(i, N, max, min, len, noDup):
+def inv1(i_loop, N, max, min, len, noDup):
 
-def insert(i, max, min, len, noDup, max1, min1, len1, noDup1):
+def insert(i_loop, max, min, len, noDup, max1, min1, len1, noDup1):
 
 def search(data, min, max, len, ret1):
 

@@ -1,7 +1,7 @@
-def insert(i, isHeap, len_var, isHeap1, len1):
+def insert(i, isHeap, len, isHeap1, len1):
 
-def deleteMin(len_var, isHeap, len1, ret1, isHeap1):
+def deleteMin(len, isHeap, len1, ret1, isHeap1):
 
 def downheap(isHeap2):
 
-def inv1(i, N, isHeap, len_var):
+def inv1(i, N, isHeap, len):

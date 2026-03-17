@@ -53,17 +53,17 @@ int main(int argc, char *argv[]) {
     }
 
     for (int i = 0; i < N; ++i) {
-      DECLARE_AHM_INSERT_STATE_VARS();
+      DECLARE_AHM_INSERT1_STATE_VARS();
             
       k = i;
       v = i;
 
-      AHM_INSERT_WITH_STATE(ahm, k, v);
-      bool expr_insert = (true);
-      if (!expr_insert) {
+      AHM_INSERT1_WITH_STATE(ahm, k, v);
+      bool expr_insert1 = (true);
+      if (!expr_insert1) {
 	LOG_AHM_INSERT1_STATE(ceFile, fuzzer_mode);
       }
-      assert(expr_insert);
+      assert(expr_insert1);
     }
 
     if (N > 0) {

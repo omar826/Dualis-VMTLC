@@ -4,7 +4,7 @@ k = 0
 len = 0
 
 while(k < N) {
-    len1 = insertHead(k, len);
+    insertHead(k, min, max, len);
     k++
 }
 
@@ -12,7 +12,7 @@ items_processed = 0;
 ret = MIN
 max = MIN
 while (len != 0) {
-    (ret1, len1, max1) = popHead(len);
+    popHead(min, max,len);
     items_processed++;
 }
 

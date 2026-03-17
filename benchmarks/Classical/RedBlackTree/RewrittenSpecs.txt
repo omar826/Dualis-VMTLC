@@ -1,0 +1,7 @@
+insert
+(placeholder for declaration)
+((len1 == len + 1) && (len == 0 ? (max1 == i && min1 == i && noDup1 == noDup) : ((max1 == (i > max ? i : max)) && (min1 == (i < min ? i : min)) && (noDup1 == ((noDup == 1 && len > 0 && i >= min && i <= max) ? 0 : noDup)))))
+
+search
+(placeholder for declaration)
+((!((len > 0) && ((max - min + 1) == len) && ((data >= min) && (data <= max))) || (ret1 == 1)) && (!((len == 0) || !((data >= min) && (data <= max))) || (ret1 == 0)))

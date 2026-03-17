@@ -16,4 +16,4 @@ while(len != 0){
 	d++;
 }
 
-assert(ret1 == MAX && isHeap == 1)
+assert(ret1 == N-1 && isHeap == 1)

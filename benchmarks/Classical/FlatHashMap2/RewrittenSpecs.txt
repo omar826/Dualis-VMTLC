@@ -1,7 +1,7 @@
 insert
 (placeholder for declaration)
-(containsk1 == 1 && (!(k == v && k == len && containsk == 0) || (len1 == len + 1)))
+((containsk == 0 ? len1 == len + 1 : len1 == len) && (containsk1 == 1))
 
 remove_none
 (placeholder for declaration)
-((len1 == len) && (remove_count1 == remove_count))
+(len1 == len && remove_count1 == remove_count)

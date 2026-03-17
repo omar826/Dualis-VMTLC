@@ -1,11 +1,11 @@
 insert
 (placeholder for declaration)
-((len1 == len_var + 1) && (isHeap1 == isHeap))
+(len1 == len + 1 && isHeap1 >= isHeap && (isHeap1 == 0 || isHeap1 == 1))
 
 deleteMin
 (placeholder for declaration)
-(len1 == len_var - 1 && isHeap1 == false)
+((!(len > 0) || (len1 == len - 1)) && (!(len <= 0) || (len1 == len)))
 
-downheap
+downHeap
 (placeholder for declaration)
 isHeap2 == 1

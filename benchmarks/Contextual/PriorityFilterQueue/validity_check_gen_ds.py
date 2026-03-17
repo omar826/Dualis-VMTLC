@@ -36,7 +36,7 @@ def chk_val_initial_conditions():
     print("Checking if initial conditions imply loop invariant")
     print("="*48)
     # CHC Rule: (=> (and (= len 0) (= minPrio 1) (= maxPacketSize 499)) (inv len minPrio maxPacketSize))
-    ic_antecedent = And(len == 0, minPrio == 1, maxPacketSize == 499)
+    ic_antecedent = And(len == 0, minPrio == -1, maxPacketSize == -1)
     ic_consequent = inv(len, minPrio, maxPacketSize)
     ic_implication = Implies(ic_antecedent, ic_consequent)
 
@@ -105,7 +105,7 @@ def chk_post():
     print("   Checking post   ")
     print("="*20)
     # CHC Rule: (=> (and (inv...) (processQueue...) (not (=> (= len1 0) (...)))) fail))
-    correct_condition = Implies(len1 == 0, And(minPrio1 == minPrio, maxPacketSize1 == 499))
+    correct_condition = Implies(len1 == 0, And(minPrio1 == -1, maxPacketSize1 == -1))
     ic_antecedent = And(inv(len, minPrio, maxPacketSize),
                         processQueue(len, minPrio, maxPacketSize, len1, minPrio1, maxPacketSize1),
                         Not(correct_condition))

@@ -1,0 +1,11 @@
+is_valid
+(placeholder for declaration)
+((x == 1) || (x == 0))
+
+insert
+(placeholder for declaration)
+((len1 == len + 1) && (containsk1 == 1))
+
+remove_all
+(placeholder for declaration)
+(len1 == 0 && remove_count1 == remove_count + len)

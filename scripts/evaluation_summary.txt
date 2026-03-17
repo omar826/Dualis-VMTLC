@@ -1,0 +1,483 @@
+[TASK] Mode: ContextualLLM | Benchmark: AtomicHashMap3
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len1 == len + 1 && kveq1 == (k == v ? kveq : 0) && min1 == (len == 0 ? k : (k < min ? k : min)) && max1 == (len == 0 ? k : (k > max ? k : max)))
+
+insert1
+(placeholder for declaration)
+((len1 == len) && (min1 == min) && (max1 == max) && (kveq1 == kveq))
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: AtomicHashMap4
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len1 == len + 1) && (min1 == (k < min ? k : min)) && (max1 == (k > max ? k : max)) && (kveq1 == (k == v ? 1 : 0))
+
+insert1
+(placeholder for declaration)
+(len1 == len && min1 == min && max1 == max && kveq1 == (k == v ? 1 : 0))
+
+find
+(placeholder for declaration)
+((k >= min && k <= max && len > 0) ? (ret1 == k) : (ret1 == 128))
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: AtomicHashMap5
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(k < 128) && (len1 == (((len > 0) && (k >= min) && (k <= max)) ? len : (len + 1))) && (min1 == (len == 0 ? k : (k < min ? k : min))) && (max1 == (len == 0 ? k : (k > max ? k : max))) && (kveq1 == 1)
+
+insert1
+(placeholder for declaration)
+insert(k, v, len, min, max, kveq, len1, min1, max1, kveq1)
+
+find
+(placeholder for declaration)
+((len > 0 && k >= min && k <= max) ? (ret1 == k) : (ret1 == 128))
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: AtomicHashMap5
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(kveq1 == 1 && ((len > 0 && k >= min && k <= max) ? (len1 == len && min1 == min && max1 == max) : ((len < 127 && len1 == len + 1 && min1 == (len == 0 ? k : (k < min ? k : min)) && max1 == (len == 0 ? k : (k > max ? k : max))) || (len >= 127 && len1 == len && min1 == min && max1 == max))))
+
+insert1
+(placeholder for declaration)
+((kveq1 == 1) && ((len > 0 && k >= min && k <= max) ? (len1 == len && min1 == min && max1 == max) : ((len < 127 && len1 == len + 1 && min1 == (len == 0 ? k : (k < min ? k : min)) && max1 == (len == 0 ? k : (k > max ? k : max))) || (len >= 127 && len1 == len && min1 == min && max1 == max))))
+
+find
+(placeholder for declaration)
+!(((len > 0 && k >= min && k <= max) && kveq == 1)) || (ret1 == k)
+----------------------------------------------------------------------
+
+[TASK] Mode: ClassicalLLM | Benchmark: NormalFilterQueue
+----------------------------------------
+STATUS: PASS
+SPECS:
+append
+(placeholder for declaration)
+(len1 == len + 1 && maxPrio1 == (len == 0 ? prio : (prio > maxPrio ? prio : maxPrio)) && minPacketSize1 == (len == 0 ? packetSize : (packetSize < minPacketSize ? packetSize : minPacketSize)))
+
+processQueue
+(placeholder for declaration)
+(!(len1 == 0) || (maxPrio1 == maxPrio && minPacketSize1 == minPacketSize))
+----------------------------------------------------------------------
+
+[TASK] Mode: ClassicalLLM | Benchmark: PriorityFilterQueue
+----------------------------------------
+STATUS: PASS
+SPECS:
+append
+(placeholder for declaration)
+(len1 == len + 1) && (len == 0 ? (minPrio1 == prio) : (minPrio1 == (prio < minPrio ? prio : minPrio))) && (len == 0 ? (maxPacketSize1 == packetSize) : (maxPacketSize1 == (packetSize > maxPacketSize ? packetSize : maxPacketSize)))
+
+processQueue
+(placeholder for declaration)
+(len1 == 0 && minPrio1 == -1 && maxPacketSize1 == -1)
+----------------------------------------------------------------------
+
+[TASK] Mode: ClassicalLLM | Benchmark: ProcessQueue
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(plen1 == plen + 1 && pmin_ttw1 == (pnexttime < pmin_ttw ? pnexttime : pmin_ttw))
+
+choosenext
+(placeholder for declaration)
+(plen > 0 && plen1 == plen - 1 && (plen1 == 0 ? pmin_ttw1 == 128 : pmin_ttw1 >= pmin_ttw))
+----------------------------------------------------------------------
+
+[TASK] Mode: ClassicalLLM | Benchmark: RedBlackTree
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+((len1 == len + 1) && (len == 0 ? (max1 == i && min1 == i && noDup1 == noDup) : ((max1 == (i > max ? i : max)) && (min1 == (i < min ? i : min)) && (noDup1 == ((noDup == 1 && len > 0 && i >= min && i <= max) ? 0 : noDup)))))
+
+search
+(placeholder for declaration)
+((!((len > 0) && ((max - min + 1) == len) && ((data >= min) && (data <= max))) || (ret1 == 1)) && (!((len == 0) || !((data >= min) && (data <= max))) || (ret1 == 0)))
+----------------------------------------------------------------------
+
+[TASK] Mode: ClassicalLLM | Benchmark: ProcessQueue
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len1 == len + 1) && (min_ttw1 == (nexttime < min_ttw ? nexttime : min_ttw))
+
+choosenext
+(placeholder for declaration)
+(len > 0 && len1 == len - 1 && (len1 == 0 ? (min_ttw1 == 128) : (min_ttw1 >= min_ttw && min_ttw1 < 128)))
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: NormalFilterQueue
+----------------------------------------
+STATUS: PASS
+SPECS:
+append
+(placeholder for declaration)
+((len1 == len + 1) && (maxPrio1 == (prio > maxPrio ? prio : maxPrio)) && (minPacketSize1 == (len == 0 ? packetSize : (packetSize < minPacketSize ? packetSize : minPacketSize))))
+
+processQueue
+(placeholder for declaration)
+(len1 == len && maxPrio1 == maxPrio && minPacketSize1 == minPacketSize)
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: PriorityFilterQueue
+----------------------------------------
+STATUS: PASS
+SPECS:
+append
+(placeholder for declaration)
+((len1 == len + 1) && (minPrio1 == 1) && (len == 0 ? (maxPacketSize1 == packetSize) : (maxPacketSize1 == (packetSize > maxPacketSize ? packetSize : maxPacketSize))))
+
+processQueue
+(placeholder for declaration)
+(len1 == 0 && minPrio1 == -1 && maxPacketSize1 == -1)
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: ProcessQueue
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+((len1 == len + 1) && (min_ttw1 == (len == 0 ? nexttime : (min_ttw < nexttime ? min_ttw : nexttime))))
+
+choosenext
+(placeholder for declaration)
+((len1 == len - 1) && (len1 == 0 ? min_ttw1 == 128 : min_ttw1 >= min_ttw))
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: RedBlackTree
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+((len1 == len + 1) && (noDup1 == noDup) && (len == 0 ? (min1 == i && max1 == i) : (min1 == (i < min ? i : min) && max1 == (i > max ? i : max))))
+
+search
+(placeholder for declaration)
+ret1 == ((data >= min && data <= max) ? 1 : 0)
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: RedBlackTree
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len1 == len + 1 && noDup1 == 1 && max1 == (i > max ? i : max) && min1 == (i < min ? i : min))
+
+search
+(placeholder for declaration)
+((data >= min && data <= max) ? ret1 != 0 : ret1 == 0)
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: RedBlackTree
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len1 == len + 1) && (noDup1 == 1) && (max1 == (i > max ? i : max)) && (min1 == (i < min ? i : min))
+
+search
+(placeholder for declaration)
+ret1 == ((data >= min && data <= max) ? 1 : 0)
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: RedBlackTree
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len1 == len + 1) && (noDup1 == 1) && (max1 == (i > max ? i : max)) && (min1 == (i < min ? i : min))
+
+search
+(placeholder for declaration)
+ret1 == ((data >= min && data <= max) ? 1 : 0)
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: RedBlackTree
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+((len1 == len + 1) && (max1 == (i_loop > max ? i_loop : max)) && (min1 == (i_loop < min ? i_loop : min)) && (noDup1 == noDup))
+
+search
+(placeholder for declaration)
+(ret1 == ((data >= min && data <= max) ? 1 : 0))
+----------------------------------------------------------------------
+
+[TASK] Mode: ClassicalLLM | Benchmark: AtomicLinkedList1
+----------------------------------------
+STATUS: PASS
+SPECS:
+insertHead
+(placeholder for declaration)
+len1 == len + 1
+
+popHead
+(placeholder for declaration)
+(len > 0 && len1 == len - 1)
+----------------------------------------------------------------------
+
+[TASK] Mode: ClassicalLLM | Benchmark: AtomicLinkedList2
+----------------------------------------
+STATUS: FAIL (Counterexample found or limits reached)
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: AtomicLinkedList1
+----------------------------------------
+STATUS: PASS
+SPECS:
+insertHead
+(placeholder for declaration)
+len1 == len + 1
+
+popHead
+(placeholder for declaration)
+len1 == len - 1
+----------------------------------------------------------------------
+
+[TASK] Mode: ClassicalLLM | Benchmark: FlatHashMap1
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(containsk == 0 ? (len1 == len + 1 && containsk1 == 1) : (len1 == len && containsk1 == 1))
+
+remove_all
+(placeholder for declaration)
+(len1 == 0 && remove_count1 == remove_count + len)
+----------------------------------------------------------------------
+
+[TASK] Mode: ClassicalLLM | Benchmark: FlatHashMap2
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+((containsk == 0 ? len1 == len + 1 : len1 == len) && (containsk1 == 1))
+
+remove_none
+(placeholder for declaration)
+(len1 == len && remove_count1 == remove_count)
+----------------------------------------------------------------------
+
+[TASK] Mode: ClassicalLLM | Benchmark: FlatHashSet
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+((len1 == len + 1) && (min1 == (len == 0 ? v : (v < min ? v : min))) && (max1 == (len == 0 ? v : (v > max ? v : max))))
+
+erase
+(placeholder for declaration)
+((len1 == (len > 0 ? len - 1 : 0)) && (min1 == (len <= 1 ? MAX : (v == min ? min + 1 : min))) && (max1 == (len <= 1 ? MIN : (v == max ? max - 1 : max))))
+
+reserve
+(placeholder for declaration)
+len1 == len
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: FlatHashMap1
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len_out == len_in + 1 && containsk_out == 1)
+
+remove_all
+(placeholder for declaration)
+(len_out == 0 && remove_count_out == remove_count_in + len_in)
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: FlatHashMap2
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len_out == len_in + 1 && containsk_out == 1)
+
+remove_none
+(placeholder for declaration)
+(remove_count_out == remove_count_in && len_out == len_in)
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: FlatHashSet
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len_out == len_in + 1 && min_out == (len_in == 0 ? value : (value < min_in ? value : min_in)) && max_out == (len_in == 0 ? value : (value > max_in ? value : max_in)))
+
+erase
+(placeholder for declaration)
+(len_out == len_in - 1 && ((len_in == 1) ? (min_out == 32767 && max_out == -32768) : (min_out == value + 1 && max_out == max_in)))
+
+reserve
+(placeholder for declaration)
+true
+----------------------------------------------------------------------
+
+[TASK] Mode: ClassicalLLM | Benchmark: FlatHashMap3
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+((containsk == 0 ? len1 == len + 1 : len1 == len) && (containsk1 == 1))
+
+erase
+(placeholder for declaration)
+(len1 == len - 1 && ret1 == k)
+
+downHeap
+(placeholder for declaration)
+true
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: FlatHashMap1
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len_out == len_in + 1 && containsk_out == 1)
+
+remove_all
+(placeholder for declaration)
+(len_out == 0 && remove_count_out == remove_count_in + len_in)
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: FlatHashMap2
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len1 == len + 1 && containsk1 == 1)
+
+remove_none
+(placeholder for declaration)
+(len1 == len && remove_count1 == remove_count)
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: FlatHashMap1
+----------------------------------------
+STATUS: PASS
+SPECS:
+is_valid
+(placeholder for declaration)
+((x == 1) || (x == 0))
+
+insert
+(placeholder for declaration)
+((len1 == len + 1) && (containsk1 == 1))
+
+remove_all
+(placeholder for declaration)
+(len1 == 0 && remove_count1 == remove_count + len)
+----------------------------------------------------------------------
+
+[TASK] Mode: ClassicalLLM | Benchmark: BinaryHeap2
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len1 == len + 1 && isHeap1 >= isHeap && (isHeap1 == 0 || isHeap1 == 1))
+
+deleteMin
+(placeholder for declaration)
+((!(len > 0) || (len1 == len - 1)) && (!(len <= 0) || (len1 == len)))
+
+downHeap
+(placeholder for declaration)
+isHeap2 == 1
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: BinaryHeap1
+----------------------------------------
+STATUS: FAIL (Counterexample found or limits reached)
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: BinaryHeap2
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len1 == len_var + 1 && isHeap1 == 1)
+
+deleteMin
+(placeholder for declaration)
+len1 == len_var - 1
+
+downheap
+(placeholder for declaration)
+isHeap2 == 1
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: BinaryHeap1
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+((isHeap1 == 1) && (len1 == len + 1) && (min1 == (len == 0 ? i : min)) && (max1 == (len == 0 ? i : max)))
+
+deleteMin
+(placeholder for declaration)
+(len1 == len - 1 && ret1 == min && (len1 == 0 ? (min1 == 128 && max1 == 128) : (min1 == min + 1 && max1 == min + 1)))
+
+downHeap
+(placeholder for declaration)
+isHeap2 == 1
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: BinaryHeap1
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+((isHeap1 == 1) && (len1 == len + 1) && (len == 0 ? min1 == i : min1 == min) && (len == 0 ? max1 == i : max1 == max))
+
+deleteMin
+(placeholder for declaration)
+((len1 == len - 1) && (ret1 == min) && (min1 == (len1 > 0 ? min + 1 : 128)) && (max1 == (len1 > 0 ? min + 1 : 128)))
+
+downHeap
+(placeholder for declaration)
+isHeap2 == 1
+----------------------------------------------------------------------
+

@@ -78,42 +78,41 @@ def check_implication(antecedent, consequent, rule_name):
 
 def chk_rule_1_init_inv1():
     """Checks: (rule (=> (and (> N 0) (= k1 0) (= len1 0)) (inv1 k1 N len1)))"""
-    antecedent = And(N > 0, k1 == 0, len1 == 0)
-    consequent = inv1(k1, N, len1)
+    antecedent = And(N > 0, k1 == 0, len1 == 0, min == MAX, max == MIN)
+    consequent = inv1(k1, N, min, max, len1)
     check_implication(antecedent, consequent, "Initial inv1")
 
 def chk_rule_2_loop1_insert():
     """Checks: (rule (=> (and (inv1 k N len) (< k N) (insertHead k len len1) (= k1 (+ k 1))) (inv1 k1 N len1)))"""
     antecedent = And(
-        inv1(k, N, len),
+        inv1(k, N,min, max, len),
         k < N,
-        insertHead(k, len, len1),
+        insertHead(k, min, max, len, min1, max1, len1),
         k1 == (k + 1)
     )
-    consequent = inv1(k1, N, len1)
+    consequent = inv1(k1, N, min1, max1, len1)
     check_implication(antecedent, consequent, "Loop 1 Inductiveness (insertHead)")
 
 def chk_rule_3_transition_inv2():
     """Checks: (rule (=> (and (inv1 k N len) (not (< k N)) (= items_processed 0) (= ret1 MAX) (= max1 MIN)) (inv2 len items_processed max1 ret1)))"""
     antecedent = And(
-        inv1(k, N, len),
+        inv1(k, N, min, max, len),
         Not(k < N),
         items_processed == 0,
-        ret1 == MAX,
-        max1 == MIN
+        ret1 == MAX
     )
-    consequent = inv2(len, items_processed, max1, ret1)
+    consequent = inv2(min, max, len, items_processed, ret1)
     check_implication(antecedent, consequent, "Transition inv1 -> inv2")
 
 def chk_rule_4_loop2_pop():
     """Checks: (rule (=> (and (inv2 len items_processed max ret) (not (= len 0)) (popHead len len1 max1 ret1) (= items_processed1 (+ items_processed 1))) (inv2 len1 items_processed1 max1 ret1)))"""
     antecedent = And(
-        inv2(len, items_processed, max, ret),
+        inv2(min, max, len, items_processed, ret),
         Not(len == 0),
-        popHead(len, len1, max1, ret1),
+        popHead(min, max, len, min1, max1, len1, ret1),
         items_processed1 == (items_processed + 1)
     )
-    consequent = inv2(len1, items_processed1, max1, ret1)
+    consequent = inv2(min1, max1, len1, items_processed1, ret1)
     check_implication(antecedent, consequent, "Loop 2 Inductiveness (popHead)")
 
 def chk_rule_5_post_fail():
@@ -127,7 +126,7 @@ def chk_rule_5_post_fail():
     correct_condition = (ret == 0)
     
     antecedent = And(
-        inv2(len, items_processed, max, ret),
+        inv2(min, max, len, items_processed, ret),
         len == 0,
         Not(correct_condition)
     )

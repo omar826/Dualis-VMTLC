@@ -1,4 +1,4 @@
-(inv1 i N len )
-(inv2 i N len flag ret)
-(insert k v len 0 len1 containsk1)
-(erase k len flag len1 ret1)
+inv1(i, N, len, containsk)
+inv2(i, N, len, containsk, flag, ret)
+insert(k, v, len, containsk1, len1, containsk1)
+erase(k, len, flag, len1, ret1)

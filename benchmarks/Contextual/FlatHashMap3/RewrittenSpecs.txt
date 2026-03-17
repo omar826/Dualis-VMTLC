@@ -1,0 +1,7 @@
+insert
+(placeholder for declaration)
+(len1 == len + 1 && containsk1 == 1)
+
+erase
+(placeholder for declaration)
+((flag == 1 && len > 0 && len1 == len - 1 && ret1 == k) || ((flag == 0 || len <= 0) && len1 == len))

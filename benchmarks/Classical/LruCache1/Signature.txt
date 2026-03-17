@@ -1,7 +1,6 @@
-(inv1 i N len  mru sze containsmru containsk)
-(insert_or_assign k v len mru sze containsmru len1 mru1 containsmru1 ret1)
+(inv1 i N len  mru size containsmru containsk)
+(insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)
 (find k containsk  mru1)
 
 %only expect to be given as arguments. Do not use variables like N within your contract for find or insert_or_assign (you may use it in inv1 though).
 
-% use the variable name sze instead of size

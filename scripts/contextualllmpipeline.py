@@ -274,7 +274,7 @@ def run_contextual_fuzz_test(benchmark_name, specs_map, mode, timeout):
             print(f"❌ TEST FAILED: Contextual fuzzer script exited with code {process.returncode}.")
             
 
-            ce_path = os.path.join(PROJECT_ROOT, "benchmarks", "working_temp", benchmark_name, f"{benchmark_name}_fuzzCE.txt")
+            ce_path = os.path.join(PROJECT_ROOT, "benchmarks", "ContextualLLMHornICEFUZZ_working_temp", benchmark_name, f"{benchmark_name}_fuzzCE.txt")
             print(f"    -> Attempting to read counterexample from: {ce_path}")
             
             try:
@@ -595,11 +595,13 @@ def run_complete_pipeline(model_to_use, benchmark_name):
             save_final_logs(benchmark_name, conversation_history, True)
             break
         
-
+        counterexample_report = list(set(counterexample_report.splitlines()))
         # Phase 3: Feed counterexample back into the main chat history
         print("\n--- Testing found a flaw. Feeding counterexample back to Z3 refinement loop. ---")
 
-
+        print("\n" + "="*20 + " COUNTEREXAMPLES FOUND " + "="*20)
+        print(counterexample_report)
+        print("="*62 + "\n")
         
         feedback_prompt = f"""The previous Z3 specification was syntactically valid but FAILED the contextual property-based test.
 This means the logic of one or more functions (or their interaction) is flawed.

@@ -267,7 +267,7 @@ def run_single_fuzz_test(benchmark_name, spec_to_test, spec_to_inject, mode, tim
         
         # NOTE: Mak e sure this path correctly points to where the fuzzer outputs the CE!
         # Assuming working_temp is generated inside your BENCHMARKS_DIR
-        ce_path = os.path.join(PROJECT_ROOT, "benchmarks", "working_temp", benchmark_name, f"{spec_to_test}CE.txt")   
+        ce_path = os.path.join(PROJECT_ROOT, "benchmarks", "ClassicalLLMHornICEFUZZ_working_temp", benchmark_name, f"{spec_to_test}CE.txt")   
         try:
             with open(ce_path, 'r', encoding='utf-8') as f:
                 lines = f.readlines()
@@ -605,7 +605,11 @@ def run_complete_pipeline(model_to_use, benchmark_name):
             save_final_logs(benchmark_name, conversation_history, True)
             break
         
-
+        counterexample_report = list(set(counterexample_report.splitlines()))
+        print("\n" + "="*20 + " COUNTEREXAMPLES FOUND " + "="*20)
+        print(counterexample_report)
+        print("="*62 + "\n")
+        
         # Phase 3: Feed counterexample back into the main chat history
         print("\n--- Testing found a flaw. Feeding counterexample back to Z3 refinement loop. ---")
 

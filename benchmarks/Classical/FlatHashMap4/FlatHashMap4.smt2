@@ -22,7 +22,7 @@
 
 
 (rule (=> (and (> N 0) (= i 0)  (= len 0)) (inv1 i N len )))
-(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
 (rule (=> (and (inv1 i N len ) (is_valid flag) (not (< i N)) (= i1 0) (= flag 0) (= ret1 MAX)) (inv2 i1 N len  flag ret1)))
 (rule (=> (and (inv2 i N len flag ret) (< i N) (is_valid flag) (= flag 1) (= k i) (erase k len flag len1 ret1) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len1 flag1 ret1)))
 (rule (=> (and (inv2 i N len flag ret) (< i N) (is_valid flag) (= flag 0) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len flag1 ret)))
