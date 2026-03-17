@@ -22,6 +22,8 @@ RUN git clone https://github.com/AFLplusplus/AFLplusplus.git && \
 
 ENV PATH="/opt/AFLplusplus:/home/usea/seahorn/bin:${PATH}"
 
+RUN chmod 755 /home/usea
+
 COPY cvc5-files/bin/ /usr/local/bin/
 COPY cvc5-files/include/ /usr/local/include/
 COPY cvc5-files/lib/ /usr/local/lib/
