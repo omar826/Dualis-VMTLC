@@ -22,7 +22,7 @@ BENCHMARKS_DIR = os.path.join(PROJECT_ROOT, "benchmarks", "Contextual")
 SCRIPTS_DIR = os.path.join(PROJECT_ROOT, "scripts")
 TEMPLATES_DIR = os.path.join(SCRIPTS_DIR, "templates")
 
-LOGS_DIR = os.path.join(PROJECT_ROOT, "logs", "ContextualLLM")
+LOGS_DIR = os.path.join(PROJECT_ROOT, "logs", "ContextualLLMPipeline_logs")
 
 
 
@@ -595,7 +595,6 @@ def run_complete_pipeline(model_to_use, benchmark_name):
             save_final_logs(benchmark_name, conversation_history, True)
             break
         
-        counterexample_report = list(set(counterexample_report.splitlines()))
         # Phase 3: Feed counterexample back into the main chat history
         print("\n--- Testing found a flaw. Feeding counterexample back to Z3 refinement loop. ---")
 
