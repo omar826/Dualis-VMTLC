@@ -19,7 +19,7 @@ BENCHMARKS_DIR = os.path.join(PROJECT_ROOT, "benchmarks", "Classical")
 SCRIPTS_DIR = os.path.join(PROJECT_ROOT, "scripts")
 TEMPLATES_DIR = os.path.join(SCRIPTS_DIR, "templates")
 
-LOGS_DIR = os.path.join(PROJECT_ROOT, "logs", "ClassicalLLM")
+LOGS_DIR = os.path.join(PROJECT_ROOT, "logs", "ClassicalLLMPipeline_logs")
 
 print(f"Project Root Detected: {PROJECT_ROOT}")
 print(f"Benchmarks Directory: {BENCHMARKS_DIR}")
@@ -605,7 +605,6 @@ def run_complete_pipeline(model_to_use, benchmark_name):
             save_final_logs(benchmark_name, conversation_history, True)
             break
         
-        counterexample_report = list(set(counterexample_report.splitlines()))
         print("\n" + "="*20 + " COUNTEREXAMPLES FOUND " + "="*20)
         print(counterexample_report)
         print("="*62 + "\n")
