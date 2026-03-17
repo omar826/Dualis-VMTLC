@@ -10,6 +10,7 @@ IMPORTANT NOTES & CAVEATS:
 3) If Not Implying: This does *not* necessarily mean the generated contracts
    are incorrect. It simply means Z3 could not prove a strict logical
    implication, which requires further manual inspection.
+4) If you have not run some benchmark yet, it may be using an older generated spec for the implications check.
 ===========================================================================
 
 
@@ -17,12 +18,12 @@ IMPORTANT NOTES & CAVEATS:
 
 [TASK] Benchmark: AlternatingList
 --------------------------------------------------
-  -> push: LOGICALLY EQUIVALENT (V <=> G)
+  -> push: SUBSUMED (V => G) [Generated is correct but weaker]
 
 [TASK] Benchmark: BinaryTree
 --------------------------------------------------
-  -> insert: LOGICALLY EQUIVALENT (V <=> G)
-  -> search: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: NOT IMPLYING (Requires manual inspection)
+  -> search: SUBSUMED (V => G) [Generated is correct but weaker]
 
 [TASK] Benchmark: BlueWhite
 --------------------------------------------------
