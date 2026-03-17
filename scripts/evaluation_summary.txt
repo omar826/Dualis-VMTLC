@@ -481,3 +481,29 @@ downHeap
 isHeap2 == 1
 ----------------------------------------------------------------------
 
+[TASK] Mode: ContextualLLM | Benchmark: FlatHashMap3
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len1 == len + 1 && containsk1 == 1)
+
+erase
+(placeholder for declaration)
+(len1 == len - 1 && ret1 == k)
+----------------------------------------------------------------------
+
+[TASK] Mode: ContextualLLM | Benchmark: FlatHashMap4
+----------------------------------------
+STATUS: PASS
+SPECS:
+insert
+(placeholder for declaration)
+(len1 == len + 1 && containsk1 == 1)
+
+erase
+(placeholder for declaration)
+(len1 == len - 1 && ret1 == k)
+----------------------------------------------------------------------
+

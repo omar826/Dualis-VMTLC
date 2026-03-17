@@ -663,16 +663,16 @@ if __name__ == "__main__":
     MODEL_FOR_TRANSLATION = "gemini-2.5-flash"
 
 
-    all_benchmarks = [
-                       "AtomicHashMap3",
-                        "BinaryHeap2", "BinaryTree",
-                       "Calender", "DLL_Circular", "DLL_Token", "FlatHashSet",
-                        "Max", "Min", "Multimap1", "Multimap2",
-                       "Multiset1", "Multiset2", "NormalFilterQueue",
-                       "PriorityFilterQueue", "ProcessQueue", "RedBlackTree",
-                       "SkipList1", "SkipList2", "SkipList3", "SkipList4",
-                       "SkipList5", "SkipList6", "SkipList7", "Stack", "StockOrder",
-                       "TokenBucket1", "TokenBucket2", "TokenBucket3" ]
+    all_benchmarks = [ "AlternatingList", "BinaryTree", "BlueWhite",
+                       "Calender", "DLL_Circular", "DLL_Token", "Max", "Min", "TokenBucket1", "TokenBucket2", "TokenBucket3",
+                       "Stack", "StockOrder",  "Multimap1", "Multimap2", 
+                       "Multiset1", "Multiset2", "AtomicHashMap1","AtomicHashMap2", "AtomicHashMap3", "AtomicHashMap4",
+                       "AtomicHashMap5", "AtomicLinkedList1", "SkipList1", "SkipList2", "SkipList3", "SkipList4",
+                       "SkipList5", "SkipList6", "SkipList7", "BinaryHeap2",  "NormalFilterQueue",
+                       "PriorityFilterQueue", "ProcessQueue", "RedBlackTree","FlatHashMap1",
+                       "FlatHashMap2", "FlatHashSet"
+                       
+                        ]
 
     parser = argparse.ArgumentParser(description="Run the LLM Pipeline sequentially.")
     parser.add_argument("benchmarks", nargs='*', default=["all"], help="Benchmark names separated by space, or 'all' to run the full suite.")

@@ -1,11 +1,11 @@
 insert
 (placeholder for declaration)
-((len1 == len + 1) && ((containsv1 == 0) || (containsv1 == 1)) && ((len == 0) ? (min1 == v) : (min1 == (v < min ? v : min))) && ((len == 0) ? (max1 == v) : (max1 == (v > max ? v : max))))
+((len1 == len + 1) && (containsv1 == 1) && (min1 == (len == 0 ? v : (v < min ? v : min))) && (max1 == (len == 0 ? v : (v > max ? v : max))))
 
 erase
 (placeholder for declaration)
-((len1 == len - 1) && (containsv1 == 0 || containsv1 == 1) && (len1 == 0 ? (min1 == 32767 && max1 == -32768) : (min1 == v + 1 && max1 == max)))
+((len1 == len - 1) && (containsv1 == 0) && (len1 == 0 ? min1 == 128 : min1 == v + 1) && (len1 == 0 ? max1 == -129 : max1 == max))
 
 reserve
 (placeholder for declaration)
-(len == 0 && len1 == N)
+len1 == len

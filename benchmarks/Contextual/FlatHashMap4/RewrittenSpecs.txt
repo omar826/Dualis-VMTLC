@@ -4,4 +4,4 @@ insert
 
 erase
 (placeholder for declaration)
-((len1 == (len - 1)) && (ret1 == k))
+(len1 == len - 1 && ret1 == k)

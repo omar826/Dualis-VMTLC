@@ -18,8 +18,8 @@
 (declare-rel inv2 (Int Int Int Int Int Int))
 (declare-rel inv3 (Int Int Int Int Int Int))
 (declare-rel fail ())
-(define-fun MAX () Int -32768)
-(define-fun MIN () Int 32767)
+(define-fun MAX () Int -129)
+(define-fun MIN () Int 128)
 (define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
 
 (rule (=> (and (> N 0) (= len 0) (= i 0) (= min MIN) (= max MAX) (= containsv 0)) (inv1 i N len containsv min max)))

@@ -23,53 +23,42 @@ int main(int argc, char *argv[]) {
       continue;
     }
         
-    int i;
-    READ_INT8_FROM_FUZZBUF(fuzzBuf, fuzzLen -2, i);
-    if (i != 0){
-      continue;
-    }
+    int i = 0;
     while (i < N) {
       DECLARE_FHM_INSERT_STATE_VARS();
-      READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 3, k);
-      READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 4, v);
-      if (k == i && v == i){
-	FHM_INSERT_WITH_STATE(fhm, k, v);
+      
+      // FIX: Force k and v to equal i, perfectly matching CHC: (= k i) (= v i)
+      k = i;
+      v = i;
+      
+      FHM_INSERT_WITH_STATE(fhm, k, v);
 
-	bool expr_insert = (true);
-
-	if (!expr_insert) {
-	  LOG_FHM_INSERT_STATE(ceFile, fuzzer_mode);
-	}
-	assert(expr_insert);
+      bool expr_insert = (false);
+      if (!expr_insert) {
+        LOG_FHM_INSERT_STATE(ceFile, fuzzer_mode);
       }
+      assert(expr_insert);
+      
       i++;
     }
 
-    READ_INT8_FROM_FUZZBUF(fuzzBuf, fuzzLen -5, i);
-    if (i != 0){
-      continue;
-    }
-       
+    // --- LOOP 2: ERASURE ---
+    i = 0;
     int gflag = 1;
-    READ_INT8_FROM_FUZZBUF(fuzzBuf, fuzzLen -6, gflag);
-    if (gflag != 1){
-      continue;
-    }
 
     while(i < N) {
-      DECLARE_FHM_ERASE_STATE_VARS();
-      READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 7 , flag);
-      READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 8 , k);
-      if (gflag == flag && k == i){
+      // FIX: The CHC only calls erase when flag == 1
+      if (gflag == 1) {
+          DECLARE_FHM_ERASE_STATE_VARS();
+          k = i;
+          
+          FHM_ERASE_WITH_STATE(fhm, k, gflag);
 
-	FHM_ERASE_WITH_STATE(fhm, k, flag);
-
-	bool expr_erase = (true);
-            
-	if (!expr_erase) {
-	  LOG_FHM_ERASE_STATE(ceFile, fuzzer_mode);
-	}
-	assert(expr_erase);
+          bool expr_erase = (false); 
+          if (!expr_erase) {
+            LOG_FHM_ERASE_STATE(ceFile, fuzzer_mode);
+          }
+          assert(expr_erase);
       }           
       i++;
       gflag = 1 - gflag; 

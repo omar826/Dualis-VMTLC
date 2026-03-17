@@ -1,0 +1,420 @@
+===========================================================================
+ MATHEMATICAL IMPLICATION REPORT (Z3)
+===========================================================================
+
+IMPORTANT NOTES & CAVEATS:
+1) The generated specs evaluated here represent the *last* spec generated
+   by the LLM for that benchmark, independent of whether the run passed or failed.
+2) If Vetted => Generated: The generated specification is logically implied by
+   the ground truth, meaning the generated spec is correct.
+3) If Not Implying: This does *not* necessarily mean the generated contracts
+   are incorrect. It simply means Z3 could not prove a strict logical
+   implication, which requires further manual inspection.
+===========================================================================
+
+
+############################## CLASSICAL PIPELINE ##############################
+
+[TASK] Benchmark: AlternatingList
+--------------------------------------------------
+  -> push: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: BinaryTree
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> search: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: BlueWhite
+--------------------------------------------------
+  -> push: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Calender
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: DLL_Circular
+--------------------------------------------------
+  -> push: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: DLL_Token
+--------------------------------------------------
+  -> push: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Max
+--------------------------------------------------
+  -> append: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Min
+--------------------------------------------------
+  -> append: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: TokenBucket1
+--------------------------------------------------
+  -> consume: LOGICALLY EQUIVALENT (V <=> G)
+  -> generateTokens: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: TokenBucket2
+--------------------------------------------------
+  -> consume: LOGICALLY EQUIVALENT (V <=> G)
+  -> generateTokens: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: TokenBucket3
+--------------------------------------------------
+  -> consume: LOGICALLY EQUIVALENT (V <=> G)
+  -> generateTokens: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Stack
+--------------------------------------------------
+  -> po: LOGICALLY EQUIVALENT (V <=> G)
+  -> pu: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: StockOrder
+--------------------------------------------------
+  -> addStockOrder: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Multimap1
+--------------------------------------------------
+  -> emplace: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Multimap2
+--------------------------------------------------
+  -> emplace: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Multiset1
+--------------------------------------------------
+  -> emplace: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Multiset2
+--------------------------------------------------
+  -> emplace: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: AtomicHashMap1
+--------------------------------------------------
+  -> find: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: AtomicHashMap2
+--------------------------------------------------
+  -> find: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: AtomicHashMap3
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: AtomicHashMap4
+--------------------------------------------------
+  -> find: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: AtomicHashMap5
+--------------------------------------------------
+  -> find: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: AtomicLinkedList1
+--------------------------------------------------
+  -> insertHead: LOGICALLY EQUIVALENT (V <=> G)
+  -> popHead: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList1
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> remove: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList2
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> lower_bound: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList3
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> lower_bound: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList4
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList5
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> lower_bound: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList6
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> remove: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList7
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> lower_bound: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: BinaryHeap1
+--------------------------------------------------
+  [!] STATUS: Skipped - No Vetted Spec found for this benchmark.
+
+[TASK] Benchmark: BinaryHeap2
+--------------------------------------------------
+  -> deleteMin: LOGICALLY EQUIVALENT (V <=> G)
+  -> downHeap: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: NormalFilterQueue
+--------------------------------------------------
+  -> append: LOGICALLY EQUIVALENT (V <=> G)
+  -> processQueue: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: PriorityFilterQueue
+--------------------------------------------------
+  -> append: LOGICALLY EQUIVALENT (V <=> G)
+  -> processQueue: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: ProcessQueue
+--------------------------------------------------
+  -> choosenext: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: RedBlackTree
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> search: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: FlatHashMap1
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> remove_all: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: FlatHashMap2
+--------------------------------------------------
+  -> fail: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> remove_none: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: FlatHashMap3
+--------------------------------------------------
+  [!] STATUS: Skipped - No Vetted Spec found for this benchmark.
+
+[TASK] Benchmark: FlatHashMap4
+--------------------------------------------------
+  [!] STATUS: Skipped - No Vetted Spec found for this benchmark.
+
+[TASK] Benchmark: FlatHashMap
+--------------------------------------------------
+  [!] STATUS: Skipped - No Vetted Spec found for this benchmark.
+
+[TASK] Benchmark: AtomicLinkedList2
+--------------------------------------------------
+  [!] STATUS: Skipped - No Vetted Spec found for this benchmark.
+
+
+############################## CONTEXTUAL PIPELINE ##############################
+
+[TASK] Benchmark: AlternatingList
+--------------------------------------------------
+  -> push: SUBSUMED (V => G) [Generated is correct but weaker]
+  -> push1: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: BinaryTree
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> is_valid: LOGICALLY EQUIVALENT (V <=> G)
+  -> search: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: BlueWhite
+--------------------------------------------------
+  -> push: LOGICALLY EQUIVALENT (V <=> G)
+  -> push1: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Calender
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: DLL_Circular
+--------------------------------------------------
+  -> push: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: DLL_Token
+--------------------------------------------------
+  -> push: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Max
+--------------------------------------------------
+  -> append: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Min
+--------------------------------------------------
+  -> append: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: TokenBucket1
+--------------------------------------------------
+  -> consume: LOGICALLY EQUIVALENT (V <=> G)
+  -> generateTokens: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: TokenBucket2
+--------------------------------------------------
+  -> consume: LOGICALLY EQUIVALENT (V <=> G)
+  -> generateTokens: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: TokenBucket3
+--------------------------------------------------
+  -> consume: LOGICALLY EQUIVALENT (V <=> G)
+  -> generateTokens: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Stack
+--------------------------------------------------
+  -> po: LOGICALLY EQUIVALENT (V <=> G)
+  -> pu: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: StockOrder
+--------------------------------------------------
+  -> addStockOrder: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Multimap1
+--------------------------------------------------
+  -> emplace: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Multimap2
+--------------------------------------------------
+  -> emplace: LOGICALLY EQUIVALENT (V <=> G)
+  -> emplace1: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Multiset1
+--------------------------------------------------
+  -> emplace: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: Multiset2
+--------------------------------------------------
+  -> emplace: LOGICALLY EQUIVALENT (V <=> G)
+  -> emplace1: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: AtomicHashMap1
+--------------------------------------------------
+  -> find: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert1: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: AtomicHashMap2
+--------------------------------------------------
+  -> find: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert1: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: AtomicHashMap3
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert1: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: AtomicHashMap4
+--------------------------------------------------
+  -> find: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert1: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: AtomicHashMap5
+--------------------------------------------------
+  -> find: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert1: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: AtomicLinkedList1
+--------------------------------------------------
+  -> insertHead: LOGICALLY EQUIVALENT (V <=> G)
+  -> popHead: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList1
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> remove: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList2
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> lower_bound: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList3
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> lower_bound: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList4
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList5
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> lower_bound: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList6
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> remove: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: SkipList7
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> lower_bound: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: BinaryHeap1
+--------------------------------------------------
+  -> deleteMin: LOGICALLY EQUIVALENT (V <=> G)
+  -> downHeap: LOGICALLY EQUIVALENT (V <=> G)
+  -> fail: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: BinaryHeap2
+--------------------------------------------------
+  -> deleteMin: LOGICALLY EQUIVALENT (V <=> G)
+  -> downheap: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: NormalFilterQueue
+--------------------------------------------------
+  -> append: LOGICALLY EQUIVALENT (V <=> G)
+  -> processQueue: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: PriorityFilterQueue
+--------------------------------------------------
+  -> append: LOGICALLY EQUIVALENT (V <=> G)
+  -> processQueue: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: ProcessQueue
+--------------------------------------------------
+  -> choosenext: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: RedBlackTree
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> search: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: FlatHashMap1
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> remove_all: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: FlatHashMap2
+--------------------------------------------------
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> remove_none: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: FlatHashMap3
+--------------------------------------------------
+  -> erase: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: FlatHashMap4
+--------------------------------------------------
+  -> erase: LOGICALLY EQUIVALENT (V <=> G)
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+
+[TASK] Benchmark: FlatHashMap
+--------------------------------------------------
+  [!] STATUS: Skipped - No Vetted Spec found for this benchmark.
+
+[TASK] Benchmark: AtomicLinkedList2
+--------------------------------------------------
+  [!] STATUS: Skipped - No Vetted Spec found for this benchmark.
+

@@ -1,8 +1,8 @@
 from z3 import *
 
 # Define constants from CHC
-MAX = -32768
-MIN = 32767
+MAX = -129
+MIN = 128
 
 # Define variables from CHC
 N = Int('N')

@@ -9,7 +9,6 @@
 int main(int argc, char *argv[]) {
   bool fuzzer_mode = getenv("FUZZING") != nullptr;
 
-
   std::string filePath = argv[1];
   std::ofstream ceFile(filePath, std::ios::app);
   if (!ceFile.is_open()) {
@@ -27,16 +26,23 @@ int main(int argc, char *argv[]) {
 
     FlatHashSet fhs;
 
-    int N_val;
-    READ_INT8_FROM_FUZZBUF(fuzzBuf, fuzzLen -1, N_val);
+    int8_t N_raw;
+    READ_INT8_FROM_FUZZBUF(fuzzBuf, fuzzLen -1, N_raw);
+    
+    // Rename to N to match the CHC math
+    int N = N_raw;
 
-    if (N_val <= 0 || N_val >= 128){
+    if (N <= 0 || N >= 128){
       continue;
     }
         
-    for (int i = 0; i < N_val; ++i) {
+    // --- LOOP 1: INSERT ---
+    for (int i = 0; i < N; ++i) {
         DECLARE_FHS_INSERT_STATE_VARS();
-        FHS_INSERT_WITH_STATE(fhs, i);
+        
+       
+        v = i; 
+        FHS_INSERT_WITH_STATE(fhs, v);
 
         bool expr_insert = (false);
         
@@ -46,9 +52,13 @@ int main(int argc, char *argv[]) {
         assert(expr_insert);
     }
         
-    for (int i = 0; i < N_val; ++i) {
+    // --- LOOP 2: ERASE ---
+    for (int i = 0; i < N; ++i) {
         DECLARE_FHS_ERASE_STATE_VARS();
-        FHS_ERASE_WITH_STATE(fhs, i);
+        
+
+        v = i;
+        FHS_ERASE_WITH_STATE(fhs, v);
 
         bool expr_erase = (false);
         if (!expr_erase) {
@@ -57,9 +67,10 @@ int main(int argc, char *argv[]) {
         assert(expr_erase);
     }
 
+    // --- ACTION: RESERVE ---
     {
       DECLARE_FHS_RESERVE_STATE_VARS();
-      FHS_RESERVE_WITH_STATE(fhs, N_val);
+      FHS_RESERVE_WITH_STATE(fhs, N);
 
       bool expr_reserve = (false);
       if(!expr_reserve) {
@@ -68,9 +79,13 @@ int main(int argc, char *argv[]) {
       assert(expr_reserve);
     }
 
-    for (int i = 0; i < N_val; ++i) {
+    // --- LOOP 3: INSERT AGAIN ---
+    for (int i = 0; i < N; ++i) {
         DECLARE_FHS_INSERT_STATE_VARS();
-        FHS_INSERT_WITH_STATE(fhs, (i + N_val)%128);
+        
+        
+        v = i + N; 
+        FHS_INSERT_WITH_STATE(fhs, v);
 
         bool expr_insert1 = (false);
         
@@ -79,7 +94,9 @@ int main(int argc, char *argv[]) {
         }
         assert(expr_insert1);
     }
-  }
+  } // new change, dont revert
+
   ceFile.close();
   return 0;
 }
+

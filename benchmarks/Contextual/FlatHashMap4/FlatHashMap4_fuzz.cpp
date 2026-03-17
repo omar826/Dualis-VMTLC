@@ -16,64 +16,61 @@ int main(int argc, char *argv[]) {
 
     FlatHashMap fhm;
 
-    int8_t N;
-    READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen -1, N);
-    if (N <= 0){
+    int8_t N_raw;
+    READ_INT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 1, N_raw);
+    
+    // FIX 1: Cap N and strictly enforce the CHC (assume N > 1)
+    int8_t N = N_raw % 128;
+    if (N <= 1) { 
       continue;
-    }
-
-    int i;
-    READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen -2, i);
-    if (i != 0){
-      continue;
-    }
-    while (i < N) {
-      DECLARE_FHM_INSERT_STATE_VARS();
-      READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 3, k);
-      READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 4, v);
-      if (k == i && v == i){
-
-	FHM_INSERT_WITH_STATE(fhm, k, v);
-
-	bool expr_insert = (true);
-
-	if (!expr_insert) {
-	  LOG_FHM_INSERT_STATE(ceFile, fuzzer_mode);
-	}
-	assert(expr_insert);
-      }
-      i++;
-    }
-
-    READ_INT8_FROM_FUZZBUF(fuzzBuf, fuzzLen -5, i);
-    if (i != 0){
-      continue;
-    }
-       
-    int gflag;
-    READ_INT8_FROM_FUZZBUF(fuzzBuf, fuzzLen -6, gflag);
-    if (gflag != 0){
-      continue;
-    }
-    while(i < N) {
-      DECLARE_FHM_ERASE_STATE_VARS();
-      READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 7 , flag);
-      READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 8 , k);
-      if (gflag == flag && k == i){
-	FHM_ERASE_WITH_STATE(fhm, k, flag);
-	    
-	bool expr_erase = (true);
-            
-	if (!expr_erase) {
-	  LOG_FHM_ERASE_STATE(ceFile, fuzzer_mode);
-	}
-	assert(expr_erase);
-      }
-
-      i++;
-      gflag = 1 - gflag; 
     }
         
+    // --- LOOP 1: INSERTION ---
+    int i = 0;
+    while (i < N) {
+      DECLARE_FHM_INSERT_STATE_VARS();
+      
+      // FIX 2: Stop guessing. Force k and v to equal i.
+      k = i;
+      v = i;
+      
+      FHM_INSERT_WITH_STATE(fhm, k, v);
+
+      bool expr_insert = (false); // Set to false so Python injects here!
+
+      if (!expr_insert) {
+        LOG_FHM_INSERT_STATE(ceFile, fuzzer_mode);
+      }
+      assert(expr_insert);
+      
+      i++;
+    }
+
+    // --- LOOP 2: ERASURE ---
+    i = 0;
+    int gflag = 0; // Starts at 0, per the CHC!
+
+    while(i < N) {
+      // FIX 3: The CHC only erases when flag == 1.
+      if (gflag == 1) {
+        DECLARE_FHM_ERASE_STATE_VARS();
+        
+        k = i;
+        flag = gflag; // Pass the current state of the flag
+
+        FHM_ERASE_WITH_STATE(fhm, k, flag);
+        
+        bool expr_erase = (false); // Set to false so Python injects here!
+              
+        if (!expr_erase) {
+          LOG_FHM_ERASE_STATE(ceFile, fuzzer_mode);
+        }
+        assert(expr_erase);
+      }
+      
+      i++;
+      gflag = 1 - gflag; // Toggle flag 0 -> 1 -> 0 -> 1
+    }
     fuzzBuf.clear();
   }
 
