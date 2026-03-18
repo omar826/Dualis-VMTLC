@@ -5,7 +5,7 @@
   * [LLM Configuration](#llm-configuration)
   * [VMTLC Proofs for BinaryTree](#vmtl-proofs-for-binarytree)
     * [BinaryTree Description](#binarytree-description)
-	  * [Synthesizing VMTLC Proof]($synthesizing-vmtlc-proof)
+	  * [Synthesizing VMTLC Proof](#synthesizing-vmtlc-proof)
 * [Complete Evaluation](#complete-evaluation)
   * [Benchmarks & Parallel Execution](#benchmarks--parallel-execution)
   * [Running Full Evaluation Script](#running-full-evaluation-script)
@@ -20,7 +20,7 @@
     * [Log Contents (HornICE)](#log-contents-hornice)
   * [Using Fuzzer to test specific benchmarks of
     interest](#Using-Fuzzer-to-test-specific-benchmarks-of-interest)
-  * Old Logs(#old-logs)
+  * [Old Logs](#old-logs)
   * [Comparing with CVC5 and SeaHorn](#comparing-with-CVC5-and-SeaHorn)
 
 ## Getting Started Guide
@@ -81,7 +81,7 @@ In this phase all three learners, **LLM**, **HornICELLM** and,
 **HornICE** on **BinaryTree** are executed on the benchmarks.
 
 Before executing the VMTLC pipelines with these learners, we first
-describe the BinaryTree benchmark exected by all the pipelines.
+describe the BinaryTree benchmark executed by all the pipelines.
 
 #### BinaryTree Description
 
@@ -238,7 +238,7 @@ cat evaluation_summary.txt
 to view results.
 
 This provides an overview of all the learners across all the
-benchmarks. The evaluate_summary.txt file will contain results from
+benchmarks. The evaluation_summary.txt file will contain results from
 table 1 in the paper (without the time measurement).
 
 During evaluation, intermediate files for each pipeline are stored in
