@@ -29,7 +29,6 @@ int main(int argc, char *argv[]) {
     uint8_t N_raw;
     READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 1, N_raw);
     
-    // Apply your fix: Cap N at 127
     uint8_t N = N_raw % 128;
 
     if (N <= 0) {
@@ -48,7 +47,7 @@ int main(int argc, char *argv[]) {
 
       SL_INSERT_WITH_STATE(sl, v%128);
 
-      bool expr_insert = (false); // <-- REMOVED
+      bool expr_insert = (false);
       
       if (!expr_insert) {
         LOG_SL_INSERT_STATE(ceFile, fuzzer_mode);

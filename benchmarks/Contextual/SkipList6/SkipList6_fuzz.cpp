@@ -3,8 +3,8 @@
 #include <fstream>
 #include <iostream>
 #include <cassert>
-#include <cstdint> // For uint8_t
-#include <unistd.h>  // For read
+#include <cstdint>
+#include <unistd.h>
 
 int main(int argc, char *argv[]) {
   bool fuzzer_mode = getenv("FUZZING") != nullptr;
