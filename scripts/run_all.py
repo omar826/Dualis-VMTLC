@@ -411,19 +411,19 @@ def main():
                 f_alll.write("-" * 70 + "\n\n")
 
         hornice_modes = [m for m in args.modes if 'cvc5' not in m.lower() and 'seahorn' not in m.lower()]
-        if hornice_modes:
-            f_alll.write("\n" + "="*70 + "\n")
-            f_alll.write(" PERFORMANCE METRICS TABLE (HornICE Variants)\n")
-            f_alll.write("="*70 + "\n\n")
+        # if hornice_modes:
+        #     f_alll.write("\n" + "="*70 + "\n")
+        #     f_alll.write(" PERFORMANCE METRICS TABLE (HornICE Variants)\n")
+        #     f_alll.write("="*70 + "\n\n")
 
-            table_data = defaultdict(dict)
-            for mode, benchmark in tasks:
-                if mode in hornice_modes:
-                    metrics = parse_metrics_from_log(mode, benchmark)
-                    table_data[benchmark][mode] = metrics
+        #     table_data = defaultdict(dict)
+        #     for mode, benchmark in tasks:
+        #         if mode in hornice_modes:
+        #             metrics = parse_metrics_from_log(mode, benchmark)
+        #             table_data[benchmark][mode] = metrics
 
-            text_table = generate_text_table(table_data, ALL_BENCHMARKS, hornice_modes)
-            f_alll.write(text_table + "\n\n")
+        #     text_table = generate_text_table(table_data, ALL_BENCHMARKS, hornice_modes)
+        #     f_alll.write(text_table + "\n\n")
 
     print(f"\n[!] Evaluation complete. Check output files: {summary_report_path}, {cvc5_report_path}, {seahorn_report_path}")
 
