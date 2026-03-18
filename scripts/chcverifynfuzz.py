@@ -29,7 +29,7 @@ class BasePipeline:
 
         self.chc_verifier_path = "chc_verifier_der" if use_der_verifier else "chc_verifier"
         self.cvc5_path = "cvc5"
-        
+
         base_benchmarks_path = os.path.join(file_dir, "../benchmarks")
         self.classical_benchmark_dir = os.path.join(
             base_benchmarks_path, "Classical", self.benchmark_name
@@ -87,24 +87,22 @@ class BasePipeline:
                 harness_base = f"{relation}{self.harness_ext}"
                 ce_file = f"{relation}CE.txt"
                 self._write_spec_to_harness(f"{harness_base}.cpp", {relation: specs_map[relation]})
-                
+
                 result = self._run_fuzz(harness_base, ce_file)
                 if result is False:
                     return False
-                    
+
                 self._convert_ce(relation, ce_file)
 
         elif self.contract_type == 'contextual':
             harness_base = f"{self.benchmark_name}{self.harness_ext}"
             ce_file = f"{harness_base}CE.txt"
             self._write_spec_to_harness(f"{harness_base}.cpp", specs_map)
-            
+
             result = self._run_fuzz(harness_base, ce_file)
             if result is False:
                 return False
-                
             self._convert_ce(self.benchmark_name, ce_file)
-            
         return True
 
     def _load_and_validate_attribute_mappings(self):
@@ -317,15 +315,6 @@ class BasePipeline:
                         shell=True,
                         stdout=subprocess.DEVNULL,
                         stderr=subprocess.PIPE)
-
-                    # run_cmd = [executable, os.path.join(self.working_dir, ce_filename)]
-                    # with open(crash_path, 'rb') as f:
-                    #     process = subprocess.Popen(
-                    #         run_cmd,
-                    #         shell=False,
-                    #         stdin=f,
-                    #         stdout=subprocess.DEVNULL,
-                    #         stderr=subprocess.DEVNULL)
 
                     _, stderr = process.communicate(timeout=5)
 
@@ -659,17 +648,11 @@ class HornICEPipeline(BasePipeline):
                 else:
                     if is_final_phase:
                         print("   -> Deep fuzzing found a counterexample! Reverting to rapid learning.")
-                        # is_final_phase = False
-                        # self.TIMEOUT = 900
-
                 shutil.copy(self.new_chc_file, self.old_chc_file)
                 shutil.copy(self.new_chc_file, self.working_chc_file)
 
         finally:
             print("\n" + "="*20 + " Finalizing Pipeline " + "="*20)
-            # if os.path.isdir(self.working_dir):
-            #    shutil.rmtree(self.working_dir)
-            # print("   -> Temporary working directory and files cleaned up.")
 
         print("\n" + "="*22 + " Pipeline Finished " + "="*21)
         print(f"Total External Iterations: {self.external_iteration_count}")
@@ -738,7 +721,7 @@ class CVC5Pipeline(BasePipeline):
             self.working_dir, f"{self.benchmark_name}old.sy"
         )
 
-        self.logic, self.constraints, self.synthfuns, self.declarations, self.ce_constraints, self.goal = [], [], [], [], [], []
+        self.logic, self.constraints, self.synthfuns, self.declarations, self.definitions, self.ce_constraints, self.goal = [], [], [], [], [], [], []
 
         print(f"Total External Iterations: {self.external_iteration_count}")
         print(f"Total Unique Test Cases Found: {self.total_unique_testcases}")
@@ -757,7 +740,7 @@ class CVC5Pipeline(BasePipeline):
             return True
 
     def _parse_sygus_file(self):
-        self.logic, self.synthfuns, self.declarations, self.constraints, self.goal = [], [], [], [], []
+        self.logic, self.constraints, self.synthfuns, self.declarations, self.definitions, self.ce_constraints, self.goal = [], [], [], [], [], [], []
         print(f"   -> Parsing SYGUS file: {self.working_sygus_file}")
         try:
             with open(self.working_sygus_file, 'r') as f:
@@ -770,13 +753,15 @@ class CVC5Pipeline(BasePipeline):
                         self.synthfuns.append(stripped)
                     if stripped.startswith(("(declare-var")):
                         self.declarations.append(stripped)
-                    if stripped.startswith("(constraint"):
+                    elif stripped.startswith("(define-fun"):
+                        self.definitions.append(stripped)
+                    elif stripped.startswith("(constraint"):
                         self.constraints.append(stripped)
                     elif stripped.startswith("(check-synth"):
                         self.goal.append(stripped)
             return True
         except FileNotFoundError:
-            print(f"   -> FATAL ERROR: SYGUS file not found at '{self.sygus_file_original}'.")
+            print(f"   -> FATAL ERROR: SYGUS file not found at '{self.sygus_original_file}'.")
             return False
 
     def _update_sygus_file(self):
@@ -789,6 +774,10 @@ class CVC5Pipeline(BasePipeline):
                 f.write('\n')
                 for item in self.declarations: f.write(f"{item}\n")
                 f.write('\n')
+
+                for item in self.definitions: f.write(f"{item}\n")
+                if self.definitions: f.write('\n')
+
                 for new_constraint in self.ce_constraints:
                     if new_constraint not in self.constraints: f.write(f"{new_constraint}\n")
                 f.write('\n')
@@ -797,7 +786,7 @@ class CVC5Pipeline(BasePipeline):
                 for item in self.goal: f.write(f"{item}\n")
             return True
         except IOError as e:
-            print(f"   -> FATAL ERROR: Could not write to new CHC file '{self.new_chc_file}': {e}")
+            print(f"   -> FATAL ERROR: Could not write to new CHC file '{self.new_sygus_file}': {e}")
             return False
 
     def _convert_ce(self, relation, ce_filename):
@@ -951,9 +940,6 @@ class CVC5Pipeline(BasePipeline):
 
         finally:
             print("\n" + "="*20 + " Finalizing Pipeline " + "="*20)
-            # if os.path.isdir(self.working_dir):
-            #     shutil.rmtree(self.working_dir)
-            # print("   -> Temporary working directory and files cleaned up.")
 
         print("\n" + "="*22 + " Pipeline Finished " + "="*21)
         print(f"Total External Iterations: {self.external_iteration_count}")
@@ -1005,8 +991,10 @@ class SeaHornPipeline(BasePipeline):
     def __init__(self, benchmark_name, mode):
         super().__init__(benchmark_name, mode)
         self.c_file_path = self._get_path(f"{self.benchmark_name}_sea.cpp")
-            
-        self.seahorn_log_file = os.path.join(self.logs_path, "seahorn_baselines.log")
+
+        self.working_c_file = os.path.join(self.working_dir, f"{self.benchmark_name}_sea.cpp")
+
+        # self.seahorn_log_file = os.path.join(self.logs_path, "seahorn_baselines.log")
 
         self.mode_log_dir = os.path.join(self.logs_path, self.mode)
         os.makedirs(self.mode_log_dir, exist_ok=True)
@@ -1016,7 +1004,7 @@ class SeaHornPipeline(BasePipeline):
         process_name = f"SeaHorn({self.benchmark_name})"
         print(f"   -> Starting {process_name} with a {self.SEAHORN_TIMEOUT}-second timeout...")
 
-        if not os.path.exists(self.c_file_path):
+        if not os.path.exists(self.working_c_file):
             print(f"      -> ERROR: Source file not found at '{self.c_file_path}'.")
             with open(self.benchmark_log_file, "w") as b_log:
                 b_log.write(f"ERROR: Source file not found at '{self.c_file_path}'.\n")
@@ -1025,7 +1013,7 @@ class SeaHornPipeline(BasePipeline):
         command = [
             "sea", "pf", 
             "-m64", 
-            self.c_file_path
+            self.working_c_file
         ]
 
         try:
@@ -1076,16 +1064,24 @@ class SeaHornPipeline(BasePipeline):
 
     def run(self):
         print("\n" + "="*20 + " Running SeaHorn Baseline " + "="*20)
+
+        if not os.path.exists(self.c_file_path):
+            print(f"FATAL ERROR: No source file found for benchmark '{self.benchmark_name}' at {self.c_file_path}")
+            return
+
         os.makedirs(self.working_dir, exist_ok=True)
         os.makedirs(self.logs_path, exist_ok=True)
+
+        shutil.copy(self.c_file_path, self.working_c_file)
+        print(f"   -> Copied source file to working directory.")
 
         result = self._run_seahorn()
 
         log_entry = f"Benchmark: {self.benchmark_name} | Mode: {self.contract_type} | Result: {result}\n"
-        with open(self.seahorn_log_file, "a") as log_file:
-            log_file.write(log_entry)
+        # with open(self.seahorn_log_file, "a") as log_file:
+        #     log_file.write(log_entry)
 
-        print(f"   -> Result logged to {self.seahorn_log_file}")
+        # print(f"   -> Result logged to {self.seahorn_log_file}")
         print("\n" + "="*22 + " Pipeline Finished " + "="*21)
 
 
@@ -1093,15 +1089,15 @@ def main():
     parser = argparse.ArgumentParser(description="Run a Verification-Modulo-Testing pipeline.")
     parser.add_argument(
         "mode",
-        choices=['ClassicalHornICE',
-                 'ClassicalLLMHornICE',
-                 'ContextualHornICE',
-                 'ContextualLLMHornICE',
-                 'ClassicalCVC5',
-                 'ContextualCVC5',
-                 'ClassicalSeaHorn',
-                 'ContextualSeaHorn'
-                 ],
+        choices=[
+            'ClassicalHornICE',
+            'ClassicalLLMHornICE',
+            'ContextualHornICE',
+            'ContextualLLMHornICE',
+            'ClassicalCVC5',
+            'ContextualCVC5',
+            'ContextualSeaHorn'
+        ],
         help="The execution mode for the pipeline."
     )
     parser.add_argument("benchmark", help="The name of the benchmark to run.")
