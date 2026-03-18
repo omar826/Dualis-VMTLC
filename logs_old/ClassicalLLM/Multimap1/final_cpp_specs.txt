@@ -1,3 +1,0 @@
-emplace
-(placeholder for declaration)
-((k == 1 ? (countko1 == countko + 1) : (countko1 == countko)) && (len1 == len + 1))

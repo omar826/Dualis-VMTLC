@@ -1,7 +1,0 @@
-insert
-(placeholder for declaration)
-((k < min || k > max) ? (len1 == len + 1 && (min1 == (k < min ? k : min)) && (max1 == (k > max ? k : max)) && (kveq1 == ((kveq == 1 && k == v) ? 1 : 0))) : ((len > 0 ? len == max - min + 1 : true) ? (len1 == len && min1 == min && max1 == max && kveq1 == kveq) : ((len1 == len && min1 == min && max1 == max && kveq1 == kveq) || (len1 == len + 1 && (min1 == (k < min ? k : min)) && (max1 == (k > max ? k : max)) && (kveq1 == ((kveq == 1 && k == v) ? 1 : 0))))))
-
-find
-(placeholder for declaration)
-((len > 0 && (len > 0 ? len == max - min + 1 : true) && (k >= min && k <= max)) ? (kveq == 1 ? ret1 == k : ret1 != 128) : ((len == 0 || !(k >= min && k <= max)) ? (ret1 == 128) : ((kveq == 1 ? ret1 == k : ret1 != 128) || (ret1 == 128))))

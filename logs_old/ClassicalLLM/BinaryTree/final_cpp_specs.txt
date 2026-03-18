@@ -1,7 +1,0 @@
-insert
-(placeholder for declaration)
-(isEmpty == 1 ? (min1 == n && isEmpty1 == 0) : (min1 == (n < min ? n : min) && isEmpty1 == 0))
-
-search
-(placeholder for declaration)
-((isEmpty == 1) ? (ret1 == 0) : ((v < min) ? (ret1 == 0) : (ret1 == 0 || ret1 == 1)))
