@@ -538,3 +538,16 @@ push
 (color == 0 ? bcount1 == bcount + 1 : bcount1 == bcount)
 ----------------------------------------------------------------------
 
+[TASK] Mode: ClassicalLLM | Benchmark: TokenBucket1
+----------------------------------------
+STATUS: PASS
+SPECS:
+generateTokens
+(placeholder for declaration)
+avai_tokens1 == b_size
+
+consume
+(placeholder for declaration)
+(avai_tokens >= c_rate ? (avai_tokens1 == avai_tokens - c_rate) : (avai_tokens1 == avai_tokens))
+----------------------------------------------------------------------
+
