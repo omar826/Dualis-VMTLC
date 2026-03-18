@@ -58,16 +58,17 @@ Get in to ``/Dualis/scripts`` directory (ignore if already) using
 cd /Dualis/scripts
 ```
 
-Now, you are required to create a ```.env``` file using
+
+You are required to enter the API_KEY that will be used by LLM
+(Gemini) in the .env file. Replace the string
+"alphanumeric-string-here" with the actual key.
 
 ```
-touch /Dualis/.env
+API_KEY = "alphanumeric-string-here"
 ```
-and enter the API-KEY that will be used by LLM (Gemini) and the format is,
 
-```
-API-KEY = "alphanumeric-string-here"
-```
+**Note : API_KEY will be shared with the Artifact Reviewers via the AEC
+chairs.**
 
 ### Running Basic Tests (kick the tyres)
 
@@ -242,9 +243,9 @@ docker exec -it Dualis /bin/bash
 ```
 and checking the ```evaluation_summary.txt```.
 
-To add more **visibility** to the results that we have accumulated, we
- give the following set of useful commands for each learner. You could
- run them to get results as explained below.
+To add more **visibility** to the results we have accumulated, we give
+ the following set of useful commands for each learner. You could run
+ them to get results as explained below.
 
 ### LLM
 
