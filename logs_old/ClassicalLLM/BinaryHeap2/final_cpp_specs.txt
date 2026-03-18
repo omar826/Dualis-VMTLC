@@ -1,10 +1,10 @@
 insert
 (placeholder for declaration)
-(len1 == len + 1 && isHeap1 >= isHeap && (isHeap1 == 0 || isHeap1 == 1))
+(isHeap1 == 1 && len1 == len + 1)
 
 deleteMin
 (placeholder for declaration)
-((!(len > 0) || (len1 == len - 1)) && (!(len <= 0) || (len1 == len)))
+(len > 0 ? (len1 == len - 1) : (len1 == len && isHeap1 == isHeap))
 
 downHeap
 (placeholder for declaration)

@@ -5,6 +5,6 @@
     },
     {
         "role": "model",
-        "content": "def inv(len, min, max):\n  return Or(len == 0, And(min == 0, max == 0))\n\ndef push(val, min, len, max, min1, len1, max1):\n  return And(\n    len1 == len + 1,\n    If(len == 0,\n       And(min1 == val, max1 == val),\n       And(min1 == If(val < min, val, min),\n           max1 == If(val > max, val, max))\n    )\n  )"
+        "content": "def inv(len, min, max):\n    initial_state = And(len == 0, min == 128, max == -129)\n    loop_state = And(len > 0, min == 0, max == 0)\n    return Or(initial_state, loop_state)\n\ndef push(val, min, len, max, min1, len1, max1):\n    return And(len1 == len + 1,\n               min1 == If(val < min, val, min),\n               max1 == If(val > max, val, max))"
     }
 ]

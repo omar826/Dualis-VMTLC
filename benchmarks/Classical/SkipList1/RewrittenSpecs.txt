@@ -1,7 +1,7 @@
 insert
 (placeholder for declaration)
-(len1 == len + 1 && min1 == (len == 0 ? v : (v < min ? v : min)) && max1 == (len == 0 ? v : (v > max ? v : max)) && isPresent1 == 1)
+((!(len == 0 || v < min || v > max) || (len1 == len + 1 && isPresent1 == 1 && min1 == (len == 0 ? v : (v < min ? v : min)) && max1 == (len == 0 ? v : (v > max ? v : max)))) && (!(len > 0 && len == max - min + 1 && v >= min && v <= max) || (len1 == len && min1 == min && max1 == max && isPresent1 == isPresent)) && (!(len > 0 && len < max - min + 1 && v >= min && v <= max) || ((len1 == len + 1 && isPresent1 == 1 && min1 == (len == 0 ? v : (v < min ? v : min)) && max1 == (len == 0 ? v : (v > max ? v : max))) || (len1 == len && min1 == min && max1 == max && isPresent1 == isPresent))))
 
 remove
 (placeholder for declaration)
-((! ( (len > 0 && len == max - min + 1 && k >= min && k <= max) ) || (len1 == len - 1) ) && (len1 == len - 1 || len1 == len) && ( (! (len1 == len - 1) || (ret1 == 1)) && (! (len1 == len) || (ret1 == 0)) ))
+((((len > 0 && k >= min && k <= max) || (len1 == len && min1 == min && max1 == max)) && (!((len > 0 && k >= min && k <= max) && (len == max - min + 1)) || (len1 == len - 1 && ret1 == k && (len == 1 ? (min1 == 128 && max1 == -129) : (k == min ? (max1 == max && ((len == max - min + 1) ? (min1 == min + 1) : (min1 > min && min1 <= max))) : (k == max ? (min1 == min && ((len == max - min + 1) ? (max1 == max - 1) : (max1 < max && max1 >= min))) : (min1 == min && max1 == max)))))) && (!((len > 0 && k >= min && k <= max) && (!(len == max - min + 1))) || ((len1 == len - 1 && ret1 == k && (len == 1 ? (min1 == 128 && max1 == -129) : (k == min ? (max1 == max && ((len == max - min + 1) ? (min1 == min + 1) : (min1 > min && min1 <= max))) : (k == max ? (min1 == min && ((len == max - min + 1) ? (max1 == max - 1) : (max1 < max && max1 >= min))) : (min1 == min && max1 == max))))) || (len1 == len && min1 == min && max1 == max)))))

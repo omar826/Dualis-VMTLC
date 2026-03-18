@@ -1,3 +1,0 @@
-push
-(placeholder for declaration)
-((val == 1 || val == 2) ? (top1 == val && len1 == len + 1) : ((top1 == val && len1 == len + 1) || (top1 == top && len1 == len)))

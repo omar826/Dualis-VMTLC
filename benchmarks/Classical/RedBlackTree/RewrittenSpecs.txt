@@ -1,7 +1,7 @@
 insert
 (placeholder for declaration)
-((len1 == len + 1) && (len == 0 ? (max1 == i && min1 == i && noDup1 == noDup) : ((max1 == (i > max ? i : max)) && (min1 == (i < min ? i : min)) && (noDup1 == ((noDup == 1 && len > 0 && i >= min && i <= max) ? 0 : noDup)))))
+((len1 == len + 1) && (max1 == (len == 0 ? i : (i > max ? i : max))) && (min1 == (len == 0 ? i : (i < min ? i : min))) && ((!(noDup == 0) || (noDup1 == 0)) && (!(noDup == 1 && (i < min || i > max)) || (noDup1 == 1)) && (!(noDup == 1 && len > 0 && len == max - min + 1 && i >= min && i <= max) || (noDup1 == 0))))
 
 search
 (placeholder for declaration)
-((!((len > 0) && ((max - min + 1) == len) && ((data >= min) && (data <= max))) || (ret1 == 1)) && (!((len == 0) || !((data >= min) && (data <= max))) || (ret1 == 0)))
+((ret1 == 0 || (data >= min && data <= max)) && (!((noDup == 1 && len > 0 && len == max - min + 1)) || ((ret1 != 0) == (data >= min && data <= max))))

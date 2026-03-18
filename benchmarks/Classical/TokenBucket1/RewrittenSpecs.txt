@@ -4,4 +4,4 @@ avai_tokens1 == b_size
 
 consume
 (placeholder for declaration)
-(avai_tokens >= c_rate ? (avai_tokens1 == avai_tokens - c_rate) : (avai_tokens1 == avai_tokens))
+(avai_tokens >= c_rate ? avai_tokens1 == avai_tokens - c_rate : avai_tokens1 == avai_tokens)

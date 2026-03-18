@@ -1,7 +1,7 @@
 append
 (placeholder for declaration)
-(len1 == len + 1 && maxPrio1 == (len == 0 ? prio : (prio > maxPrio ? prio : maxPrio)) && minPacketSize1 == (len == 0 ? packetSize : (packetSize < minPacketSize ? packetSize : minPacketSize)))
+((len >= 0) && (len1 == len + 1) && (maxPrio1 == (len == 0 ? prio : (prio > maxPrio ? prio : maxPrio))) && (minPacketSize1 == (len == 0 ? packetSize : (packetSize < minPacketSize ? packetSize : minPacketSize))))
 
 processQueue
 (placeholder for declaration)
-(!(len1 == 0) || (maxPrio1 == maxPrio && minPacketSize1 == minPacketSize))
+(len1 == len && maxPrio1 == maxPrio && minPacketSize1 == minPacketSize)

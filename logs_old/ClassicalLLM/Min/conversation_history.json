@@ -5,6 +5,6 @@
     },
     {
         "role": "model",
-        "content": "from z3 import *\n\ndef inv(lmin, gmin, len):\n  \"\"\"\n  Invariant relation.\n  This invariant states that the local minimum 'lmin' tracked by the 'append' function\n  is always equal to the global minimum 'gmin' tracked by the main loop.\n  \"\"\"\n  return lmin == gmin\n\ndef append(v, lmin, lmin1, len, len1):\n  \"\"\"\n  Append operation specification.\n  This function models the behavior of an operation that maintains a running minimum.\n  Given a new value 'v' and the current minimum 'lmin', the next minimum 'lmin1'\n  is the smaller of the two.\n  \"\"\"\n  return lmin1 == If(v < lmin, v, lmin)"
+        "content": "from z3 import *\n\ndef inv(lmin, gmin, len):\n  \"\"\"\n  Specifies the loop invariant.\n  The invariant is that the minimum calculated by the 'append' function (`lmin`)\n  is always equal to the minimum calculated by the explicit if-statement (`gmin`).\n  \"\"\"\n  return lmin == gmin\n\ndef append(v, lmin, lmin1, len, len1):\n  \"\"\"\n  Specifies the behavior of the 'append' function.\n  It models updating a running minimum. The new minimum `lmin1` is the\n  smaller of the new value `v` and the old minimum `lmin`.\n  \"\"\"\n  return lmin1 == If(v < lmin, v, lmin)"
     }
 ]

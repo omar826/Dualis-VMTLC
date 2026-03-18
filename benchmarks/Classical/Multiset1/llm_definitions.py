@@ -6,4 +6,4 @@ def emplace(v, countv, len, countv1, len1):
     return And(len1 == len + 1, countv1 == countv + 1)
 
 def inv1(i, N, v, countv, len):
-    return And(i <= N, len == i, countv == i)
+    return And(len == i, countv == i, i <= N)

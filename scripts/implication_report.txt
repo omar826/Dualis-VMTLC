@@ -18,12 +18,12 @@ IMPORTANT NOTES & CAVEATS:
 
 [TASK] Benchmark: AlternatingList
 --------------------------------------------------
-  -> push: SUBSUMED (V => G) [Generated is correct but weaker]
+  -> push: LOGICALLY EQUIVALENT (V <=> G)
 
 [TASK] Benchmark: BinaryTree
 --------------------------------------------------
-  -> insert: NOT IMPLYING (Requires manual inspection)
-  -> search: SUBSUMED (V => G) [Generated is correct but weaker]
+  -> insert: LOGICALLY EQUIVALENT (V <=> G)
+  -> search: LOGICALLY EQUIVALENT (V <=> G)
 
 [TASK] Benchmark: BlueWhite
 --------------------------------------------------
@@ -189,7 +189,6 @@ IMPORTANT NOTES & CAVEATS:
 
 [TASK] Benchmark: FlatHashMap2
 --------------------------------------------------
-  -> fail: LOGICALLY EQUIVALENT (V <=> G)
   -> insert: LOGICALLY EQUIVALENT (V <=> G)
   -> remove_none: LOGICALLY EQUIVALENT (V <=> G)
 

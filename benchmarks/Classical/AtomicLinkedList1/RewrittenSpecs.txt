@@ -4,4 +4,4 @@ len1 == len + 1
 
 popHead
 (placeholder for declaration)
-(len > 0 && len1 == len - 1)
+(len > 0 ? (len1 == len - 1) : (len1 == len))

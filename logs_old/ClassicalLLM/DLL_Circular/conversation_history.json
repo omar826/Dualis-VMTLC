@@ -5,6 +5,6 @@
     },
     {
         "role": "model",
-        "content": "from z3 import *\n\ndef inv(val, max):\n  return And(val >= 0, val <= 3, max == val)\n\ndef push(val, max, max1):\n  return max1 == If(val > max, val, max)"
+        "content": "from z3 import *\n\ndef inv(val, max):\n  return And(val >= 0, val <= 3, max >= 0, max <= 3)\n\ndef push(val, max, max1):\n  return max1 == If(val > max, val, max)"
     }
 ]

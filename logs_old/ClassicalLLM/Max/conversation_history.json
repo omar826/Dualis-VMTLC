@@ -5,14 +5,6 @@
     },
     {
         "role": "model",
-        "content": "from z3 import *\n\n# This function defines the loop invariant.\n# The abstract program tracks a local maximum `lmax` and a global maximum `gmax`.\n# The final assertion is that they are equal.\n# This strongly suggests that the invariant property maintained by the loop is `lmax == gmax`.\ndef inv(lmax, gmax):\n    return lmax == gmax\n\n# This function defines the behavior of the `append` operation.\n# `lmax` is the maximum value before appending `v`.\n# `lmax1` is the maximum value after appending `v`.\n# The new maximum will be the greater of the old maximum and the new value.\n# This can be expressed as: lmax1 = max(lmax, v).\ndef append(v, lmax, lmax1):\n    # In Z3, max(a, b) can be written as If(a > b, a, b).\n    return lmax1 == If(v > lmax, v, lmax)"
-    },
-    {
-        "role": "user",
-        "content": "The previous Z3 code was invalid. The validator failed with this output:\n\n        Successfully imported definitions from llm_definitions.py\n===================================================\nChecking if initial conditions imply loop invariant\n===================================================\n\n--- Errors ---\nTraceback (most recent call last):\n  File \"/home/**/Dualis/benchmarks/Classical/Max/validity_check_gen_ds.py\", line 186, in <module>\n    chk_val_initial_conditions()\n  File \"/home/**/Dualis/benchmarks/Classical/Max/validity_check_gen_ds.py\", line 46, in chk_val_initial_conditions\n    ic_consequent = inv(lmax1, gmax1, len1)\n                    ^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: inv() takes 2 positional arguments but 3 were given\n\n        Your task is to fix the code based on the validator's output.\n        Respond with ONLY the complete, corrected, and runnable Python code for all functions.\n        Do not include any explanations, apologies, introductory text, or markdown formatting like ```python.\n        Your entire response must be valid Python code."
-    },
-    {
-        "role": "model",
-        "content": "def inv(lmax, gmax, len):\n    return lmax == gmax\n\ndef append(v, lmax, lmax1, len, len1):\n    return lmax1 == If(v > lmax, v, lmax)"
+        "content": "from z3 import *\n\ndef inv(lmax, gmax, len):\n  \"\"\"\n  Specifies the loop invariant.\n  The invariant states that the local maximum tracked by the append operation (`lmax`)\n  is always equal to the global maximum (`gmax`).\n  This holds because both are initialized to the same value and updated with\n  identical logic in response to new values `v`.\n  \"\"\"\n  return lmax == gmax\n\ndef append(v, lmax, lmax1, len, len1):\n  \"\"\"\n  Specifies the behavior of the append operation, which updates the running maximum.\n  Given a new value `v` and the current maximum `lmax`, the new maximum `lmax1`\n  will be `v` if `v` is greater than `lmax`, otherwise it remains `lmax`.\n  This is equivalent to `lmax1 = max(v, lmax)`.\n  \"\"\"\n  return lmax1 == If(v > lmax, v, lmax)"
     }
 ]

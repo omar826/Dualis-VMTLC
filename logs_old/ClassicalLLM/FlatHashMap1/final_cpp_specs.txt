@@ -1,6 +1,6 @@
 insert
 (placeholder for declaration)
-(containsk == 0 ? (len1 == len + 1 && containsk1 == 1) : (len1 == len && containsk1 == 1))
+(len >= 0 && containsk1 == 1 && ((k == v && k == len && containsk == 0) ? (len1 == len + 1) : (len1 >= 0)))
 
 remove_all
 (placeholder for declaration)
