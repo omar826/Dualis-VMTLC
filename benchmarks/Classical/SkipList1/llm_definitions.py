@@ -3,59 +3,72 @@
 from z3 import *
 # --- LLM Generated Definitions ---
 def inv1(i, N, isPresent, min, max, len):
-    initial_state = And(
-        len == 0,
-        min == 128,
-        max == -129,
-        isPresent == 0
-    )
-    
-    loop_state = And(
-        len == i,
-        min == 0,
-        max == i - 1,
-        isPresent == 1
-    )
-    
-    return And(
-        i >= 0,
-        i <= N,
-        If(i == 0, initial_state, loop_state)
-    )
+	MIN = -129
+	MAX = 128
+	i_bounds = And(i >= 0, i <= N)
+	len_is_i = (len == i)
+	is_present_logic = (isPresent == If(i == 0, 0, 1))
+	min_logic = (min == If(i == 0, MAX, 0))
+	max_logic = (max == If(i == 0, MIN, i - 1))
+	return And(i_bounds, len_is_i, is_present_logic, min_logic, max_logic)
 
 def insert(v, isPresent, min, max, len, isPresent1, min1, max1, len1):
-    new_min = If(len == 0, v, If(v < min, v, min))
-    
-    new_max = If(len == 0, v, If(v > max, v, max))
-    
-    return And(
+    op_adds = And(
         len1 == len + 1,
-        min1 == new_min,
-        max1 == new_max,
-        isPresent1 == 1
+        isPresent1 == 1,
+        min1 == If(len == 0, v, If(v < min, v, min)),
+        max1 == If(len == 0, v, If(v > max, v, max))
     )
+    op_no_op = And(
+        len1 == len,
+        min1 == min,
+        max1 == max,
+        isPresent1 == isPresent
+    )
+
+    must_add_cond = Or(len == 0, v < min, v > max)
+    must_be_no_op_cond = And(len > 0, len == max - min + 1, v >= min, v <= max)
+    can_be_either_cond = And(len > 0, len < max - min + 1, v >= min, v <= max)
+
+    rule1 = Implies(must_add_cond, op_adds)
+    rule2 = Implies(must_be_no_op_cond, op_no_op)
+    rule3 = Implies(can_be_either_cond, Or(op_adds, op_no_op))
+
+    return And(rule1, rule2, rule3)
 
 def remove(k, min, max, len, min1, max1, len1, ret1):
-    precondition_for_guaranteed_success = And(
-        len > 0,
-        len == max - min + 1,
-        k >= min,
-        k <= max
-    )
+    MIN = -129
+    MAX = 128
     
-    guaranteed_behavior = Implies(
-        precondition_for_guaranteed_success,
-        len1 == len - 1
-    )
-    
-    possible_outcomes = Or(
-        len1 == len - 1,
-        len1 == len
-    )
-    
-    return_value_spec = And(
-        Implies(len1 == len - 1, ret1 == 1),
-        Implies(len1 == len, ret1 == 0)
-    )
+    precond = And(len > 0, k >= min, k <= max)
+    dense = (len == max - min + 1)
 
-    return And(guaranteed_behavior, possible_outcomes, return_value_spec)
+    op_succeeds = And(
+        len1 == len - 1,
+        ret1 == k,
+        If(len == 1,
+           And(min1 == MAX, max1 == MIN),
+           # len > 1 case
+           If(k == min,
+              # k is the minimum
+              And(max1 == max,
+                  If(dense, min1 == min + 1, And(min1 > min, min1 <= max))),
+              # k is not the minimum
+              If(k == max,
+                 # k is the maximum
+                 And(min1 == min,
+                     If(dense, max1 == max - 1, And(max1 < max, max1 >= min))),
+                 # k is an internal point
+                 And(min1 == min, max1 == max)
+              )
+           )
+        )
+    )
+    
+    op_fails = And(len1 == len, min1 == min, max1 == max)
+
+    rule1 = Implies(Not(precond), op_fails)
+    rule2 = Implies(And(precond, dense), op_succeeds)
+    rule3 = Implies(And(precond, Not(dense)), Or(op_succeeds, op_fails))
+    
+    return And(rule1, rule2, rule3)

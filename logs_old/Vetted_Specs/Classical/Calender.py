@@ -3,9 +3,13 @@
 from z3 import *
 # --- LLM Generated Definitions ---
 def inv(len, maxDiff):
-  return And(len >= 0, If(len > 0, maxDiff < 2, maxDiff == 0))
+    return And(len >= 0,
+               Implies(len == 0, maxDiff == 0),
+               Implies(len > 0, maxDiff < 2))
 
 def insert(len, len1, ev1, ev2, maxDiff, maxDiff1):
-  absl_diff = If(ev1 - ev2 >= 0, ev1 - ev2, -(ev1 - ev2))
-  new_maxDiff = If(maxDiff > absl_diff, maxDiff, absl_diff)
-  return And(len1 == len + 1, maxDiff1 == new_maxDiff)
+    new_diff = If(ev1 - ev2 >= 0, ev1 - ev2, -(ev1 - ev2))
+    update_max_diff = If(new_diff > maxDiff, new_diff, maxDiff)
+    
+    return And(len1 == len + 1,
+               maxDiff1 == update_max_diff)

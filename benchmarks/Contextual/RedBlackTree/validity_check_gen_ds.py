@@ -100,7 +100,7 @@ def chk_post():
                         Not(i < N),
                         data >= 0,
                         data < N,
-                        search(data, min_var, max_var, len_var, ret),
+                        search(data, min_var, max_var, len_var, ret, noDup),
                         ret == 0)
     ic_consequent = fail()
     ic_implication = Implies(ic_antecedent, ic_consequent)

@@ -666,10 +666,10 @@ if __name__ == "__main__":
                        "Calender", "DLL_Circular", "DLL_Token", "Max", "Min", "TokenBucket1", "TokenBucket2", "TokenBucket3",
                        "Stack", "StockOrder",  "Multimap1", "Multimap2", 
                        "Multiset1", "Multiset2", "AtomicHashMap1","AtomicHashMap2", "AtomicHashMap3", "AtomicHashMap4",
-                       "AtomicHashMap5", "AtomicLinkedList1", "SkipList1", "SkipList2", "SkipList3", "SkipList4",
-                       "SkipList5", "SkipList6", "SkipList7", "BinaryHeap2",  "NormalFilterQueue",
-                       "PriorityFilterQueue", "ProcessQueue", "RedBlackTree","FlatHashMap1",
-                       "FlatHashMap2", "FlatHashSet"
+                       "AtomicHashMap5", "AtomicLinkedList1", "BinaryHeap2",  "NormalFilterQueue",
+                       "PriorityFilterQueue", "RedBlackTree","FlatHashMap1",
+                       "FlatHashMap2", "SkipList1", "SkipList2", "SkipList3", "SkipList4",
+                       "SkipList5", "SkipList6", "SkipList7"
                        
                         ]
 

@@ -5,7 +5,7 @@ from z3 import *
 from z3 import *
 
 def inv(val, max):
-  return And(val >= 0, val <= 3, max == val)
+  return And(val >= 0, val <= 3, max >= 0, max <= 3)
 
 def push(val, max, max1):
   return max1 == If(val > max, val, max)
