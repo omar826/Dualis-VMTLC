@@ -1,7 +1,0 @@
-addStockOrder
-(placeholder for declaration)
-true
-
-addStockOrder
-(placeholder for declaration)
-((minDiff == stock + 1) && (minDiff1 == (len - len1 < order ? len - len1 : order)))

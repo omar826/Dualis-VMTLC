@@ -1,3 +1,0 @@
-append
-(placeholder for declaration)
-lmin1 == (v < lmin ? v : lmin)

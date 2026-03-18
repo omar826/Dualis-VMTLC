@@ -1,7 +1,0 @@
-pu
-(placeholder for declaration)
-sl1 == sl + 1
-
-po
-(placeholder for declaration)
-sl1 == sl - 1

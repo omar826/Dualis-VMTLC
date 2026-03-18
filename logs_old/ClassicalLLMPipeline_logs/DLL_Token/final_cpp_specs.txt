@@ -1,3 +1,0 @@
-push
-(placeholder for declaration)
-(len1 == len + 1 && (len == 0 ? (min1 == val && max1 == val) : (min1 == (val < min ? val : min) && max1 == (val > max ? val : max))))

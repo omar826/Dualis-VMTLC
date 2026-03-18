@@ -1,7 +1,0 @@
-insert
-(placeholder for declaration)
-(v == 1 && (isPresent == 0 ? (isPresent1 == 1 && min1 == 1 && max1 == 1 && len1 == 1) : (isPresent1 == isPresent && min1 == min && max1 == max && len1 == len)))
-
-remove
-(placeholder for declaration)
-((len == 1 && k == min && k == max) ? (len1 == 0 && min1 == 128 && max1 == -129 && ret1 == 1) : (len1 == len && min1 == min && max1 == max && ret1 == 0))

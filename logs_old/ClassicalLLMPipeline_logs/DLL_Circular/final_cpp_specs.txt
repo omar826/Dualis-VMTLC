@@ -1,3 +1,0 @@
-push
-(placeholder for declaration)
-max1 == (val > max ? val : max)
