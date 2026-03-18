@@ -1,0 +1,196 @@
+
+========================================
+         Starting Pipeline for: Multimap1 (Mode: ContextualCVC5)
+========================================
+Initializing pipeline for benchmark: 'Multimap1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/Multimap1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+Total External Iterations: 0
+Total Unique Test Cases Found: 0
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/Multimap1/Multimap1.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_1.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: Multimap1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/Multimap1/Multimap1_fuzz.cpp'.
+   -> Starting AFL++(Multimap1_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/Multimap1/Multimap1_fuzz
+   -> AFL++(Multimap1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:154,execs:24,op:havoc,rep:7
+Checking queue
+   -> Found 2 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Multimap1'...
+       -> Found and validated 3 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (!(countko <= countko))
+  inv1: (!(N <= i))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun emplace ((k Int) (v Int) (countko Int) (len Int) (countko1 Int) (len1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) k v countko len countko1 len1))))
+(synth-fun inv1 ((i Int) (N Int) (countko Int) (len Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) i N countko len))))
+
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var k Int)
+(declare-var v Int)
+
+(constraint (emplace 1 36 0 0 1 1))
+(constraint (emplace 1 (- 18) 0 0 1 1))
+(constraint (emplace 1 26 0 0 1 1))
+
+(constraint (=> (and (> N 0) (= i 0) (= len 0) (= countko 0)) (inv1 i N countko len)))
+(constraint (=> (and (inv1 i N countko len) (< i N) (= k 1) (emplace k v countko len countko1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 len1)))
+(constraint (=> (and (inv1 i N countko len) (not (< i N))) (= countko N)))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/Multimap1/Multimap1.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_2.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: Multimap1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/Multimap1/Multimap1_fuzz.cpp'.
+   -> Starting AFL++(Multimap1_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/Multimap1/Multimap1_fuzz
+   -> AFL++(Multimap1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 33 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Multimap1'...
+       -> Found and validated 3 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: ((countko + k) == countko1)
+  inv1: ((i == countko) && (i <= N))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun emplace ((k Int) (v Int) (countko Int) (len Int) (countko1 Int) (len1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) k v countko len countko1 len1))))
+(synth-fun inv1 ((i Int) (N Int) (countko Int) (len Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) i N countko len))))
+
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var k Int)
+(declare-var v Int)
+
+
+(constraint (emplace 1 36 0 0 1 1))
+(constraint (emplace 1 (- 18) 0 0 1 1))
+(constraint (emplace 1 26 0 0 1 1))
+(constraint (=> (and (> N 0) (= i 0) (= len 0) (= countko 0)) (inv1 i N countko len)))
+(constraint (=> (and (inv1 i N countko len) (< i N) (= k 1) (emplace k v countko len countko1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 len1)))
+(constraint (=> (and (inv1 i N countko len) (not (< i N))) (= countko N)))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/Multimap1/Multimap1.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_3.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: Multimap1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/Multimap1/Multimap1_fuzz.cpp'.
+   -> Starting AFL++(Multimap1_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/Multimap1/Multimap1_fuzz
+   -> AFL++(Multimap1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 34 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Multimap1'...
+       -> Found and validated 3 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: ((countko + k) == countko1)
+  inv1: ((i == countko) && (i <= N))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun emplace ((k Int) (v Int) (countko Int) (len Int) (countko1 Int) (len1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) k v countko len countko1 len1))))
+(synth-fun inv1 ((i Int) (N Int) (countko Int) (len Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) i N countko len))))
+
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var k Int)
+(declare-var v Int)
+
+
+(constraint (emplace 1 36 0 0 1 1))
+(constraint (emplace 1 (- 18) 0 0 1 1))
+(constraint (emplace 1 26 0 0 1 1))
+(constraint (=> (and (> N 0) (= i 0) (= len 0) (= countko 0)) (inv1 i N countko len)))
+(constraint (=> (and (inv1 i N countko len) (< i N) (= k 1) (emplace k v countko len countko1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 len1)))
+(constraint (=> (and (inv1 i N countko len) (not (< i N))) (= countko N)))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 3
+Total Unique Test Cases Found: 9
+pipeline.run() took 0.1408 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualCVC5 Multimap1
+PID: 30
+========================================
+
+
+Total Pipeline Duration: 224.15s

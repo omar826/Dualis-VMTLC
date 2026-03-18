@@ -1,0 +1,327 @@
+
+========================================
+         Starting Pipeline for: FlatHashMap4 (Mode: ContextualLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'FlatHashMap4'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/FlatHashMap4/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/FlatHashMap4/FlatHashMap4.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 6 internal iterations.
+   -> Writing new specs to harness: FlatHashMap4_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/FlatHashMap4/FlatHashMap4_fuzz.cpp'.
+   -> Starting AFL++(FlatHashMap4_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/FlatHashMap4/FlatHashMap4_fuzz
+   -> AFL++(FlatHashMap4_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:449,execs:775,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:3331,execs:3291,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:246,execs:528,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:12825,execs:10604,op:havoc,rep:6
+Checking queue
+   -> Found 22 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'FlatHashMap4'...
+      -> Found and validated 4 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: ((N - i) > 0)
+  insert: (false)
+  inv2: (false)
+  erase: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var i_old Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var ret Int)
+(declare-var ret1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel erase (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= k 3) (= v 3) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= len 0) (= flag 1) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+
+(rule (=> (and (> N 0) (= i 0)  (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len ) (is_valid flag) (not (< i N)) (= i1 0) (= flag 0) (= ret1 MAX)) (inv2 i1 N len  flag ret1)))
+(rule (=> (and (inv2 i N len flag ret) (< i N) (is_valid flag) (= flag 1) (= k i) (erase k len flag len1 ret1) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len1 flag1 ret1)))
+(rule (=> (and (inv2 i N len flag ret) (< i N) (is_valid flag) (= flag 0) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len flag1 ret)))
+(rule (=> (and (inv2 i N len flag ret) (is_valid flag) (not (< i N)) (not (=> (= flag 0) (= ret (- N 1))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/FlatHashMap4/FlatHashMap4.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 61 internal iterations.
+   -> Writing new specs to harness: FlatHashMap4_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/FlatHashMap4/FlatHashMap4_fuzz.cpp'.
+   -> Starting AFL++(FlatHashMap4_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/FlatHashMap4/FlatHashMap4_fuzz
+   -> AFL++(FlatHashMap4_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000002,time:504,execs:11250,op:havoc,rep:13
+Checking queue
+   -> Found 34 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'FlatHashMap4'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((k <= 0) || ((k > 1) && (containsk1 > 0) && (k > 0)))
+  inv1: ((i <= 1) && (N > 0))
+  erase: (true)
+  inv2: ((((i <= 0) && (flag <= 0)) || ((i > 0) && (flag > 0))) && ((i - N) <= 0) && (i > (-1)) && ((ret - N) > 9) && (N > 0) && (N <= 1))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var i_old Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var ret Int)
+(declare-var ret1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel erase (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= k 1) (= v 1) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+
+(rule (=> (and (= k 3) (= v 3) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= len 0) (= flag 1) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (> N 0) (= i 0)  (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len ) (is_valid flag) (not (< i N)) (= i1 0) (= flag 0) (= ret1 MAX)) (inv2 i1 N len  flag ret1)))
+(rule (=> (and (inv2 i N len flag ret) (< i N) (is_valid flag) (= flag 1) (= k i) (erase k len flag len1 ret1) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len1 flag1 ret1)))
+(rule (=> (and (inv2 i N len flag ret) (< i N) (is_valid flag) (= flag 0) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len flag1 ret)))
+(rule (=> (and (inv2 i N len flag ret) (is_valid flag) (not (< i N)) (not (=> (= flag 0) (= ret (- N 1))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/FlatHashMap4/FlatHashMap4.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 129 internal iterations.
+   -> Writing new specs to harness: FlatHashMap4_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/FlatHashMap4/FlatHashMap4_fuzz.cpp'.
+   -> Starting AFL++(FlatHashMap4_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/FlatHashMap4/FlatHashMap4_fuzz
+   -> AFL++(FlatHashMap4_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 29 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'FlatHashMap4'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((len1 <= 1) && (len1 > 0) && (len <= 0) && (containsk1 > 0))
+  inv1: (((((i - len) <= 0) && ((len - N) <= 0) && (N <= 2)) || (((i - len) <= 0) && (N > 2))) && (i <= 1) && (N > 0))
+  erase: (true)
+  inv2: (((len - N) <= 0) && (len > 0) && (((len + len + i) - flag) > 1) && (((len + len + i) - flag) <= 2) && (N > 0) && (N <= 1))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var i_old Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var ret Int)
+(declare-var ret1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel erase (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+
+
+(rule (=> (and (= k 1) (= v 1) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 3) (= v 3) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= len 0) (= flag 1) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (> N 0) (= i 0)  (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len ) (is_valid flag) (not (< i N)) (= i1 0) (= flag 0) (= ret1 MAX)) (inv2 i1 N len  flag ret1)))
+(rule (=> (and (inv2 i N len flag ret) (< i N) (is_valid flag) (= flag 1) (= k i) (erase k len flag len1 ret1) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len1 flag1 ret1)))
+(rule (=> (and (inv2 i N len flag ret) (< i N) (is_valid flag) (= flag 0) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len flag1 ret)))
+(rule (=> (and (inv2 i N len flag ret) (is_valid flag) (not (< i N)) (not (=> (= flag 0) (= ret (- N 1))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/FlatHashMap4/FlatHashMap4.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 129 internal iterations.
+   -> Writing new specs to harness: FlatHashMap4_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/FlatHashMap4/FlatHashMap4_fuzz.cpp'.
+   -> Starting AFL++(FlatHashMap4_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/FlatHashMap4/FlatHashMap4_fuzz
+   -> AFL++(FlatHashMap4_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 34 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'FlatHashMap4'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((len1 <= 1) && (len1 > 0) && (len <= 0) && (containsk1 > 0))
+  inv1: (((((i - len) <= 0) && ((len - N) <= 0) && (N <= 2)) || (((i - len) <= 0) && (N > 2))) && (i <= 1) && (N > 0))
+  erase: (true)
+  inv2: (((len - N) <= 0) && (len > 0) && (((len + len + i) - flag) > 1) && (((len + len + i) - flag) <= 2) && (N > 0) && (N <= 1))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var i_old Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var ret Int)
+(declare-var ret1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel erase (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+
+
+(rule (=> (and (= k 1) (= v 1) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 3) (= v 3) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= len 0) (= flag 1) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (> N 0) (= i 0)  (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len ) (is_valid flag) (not (< i N)) (= i1 0) (= flag 0) (= ret1 MAX)) (inv2 i1 N len  flag ret1)))
+(rule (=> (and (inv2 i N len flag ret) (< i N) (is_valid flag) (= flag 1) (= k i) (erase k len flag len1 ret1) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len1 flag1 ret1)))
+(rule (=> (and (inv2 i N len flag ret) (< i N) (is_valid flag) (= flag 0) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len flag1 ret)))
+(rule (=> (and (inv2 i N len flag ret) (is_valid flag) (not (< i N)) (not (=> (= flag 0) (= ret (- N 1))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 4
+Total Unique Test Cases Found: 5
+Total Internal Iterations: 325
+  - Min: 6
+  - Max: 129
+  - Avg: 81.25
+pipeline.run() took 0.2057 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualLLMHornICE FlatHashMap4
+PID: 607031
+========================================
+

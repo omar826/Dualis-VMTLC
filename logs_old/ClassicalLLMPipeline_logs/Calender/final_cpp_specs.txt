@@ -1,0 +1,3 @@
+insert
+(placeholder for declaration)
+(len1 == len + 1 && maxDiff1 == (maxDiff > (ev1 - ev2 >= 0 ? ev1 - ev2 : -(ev1 - ev2)) ? maxDiff : (ev1 - ev2 >= 0 ? ev1 - ev2 : -(ev1 - ev2))))

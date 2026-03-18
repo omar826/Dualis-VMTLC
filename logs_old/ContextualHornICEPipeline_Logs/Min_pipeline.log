@@ -1,0 +1,719 @@
+
+========================================
+         Starting Pipeline for: Min (Mode: ContextualHornICE)
+========================================
+Initializing pipeline for benchmark: 'Min'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/Min/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 10 internal iterations.
+   -> Writing new specs to harness: Min_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz.cpp'.
+   -> Starting AFL++(Min_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz
+   -> ERROR: AFL++(Min_fuzz) failed with exit code 1.
+      AFL++ Error Output:
+[1;92m[+] [0mEnabled environment variable AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_NO_UI with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_CMPLOG_ONLY_NEW with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_DEBUG_CHILD with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_IGNORE_PROBLEMS with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_SKIP_CPUFREQ with value 1[0m
+[1;94m[*] [0mSpinning up the fork server...[0m
+[1;92m[+] [0mAll right - new fork server model v1 is up.[0m
+[1;94m[*] [0mTarget map size: 291[0m
+Min_fuzz: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz.cpp:54: int main(int, char **): Assertion `expr_append' failed.
+
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:2push
+Checking hangs
+   -> Converting counterexamples for 'Min'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv: (((lmin - gmin) > (-1)) && ((lmin - gmin) <= 0))
+  append: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmin Int)
+(declare-var lmin1 Int)
+(declare-var gmin Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= v 1) (= lmin 128) (= lmin1 1)) (append v lmin lmin1)))
+
+(rule (=> (and (= lmin MAX) (= gmin MAX)) (inv lmin gmin)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (> gmin v)) (inv lmin1 v)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (not (> gmin v))) (inv lmin1 gmin)))
+(rule (=> (and (inv lmin gmin) (not (= gmin lmin))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 22 internal iterations.
+   -> Writing new specs to harness: Min_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz.cpp'.
+   -> Starting AFL++(Min_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz
+   -> ERROR: AFL++(Min_fuzz) failed with exit code 1.
+      AFL++ Error Output:
+[1;92m[+] [0mEnabled environment variable AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_NO_UI with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_CMPLOG_ONLY_NEW with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_DEBUG_CHILD with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_IGNORE_PROBLEMS with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_SKIP_CPUFREQ with value 1[0m
+[1;94m[*] [0mSpinning up the fork server...[0m
+[1;92m[+] [0mAll right - new fork server model v1 is up.[0m
+[1;94m[*] [0mTarget map size: 295[0m
+Min_fuzz: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz.cpp:54: int main(int, char **): Assertion `expr_append' failed.
+
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:2push
+Checking hangs
+   -> Converting counterexamples for 'Min'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: ((lmin > 0) && ((v - lmin1) > (-1)) && (lmin1 > 0) && (v <= 1))
+  inv: (((lmin - gmin) <= 0) && ((lmin - gmin) > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmin Int)
+(declare-var lmin1 Int)
+(declare-var gmin Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= v -1) (= lmin 1) (= lmin1 -1)) (append v lmin lmin1)))
+
+(rule (=> (and (= v 1) (= lmin 128) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= lmin MAX) (= gmin MAX)) (inv lmin gmin)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (> gmin v)) (inv lmin1 v)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (not (> gmin v))) (inv lmin1 gmin)))
+(rule (=> (and (inv lmin gmin) (not (= gmin lmin))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 22 internal iterations.
+   -> Writing new specs to harness: Min_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz.cpp'.
+   -> Starting AFL++(Min_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz
+   -> ERROR: AFL++(Min_fuzz) failed with exit code 1.
+      AFL++ Error Output:
+[1;92m[+] [0mEnabled environment variable AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_NO_UI with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_CMPLOG_ONLY_NEW with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_DEBUG_CHILD with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_IGNORE_PROBLEMS with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_SKIP_CPUFREQ with value 1[0m
+[1;94m[*] [0mSpinning up the fork server...[0m
+[1;92m[+] [0mAll right - new fork server model v1 is up.[0m
+[1;94m[*] [0mTarget map size: 299[0m
+Min_fuzz: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz.cpp:54: int main(int, char **): Assertion `expr_append' failed.
+
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:2push
+Checking hangs
+   -> Converting counterexamples for 'Min'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: (((((lmin - v) + lmin1) > 0) && (((v + lmin) - lmin1) > 0) && (lmin > 0) && (lmin <= 1) && (lmin1 <= (-1))) || ((((lmin1 - v) + lmin1) > 0) && (v > 0) && (((lmin - v) - lmin1) > 1) && (lmin1 > 0) && (lmin1 <= 1) && (lmin1 > (-1))))
+  inv: (((lmin - gmin) <= 0) && ((lmin - gmin) > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmin Int)
+(declare-var lmin1 Int)
+(declare-var gmin Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= v 0) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+
+(rule (=> (and (= v -1) (= lmin 1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin 128) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= lmin MAX) (= gmin MAX)) (inv lmin gmin)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (> gmin v)) (inv lmin1 v)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (not (> gmin v))) (inv lmin1 gmin)))
+(rule (=> (and (inv lmin gmin) (not (= gmin lmin))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 23 internal iterations.
+   -> Writing new specs to harness: Min_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz.cpp'.
+   -> Starting AFL++(Min_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz
+   -> AFL++(Min_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:2279,execs:44,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:259,execs:22,op:quick,pos:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:18331,execs:189,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:129,execs:18,op:(null),pos:0
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:560,execs:24,op:havoc,rep:3
+Checking queue
+   -> Found 6 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:2,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Min'...
+      -> Found and validated 4 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: (((((v - lmin) <= (-1)) && ((v - lmin1) > (-1)) && ((v - lmin1) <= 0)) || (((v - lmin) <= 1) && ((v - lmin) > 0) && ((v - lmin1) <= 1) && ((v - lmin1) > 0))) && (v <= 1))
+  inv: (((lmin - gmin) <= 0) && ((lmin - gmin) > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmin Int)
+(declare-var lmin1 Int)
+(declare-var gmin Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= v 1) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin -86) (= lmin1 -86)) (append v lmin lmin1)))
+(rule (=> (and (= v 2) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v -48) (= lmin -48) (= lmin1 -48)) (append v lmin lmin1)))
+
+(rule (=> (and (= v 0) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin 1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin 128) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= lmin MAX) (= gmin MAX)) (inv lmin gmin)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (> gmin v)) (inv lmin1 v)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (not (> gmin v))) (inv lmin1 gmin)))
+(rule (=> (and (inv lmin gmin) (not (= gmin lmin))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_5.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_5.log
+      -> Found 27 internal iterations.
+   -> Writing new specs to harness: Min_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz.cpp'.
+   -> Starting AFL++(Min_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz
+   -> AFL++(Min_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:209,execs:18,op:(null),pos:0
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:29398,execs:711,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:1448,execs:47,op:flip1,pos:3
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:23139,execs:459,op:havoc,rep:2
+Checking queue
+   -> Found 33 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:2,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Min'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: ((((((v - lmin) <= 0) && ((v - lmin1) > (-1)) && ((v - lmin1) <= 0)) || (((lmin - lmin1) > (-1)) && ((lmin - lmin1) <= 0) && ((v - lmin1) > 0))) && (v <= 1)) || ((((lmin - v) + lmin1) <= 0) && (lmin1 > 0) && ((v - lmin) <= 1) && (lmin <= 1) && (v > 1)))
+  inv: (((lmin - gmin) <= 0) && ((lmin - gmin) > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmin Int)
+(declare-var lmin1 Int)
+(declare-var gmin Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= v 7) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 127) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 8) (= lmin -64) (= lmin1 -64)) (append v lmin lmin1)))
+
+(rule (=> (and (= v 1) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin -86) (= lmin1 -86)) (append v lmin lmin1)))
+(rule (=> (and (= v 2) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v -48) (= lmin -48) (= lmin1 -48)) (append v lmin lmin1)))
+(rule (=> (and (= v 0) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin 1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin 128) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= lmin MAX) (= gmin MAX)) (inv lmin gmin)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (> gmin v)) (inv lmin1 v)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (not (> gmin v))) (inv lmin1 gmin)))
+(rule (=> (and (inv lmin gmin) (not (= gmin lmin))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 6 ====================
+TIMEOUT : 120
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_6.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_6.log
+      -> Found 25 internal iterations.
+   -> Writing new specs to harness: Min_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz.cpp'.
+   -> Starting AFL++(Min_fuzz) with a 120-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz
+   -> AFL++(Min_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:6508,execs:100,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:14248,execs:192,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:573,execs:23,op:quick,pos:3
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:11016,execs:167,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:178,execs:18,op:(null),pos:0
+Checking queue
+   -> Found 23 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:2,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Min'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: ((((((v - lmin) > (-1)) && ((lmin - lmin1) > (-1)) && ((lmin - lmin1) <= 0)) || ((((lmin - v) + lmin1) > 0) && (((v + lmin) - lmin1) > 0) && ((lmin - lmin1) > 1) && ((lmin - lmin1) > 0))) && (lmin <= 1)) || ((lmin1 > 0) && ((v - lmin1) > (-1)) && (v <= 1) && (lmin > 1)))
+  inv: (((lmin - gmin) <= 0) && ((lmin - gmin) > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmin Int)
+(declare-var lmin1 Int)
+(declare-var gmin Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= v 127) (= lmin 128) (= lmin1 127)) (append v lmin lmin1)))
+(rule (=> (and (= v -17) (= lmin -1) (= lmin1 -17)) (append v lmin lmin1)))
+(rule (=> (and (= v 0) (= lmin 1) (= lmin1 0)) (append v lmin lmin1)))
+
+(rule (=> (and (= v 7) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 127) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 8) (= lmin -64) (= lmin1 -64)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin -86) (= lmin1 -86)) (append v lmin lmin1)))
+(rule (=> (and (= v 2) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v -48) (= lmin -48) (= lmin1 -48)) (append v lmin lmin1)))
+(rule (=> (and (= v 0) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin 1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin 128) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= lmin MAX) (= gmin MAX)) (inv lmin gmin)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (> gmin v)) (inv lmin1 v)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (not (> gmin v))) (inv lmin1 gmin)))
+(rule (=> (and (inv lmin gmin) (not (= gmin lmin))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 7 ====================
+TIMEOUT : 140
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_7.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_7.log
+      -> Found 27 internal iterations.
+   -> Writing new specs to harness: Min_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz.cpp'.
+   -> Starting AFL++(Min_fuzz) with a 140-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz
+   -> AFL++(Min_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:7906,execs:1044,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:13983,execs:1639,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:569,execs:377,op:arith16,pos:2,val:be:+3
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:2852,execs:668,op:havoc,rep:2
+Checking queue
+   -> Found 38 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:2,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Min'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: ((((((v - lmin) > (-1)) && ((lmin - lmin1) > (-1)) && ((lmin - lmin1) <= 0)) || (((v - lmin1) > (-1)) && ((v - lmin1) <= 0) && ((lmin - lmin1) > 0))) && (((lmin - v) + lmin1) <= 0)) || (((v - lmin) <= (-1)) && ((v - lmin1) > (-1)) && ((v - lmin1) <= 0) && (((lmin - v) + lmin1) > 0)))
+  inv: (((lmin - gmin) <= 0) && ((lmin - gmin) > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmin Int)
+(declare-var lmin1 Int)
+(declare-var gmin Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= v 1) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 2) (= lmin 2) (= lmin1 2)) (append v lmin lmin1)))
+
+(rule (=> (and (= v 127) (= lmin 128) (= lmin1 127)) (append v lmin lmin1)))
+(rule (=> (and (= v -17) (= lmin -1) (= lmin1 -17)) (append v lmin lmin1)))
+(rule (=> (and (= v 0) (= lmin 1) (= lmin1 0)) (append v lmin lmin1)))
+(rule (=> (and (= v 7) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 127) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 8) (= lmin -64) (= lmin1 -64)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin -86) (= lmin1 -86)) (append v lmin lmin1)))
+(rule (=> (and (= v 2) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v -48) (= lmin -48) (= lmin1 -48)) (append v lmin lmin1)))
+(rule (=> (and (= v 0) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin 1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin 128) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= lmin MAX) (= gmin MAX)) (inv lmin gmin)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (> gmin v)) (inv lmin1 v)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (not (> gmin v))) (inv lmin1 gmin)))
+(rule (=> (and (inv lmin gmin) (not (= gmin lmin))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 8 ====================
+TIMEOUT : 160
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_8.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_8.log
+      -> Found 22 internal iterations.
+   -> Writing new specs to harness: Min_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz.cpp'.
+   -> Starting AFL++(Min_fuzz) with a 160-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz
+   -> AFL++(Min_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:5643,execs:3807,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000024,time:103608,execs:54520,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:9176,execs:6001,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:589,execs:386,op:arith16,pos:2,val:be:+4
+Checking queue
+   -> Found 42 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:2,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Min'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: ((((((v - lmin) > (-1)) && ((lmin - lmin1) > (-1)) && ((lmin - lmin1) <= 0)) || (((v - lmin1) > (-1)) && ((v - lmin1) <= 0) && ((lmin - lmin1) > 0))) && (((lmin - v) + lmin1) <= 0)) || (((v - lmin) <= 0) && ((v - lmin1) > (-1)) && ((v - lmin1) <= 0) && (((lmin - v) + lmin1) > 0)))
+  inv: (((lmin - gmin) <= 0) && ((lmin - gmin) > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmin Int)
+(declare-var lmin1 Int)
+(declare-var gmin Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= v 24) (= lmin 16) (= lmin1 16)) (append v lmin lmin1)))
+(rule (=> (and (= v 3) (= lmin 2) (= lmin1 2)) (append v lmin lmin1)))
+(rule (=> (and (= v 24) (= lmin 18) (= lmin1 18)) (append v lmin lmin1)))
+
+(rule (=> (and (= v 1) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 2) (= lmin 2) (= lmin1 2)) (append v lmin lmin1)))
+(rule (=> (and (= v 127) (= lmin 128) (= lmin1 127)) (append v lmin lmin1)))
+(rule (=> (and (= v -17) (= lmin -1) (= lmin1 -17)) (append v lmin lmin1)))
+(rule (=> (and (= v 0) (= lmin 1) (= lmin1 0)) (append v lmin lmin1)))
+(rule (=> (and (= v 7) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 127) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 8) (= lmin -64) (= lmin1 -64)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin -86) (= lmin1 -86)) (append v lmin lmin1)))
+(rule (=> (and (= v 2) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v -48) (= lmin -48) (= lmin1 -48)) (append v lmin lmin1)))
+(rule (=> (and (= v 0) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin 1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin 128) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= lmin MAX) (= gmin MAX)) (inv lmin gmin)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (> gmin v)) (inv lmin1 v)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (not (> gmin v))) (inv lmin1 gmin)))
+(rule (=> (and (inv lmin gmin) (not (= gmin lmin))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 9 ====================
+TIMEOUT : 180
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_9.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_9.log
+      -> Found 20 internal iterations.
+   -> Writing new specs to harness: Min_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz.cpp'.
+   -> Starting AFL++(Min_fuzz) with a 180-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz
+   -> AFL++(Min_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 43 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:3,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Min'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: (((((v - lmin) <= 0) && ((v - lmin1) <= 0)) || (((lmin - lmin1) > (-1)) && ((lmin - lmin1) <= 0) && ((v - lmin1) > 0))) && ((v - lmin1) > (-1)))
+  inv: (((lmin - gmin) <= 0) && ((lmin - gmin) > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmin Int)
+(declare-var lmin1 Int)
+(declare-var gmin Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+
+(rule (=> (and (= v 24) (= lmin 16) (= lmin1 16)) (append v lmin lmin1)))
+(rule (=> (and (= v 3) (= lmin 2) (= lmin1 2)) (append v lmin lmin1)))
+(rule (=> (and (= v 24) (= lmin 18) (= lmin1 18)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 2) (= lmin 2) (= lmin1 2)) (append v lmin lmin1)))
+(rule (=> (and (= v 127) (= lmin 128) (= lmin1 127)) (append v lmin lmin1)))
+(rule (=> (and (= v -17) (= lmin -1) (= lmin1 -17)) (append v lmin lmin1)))
+(rule (=> (and (= v 0) (= lmin 1) (= lmin1 0)) (append v lmin lmin1)))
+(rule (=> (and (= v 7) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 127) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 8) (= lmin -64) (= lmin1 -64)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin -86) (= lmin1 -86)) (append v lmin lmin1)))
+(rule (=> (and (= v 2) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v -48) (= lmin -48) (= lmin1 -48)) (append v lmin lmin1)))
+(rule (=> (and (= v 0) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin 1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin 128) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= lmin MAX) (= gmin MAX)) (inv lmin gmin)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (> gmin v)) (inv lmin1 v)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (not (> gmin v))) (inv lmin1 gmin)))
+(rule (=> (and (inv lmin gmin) (not (= gmin lmin))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 10 ====================
+TIMEOUT : 200
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_10.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_10.log
+      -> Found 20 internal iterations.
+   -> Writing new specs to harness: Min_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz.cpp'.
+   -> Starting AFL++(Min_fuzz) with a 200-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Min/Min_fuzz
+   -> AFL++(Min_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 42 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:1,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Min'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: (((((v - lmin) <= 0) && ((v - lmin1) <= 0)) || (((lmin - lmin1) > (-1)) && ((lmin - lmin1) <= 0) && ((v - lmin1) > 0))) && ((v - lmin1) > (-1)))
+  inv: (((lmin - gmin) <= 0) && ((lmin - gmin) > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmin Int)
+(declare-var lmin1 Int)
+(declare-var gmin Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+
+(rule (=> (and (= v 24) (= lmin 16) (= lmin1 16)) (append v lmin lmin1)))
+(rule (=> (and (= v 3) (= lmin 2) (= lmin1 2)) (append v lmin lmin1)))
+(rule (=> (and (= v 24) (= lmin 18) (= lmin1 18)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 2) (= lmin 2) (= lmin1 2)) (append v lmin lmin1)))
+(rule (=> (and (= v 127) (= lmin 128) (= lmin1 127)) (append v lmin lmin1)))
+(rule (=> (and (= v -17) (= lmin -1) (= lmin1 -17)) (append v lmin lmin1)))
+(rule (=> (and (= v 0) (= lmin 1) (= lmin1 0)) (append v lmin lmin1)))
+(rule (=> (and (= v 7) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 127) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v 8) (= lmin -64) (= lmin1 -64)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin -86) (= lmin1 -86)) (append v lmin lmin1)))
+(rule (=> (and (= v 2) (= lmin 1) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= v -48) (= lmin -48) (= lmin1 -48)) (append v lmin lmin1)))
+(rule (=> (and (= v 0) (= lmin -1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v -1) (= lmin 1) (= lmin1 -1)) (append v lmin lmin1)))
+(rule (=> (and (= v 1) (= lmin 128) (= lmin1 1)) (append v lmin lmin1)))
+(rule (=> (and (= lmin MAX) (= gmin MAX)) (inv lmin gmin)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (> gmin v)) (inv lmin1 v)))
+(rule (=> (and (inv lmin gmin) (append v lmin lmin1) (not (> gmin v))) (inv lmin1 gmin)))
+(rule (=> (and (inv lmin gmin) (not (= gmin lmin))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 10
+Total Unique Test Cases Found: 18
+Total Internal Iterations: 218
+  - Min: 10
+  - Max: 27
+  - Avg: 21.80
+pipeline.run() took 0.3052 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualHornICE Min
+PID: 607033
+========================================
+

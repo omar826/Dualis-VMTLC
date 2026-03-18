@@ -1,0 +1,255 @@
+
+========================================
+         Starting Pipeline for: BinaryTree (Mode: ContextualCVC5)
+========================================
+Initializing pipeline for benchmark: 'BinaryTree'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/BinaryTree/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+Total External Iterations: 0
+Total Unique Test Cases Found: 0
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryTree/BinaryTree.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_1.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: BinaryTree_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryTree/BinaryTree_fuzz.cpp'.
+   -> Starting AFL++(BinaryTree_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryTree/BinaryTree_fuzz
+   -> AFL++(BinaryTree_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 6 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:246,execs:412,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000005,time:2456,execs:10167,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:237,execs:190,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000005,time:2460,execs:10287,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000005,time:2465,execs:10395,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:1753,execs:4202,op:havoc,rep:2
+Checking queue
+   -> Found 41 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'BinaryTree'...
+       -> Found and validated 17 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv: ((isEmpty + isEmpty) <= min)
+  insert: ((isEmpty1 + isEmpty1) <= min1)
+  search: (!(min == min))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun inv ((min Int) (isEmpty Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr)(- Expr Expr) min isEmpty ))))
+(synth-fun insert ((n Int) (min Int) (min1 Int) (isEmpty Int) (isEmpty1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start))) (Expr Int ((+ Expr Expr)(- Expr Expr) n min isEmpty min1 isEmpty1))))
+(synth-fun search ((v Int) (min Int) (isEmpty Int) (ret1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start))) (Expr Int ((+ Expr Expr)(- Expr Expr) v min isEmpty ret1))))
+
+(declare-var isEmpty Int)
+(declare-var isEmpty1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var n Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(constraint (search (- 2) 2 0 0))
+(constraint (search (- 1) 8 0 0))
+(constraint (search (- 128) 255 1 0))
+(constraint (search (- 1) 1 0 0))
+(constraint (search (- 4) 1 0 0))
+(constraint (search (- 124) 0 0 0))
+(constraint (search (- 124) 2 0 0))
+(constraint (search (- 2) 255 1 0))
+(constraint (search (- 23) 2 0 0))
+(constraint (insert 0 255 0 1 0))
+(constraint (insert 0 39 0 0 0))
+(constraint (insert 100 100 100 0 0))
+(constraint (insert 0 0 0 0 0))
+(constraint (insert 2 2 2 0 0))
+(constraint (search (- 1) 255 1 0))
+(constraint (search (- 2) 1 0 0))
+(constraint (search (- 16) 0 0 0))
+
+(constraint (=> (and (= isEmpty 1) (= min MAX)) (inv min isEmpty)))
+(constraint (=> (and (inv min isEmpty) (>= n 0) (insert n min min1 isEmpty isEmpty1))(inv min1 isEmpty1)))
+(constraint (=> (and (inv min isEmpty) (< n 0)) (inv min isEmpty)))
+(constraint (=> (and (inv min isEmpty) (< v 0) (search v min isEmpty ret1))(= ret1 0)))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryTree/BinaryTree.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_2.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: BinaryTree_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryTree/BinaryTree_fuzz.cpp'.
+   -> Starting AFL++(BinaryTree_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryTree/BinaryTree_fuzz
+   -> AFL++(BinaryTree_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 50 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'BinaryTree'...
+       -> Found and validated 17 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv: (isEmpty <= isEmpty)
+  insert: ((isEmpty1 + isEmpty1) <= isEmpty1)
+  search: ((ret1 + min) == min)
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun inv ((min Int) (isEmpty Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr)(- Expr Expr) min isEmpty ))))
+(synth-fun insert ((n Int) (min Int) (min1 Int) (isEmpty Int) (isEmpty1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start))) (Expr Int ((+ Expr Expr)(- Expr Expr) n min isEmpty min1 isEmpty1))))
+(synth-fun search ((v Int) (min Int) (isEmpty Int) (ret1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start))) (Expr Int ((+ Expr Expr)(- Expr Expr) v min isEmpty ret1))))
+
+(declare-var isEmpty Int)
+(declare-var isEmpty1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var n Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+
+(constraint (search (- 2) 2 0 0))
+(constraint (search (- 1) 8 0 0))
+(constraint (search (- 128) 255 1 0))
+(constraint (search (- 1) 1 0 0))
+(constraint (search (- 4) 1 0 0))
+(constraint (search (- 124) 0 0 0))
+(constraint (search (- 124) 2 0 0))
+(constraint (search (- 2) 255 1 0))
+(constraint (search (- 23) 2 0 0))
+(constraint (insert 0 255 0 1 0))
+(constraint (insert 0 39 0 0 0))
+(constraint (insert 100 100 100 0 0))
+(constraint (insert 0 0 0 0 0))
+(constraint (insert 2 2 2 0 0))
+(constraint (search (- 1) 255 1 0))
+(constraint (search (- 2) 1 0 0))
+(constraint (search (- 16) 0 0 0))
+(constraint (=> (and (= isEmpty 1) (= min MAX)) (inv min isEmpty)))
+(constraint (=> (and (inv min isEmpty) (>= n 0) (insert n min min1 isEmpty isEmpty1))(inv min1 isEmpty1)))
+(constraint (=> (and (inv min isEmpty) (< n 0)) (inv min isEmpty)))
+(constraint (=> (and (inv min isEmpty) (< v 0) (search v min isEmpty ret1))(= ret1 0)))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryTree/BinaryTree.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_3.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: BinaryTree_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryTree/BinaryTree_fuzz.cpp'.
+   -> Starting AFL++(BinaryTree_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryTree/BinaryTree_fuzz
+   -> AFL++(BinaryTree_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 55 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'BinaryTree'...
+       -> Found and validated 17 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv: (isEmpty <= isEmpty)
+  insert: ((isEmpty1 + isEmpty1) <= isEmpty1)
+  search: ((ret1 + min) == min)
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun inv ((min Int) (isEmpty Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr)(- Expr Expr) min isEmpty ))))
+(synth-fun insert ((n Int) (min Int) (min1 Int) (isEmpty Int) (isEmpty1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start))) (Expr Int ((+ Expr Expr)(- Expr Expr) n min isEmpty min1 isEmpty1))))
+(synth-fun search ((v Int) (min Int) (isEmpty Int) (ret1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start))) (Expr Int ((+ Expr Expr)(- Expr Expr) v min isEmpty ret1))))
+
+(declare-var isEmpty Int)
+(declare-var isEmpty1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var n Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+
+(constraint (search (- 2) 2 0 0))
+(constraint (search (- 1) 8 0 0))
+(constraint (search (- 128) 255 1 0))
+(constraint (search (- 1) 1 0 0))
+(constraint (search (- 4) 1 0 0))
+(constraint (search (- 124) 0 0 0))
+(constraint (search (- 124) 2 0 0))
+(constraint (search (- 2) 255 1 0))
+(constraint (search (- 23) 2 0 0))
+(constraint (insert 0 255 0 1 0))
+(constraint (insert 0 39 0 0 0))
+(constraint (insert 100 100 100 0 0))
+(constraint (insert 0 0 0 0 0))
+(constraint (insert 2 2 2 0 0))
+(constraint (search (- 1) 255 1 0))
+(constraint (search (- 2) 1 0 0))
+(constraint (search (- 16) 0 0 0))
+(constraint (=> (and (= isEmpty 1) (= min MAX)) (inv min isEmpty)))
+(constraint (=> (and (inv min isEmpty) (>= n 0) (insert n min min1 isEmpty isEmpty1))(inv min1 isEmpty1)))
+(constraint (=> (and (inv min isEmpty) (< n 0)) (inv min isEmpty)))
+(constraint (=> (and (inv min isEmpty) (< v 0) (search v min isEmpty ret1))(= ret1 0)))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 3
+Total Unique Test Cases Found: 51
+pipeline.run() took 0.1707 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualCVC5 BinaryTree
+PID: 27
+========================================
+
+
+Total Pipeline Duration: 134.45s

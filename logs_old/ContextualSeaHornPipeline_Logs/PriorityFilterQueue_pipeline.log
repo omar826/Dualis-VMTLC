@@ -1,0 +1,22 @@
+
+========================================
+         Starting Pipeline for: PriorityFilterQueue (Mode: ContextualSeaHorn)
+========================================
+Initializing pipeline for benchmark: 'PriorityFilterQueue'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/PriorityFilterQueue/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Running SeaHorn Baseline ====================
+   -> Copied source file to working directory.
+   -> Starting SeaHorn(PriorityFilterQueue) with a 1000-second timeout...
+   -> SeaHorn(PriorityFilterQueue) completed: UNSAT (Safe).
+   -> Result logged to /Dualis/scripts/../logs/seahorn_baselines.log
+
+====================== Pipeline Finished =====================
+pipeline.run() took 0.0016 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualSeaHorn PriorityFilterQueue
+PID: 23
+========================================
+
+
+Total Pipeline Duration: 0.57s

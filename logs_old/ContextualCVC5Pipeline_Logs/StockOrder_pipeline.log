@@ -1,0 +1,210 @@
+
+========================================
+         Starting Pipeline for: StockOrder (Mode: ContextualCVC5)
+========================================
+Initializing pipeline for benchmark: 'StockOrder'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/StockOrder/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+Total External Iterations: 0
+Total Unique Test Cases Found: 0
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/StockOrder/StockOrder.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_1.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: StockOrder_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/StockOrder/StockOrder_fuzz.cpp'.
+   -> Starting AFL++(StockOrder_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/StockOrder/StockOrder_fuzz
+   -> AFL++(StockOrder_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000015,time:4002,execs:13162,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:265,execs:41,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:530,execs:140,op:havoc,rep:7
+Checking queue
+   -> Found 28 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'StockOrder'...
+       -> Found and validated 6 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  addStockOrder: (len1 == minDiff1)
+  inv: (len <= minDiff)
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun addStockOrder ((stock Int) (order Int) (len Int) (minDiff Int) (len1 Int) (minDiff1 Int)) Bool((Start Bool) (Expr Int))((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start)))(Expr Int (stock order len minDiff len1 minDiff1 (+ Expr Expr) (- Expr Expr)))))
+(synth-fun inv ((len Int) (minDiff Int)) Bool((Start Bool) (Expr Int))((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start)))(Expr Int (len minDiff (+ Expr Expr) (- Expr Expr)))))
+
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var minDiff Int)
+(declare-var minDiff1 Int)
+(declare-var stock Int)
+(declare-var order Int)
+
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(constraint (addStockOrder 82 82 0 1 128 0))
+(constraint (addStockOrder 77 77 0 1 128 0))
+(constraint (addStockOrder 82 2 0 1 128 80))
+(constraint (addStockOrder 82 17 0 1 128 65))
+(constraint (addStockOrder 99 1 1 2 1 1))
+(constraint (addStockOrder 1 1 0 1 128 0))
+
+(constraint (=> (and (= len 0) (= minDiff MAX)) (inv len minDiff)))
+(constraint (=> (and (inv len minDiff) (>= stock 0) (>= order 0) (<= order stock) (addStockOrder stock order len minDiff len1 minDiff1)) (inv len1 minDiff1)))
+(constraint (=> (and (inv len minDiff) (not (and (>= stock 0) (>= order 0) (<= order stock)))) (inv len minDiff)))
+(constraint (=> (inv len minDiff) (=> (>= len 0) (>= minDiff 0))))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/StockOrder/StockOrder.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_2.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: StockOrder_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/StockOrder/StockOrder_fuzz.cpp'.
+   -> Starting AFL++(StockOrder_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/StockOrder/StockOrder_fuzz
+   -> AFL++(StockOrder_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 55 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'StockOrder'...
+       -> Found and validated 6 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  addStockOrder: (len1 <= (minDiff1 + len1))
+  inv: (minDiff <= (minDiff + minDiff))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun addStockOrder ((stock Int) (order Int) (len Int) (minDiff Int) (len1 Int) (minDiff1 Int)) Bool((Start Bool) (Expr Int))((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start)))(Expr Int (stock order len minDiff len1 minDiff1 (+ Expr Expr) (- Expr Expr)))))
+(synth-fun inv ((len Int) (minDiff Int)) Bool((Start Bool) (Expr Int))((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start)))(Expr Int (len minDiff (+ Expr Expr) (- Expr Expr)))))
+
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var minDiff Int)
+(declare-var minDiff1 Int)
+(declare-var stock Int)
+(declare-var order Int)
+
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+
+(constraint (addStockOrder 82 82 0 1 128 0))
+(constraint (addStockOrder 77 77 0 1 128 0))
+(constraint (addStockOrder 82 2 0 1 128 80))
+(constraint (addStockOrder 82 17 0 1 128 65))
+(constraint (addStockOrder 99 1 1 2 1 1))
+(constraint (addStockOrder 1 1 0 1 128 0))
+(constraint (=> (and (= len 0) (= minDiff MAX)) (inv len minDiff)))
+(constraint (=> (and (inv len minDiff) (>= stock 0) (>= order 0) (<= order stock) (addStockOrder stock order len minDiff len1 minDiff1)) (inv len1 minDiff1)))
+(constraint (=> (and (inv len minDiff) (not (and (>= stock 0) (>= order 0) (<= order stock)))) (inv len minDiff)))
+(constraint (=> (inv len minDiff) (=> (>= len 0) (>= minDiff 0))))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/StockOrder/StockOrder.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_3.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: StockOrder_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/StockOrder/StockOrder_fuzz.cpp'.
+   -> Starting AFL++(StockOrder_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/StockOrder/StockOrder_fuzz
+   -> AFL++(StockOrder_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 60 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'StockOrder'...
+       -> Found and validated 6 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  addStockOrder: (len1 <= (minDiff1 + len1))
+  inv: (minDiff <= (minDiff + minDiff))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun addStockOrder ((stock Int) (order Int) (len Int) (minDiff Int) (len1 Int) (minDiff1 Int)) Bool((Start Bool) (Expr Int))((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start)))(Expr Int (stock order len minDiff len1 minDiff1 (+ Expr Expr) (- Expr Expr)))))
+(synth-fun inv ((len Int) (minDiff Int)) Bool((Start Bool) (Expr Int))((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start)))(Expr Int (len minDiff (+ Expr Expr) (- Expr Expr)))))
+
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var minDiff Int)
+(declare-var minDiff1 Int)
+(declare-var stock Int)
+(declare-var order Int)
+
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+
+(constraint (addStockOrder 82 82 0 1 128 0))
+(constraint (addStockOrder 77 77 0 1 128 0))
+(constraint (addStockOrder 82 2 0 1 128 80))
+(constraint (addStockOrder 82 17 0 1 128 65))
+(constraint (addStockOrder 99 1 1 2 1 1))
+(constraint (addStockOrder 1 1 0 1 128 0))
+(constraint (=> (and (= len 0) (= minDiff MAX)) (inv len minDiff)))
+(constraint (=> (and (inv len minDiff) (>= stock 0) (>= order 0) (<= order stock) (addStockOrder stock order len minDiff len1 minDiff1)) (inv len1 minDiff1)))
+(constraint (=> (and (inv len minDiff) (not (and (>= stock 0) (>= order 0) (<= order stock)))) (inv len minDiff)))
+(constraint (=> (inv len minDiff) (=> (>= len 0) (>= minDiff 0))))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 3
+Total Unique Test Cases Found: 18
+pipeline.run() took 0.1768 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualCVC5 StockOrder
+PID: 20
+========================================
+
+
+Total Pipeline Duration: 132.03s

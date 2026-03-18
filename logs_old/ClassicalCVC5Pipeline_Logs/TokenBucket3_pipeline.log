@@ -1,0 +1,125 @@
+
+========================================
+         Starting Pipeline for: TokenBucket3 (Mode: ClassicalCVC5)
+========================================
+Initializing pipeline for benchmark: 'TokenBucket3'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/TokenBucket3/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+Total External Iterations: 0
+Total Unique Test Cases Found: 0
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/TokenBucket3/TokenBucket3.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_1.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: generateTokens_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/TokenBucket3/generateTokens_fuzz.cpp'.
+   -> Starting AFL++(generateTokens_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/TokenBucket3/generateTokens_fuzz
+   -> AFL++(generateTokens_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 39 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'generateTokens'...
+       -> Found and validated 3 new constraints.
+   -> Writing new specs to harness: consume_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/TokenBucket3/consume_fuzz.cpp'.
+   -> Starting AFL++(consume_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/TokenBucket3/consume_fuzz
+   -> AFL++(consume_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:635,execs:52,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:6027,execs:308,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:230,execs:42,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:829,execs:57,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:426,execs:45,op:havoc,rep:3
+Checking queue
+   -> Found 18 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'consume'...
+       -> Found and validated 21 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  generateTokens: (b_size <= avai_tokens1)
+  consume: (avai_tokens <= avai_tokens1)
+  inv1: (c_rate <= avai_tokens)
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun generateTokens ((b_size Int) (avai_tokens1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) b_size avai_tokens1))))
+(synth-fun consume ((c_rate Int) (avai_tokens Int) (avai_tokens1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) c_rate avai_tokens avai_tokens1))))
+(synth-fun inv1 ((avai_tokens Int) (b_size Int) (c_rate Int) (consumed_tokens Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) avai_tokens b_size c_rate consumed_tokens))))
+
+(declare-var b_size Int)
+(declare-var c_rate Int)
+(declare-var avai_tokens Int)
+(declare-var avai_tokens1 Int)
+(declare-var consumed_tokens Int)
+(declare-var consumed_tokens1 Int)
+(declare-var token_counter Int)
+
+(constraint (generateTokens 255 255))
+(constraint (generateTokens 2 2))
+(constraint (generateTokens 0 0))
+(constraint (consume 189 189 0))
+(constraint (consume 76 76 0))
+(constraint (consume 18 255 237))
+(constraint (consume 16 16 0))
+(constraint (consume 6 233 227))
+(constraint (consume 2 255 253))
+(constraint (consume 213 0 0))
+(constraint (consume 2 0 0))
+(constraint (consume 0 14 14))
+(constraint (consume 103 15 15))
+(constraint (consume 0 250 250))
+(constraint (consume 2 240 238))
+(constraint (consume 132 236 104))
+(constraint (consume 253 253 0))
+(constraint (consume 11 43 32))
+(constraint (consume 27 253 226))
+(constraint (consume 255 255 0))
+(constraint (consume 132 255 123))
+(constraint (consume 151 254 103))
+(constraint (consume 10 255 245))
+(constraint (consume 22 255 233))
+
+(constraint (=> (and (> b_size 0) (> c_rate 0) (>= b_size c_rate) (= consumed_tokens1 0) (generateTokens b_size avai_tokens1)) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
+(constraint (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens) (>= avai_tokens c_rate) (consume c_rate avai_tokens avai_tokens1) (= consumed_tokens1 (+ consumed_tokens c_rate))) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
+(constraint (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens) (not (>= avai_tokens c_rate))) (<= consumed_tokens b_size)))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/TokenBucket3/TokenBucket3.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_2.log
+   -> ERROR: CVC5 timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 2
+Total Unique Test Cases Found: 24
+pipeline.run() took 0.0343 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalCVC5 TokenBucket3
+PID: 20
+========================================
+
+
+Total Pipeline Duration: 1044.57s

@@ -1,0 +1,214 @@
+
+========================================
+         Starting Pipeline for: BinaryTree (Mode: ContextualLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'BinaryTree'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/BinaryTree/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryTree/BinaryTree.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: BinaryTree_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryTree/BinaryTree_fuzz.cpp'.
+   -> Starting AFL++(BinaryTree_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryTree/BinaryTree_fuzz
+   -> AFL++(BinaryTree_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:1086,execs:384,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:175,execs:202,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:2000,execs:474,op:havoc,rep:4
+Checking queue
+   -> Found 7 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'BinaryTree'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv: (true)
+  insert: (false)
+  search: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var isEmpty Int)
+(declare-var isEmpty1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var n Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int))
+(declare-rel search (Int Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= v -1) (= min 255) (= isEmpty 1) (= ret1 0)) (search v min isEmpty ret1)))
+(rule (=> (and (= n 1) (= min 255) (= min1 1) (= isEmpty 1) (= isEmpty1 0)) (insert n min min1 isEmpty isEmpty1)))
+(rule (=> (and (= n 2) (= min 255) (= min1 2) (= isEmpty 1) (= isEmpty1 0)) (insert n min min1 isEmpty isEmpty1)))
+
+(rule (=> (and (= isEmpty 1) (= min MAX)) (inv min isEmpty)))
+(rule (=> (and (inv min isEmpty) (is_valid isEmpty) (>= n 0) (insert n min min1 isEmpty isEmpty1)) (inv min1 isEmpty1)))
+(rule (=> (and (inv min isEmpty) (is_valid isEmpty) (< n 0)) (inv min isEmpty)))
+(rule (=> (and (inv min isEmpty) (is_valid isEmpty) (< v 0) (search v min isEmpty ret1) (not (= ret1 0))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryTree/BinaryTree.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 25 internal iterations.
+   -> Writing new specs to harness: BinaryTree_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryTree/BinaryTree_fuzz.cpp'.
+   -> Starting AFL++(BinaryTree_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryTree/BinaryTree_fuzz
+   -> AFL++(BinaryTree_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 53 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'BinaryTree'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  search: ((ret1 > (-1)) && (ret1 <= 0))
+  insert: (true)
+  inv: (true)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var isEmpty Int)
+(declare-var isEmpty1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var n Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int))
+(declare-rel search (Int Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+
+(rule (=> (and (= v -1) (= min 255) (= isEmpty 1) (= ret1 0)) (search v min isEmpty ret1)))
+(rule (=> (and (= n 1) (= min 255) (= min1 1) (= isEmpty 1) (= isEmpty1 0)) (insert n min min1 isEmpty isEmpty1)))
+(rule (=> (and (= n 2) (= min 255) (= min1 2) (= isEmpty 1) (= isEmpty1 0)) (insert n min min1 isEmpty isEmpty1)))
+(rule (=> (and (= isEmpty 1) (= min MAX)) (inv min isEmpty)))
+(rule (=> (and (inv min isEmpty) (is_valid isEmpty) (>= n 0) (insert n min min1 isEmpty isEmpty1)) (inv min1 isEmpty1)))
+(rule (=> (and (inv min isEmpty) (is_valid isEmpty) (< n 0)) (inv min isEmpty)))
+(rule (=> (and (inv min isEmpty) (is_valid isEmpty) (< v 0) (search v min isEmpty ret1) (not (= ret1 0))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryTree/BinaryTree.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 25 internal iterations.
+   -> Writing new specs to harness: BinaryTree_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryTree/BinaryTree_fuzz.cpp'.
+   -> Starting AFL++(BinaryTree_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryTree/BinaryTree_fuzz
+   -> AFL++(BinaryTree_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 51 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'BinaryTree'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  search: ((ret1 > (-1)) && (ret1 <= 0))
+  insert: (true)
+  inv: (true)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var isEmpty Int)
+(declare-var isEmpty1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var n Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int))
+(declare-rel search (Int Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+
+(rule (=> (and (= v -1) (= min 255) (= isEmpty 1) (= ret1 0)) (search v min isEmpty ret1)))
+(rule (=> (and (= n 1) (= min 255) (= min1 1) (= isEmpty 1) (= isEmpty1 0)) (insert n min min1 isEmpty isEmpty1)))
+(rule (=> (and (= n 2) (= min 255) (= min1 2) (= isEmpty 1) (= isEmpty1 0)) (insert n min min1 isEmpty isEmpty1)))
+(rule (=> (and (= isEmpty 1) (= min MAX)) (inv min isEmpty)))
+(rule (=> (and (inv min isEmpty) (is_valid isEmpty) (>= n 0) (insert n min min1 isEmpty isEmpty1)) (inv min1 isEmpty1)))
+(rule (=> (and (inv min isEmpty) (is_valid isEmpty) (< n 0)) (inv min isEmpty)))
+(rule (=> (and (inv min isEmpty) (is_valid isEmpty) (< v 0) (search v min isEmpty ret1) (not (= ret1 0))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 3
+Total Unique Test Cases Found: 3
+Total Internal Iterations: 53
+  - Min: 3
+  - Max: 25
+  - Avg: 17.67
+pipeline.run() took 0.0512 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualLLMHornICE BinaryTree
+PID: 607030
+========================================
+

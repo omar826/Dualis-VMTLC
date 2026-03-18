@@ -1,0 +1,196 @@
+
+========================================
+         Starting Pipeline for: RedBlackTree (Mode: ClassicalCVC5)
+========================================
+Initializing pipeline for benchmark: 'RedBlackTree'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/RedBlackTree/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+Total External Iterations: 0
+Total Unique Test Cases Found: 0
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/RedBlackTree/RedBlackTree.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_1.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/RedBlackTree/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/RedBlackTree/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 10 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1155,execs:44,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:433,execs:34,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:626,execs:36,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:1736,execs:49,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:3977,execs:87,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:810,execs:39,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000000,time:8221,execs:159,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:224,execs:33,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:4380,execs:93,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:975,execs:40,op:havoc,rep:3
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+       -> Found and validated 32 new constraints.
+   -> Writing new specs to harness: search_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/RedBlackTree/search_fuzz.cpp'.
+   -> Starting AFL++(search_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/RedBlackTree/search_fuzz
+   -> AFL++(search_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 14 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000000,time:9689,execs:421,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000000,time:11854,execs:485,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:427,execs:34,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1617,execs:78,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:3605,execs:174,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:8685,execs:376,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:230,execs:33,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:815,execs:52,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:3408,execs:173,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000011,sig:06,src:000000,time:12232,execs:502,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000012,sig:06,src:000000,time:16119,execs:591,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1411,execs:69,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:626,execs:41,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000013,sig:06,src:000000,time:18925,execs:677,op:havoc,rep:2
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'search'...
+       -> Found and validated 33 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (!(len == len))
+  search: (!(ret1 == ret1))
+  inv: ((max + i) <= noDup)
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun insert ((i Int) (max Int) (max1 Int) (min Int) (min1 Int) (len Int) (len1 Int) (noDup Int) (noDup1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) i max max1 min min1 len len1 noDup noDup1))))
+(synth-fun search ((data Int) (max Int) (min Int) (len Int) (noDup Int) (ret1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) data max min len noDup ret1))))
+(synth-fun inv ((i Int) (max Int) (min Int) (len Int) (noDup Int) (N Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) i max min len noDup N))))
+
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var N Int)
+(declare-var noDup Int)
+(declare-var noDup1 Int)
+(declare-var data Int)
+(declare-var ret1 Int)
+
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(constraint (insert 1 75 75 26 1 3 4 1 1))
+(constraint (insert 96 96 96 (- 1) (- 1) 3 4 0 0))
+(constraint (insert (- 15) 15 15 7 (- 15) 3 4 0 0))
+(constraint (insert (- 54) (- 20) (- 20) (- 20) (- 54) 1 2 1 1))
+(constraint (insert 0 (- 130) 0 128 0 0 1 1 1))
+(constraint (insert (- 36) (- 35) (- 35) (- 37) (- 37) 12 13 0 0))
+(constraint (insert (- 16) (- 8) (- 8) (- 8) (- 16) 1 2 1 1))
+(constraint (insert 1 32 32 (- 59) (- 59) 16 17 0 0))
+(constraint (insert 1 71 71 (- 57) (- 57) 13 14 0 0))
+(constraint (insert 36 35 36 (- 35) (- 35) 9 10 0 0))
+(constraint (insert (- 7) 79 79 79 (- 7) 19 20 0 0))
+(constraint (insert (- 15) 32 32 0 (- 15) 2 3 1 1))
+(constraint (insert (- 2) 1 1 (- 1) (- 2) 4 5 0 0))
+(constraint (insert 29 (- 1) 29 (- 1) (- 1) 1 2 1 1))
+(constraint (insert (- 13) 4 4 1 (- 13) 12 13 0 0))
+(constraint (insert 1 0 1 (- 18) (- 18) 3 4 1 1))
+(constraint (insert (- 88) (- 1) (- 1) (- 88) (- 88) 2 3 1 0))
+(constraint (insert 1 17 17 1 1 16 17 0 0))
+(constraint (insert 1 100 100 1 1 11 12 0 0))
+(constraint (insert 1 (- 130) 1 128 1 0 1 1 1))
+(constraint (insert (- 71) (- 1) (- 1) (- 48) (- 71) 2 3 1 1))
+(constraint (insert 1 1 1 (- 3) (- 3) 5 6 0 0))
+(constraint (insert 1 (- 3) 1 (- 3) (- 3) 2 3 0 0))
+(constraint (insert 2 (- 2) 2 (- 2) (- 2) 1 2 1 1))
+(constraint (insert (- 122) 1 1 (- 30) (- 122) 2 3 1 1))
+(constraint (insert (- 3) 1 1 1 (- 3) 10 11 0 0))
+(constraint (insert 1 (- 1) 1 (- 35) (- 35) 4 5 1 1))
+(constraint (insert 1 0 1 (- 99) (- 99) 8 9 0 0))
+(constraint (insert 25 1 25 (- 24) (- 24) 3 4 0 0))
+(constraint (insert (- 12) (- 11) (- 11) (- 105) (- 105) 20 21 0 0))
+(constraint (insert (- 1) 15 15 15 (- 1) 1 2 1 1))
+(constraint (insert 0 (- 116) 0 (- 116) (- 116) 1 2 1 1))
+(constraint (search 0 112 (- 1) 8 0 0))
+(constraint (search 107 80 1 5 0 0))
+(constraint (search (- 35) (- 130) 128 0 1 0))
+(constraint (search 1 (- 6) (- 6) 1 1 0))
+(constraint (search 0 127 7 4 0 0))
+(constraint (search 16 107 1 6 0 0))
+(constraint (search 0 1 (- 127) 10 0 0))
+(constraint (search 32 47 (- 33) 10 0 0))
+(constraint (search 0 (- 130) 128 0 1 0))
+(constraint (search (- 118) (- 19) (- 27) 10 0 0))
+(constraint (search 16 3 (- 125) 3 1 0))
+(constraint (search 1 2 (- 128) 4 0 0))
+(constraint (search 45 16 (- 18) 22 0 0))
+(constraint (search 0 10 (- 18) 2 1 0))
+(constraint (search (- 26) 1 (- 1) 5 0 0))
+(constraint (search (- 1) (- 130) 128 0 1 0))
+(constraint (search (- 26) (- 130) 128 0 1 0))
+(constraint (search 39 122 (- 3) 12 0 0))
+(constraint (search 32 0 0 1 1 0))
+(constraint (search (- 5) 2 (- 16) 7 0 0))
+(constraint (search 1 107 (- 31) 16 0 0))
+(constraint (search 1 1 (- 127) 4 0 1))
+(constraint (search 1 1 (- 2) 6 0 1))
+(constraint (search 1 (- 1) (- 1) 2 0 0))
+(constraint (search (- 1) (- 2) (- 2) 1 1 0))
+(constraint (search 1 1 (- 1) 2 1 1))
+(constraint (search (- 87) 1 (- 87) 3 0 1))
+(constraint (search 1 31 (- 1) 8 0 0))
+(constraint (search 23 (- 1) (- 1) 1 1 0))
+(constraint (search 1 (- 130) 128 0 1 0))
+(constraint (search (- 2) 1 (- 117) 16 0 0))
+(constraint (search 1 0 (- 2) 3 1 0))
+(constraint (search 1 126 (- 1) 3 0 0))
+
+(constraint (=> (and (> N 0) (= i1 0) (= max1 MIN) (= min1 MAX) (= noDup1 1)) (inv i1 max1 min1 len1 noDup1 N)))
+(constraint (=> (and (inv i max min len noDup N) (is_valid noDup) (< i N) (insert i max max1 min min1 len len1 noDup noDup1) (= i1 (+ i 1))) (inv i1 max1 min1 len1 noDup1 N)))
+(constraint (=> (and (inv i max min len noDup N) (is_valid noDup) (>= i N) (>= data 0) (< data N) (search data max min len noDup ret1)) (not (= ret1 0))))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/RedBlackTree/RedBlackTree.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_2.log
+   -> ERROR: CVC5 timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 2
+Total Unique Test Cases Found: 65
+pipeline.run() took 0.0431 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalCVC5 RedBlackTree
+PID: 33
+========================================
+
+
+Total Pipeline Duration: 1051.30s

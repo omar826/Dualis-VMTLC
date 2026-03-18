@@ -1,0 +1,7 @@
+push
+(placeholder for declaration)
+(top1 == val && len1 == len + 1)
+
+push1
+(placeholder for declaration)
+(top1 == val && len1 == len + 1)

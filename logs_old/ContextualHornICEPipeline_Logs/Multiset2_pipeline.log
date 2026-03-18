@@ -1,0 +1,158 @@
+
+========================================
+         Starting Pipeline for: Multiset2 (Mode: ContextualHornICE)
+========================================
+Initializing pipeline for benchmark: 'Multiset2'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Contextual/Multiset2/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Multiset2/Multiset2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: Multiset2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Multiset2/Multiset2_fuzz.cpp'.
+   -> Starting AFL++(Multiset2_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Multiset2/Multiset2_fuzz
+   -> AFL++(Multiset2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:916,execs:23,op:quick,pos:3
+Checking queue
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:0,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Multiset2'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: (true)
+  emplace: (false)
+  emplace1: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var v Int)
+(declare-var v1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var countvo Int)
+(declare-var countvo1 Int)
+(declare-var countvt Int)
+(declare-var countvt1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-rel emplace (Int Int Int Int Int Int Int))
+(declare-rel emplace1 (Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= v 1) (= countvo 0) (= countvt 0) (= len 0) (= countvo1 1) (= countvt1 0) (= len1 1)) (emplace v countvo countvt len countvo1 countvt1 len1)))
+
+(rule (=> (and (> N 0) (= v 1) (= i 0) (= countvo 0) (= countvt 0) (= len 0)) (inv1 i N v countvo countvt len)))
+(rule (=> (and (inv1 i N v countvo countvt len) (< i N) (emplace v countvo countvt len countvo1 countvt1 len1) (= i1 (+ i 1))) (inv1 i1 N v countvo1 countvt1 len1)))
+(rule (=> (and (inv1 i N v countvo countvt len) (not (< i N)) (= v1 2) (emplace1 v1 countvo countvt len countvo1 countvt1 len1) (not (and (= len1 (+ N 1)) (= countvt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Multiset2/Multiset2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: Multiset2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Multiset2/Multiset2_fuzz.cpp'.
+   -> Starting AFL++(Multiset2_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Multiset2/Multiset2_fuzz
+   -> AFL++(Multiset2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:885,execs:26,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:7823,execs:42,op:havoc,rep:8
+Checking queue
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:0,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Multiset2'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (true)
+  inv1: (true)
+  emplace1: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var v Int)
+(declare-var v1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var countvo Int)
+(declare-var countvo1 Int)
+(declare-var countvt Int)
+(declare-var countvt1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-rel emplace (Int Int Int Int Int Int Int))
+(declare-rel emplace1 (Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= v 2) (= countvo 7) (= countvt 0) (= len 7) (= countvo1 7) (= countvt1 1) (= len1 8)) (emplace1 v countvo countvt len countvo1 countvt1 len1)))
+(rule (=> (and (= v 2) (= countvo 1) (= countvt 0) (= len 1) (= countvo1 1) (= countvt1 1) (= len1 2)) (emplace1 v countvo countvt len countvo1 countvt1 len1)))
+
+(rule (=> (and (= v 1) (= countvo 0) (= countvt 0) (= len 0) (= countvo1 1) (= countvt1 0) (= len1 1)) (emplace v countvo countvt len countvo1 countvt1 len1)))
+(rule (=> (and (> N 0) (= v 1) (= i 0) (= countvo 0) (= countvt 0) (= len 0)) (inv1 i N v countvo countvt len)))
+(rule (=> (and (inv1 i N v countvo countvt len) (< i N) (emplace v countvo countvt len countvo1 countvt1 len1) (= i1 (+ i 1))) (inv1 i1 N v countvo1 countvt1 len1)))
+(rule (=> (and (inv1 i N v countvo countvt len) (not (< i N)) (= v1 2) (emplace1 v1 countvo countvt len countvo1 countvt1 len1) (not (and (= len1 (+ N 1)) (= countvt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Multiset2/Multiset2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_3.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 3
+Total Unique Test Cases Found: 3
+Total Internal Iterations: 6
+  - Min: 3
+  - Max: 3
+  - Avg: 3.00
+pipeline.run() took 0.5234 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualHornICE Multiset2
+PID: 607023
+========================================
+

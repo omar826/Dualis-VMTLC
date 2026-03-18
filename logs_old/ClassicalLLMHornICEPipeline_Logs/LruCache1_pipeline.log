@@ -1,0 +1,152 @@
+
+========================================
+         Starting Pipeline for: LruCache1 (Mode: ClassicalLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'LruCache1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/LruCache1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/LruCache1/LruCache1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: insert_or_assign_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/LruCache1/insert_or_assign_fuzz.cpp'.
+   -> Starting AFL++(insert_or_assign_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/LruCache1/insert_or_assign_fuzz
+   -> AFL++(insert_or_assign_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 13 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:567,execs:41,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:941,execs:53,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1128,execs:58,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:379,execs:39,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000011,sig:06,src:000000,time:6139,execs:202,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:187,execs:34,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000000,time:3257,execs:115,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:761,execs:42,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:2363,execs:89,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:1501,execs:66,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:2550,execs:98,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000012,sig:06,src:000000,time:7122,execs:246,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000000,time:4573,execs:159,op:havoc,rep:8
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert_or_assign'...
+      -> Found and validated 13 new rules.
+   -> Writing new specs to harness: find_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/LruCache1/find_fuzz.cpp'.
+   -> Starting AFL++(find_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/LruCache1/find_fuzz
+   -> AFL++(find_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 12 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:780,execs:97,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000000,time:10884,execs:989,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:8031,execs:732,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:388,execs:55,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000011,sig:06,src:000000,time:17349,execs:1337,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:7450,execs:691,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:964,execs:105,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:196,execs:54,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:586,execs:75,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:3399,execs:305,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:2626,execs:248,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000000,time:8989,execs:857,op:havoc,rep:2
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'find'...
+      -> Found and validated 6 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: (true)
+  insert_or_assign: (false)
+  find: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var size Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsmru Int)
+(declare-var containsmru1 Int)
+(declare-var containsk Int)
+(declare-var mru Int)
+(declare-var mru1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert_or_assign (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= k 23) (= v 5) (= len 0) (= mru 128) (= size 3) (= containsmru 0) (= len1 1) (= mru1 5) (= containsmru1 0) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (= k -1) (= v -128) (= len 1) (= mru 1) (= size 5) (= containsmru 0) (= len1 1) (= mru1 -128) (= containsmru1 0) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (= k -26) (= v -4) (= len 0) (= mru 128) (= size 6) (= containsmru 0) (= len1 1) (= mru1 -4) (= containsmru1 0) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (= k -41) (= v -1) (= len 1) (= mru -1) (= size 5) (= containsmru 1) (= len1 2) (= mru1 -1) (= containsmru1 1) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (= k 2) (= v -1) (= len 2) (= mru 2) (= size 2) (= containsmru 0) (= len1 2) (= mru1 -1) (= containsmru1 0) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (= k 2) (= v -1) (= len 0) (= mru 128) (= size 2) (= containsmru 0) (= len1 1) (= mru1 -1) (= containsmru1 0) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (= k 62) (= v 22) (= len 2) (= mru 62) (= size 4) (= containsmru 0) (= len1 3) (= mru1 22) (= containsmru1 0) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (= k -1) (= v -1) (= len 1) (= mru -1) (= size 1) (= containsmru 1) (= len1 1) (= mru1 -1) (= containsmru1 1) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (= k 2) (= v -1) (= len 1) (= mru 30) (= size 5) (= containsmru 0) (= len1 2) (= mru1 -1) (= containsmru1 0) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (= k 2) (= v -1) (= len 1) (= mru 0) (= size 1) (= containsmru 0) (= len1 1) (= mru1 -1) (= containsmru1 0) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (= k 2) (= v -1) (= len 2) (= mru 2) (= size 5) (= containsmru 1) (= len1 2) (= mru1 -1) (= containsmru1 0) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (= k 2) (= v -1) (= len 1) (= mru -1) (= size 5) (= containsmru 1) (= len1 2) (= mru1 -1) (= containsmru1 1) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (= k 100) (= v 100) (= len 2) (= mru -1) (= size 2) (= containsmru 1) (= len1 2) (= mru1 100) (= containsmru1 1) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (= k 2) (= containsk 0) (= mru1 128)) (find k containsk mru1)))
+(rule (=> (and (= k -1) (= containsk 1) (= mru1 -1)) (find k containsk mru1)))
+(rule (=> (and (= k 53) (= containsk 1) (= mru1 53)) (find k containsk mru1)))
+(rule (=> (and (= k 2) (= containsk 1) (= mru1 -1)) (find k containsk mru1)))
+(rule (=> (and (= k -126) (= containsk 0) (= mru1 128)) (find k containsk mru1)))
+(rule (=> (and (= k 1) (= containsk 0) (= mru1 128)) (find k containsk mru1)))
+
+(rule (=> (and (>= N 3) (= size N) (= len 0) (= i 0) (= containsmru 0) (= containsk 0) (= mru MAX) ) (inv1 i N len  mru size containsmru containsk)))
+(rule (=> (and (inv1 i N len  mru size containsmru containsk) (is_valid containsmru) (< i N) (= k i) (= v i) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1) (= i1 (+ i 1))) (inv1 i1 N len1  mru1 size containsmru1 containsk)))
+(rule (=> (and (inv1 i N len  mru size containsmru containsk) (is_valid containsmru) (is_valid containsk) (not (< i N)) (<= 0 k) (< k N) (find k containsk  mru1) (= mru1 MAX)) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/LruCache1/LruCache1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 2
+Total Unique Test Cases Found: 19
+Total Internal Iterations: 3
+  - Min: 3
+  - Max: 3
+  - Avg: 3.00
+pipeline.run() took 0.6492 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalLLMHornICE LruCache1
+PID: 607032
+========================================
+

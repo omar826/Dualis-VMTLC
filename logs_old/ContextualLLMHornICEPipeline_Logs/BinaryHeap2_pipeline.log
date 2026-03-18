@@ -1,0 +1,307 @@
+
+========================================
+         Starting Pipeline for: BinaryHeap2 (Mode: ContextualLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'BinaryHeap2'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/BinaryHeap2/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryHeap2/BinaryHeap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: BinaryHeap2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryHeap2/BinaryHeap2_fuzz.cpp'.
+   -> Starting AFL++(BinaryHeap2_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryHeap2/BinaryHeap2_fuzz
+   -> AFL++(BinaryHeap2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:2443,execs:526,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:208,execs:188,op:havoc,rep:2
+Checking queue
+   -> Found 18 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000014,time:0,execs:0,orig:insins
+   -> CRASH REPRODUCED with id:000015,time:0,execs:0,orig:insser
+   -> CRASH REPRODUCED with id:000016,time:0,execs:0,orig:serser
+Checking hangs
+   -> Converting counterexamples for 'BinaryHeap2'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: (true)
+  insert: (false)
+  deleteMin: (false)
+  downHeap: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var isHeap Int)
+(declare-var isHeap1 Int)
+(declare-var isHeap2 Int)
+(declare-var isHeap3 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int))
+(declare-rel deleteMin (Int Int Int Int Int))
+(declare-rel downHeap (Int))
+(declare-rel inv1 (Int Int Int Int ))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= i 74) (= isHeap 1) (= len 0) (= isHeap1 1) (= len1 1)) (insert i isHeap len isHeap1 len1)))
+(rule (=> (and (= len 0) (= isHeap 1) (= len1 0) (= ret1 128) (= isHeap1 1)) (deleteMin len isHeap len1 ret1 isHeap1)))
+
+(rule (=> (and (> N 0) (= i1 0) (= isHeap1 1) (= len1 0)) (inv1 i1 N isHeap1 len1)))
+(rule (=> (and (inv1 i N isHeap len ) (is_valid isHeap) (< i N) (insert i isHeap len  isHeap1 len1) (= i1 (+ i 1))) (inv1 i1 N isHeap1 len1 )))
+(rule (=> (and (inv1 i N isHeap len) (is_valid isHeap) (not (< i N)) (deleteMin len isHeap len1 ret1 isHeap1) (is_valid isHeap1) (downHeap isHeap2) (is_valid isHeap2) (not (= isHeap2 1))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryHeap2/BinaryHeap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: BinaryHeap2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryHeap2/BinaryHeap2_fuzz.cpp'.
+   -> Starting AFL++(BinaryHeap2_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryHeap2/BinaryHeap2_fuzz
+   -> AFL++(BinaryHeap2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:204,execs:115,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:1531,execs:264,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:394,execs:138,op:havoc,rep:2
+Checking queue
+   -> Found 18 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000014,time:0,execs:0,orig:insins
+   -> CRASH REPRODUCED with id:000015,time:0,execs:0,orig:insser
+   -> CRASH REPRODUCED with id:000016,time:0,execs:0,orig:serser
+Checking hangs
+   -> Converting counterexamples for 'BinaryHeap2'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (true)
+  deleteMin: (true)
+  inv1: (true)
+  downHeap: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var isHeap Int)
+(declare-var isHeap1 Int)
+(declare-var isHeap2 Int)
+(declare-var isHeap3 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int))
+(declare-rel deleteMin (Int Int Int Int Int))
+(declare-rel downHeap (Int))
+(declare-rel inv1 (Int Int Int Int ))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= isHeap2 1)) (downHeap isHeap2)))
+
+(rule (=> (and (= i 74) (= isHeap 1) (= len 0) (= isHeap1 1) (= len1 1)) (insert i isHeap len isHeap1 len1)))
+(rule (=> (and (= len 0) (= isHeap 1) (= len1 0) (= ret1 128) (= isHeap1 1)) (deleteMin len isHeap len1 ret1 isHeap1)))
+(rule (=> (and (> N 0) (= i1 0) (= isHeap1 1) (= len1 0)) (inv1 i1 N isHeap1 len1)))
+(rule (=> (and (inv1 i N isHeap len ) (is_valid isHeap) (< i N) (insert i isHeap len  isHeap1 len1) (= i1 (+ i 1))) (inv1 i1 N isHeap1 len1 )))
+(rule (=> (and (inv1 i N isHeap len) (is_valid isHeap) (not (< i N)) (deleteMin len isHeap len1 ret1 isHeap1) (is_valid isHeap1) (downHeap isHeap2) (is_valid isHeap2) (not (= isHeap2 1))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryHeap2/BinaryHeap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 4 internal iterations.
+   -> Writing new specs to harness: BinaryHeap2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryHeap2/BinaryHeap2_fuzz.cpp'.
+   -> Starting AFL++(BinaryHeap2_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryHeap2/BinaryHeap2_fuzz
+   -> AFL++(BinaryHeap2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:185,execs:125,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:845,execs:188,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:3191,execs:430,op:havoc,rep:2
+Checking queue
+   -> Found 18 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000014,time:0,execs:0,orig:insins
+   -> CRASH REPRODUCED with id:000015,time:0,execs:0,orig:insser
+   -> CRASH REPRODUCED with id:000016,time:0,execs:0,orig:serser
+Checking hangs
+   -> Converting counterexamples for 'BinaryHeap2'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  downHeap: (isHeap2 > 0)
+  insert: (true)
+  deleteMin: (true)
+  inv1: (true)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var isHeap Int)
+(declare-var isHeap1 Int)
+(declare-var isHeap2 Int)
+(declare-var isHeap3 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int))
+(declare-rel deleteMin (Int Int Int Int Int))
+(declare-rel downHeap (Int))
+(declare-rel inv1 (Int Int Int Int ))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+
+(rule (=> (and (= isHeap2 1)) (downHeap isHeap2)))
+(rule (=> (and (= i 74) (= isHeap 1) (= len 0) (= isHeap1 1) (= len1 1)) (insert i isHeap len isHeap1 len1)))
+(rule (=> (and (= len 0) (= isHeap 1) (= len1 0) (= ret1 128) (= isHeap1 1)) (deleteMin len isHeap len1 ret1 isHeap1)))
+(rule (=> (and (> N 0) (= i1 0) (= isHeap1 1) (= len1 0)) (inv1 i1 N isHeap1 len1)))
+(rule (=> (and (inv1 i N isHeap len ) (is_valid isHeap) (< i N) (insert i isHeap len  isHeap1 len1) (= i1 (+ i 1))) (inv1 i1 N isHeap1 len1 )))
+(rule (=> (and (inv1 i N isHeap len) (is_valid isHeap) (not (< i N)) (deleteMin len isHeap len1 ret1 isHeap1) (is_valid isHeap1) (downHeap isHeap2) (is_valid isHeap2) (not (= isHeap2 1))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryHeap2/BinaryHeap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 4 internal iterations.
+   -> Writing new specs to harness: BinaryHeap2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryHeap2/BinaryHeap2_fuzz.cpp'.
+   -> Starting AFL++(BinaryHeap2_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/BinaryHeap2/BinaryHeap2_fuzz
+   -> AFL++(BinaryHeap2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:828,execs:124,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:5367,execs:486,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:191,execs:104,op:havoc,rep:1
+Checking queue
+   -> Found 18 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000014,time:0,execs:0,orig:insins
+   -> CRASH REPRODUCED with id:000015,time:0,execs:0,orig:insser
+   -> CRASH REPRODUCED with id:000016,time:0,execs:0,orig:serser
+Checking hangs
+   -> Converting counterexamples for 'BinaryHeap2'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  downHeap: (isHeap2 > 0)
+  insert: (true)
+  deleteMin: (true)
+  inv1: (true)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var isHeap Int)
+(declare-var isHeap1 Int)
+(declare-var isHeap2 Int)
+(declare-var isHeap3 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int))
+(declare-rel deleteMin (Int Int Int Int Int))
+(declare-rel downHeap (Int))
+(declare-rel inv1 (Int Int Int Int ))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+
+(rule (=> (and (= isHeap2 1)) (downHeap isHeap2)))
+(rule (=> (and (= i 74) (= isHeap 1) (= len 0) (= isHeap1 1) (= len1 1)) (insert i isHeap len isHeap1 len1)))
+(rule (=> (and (= len 0) (= isHeap 1) (= len1 0) (= ret1 128) (= isHeap1 1)) (deleteMin len isHeap len1 ret1 isHeap1)))
+(rule (=> (and (> N 0) (= i1 0) (= isHeap1 1) (= len1 0)) (inv1 i1 N isHeap1 len1)))
+(rule (=> (and (inv1 i N isHeap len ) (is_valid isHeap) (< i N) (insert i isHeap len  isHeap1 len1) (= i1 (+ i 1))) (inv1 i1 N isHeap1 len1 )))
+(rule (=> (and (inv1 i N isHeap len) (is_valid isHeap) (not (< i N)) (deleteMin len isHeap len1 ret1 isHeap1) (is_valid isHeap1) (downHeap isHeap2) (is_valid isHeap2) (not (= isHeap2 1))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 4
+Total Unique Test Cases Found: 3
+Total Internal Iterations: 14
+  - Min: 3
+  - Max: 4
+  - Avg: 3.50
+pipeline.run() took 0.1273 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualLLMHornICE BinaryHeap2
+PID: 607030
+========================================
+

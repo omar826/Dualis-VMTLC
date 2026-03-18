@@ -1,0 +1,7 @@
+insert
+(placeholder for declaration)
+((containsk == 0 ? len1 == len + 1 : len1 == len) && (containsk1 == 1))
+
+remove_none
+(placeholder for declaration)
+(len1 == len && remove_count1 == remove_count)

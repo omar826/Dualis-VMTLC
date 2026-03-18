@@ -1,0 +1,266 @@
+
+========================================
+         Starting Pipeline for: Calender (Mode: ClassicalLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'Calender'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/Calender/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Calender/Calender.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 4 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Calender/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Calender/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:364,execs:51,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:182,execs:35,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:779,execs:117,op:havoc,rep:2
+Checking queue
+   -> Found 1 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv: (len <= 0)
+  insert: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var maxDiff Int)
+(declare-var maxDiff1 Int)
+(declare-var ev1 Int)
+(declare-var ev2 Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= len 0) (= len1 1) (= ev1 196) (= ev2 255) (= maxDiff 0) (= maxDiff1 59)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 6) (= len1 7) (= ev1 255) (= ev2 255) (= maxDiff 0) (= maxDiff1 0)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 2) (= len1 3) (= ev1 255) (= ev2 255) (= maxDiff 1) (= maxDiff1 1)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+
+(rule (=> (and (= len 0) (= maxDiff MIN)) (inv len maxDiff)))
+(rule (=> (and (inv len maxDiff) (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (abs (- ev1 ev2)) 2)) (insert len len1 ev1 ev2 maxDiff maxDiff1)) (inv len1 maxDiff1)))
+(rule (=> (and (inv len maxDiff) (not (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (- ev1 ev2) 2)))) (inv len maxDiff)))
+(rule (=> (and (inv len maxDiff) (not (=> (> len 0) (< maxDiff 2)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Calender/Calender.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 24 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Calender/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Calender/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:200,execs:38,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:387,execs:113,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:552,execs:114,op:havoc,rep:2
+Checking queue
+   -> Found 19 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((ev1 > 3) && ((len1 - len) <= 1))
+  inv: (maxDiff <= 1)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var maxDiff Int)
+(declare-var maxDiff1 Int)
+(declare-var ev1 Int)
+(declare-var ev2 Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= len 4) (= len1 5) (= ev1 0) (= ev2 0) (= maxDiff 0) (= maxDiff1 0)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 1) (= len1 2) (= ev1 0) (= ev2 0) (= maxDiff 255) (= maxDiff1 255)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 0) (= len1 1) (= ev1 1) (= ev2 64) (= maxDiff 0) (= maxDiff1 63)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+
+(rule (=> (and (= len 0) (= len1 1) (= ev1 196) (= ev2 255) (= maxDiff 0) (= maxDiff1 59)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 6) (= len1 7) (= ev1 255) (= ev2 255) (= maxDiff 0) (= maxDiff1 0)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 2) (= len1 3) (= ev1 255) (= ev2 255) (= maxDiff 1) (= maxDiff1 1)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 0) (= maxDiff MIN)) (inv len maxDiff)))
+(rule (=> (and (inv len maxDiff) (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (abs (- ev1 ev2)) 2)) (insert len len1 ev1 ev2 maxDiff maxDiff1)) (inv len1 maxDiff1)))
+(rule (=> (and (inv len maxDiff) (not (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (- ev1 ev2) 2)))) (inv len maxDiff)))
+(rule (=> (and (inv len maxDiff) (not (=> (> len 0) (< maxDiff 2)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Calender/Calender.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 28 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Calender/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Calender/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 35 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((maxDiff > (-1)) && ((len1 - len) <= 1))
+  inv: (maxDiff <= (-1))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var maxDiff Int)
+(declare-var maxDiff1 Int)
+(declare-var ev1 Int)
+(declare-var ev2 Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MIN () Int -129)
+
+
+(rule (=> (and (= len 4) (= len1 5) (= ev1 0) (= ev2 0) (= maxDiff 0) (= maxDiff1 0)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 1) (= len1 2) (= ev1 0) (= ev2 0) (= maxDiff 255) (= maxDiff1 255)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 0) (= len1 1) (= ev1 1) (= ev2 64) (= maxDiff 0) (= maxDiff1 63)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 0) (= len1 1) (= ev1 196) (= ev2 255) (= maxDiff 0) (= maxDiff1 59)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 6) (= len1 7) (= ev1 255) (= ev2 255) (= maxDiff 0) (= maxDiff1 0)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 2) (= len1 3) (= ev1 255) (= ev2 255) (= maxDiff 1) (= maxDiff1 1)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 0) (= maxDiff MIN)) (inv len maxDiff)))
+(rule (=> (and (inv len maxDiff) (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (abs (- ev1 ev2)) 2)) (insert len len1 ev1 ev2 maxDiff maxDiff1)) (inv len1 maxDiff1)))
+(rule (=> (and (inv len maxDiff) (not (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (- ev1 ev2) 2)))) (inv len maxDiff)))
+(rule (=> (and (inv len maxDiff) (not (=> (> len 0) (< maxDiff 2)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Calender/Calender.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 28 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Calender/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Calender/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 32 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((maxDiff > (-1)) && ((len1 - len) <= 1))
+  inv: (maxDiff <= (-1))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var maxDiff Int)
+(declare-var maxDiff1 Int)
+(declare-var ev1 Int)
+(declare-var ev2 Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MIN () Int -129)
+
+
+(rule (=> (and (= len 4) (= len1 5) (= ev1 0) (= ev2 0) (= maxDiff 0) (= maxDiff1 0)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 1) (= len1 2) (= ev1 0) (= ev2 0) (= maxDiff 255) (= maxDiff1 255)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 0) (= len1 1) (= ev1 1) (= ev2 64) (= maxDiff 0) (= maxDiff1 63)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 0) (= len1 1) (= ev1 196) (= ev2 255) (= maxDiff 0) (= maxDiff1 59)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 6) (= len1 7) (= ev1 255) (= ev2 255) (= maxDiff 0) (= maxDiff1 0)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 2) (= len1 3) (= ev1 255) (= ev2 255) (= maxDiff 1) (= maxDiff1 1)) (insert len len1 ev1 ev2 maxDiff maxDiff1)))
+(rule (=> (and (= len 0) (= maxDiff MIN)) (inv len maxDiff)))
+(rule (=> (and (inv len maxDiff) (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (abs (- ev1 ev2)) 2)) (insert len len1 ev1 ev2 maxDiff maxDiff1)) (inv len1 maxDiff1)))
+(rule (=> (and (inv len maxDiff) (not (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (- ev1 ev2) 2)))) (inv len maxDiff)))
+(rule (=> (and (inv len maxDiff) (not (=> (> len 0) (< maxDiff 2)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 4
+Total Unique Test Cases Found: 6
+Total Internal Iterations: 84
+  - Min: 4
+  - Max: 28
+  - Avg: 21.00
+pipeline.run() took 0.0688 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalLLMHornICE Calender
+PID: 607027
+========================================
+

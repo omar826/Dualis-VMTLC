@@ -1,0 +1,1238 @@
+(declare-rel emplace (Int Int Int Int Int Int Int Int))
+(declare-rel fail ())
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(declare-var E Int)
+(declare-var F Int)
+(declare-var G Int)
+(declare-var H Int)
+(declare-var I Int)
+(declare-var J Int)
+(declare-var K Int)
+(rule (=> (and (= H 1) (= G 1) (= F 3) (= E 0) (= D 3) (= C 4) (= B 0) (= A 4))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H (- 1)) (= G 1) (= F 0) (= E 0) (= D 2) (= C 0) (= B 0) (= A 3))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H 1) (= G 1) (= F 1) (= E 0) (= D 3) (= C 2) (= B 0) (= A 4))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H 1) (= G 1) (= F 0) (= E 0) (= D 1) (= C 1) (= B 0) (= A 2))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H 1) (= G 1) (= F 8) (= E 1) (= D 11) (= C 9) (= B 1) (= A 12))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H 127) (= G 1) (= F 0) (= E 0) (= D 2) (= C 0) (= B 0) (= A 3))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H 1) (= G 1) (= F 2) (= E 0) (= D 5) (= C 3) (= B 0) (= A 6))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H (- 58)) (= G 1) (= F 0) (= E 0) (= D 0) (= C 0) (= B 0) (= A 1))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H 127) (= G 127) (= F 0) (= E 1) (= D 1) (= C 0) (= B 1) (= A 2))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H 100) (= G 0) (= F 0) (= E 0) (= D 5) (= C 0) (= B 0) (= A 6))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H 1) (= G (- 1)) (= F 4) (= E 0) (= D 5) (= C 5) (= B 0) (= A 6))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H (- 128)) (= G 0) (= F 0) (= E 0) (= D 1) (= C 0) (= B 0) (= A 2))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H 1) (= G 124) (= F 1) (= E 0) (= D 2) (= C 2) (= B 0) (= A 3))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H 1) (= G (- 1)) (= F 0) (= E 0) (= D 10) (= C 1) (= B 0) (= A 11))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H (- 93))
+         (= G (- 93))
+         (= F 1)
+         (= E 0)
+         (= D 2)
+         (= C 1)
+         (= B 0)
+         (= A 3))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H (- 1)) (= G 0) (= F 0) (= E 0) (= D 0) (= C 0) (= B 0) (= A 1))
+    (emplace H G F E D C B A)))
+(rule (=> (and (= H 1) (= G (- 1)) (= F 7) (= E 0) (= D 7) (= C 8) (= B 0) (= A 8))
+    (emplace H G F E D C B A)))
+(rule (=> (and (> D 0) (= E 0) (= A 0) (= C 0) (= B 0)) (inv1 E D C B A)))
+(rule (=> (and (inv1 F D I H G)
+         (< F D)
+         (= K 1)
+         (= J 1)
+         (emplace K J I H G C B A)
+         (= E (+ F 1)))
+    (inv1 E D C B A)))
+(rule (let ((a!1 (and (inv1 J B G F E)
+                (not (< J B))
+                (= I 2)
+                (= H 2)
+                (emplace I H G F E C A D)
+                (not (and (= C B) (= A 1))))))
+  (=> a!1 fail)))
+
+
+Read 20 rules and 1 queries (1)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv1 (Int Int Int Int Int) Bool)
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (= k!7 1)
+         (= k!6 1)
+         (= k!5 3)
+         (= k!4 0)
+         (= k!3 3)
+         (= k!2 4)
+         (= k!1 0)
+         (= k!0 4))
+    (emplace k!7 k!6 k!5 k!4 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!7 k!6 k!5 k!4 k!3 k!2 k!1 k!0)
+
+ -- CHC
+(=> (and (= k!15 (- 1))
+         (= k!14 1)
+         (= k!13 0)
+         (= k!12 0)
+         (= k!11 2)
+         (= k!10 0)
+         (= k!9 0)
+         (= k!8 3))
+    (emplace k!15 k!14 k!13 k!12 k!11 k!10 k!9 k!8))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!15 k!14 k!13 k!12 k!11 k!10 k!9 k!8)
+
+ -- CHC
+(=> (and (= k!23 1)
+         (= k!22 1)
+         (= k!21 1)
+         (= k!20 0)
+         (= k!19 3)
+         (= k!18 2)
+         (= k!17 0)
+         (= k!16 4))
+    (emplace k!23 k!22 k!21 k!20 k!19 k!18 k!17 k!16))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!23 k!22 k!21 k!20 k!19 k!18 k!17 k!16)
+
+ -- CHC
+(=> (and (= k!31 1)
+         (= k!30 1)
+         (= k!29 0)
+         (= k!28 0)
+         (= k!27 1)
+         (= k!26 1)
+         (= k!25 0)
+         (= k!24 2))
+    (emplace k!31 k!30 k!29 k!28 k!27 k!26 k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!31 k!30 k!29 k!28 k!27 k!26 k!25 k!24)
+
+ -- CHC
+(=> (and (= k!39 1)
+         (= k!38 1)
+         (= k!37 8)
+         (= k!36 1)
+         (= k!35 11)
+         (= k!34 9)
+         (= k!33 1)
+         (= k!32 12))
+    (emplace k!39 k!38 k!37 k!36 k!35 k!34 k!33 k!32))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!39 k!38 k!37 k!36 k!35 k!34 k!33 k!32)
+
+ -- CHC
+(=> (and (= k!47 127)
+         (= k!46 1)
+         (= k!45 0)
+         (= k!44 0)
+         (= k!43 2)
+         (= k!42 0)
+         (= k!41 0)
+         (= k!40 3))
+    (emplace k!47 k!46 k!45 k!44 k!43 k!42 k!41 k!40))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!47 k!46 k!45 k!44 k!43 k!42 k!41 k!40)
+
+ -- CHC
+(=> (and (= k!55 1)
+         (= k!54 1)
+         (= k!53 2)
+         (= k!52 0)
+         (= k!51 5)
+         (= k!50 3)
+         (= k!49 0)
+         (= k!48 6))
+    (emplace k!55 k!54 k!53 k!52 k!51 k!50 k!49 k!48))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!55 k!54 k!53 k!52 k!51 k!50 k!49 k!48)
+
+ -- CHC
+(=> (and (= k!63 (- 58))
+         (= k!62 1)
+         (= k!61 0)
+         (= k!60 0)
+         (= k!59 0)
+         (= k!58 0)
+         (= k!57 0)
+         (= k!56 1))
+    (emplace k!63 k!62 k!61 k!60 k!59 k!58 k!57 k!56))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!63 k!62 k!61 k!60 k!59 k!58 k!57 k!56)
+
+ -- CHC
+(=> (and (= k!71 127)
+         (= k!70 127)
+         (= k!69 0)
+         (= k!68 1)
+         (= k!67 1)
+         (= k!66 0)
+         (= k!65 1)
+         (= k!64 2))
+    (emplace k!71 k!70 k!69 k!68 k!67 k!66 k!65 k!64))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!71 k!70 k!69 k!68 k!67 k!66 k!65 k!64)
+
+ -- CHC
+(=> (and (= k!79 100)
+         (= k!78 0)
+         (= k!77 0)
+         (= k!76 0)
+         (= k!75 5)
+         (= k!74 0)
+         (= k!73 0)
+         (= k!72 6))
+    (emplace k!79 k!78 k!77 k!76 k!75 k!74 k!73 k!72))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!79 k!78 k!77 k!76 k!75 k!74 k!73 k!72)
+
+ -- CHC
+(=> (and (= k!87 1)
+         (= k!86 (- 1))
+         (= k!85 4)
+         (= k!84 0)
+         (= k!83 5)
+         (= k!82 5)
+         (= k!81 0)
+         (= k!80 6))
+    (emplace k!87 k!86 k!85 k!84 k!83 k!82 k!81 k!80))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!87 k!86 k!85 k!84 k!83 k!82 k!81 k!80)
+
+ -- CHC
+(=> (and (= k!95 (- 128))
+         (= k!94 0)
+         (= k!93 0)
+         (= k!92 0)
+         (= k!91 1)
+         (= k!90 0)
+         (= k!89 0)
+         (= k!88 2))
+    (emplace k!95 k!94 k!93 k!92 k!91 k!90 k!89 k!88))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!95 k!94 k!93 k!92 k!91 k!90 k!89 k!88)
+
+ -- CHC
+(=> (and (= k!103 1)
+         (= k!102 124)
+         (= k!101 1)
+         (= k!100 0)
+         (= k!99 2)
+         (= k!98 2)
+         (= k!97 0)
+         (= k!96 3))
+    (emplace k!103 k!102 k!101 k!100 k!99 k!98 k!97 k!96))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!103 k!102 k!101 k!100 k!99 k!98 k!97 k!96)
+
+ -- CHC
+(=> (and (= k!111 1)
+         (= k!110 (- 1))
+         (= k!109 0)
+         (= k!108 0)
+         (= k!107 10)
+         (= k!106 1)
+         (= k!105 0)
+         (= k!104 11))
+    (emplace k!111 k!110 k!109 k!108 k!107 k!106 k!105 k!104))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!111 k!110 k!109 k!108 k!107 k!106 k!105 k!104)
+
+ -- CHC
+(=> (and (= k!119 (- 93))
+         (= k!118 (- 93))
+         (= k!117 1)
+         (= k!116 0)
+         (= k!115 2)
+         (= k!114 1)
+         (= k!113 0)
+         (= k!112 3))
+    (emplace k!119 k!118 k!117 k!116 k!115 k!114 k!113 k!112))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!119 k!118 k!117 k!116 k!115 k!114 k!113 k!112)
+
+ -- CHC
+(=> (and (= k!127 (- 1))
+         (= k!126 0)
+         (= k!125 0)
+         (= k!124 0)
+         (= k!123 0)
+         (= k!122 0)
+         (= k!121 0)
+         (= k!120 1))
+    (emplace k!127 k!126 k!125 k!124 k!123 k!122 k!121 k!120))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!127 k!126 k!125 k!124 k!123 k!122 k!121 k!120)
+
+ -- CHC
+(=> (and (= k!135 1)
+         (= k!134 (- 1))
+         (= k!133 7)
+         (= k!132 0)
+         (= k!131 7)
+         (= k!130 8)
+         (= k!129 0)
+         (= k!128 8))
+    (emplace k!135 k!134 k!133 k!132 k!131 k!130 k!129 k!128))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!135 k!134 k!133 k!132 k!131 k!130 k!129 k!128)
+
+ -- CHC
+(=> (and (> k!139 0) (= k!140 0) (= k!136 0) (= k!138 0) (= k!137 0))
+    (inv1 k!140 k!139 k!138 k!137 k!136))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv1 k!140 k!139 k!138 k!137 k!136)
+
+ -- CHC
+(=> (and (inv1 k!146 k!144 k!149 k!148 k!147)
+         (< k!146 k!144)
+         (= k!151 1)
+         (= k!150 1)
+         (emplace k!151 k!150 k!149 k!148 k!147 k!143 k!142 k!141)
+         (= k!145 (+ k!146 1)))
+    (inv1 k!145 k!144 k!143 k!142 k!141))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int Int) Bool)
+ -- LHS
+(emplace k!151 k!150 k!149 k!148 k!147 k!143 k!142 k!141)
+(inv1 k!146 k!144 k!149 k!148 k!147)
+ -- RHS
+(inv1 k!145 k!144 k!143 k!142 k!141)
+
+ -- CHC
+(let ((a!1 (and (inv1 k!161 k!153 k!158 k!157 k!156)
+                (not (< k!161 k!153))
+                (= k!160 2)
+                (= k!159 2)
+                (emplace k!160 k!159 k!158 k!157 k!156 k!154 k!152 k!155)
+                (not (and (= k!154 k!153) (= k!152 1))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int Int) Bool)
+ -- LHS
+(emplace k!160 k!159 k!158 k!157 k!156 k!154 k!152 k!155)
+(inv1 k!161 k!153 k!158 k!157 k!156)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (= k!7 1)
+         (= k!6 1)
+         (= k!5 3)
+         (= k!4 0)
+         (= k!3 3)
+         (= k!2 4)
+         (= k!1 0)
+         (= k!0 4))
+    (emplace k!7 k!6 k!5 k!4 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!7 k!6 k!5 k!4 k!3 k!2 k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (= k!15 (- 1))
+         (= k!14 1)
+         (= k!13 0)
+         (= k!12 0)
+         (= k!11 2)
+         (= k!10 0)
+         (= k!9 0)
+         (= k!8 3))
+    (emplace k!15 k!14 k!13 k!12 k!11 k!10 k!9 k!8))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!15 k!14 k!13 k!12 k!11 k!10 k!9 k!8)
+
+chc ::  -- CHC
+(=> (and (= k!23 1)
+         (= k!22 1)
+         (= k!21 1)
+         (= k!20 0)
+         (= k!19 3)
+         (= k!18 2)
+         (= k!17 0)
+         (= k!16 4))
+    (emplace k!23 k!22 k!21 k!20 k!19 k!18 k!17 k!16))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!23 k!22 k!21 k!20 k!19 k!18 k!17 k!16)
+
+chc ::  -- CHC
+(=> (and (= k!31 1)
+         (= k!30 1)
+         (= k!29 0)
+         (= k!28 0)
+         (= k!27 1)
+         (= k!26 1)
+         (= k!25 0)
+         (= k!24 2))
+    (emplace k!31 k!30 k!29 k!28 k!27 k!26 k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!31 k!30 k!29 k!28 k!27 k!26 k!25 k!24)
+
+chc ::  -- CHC
+(=> (and (= k!39 1)
+         (= k!38 1)
+         (= k!37 8)
+         (= k!36 1)
+         (= k!35 11)
+         (= k!34 9)
+         (= k!33 1)
+         (= k!32 12))
+    (emplace k!39 k!38 k!37 k!36 k!35 k!34 k!33 k!32))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!39 k!38 k!37 k!36 k!35 k!34 k!33 k!32)
+
+chc ::  -- CHC
+(=> (and (= k!47 127)
+         (= k!46 1)
+         (= k!45 0)
+         (= k!44 0)
+         (= k!43 2)
+         (= k!42 0)
+         (= k!41 0)
+         (= k!40 3))
+    (emplace k!47 k!46 k!45 k!44 k!43 k!42 k!41 k!40))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!47 k!46 k!45 k!44 k!43 k!42 k!41 k!40)
+
+chc ::  -- CHC
+(=> (and (= k!55 1)
+         (= k!54 1)
+         (= k!53 2)
+         (= k!52 0)
+         (= k!51 5)
+         (= k!50 3)
+         (= k!49 0)
+         (= k!48 6))
+    (emplace k!55 k!54 k!53 k!52 k!51 k!50 k!49 k!48))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!55 k!54 k!53 k!52 k!51 k!50 k!49 k!48)
+
+chc ::  -- CHC
+(=> (and (= k!63 (- 58))
+         (= k!62 1)
+         (= k!61 0)
+         (= k!60 0)
+         (= k!59 0)
+         (= k!58 0)
+         (= k!57 0)
+         (= k!56 1))
+    (emplace k!63 k!62 k!61 k!60 k!59 k!58 k!57 k!56))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!63 k!62 k!61 k!60 k!59 k!58 k!57 k!56)
+
+chc ::  -- CHC
+(=> (and (= k!71 127)
+         (= k!70 127)
+         (= k!69 0)
+         (= k!68 1)
+         (= k!67 1)
+         (= k!66 0)
+         (= k!65 1)
+         (= k!64 2))
+    (emplace k!71 k!70 k!69 k!68 k!67 k!66 k!65 k!64))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!71 k!70 k!69 k!68 k!67 k!66 k!65 k!64)
+
+chc ::  -- CHC
+(=> (and (= k!79 100)
+         (= k!78 0)
+         (= k!77 0)
+         (= k!76 0)
+         (= k!75 5)
+         (= k!74 0)
+         (= k!73 0)
+         (= k!72 6))
+    (emplace k!79 k!78 k!77 k!76 k!75 k!74 k!73 k!72))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!79 k!78 k!77 k!76 k!75 k!74 k!73 k!72)
+
+chc ::  -- CHC
+(=> (and (= k!87 1)
+         (= k!86 (- 1))
+         (= k!85 4)
+         (= k!84 0)
+         (= k!83 5)
+         (= k!82 5)
+         (= k!81 0)
+         (= k!80 6))
+    (emplace k!87 k!86 k!85 k!84 k!83 k!82 k!81 k!80))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!87 k!86 k!85 k!84 k!83 k!82 k!81 k!80)
+
+chc ::  -- CHC
+(=> (and (= k!95 (- 128))
+         (= k!94 0)
+         (= k!93 0)
+         (= k!92 0)
+         (= k!91 1)
+         (= k!90 0)
+         (= k!89 0)
+         (= k!88 2))
+    (emplace k!95 k!94 k!93 k!92 k!91 k!90 k!89 k!88))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!95 k!94 k!93 k!92 k!91 k!90 k!89 k!88)
+
+chc ::  -- CHC
+(=> (and (= k!103 1)
+         (= k!102 124)
+         (= k!101 1)
+         (= k!100 0)
+         (= k!99 2)
+         (= k!98 2)
+         (= k!97 0)
+         (= k!96 3))
+    (emplace k!103 k!102 k!101 k!100 k!99 k!98 k!97 k!96))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!103 k!102 k!101 k!100 k!99 k!98 k!97 k!96)
+
+chc ::  -- CHC
+(=> (and (= k!111 1)
+         (= k!110 (- 1))
+         (= k!109 0)
+         (= k!108 0)
+         (= k!107 10)
+         (= k!106 1)
+         (= k!105 0)
+         (= k!104 11))
+    (emplace k!111 k!110 k!109 k!108 k!107 k!106 k!105 k!104))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!111 k!110 k!109 k!108 k!107 k!106 k!105 k!104)
+
+chc ::  -- CHC
+(=> (and (= k!119 (- 93))
+         (= k!118 (- 93))
+         (= k!117 1)
+         (= k!116 0)
+         (= k!115 2)
+         (= k!114 1)
+         (= k!113 0)
+         (= k!112 3))
+    (emplace k!119 k!118 k!117 k!116 k!115 k!114 k!113 k!112))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!119 k!118 k!117 k!116 k!115 k!114 k!113 k!112)
+
+chc ::  -- CHC
+(=> (and (= k!127 (- 1))
+         (= k!126 0)
+         (= k!125 0)
+         (= k!124 0)
+         (= k!123 0)
+         (= k!122 0)
+         (= k!121 0)
+         (= k!120 1))
+    (emplace k!127 k!126 k!125 k!124 k!123 k!122 k!121 k!120))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!127 k!126 k!125 k!124 k!123 k!122 k!121 k!120)
+
+chc ::  -- CHC
+(=> (and (= k!135 1)
+         (= k!134 (- 1))
+         (= k!133 7)
+         (= k!132 0)
+         (= k!131 7)
+         (= k!130 8)
+         (= k!129 0)
+         (= k!128 8))
+    (emplace k!135 k!134 k!133 k!132 k!131 k!130 k!129 k!128))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(emplace k!135 k!134 k!133 k!132 k!131 k!130 k!129 k!128)
+
+chc ::  -- CHC
+(=> (and (> k!139 0) (= k!140 0) (= k!136 0) (= k!138 0) (= k!137 0))
+    (inv1 k!140 k!139 k!138 k!137 k!136))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv1 k!140 k!139 k!138 k!137 k!136)
+
+chc ::  -- CHC
+(=> (and (inv1 k!146 k!144 k!149 k!148 k!147)
+         (< k!146 k!144)
+         (= k!151 1)
+         (= k!150 1)
+         (emplace k!151 k!150 k!149 k!148 k!147 k!143 k!142 k!141)
+         (= k!145 (+ k!146 1)))
+    (inv1 k!145 k!144 k!143 k!142 k!141))
+ -- Uninterpreted predicates
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int Int) Bool)
+ -- LHS
+(emplace k!151 k!150 k!149 k!148 k!147 k!143 k!142 k!141)
+(inv1 k!146 k!144 k!149 k!148 k!147)
+ -- RHS
+(inv1 k!145 k!144 k!143 k!142 k!141)
+
+chc ::  -- CHC
+(let ((a!1 (and (inv1 k!161 k!153 k!158 k!157 k!156)
+                (not (< k!161 k!153))
+                (= k!160 2)
+                (= k!159 2)
+                (emplace k!160 k!159 k!158 k!157 k!156 k!154 k!152 k!155)
+                (not (and (= k!154 k!153) (= k!152 1))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int Int) Bool)
+ -- LHS
+(emplace k!160 k!159 k!158 k!157 k!156 k!154 k!152 k!155)
+(inv1 k!161 k!153 k!158 k!157 k!156)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun inv1 (Int Int Int Int Int) Bool)
+rel :: (declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv1 (Int Int Int Int Int) Bool)
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun inv1 (Int Int Int Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun inv1 (Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv1 (Int Int Int Int Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : inv1#0Int
+add_integer_attribute::Integer Attribute::inv1#0
+Attribute Identifier : 3 attribute : inv1#1Int
+add_integer_attribute::Integer Attribute::inv1#1
+Attribute Identifier : 4 attribute : inv1#2Int
+add_integer_attribute::Integer Attribute::inv1#2
+Attribute Identifier : 5 attribute : inv1#3Int
+add_integer_attribute::Integer Attribute::inv1#3
+Attribute Identifier : 6 attribute : inv1#4Int
+add_integer_attribute::Integer Attribute::inv1#4
+add_integer_attribute::Integer Attribute::|inv1#0|-|inv1#2|
+add_integer_attribute::Integer Attribute::|inv1#2|-|inv1#0|
+add_integer_attribute::Integer Attribute::|inv1#0|-|inv1#4|
+add_integer_attribute::Integer Attribute::|inv1#4|-|inv1#0|
+add_integer_attribute::Integer Attribute::|inv1#2|-|inv1#4|
+add_integer_attribute::Integer Attribute::|inv1#4|-|inv1#2|
+add_integer_attribute::Integer Attribute::|inv1#1|-|inv1#0|
+add_integer_attribute::Integer Attribute::|inv1#0|-|inv1#1|
+add_integer_attribute::Integer Attribute::|inv1#1|-|inv1#2|
+add_integer_attribute::Integer Attribute::|inv1#2|-|inv1#1|
+add_integer_attribute::Integer Attribute::|inv1#1|-|inv1#4|
+add_integer_attribute::Integer Attribute::|inv1#4|-|inv1#1|
+learner_interface :: Relation : (declare-fun emplace (Int Int Int Int Int Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun emplace (Int Int Int Int Int Int Int Int) Bool) is mapped to baseval :  18
+Attribute Identifier : 19 attribute : emplace#0Int
+add_integer_attribute::Integer Attribute::emplace#0
+Attribute Identifier : 20 attribute : emplace#1Int
+add_integer_attribute::Integer Attribute::emplace#1
+Attribute Identifier : 21 attribute : emplace#2Int
+add_integer_attribute::Integer Attribute::emplace#2
+Attribute Identifier : 22 attribute : emplace#3Int
+add_integer_attribute::Integer Attribute::emplace#3
+Attribute Identifier : 23 attribute : emplace#4Int
+add_integer_attribute::Integer Attribute::emplace#4
+Attribute Identifier : 24 attribute : emplace#5Int
+add_integer_attribute::Integer Attribute::emplace#5
+Attribute Identifier : 25 attribute : emplace#6Int
+add_integer_attribute::Integer Attribute::emplace#6
+Attribute Identifier : 26 attribute : emplace#7Int
+add_integer_attribute::Integer Attribute::emplace#7
+add_integer_attribute::Integer Attribute::|emplace#7|-|emplace#4|
+add_integer_attribute::Integer Attribute::|emplace#4|-|emplace#7|
+add_integer_attribute::Integer Attribute::|emplace#5|-|emplace#2|
+add_integer_attribute::Integer Attribute::|emplace#2|-|emplace#5|
+add_integer_attribute::Integer Attribute::|emplace#6|-|emplace#3|
+add_integer_attribute::Integer Attribute::|emplace#3|-|emplace#6|
+add_integer_attribute::Integer Attribute::|emplace#5|+|emplace#6|-|emplace#2|-|emplace#3|
+add_integer_attribute::Integer Attribute::|emplace#2|+|emplace#3|-|emplace#5|-|emplace#6|
+add_integer_attribute::Integer Attribute::|emplace#7|-|emplace#5|
+add_integer_attribute::Integer Attribute::|emplace#5|-|emplace#7|
+add_integer_attribute::Integer Attribute::|emplace#4|-|emplace#2|
+add_integer_attribute::Integer Attribute::|emplace#2|-|emplace#4|
+add_integer_attribute::Integer Attribute::|emplace#7|-|emplace#6|
+add_integer_attribute::Integer Attribute::|emplace#6|-|emplace#7|
+add_integer_attribute::Integer Attribute::|emplace#4|-|emplace#3|
+add_integer_attribute::Integer Attribute::|emplace#3|-|emplace#4|
+add_integer_attribute::Integer Attribute::|emplace#7|-|emplace#5|-|emplace#6|
+add_integer_attribute::Integer Attribute::|emplace#5|+|emplace#6|-|emplace#7|
+add_integer_attribute::Integer Attribute::|emplace#4|-|emplace#2|-|emplace#3|
+add_integer_attribute::Integer Attribute::|emplace#2|+|emplace#3|-|emplace#4|
+===========================================
+Learning Iteration: 0
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+true
+Printing all the counter examples : 1
+Counterexample: {fail@(true)} => {}
+Conjectures
+===========================================
+Learning Iteration: 1
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+Printing all the counter examples : 19
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {emplace(1, 1, 3, 0, 3, 4, 0, 4)}
+Counterexample: {} => {emplace((- 1), 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 1, 0, 3, 2, 0, 4)}
+Counterexample: {} => {emplace(1, 1, 0, 0, 1, 1, 0, 2)}
+Counterexample: {} => {emplace(1, 1, 8, 1, 11, 9, 1, 12)}
+Counterexample: {} => {emplace(127, 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 2, 0, 5, 3, 0, 6)}
+Counterexample: {} => {emplace((- 58), 1, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(127, 127, 0, 1, 1, 0, 1, 2)}
+Counterexample: {} => {emplace(100, 0, 0, 0, 5, 0, 0, 6)}
+Counterexample: {} => {emplace(1, (- 1), 4, 0, 5, 5, 0, 6)}
+Counterexample: {} => {emplace((- 128), 0, 0, 0, 1, 0, 0, 2)}
+Counterexample: {} => {emplace(1, 124, 1, 0, 2, 2, 0, 3)}
+Counterexample: {} => {emplace(1, (- 1), 0, 0, 10, 1, 0, 11)}
+Counterexample: {} => {emplace((- 93), (- 93), 1, 0, 2, 1, 0, 3)}
+Counterexample: {} => {emplace((- 1), 0, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(1, (- 1), 7, 0, 7, 8, 0, 8)}
+Counterexample: {} => {inv1(0, 1, 0, 0, 0)}
+Conjectures
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> true
+(declare-fun inv1 (Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|] -> true
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool) => [|emplace#0|, |emplace#1|, |emplace#2|, |emplace#3|, |emplace#4|, |emplace#5|, |emplace#6|, |emplace#7|] -> true
+===========================================
+Learning Iteration: 2
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ true
+Printing all the counter examples : 20
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {emplace(1, 1, 3, 0, 3, 4, 0, 4)}
+Counterexample: {} => {emplace((- 1), 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 1, 0, 3, 2, 0, 4)}
+Counterexample: {} => {emplace(1, 1, 0, 0, 1, 1, 0, 2)}
+Counterexample: {} => {emplace(1, 1, 8, 1, 11, 9, 1, 12)}
+Counterexample: {} => {emplace(127, 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 2, 0, 5, 3, 0, 6)}
+Counterexample: {} => {emplace((- 58), 1, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(127, 127, 0, 1, 1, 0, 1, 2)}
+Counterexample: {} => {emplace(100, 0, 0, 0, 5, 0, 0, 6)}
+Counterexample: {} => {emplace(1, (- 1), 4, 0, 5, 5, 0, 6)}
+Counterexample: {} => {emplace((- 128), 0, 0, 0, 1, 0, 0, 2)}
+Counterexample: {} => {emplace(1, 124, 1, 0, 2, 2, 0, 3)}
+Counterexample: {} => {emplace(1, (- 1), 0, 0, 10, 1, 0, 11)}
+Counterexample: {} => {emplace((- 93), (- 93), 1, 0, 2, 1, 0, 3)}
+Counterexample: {} => {emplace((- 1), 0, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(1, (- 1), 7, 0, 7, 8, 0, 8)}
+Counterexample: {} => {inv1(0, 1, 0, 0, 0)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool) => [|emplace#0|, |emplace#1|, |emplace#2|, |emplace#3|, |emplace#4|, |emplace#5|, |emplace#6|, |emplace#7|] -> false
+(declare-fun inv1 (Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 3
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[26] <= 0
+  false
+  true
+Printing all the counter examples : 21
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {emplace(1, 1, 3, 0, 3, 4, 0, 4)}
+Counterexample: {} => {emplace((- 1), 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 1, 0, 3, 2, 0, 4)}
+Counterexample: {} => {emplace(1, 1, 0, 0, 1, 1, 0, 2)}
+Counterexample: {} => {emplace(1, 1, 8, 1, 11, 9, 1, 12)}
+Counterexample: {} => {emplace(127, 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 2, 0, 5, 3, 0, 6)}
+Counterexample: {} => {emplace((- 58), 1, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(127, 127, 0, 1, 1, 0, 1, 2)}
+Counterexample: {} => {emplace(100, 0, 0, 0, 5, 0, 0, 6)}
+Counterexample: {} => {emplace(1, (- 1), 4, 0, 5, 5, 0, 6)}
+Counterexample: {} => {emplace((- 128), 0, 0, 0, 1, 0, 0, 2)}
+Counterexample: {} => {emplace(1, 124, 1, 0, 2, 2, 0, 3)}
+Counterexample: {} => {emplace(1, (- 1), 0, 0, 10, 1, 0, 11)}
+Counterexample: {} => {emplace((- 93), (- 93), 1, 0, 2, 1, 0, 3)}
+Counterexample: {} => {emplace((- 1), 0, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(1, (- 1), 7, 0, 7, 8, 0, 8)}
+Counterexample: {} => {inv1(0, 1, 0, 0, 0)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 1), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool) => [|emplace#0|, |emplace#1|, |emplace#2|, |emplace#3|, |emplace#4|, |emplace#5|, |emplace#6|, |emplace#7|] -> true
+(declare-fun inv1 (Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 4
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[30] <= 0
+  true
+  false
+Printing all the counter examples : 22
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {emplace(1, 1, 3, 0, 3, 4, 0, 4)}
+Counterexample: {} => {emplace((- 1), 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 1, 0, 3, 2, 0, 4)}
+Counterexample: {} => {emplace(1, 1, 0, 0, 1, 1, 0, 2)}
+Counterexample: {} => {emplace(1, 1, 8, 1, 11, 9, 1, 12)}
+Counterexample: {} => {emplace(127, 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 2, 0, 5, 3, 0, 6)}
+Counterexample: {} => {emplace((- 58), 1, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(127, 127, 0, 1, 1, 0, 1, 2)}
+Counterexample: {} => {emplace(100, 0, 0, 0, 5, 0, 0, 6)}
+Counterexample: {} => {emplace(1, (- 1), 4, 0, 5, 5, 0, 6)}
+Counterexample: {} => {emplace((- 128), 0, 0, 0, 1, 0, 0, 2)}
+Counterexample: {} => {emplace(1, 124, 1, 0, 2, 2, 0, 3)}
+Counterexample: {} => {emplace(1, (- 1), 0, 0, 10, 1, 0, 11)}
+Counterexample: {} => {emplace((- 93), (- 93), 1, 0, 2, 1, 0, 3)}
+Counterexample: {} => {emplace((- 1), 0, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(1, (- 1), 7, 0, 7, 8, 0, 8)}
+Counterexample: {} => {inv1(0, 1, 0, 0, 0)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 1), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 0, 0, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool) => [|emplace#0|, |emplace#1|, |emplace#2|, |emplace#3|, |emplace#4|, |emplace#5|, |emplace#6|, |emplace#7|] -> (> (- |emplace#7| |emplace#4|) 0)
+(declare-fun inv1 (Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 5
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[38] <= 0
+  false
+  true
+Printing all the counter examples : 23
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {emplace(1, 1, 3, 0, 3, 4, 0, 4)}
+Counterexample: {} => {emplace((- 1), 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 1, 0, 3, 2, 0, 4)}
+Counterexample: {} => {emplace(1, 1, 0, 0, 1, 1, 0, 2)}
+Counterexample: {} => {emplace(1, 1, 8, 1, 11, 9, 1, 12)}
+Counterexample: {} => {emplace(127, 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 2, 0, 5, 3, 0, 6)}
+Counterexample: {} => {emplace((- 58), 1, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(127, 127, 0, 1, 1, 0, 1, 2)}
+Counterexample: {} => {emplace(100, 0, 0, 0, 5, 0, 0, 6)}
+Counterexample: {} => {emplace(1, (- 1), 4, 0, 5, 5, 0, 6)}
+Counterexample: {} => {emplace((- 128), 0, 0, 0, 1, 0, 0, 2)}
+Counterexample: {} => {emplace(1, 124, 1, 0, 2, 2, 0, 3)}
+Counterexample: {} => {emplace(1, (- 1), 0, 0, 10, 1, 0, 11)}
+Counterexample: {} => {emplace((- 93), (- 93), 1, 0, 2, 1, 0, 3)}
+Counterexample: {} => {emplace((- 1), 0, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(1, (- 1), 7, 0, 7, 8, 0, 8)}
+Counterexample: {} => {inv1(0, 1, 0, 0, 0)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 1), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 0, 0, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 2), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool) => [|emplace#0|, |emplace#1|, |emplace#2|, |emplace#3|, |emplace#4|, |emplace#5|, |emplace#6|, |emplace#7|] -> (<= (- |emplace#6| |emplace#3|) 0)
+(declare-fun inv1 (Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 6
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[30] <= 0
+  if x[26] <= 0
+   false
+   true
+  false
+Printing all the counter examples : 24
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {emplace(1, 1, 3, 0, 3, 4, 0, 4)}
+Counterexample: {} => {emplace((- 1), 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 1, 0, 3, 2, 0, 4)}
+Counterexample: {} => {emplace(1, 1, 0, 0, 1, 1, 0, 2)}
+Counterexample: {} => {emplace(1, 1, 8, 1, 11, 9, 1, 12)}
+Counterexample: {} => {emplace(127, 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 2, 0, 5, 3, 0, 6)}
+Counterexample: {} => {emplace((- 58), 1, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(127, 127, 0, 1, 1, 0, 1, 2)}
+Counterexample: {} => {emplace(100, 0, 0, 0, 5, 0, 0, 6)}
+Counterexample: {} => {emplace(1, (- 1), 4, 0, 5, 5, 0, 6)}
+Counterexample: {} => {emplace((- 128), 0, 0, 0, 1, 0, 0, 2)}
+Counterexample: {} => {emplace(1, 124, 1, 0, 2, 2, 0, 3)}
+Counterexample: {} => {emplace(1, (- 1), 0, 0, 10, 1, 0, 11)}
+Counterexample: {} => {emplace((- 93), (- 93), 1, 0, 2, 1, 0, 3)}
+Counterexample: {} => {emplace((- 1), 0, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(1, (- 1), 7, 0, 7, 8, 0, 8)}
+Counterexample: {} => {inv1(0, 1, 0, 0, 0)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 1), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 0, 0, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 2), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 2, 0, 0, 2, 1), inv1(0, 0, 0, 2, 0)} => {fail@(true)}
+Conjectures
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool) => [|emplace#0|, |emplace#1|, |emplace#2|, |emplace#3|, |emplace#4|, |emplace#5|, |emplace#6|, |emplace#7|] -> (> (- |emplace#7| |emplace#6|) 0)
+(declare-fun inv1 (Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 7
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[30] <= 0
+  if x[38] <= 0
+   false
+   true
+  false
+Printing all the counter examples : 25
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {emplace(1, 1, 3, 0, 3, 4, 0, 4)}
+Counterexample: {} => {emplace((- 1), 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 1, 0, 3, 2, 0, 4)}
+Counterexample: {} => {emplace(1, 1, 0, 0, 1, 1, 0, 2)}
+Counterexample: {} => {emplace(1, 1, 8, 1, 11, 9, 1, 12)}
+Counterexample: {} => {emplace(127, 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 2, 0, 5, 3, 0, 6)}
+Counterexample: {} => {emplace((- 58), 1, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(127, 127, 0, 1, 1, 0, 1, 2)}
+Counterexample: {} => {emplace(100, 0, 0, 0, 5, 0, 0, 6)}
+Counterexample: {} => {emplace(1, (- 1), 4, 0, 5, 5, 0, 6)}
+Counterexample: {} => {emplace((- 128), 0, 0, 0, 1, 0, 0, 2)}
+Counterexample: {} => {emplace(1, 124, 1, 0, 2, 2, 0, 3)}
+Counterexample: {} => {emplace(1, (- 1), 0, 0, 10, 1, 0, 11)}
+Counterexample: {} => {emplace((- 93), (- 93), 1, 0, 2, 1, 0, 3)}
+Counterexample: {} => {emplace((- 1), 0, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(1, (- 1), 7, 0, 7, 8, 0, 8)}
+Counterexample: {} => {inv1(0, 1, 0, 0, 0)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 1), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 0, 0, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 2), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 2, 0, 0, 2, 1), inv1(0, 0, 0, 2, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 2, 0, 0, 2, 3), inv1(0, 0, 0, 2, 0)} => {fail@(true)}
+Conjectures
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool) => [|emplace#0|, |emplace#1|, |emplace#2|, |emplace#3|, |emplace#4|, |emplace#5|, |emplace#6|, |emplace#7|] -> (and (> (- |emplace#7| |emplace#4|) 0) (<= (- |emplace#6| |emplace#3|) 0))
+(declare-fun inv1 (Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 8
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[30] <= 0
+  if x[21] <= 1
+   if x[26] <= 0
+    false
+    true
+   false
+  false
+Printing all the counter examples : 26
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {emplace(1, 1, 3, 0, 3, 4, 0, 4)}
+Counterexample: {} => {emplace((- 1), 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 1, 0, 3, 2, 0, 4)}
+Counterexample: {} => {emplace(1, 1, 0, 0, 1, 1, 0, 2)}
+Counterexample: {} => {emplace(1, 1, 8, 1, 11, 9, 1, 12)}
+Counterexample: {} => {emplace(127, 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 2, 0, 5, 3, 0, 6)}
+Counterexample: {} => {emplace((- 58), 1, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(127, 127, 0, 1, 1, 0, 1, 2)}
+Counterexample: {} => {emplace(100, 0, 0, 0, 5, 0, 0, 6)}
+Counterexample: {} => {emplace(1, (- 1), 4, 0, 5, 5, 0, 6)}
+Counterexample: {} => {emplace((- 128), 0, 0, 0, 1, 0, 0, 2)}
+Counterexample: {} => {emplace(1, 124, 1, 0, 2, 2, 0, 3)}
+Counterexample: {} => {emplace(1, (- 1), 0, 0, 10, 1, 0, 11)}
+Counterexample: {} => {emplace((- 93), (- 93), 1, 0, 2, 1, 0, 3)}
+Counterexample: {} => {emplace((- 1), 0, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(1, (- 1), 7, 0, 7, 8, 0, 8)}
+Counterexample: {} => {inv1(0, 1, 0, 0, 0)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 1), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 0, 0, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 2), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 2, 0, 0, 2, 1), inv1(0, 0, 0, 2, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 2, 0, 0, 2, 3), inv1(0, 0, 0, 2, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 0, 0, 1), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool) => [|emplace#0|, |emplace#1|, |emplace#2|, |emplace#3|, |emplace#4|, |emplace#5|, |emplace#6|, |emplace#7|] -> (and (> (- |emplace#7| |emplace#6|) 0) (<= (- |emplace#6| |emplace#3|) 0))
+(declare-fun inv1 (Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 9
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[19] <= 1
+  true
+  if x[36] <= 0
+   false
+   true
+Printing all the counter examples : 27
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {emplace(1, 1, 3, 0, 3, 4, 0, 4)}
+Counterexample: {} => {emplace((- 1), 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 1, 0, 3, 2, 0, 4)}
+Counterexample: {} => {emplace(1, 1, 0, 0, 1, 1, 0, 2)}
+Counterexample: {} => {emplace(1, 1, 8, 1, 11, 9, 1, 12)}
+Counterexample: {} => {emplace(127, 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 2, 0, 5, 3, 0, 6)}
+Counterexample: {} => {emplace((- 58), 1, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(127, 127, 0, 1, 1, 0, 1, 2)}
+Counterexample: {} => {emplace(100, 0, 0, 0, 5, 0, 0, 6)}
+Counterexample: {} => {emplace(1, (- 1), 4, 0, 5, 5, 0, 6)}
+Counterexample: {} => {emplace((- 128), 0, 0, 0, 1, 0, 0, 2)}
+Counterexample: {} => {emplace(1, 124, 1, 0, 2, 2, 0, 3)}
+Counterexample: {} => {emplace(1, (- 1), 0, 0, 10, 1, 0, 11)}
+Counterexample: {} => {emplace((- 93), (- 93), 1, 0, 2, 1, 0, 3)}
+Counterexample: {} => {emplace((- 1), 0, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(1, (- 1), 7, 0, 7, 8, 0, 8)}
+Counterexample: {} => {inv1(0, 1, 0, 0, 0)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 1), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 0, 0, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 2), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 2, 0, 0, 2, 1), inv1(0, 0, 0, 2, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 2, 0, 0, 2, 3), inv1(0, 0, 0, 2, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 0, 0, 1), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 1, 1, 1, 0), inv1(0, 0, 0, 0, 1)} => {fail@(true)}
+Conjectures
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool) => [|emplace#0|, |emplace#1|, |emplace#2|, |emplace#3|, |emplace#4|, |emplace#5|, |emplace#6|, |emplace#7|] -> (and (> (- |emplace#7| |emplace#4|) 0) (<= |emplace#3| 1) (<= (- |emplace#6| |emplace#3|) 0))
+(declare-fun inv1 (Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 10
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[19] <= 1
+  true
+  if x[19] <= 2
+   false
+   true
+Printing all the counter examples : 27
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {emplace(1, 1, 3, 0, 3, 4, 0, 4)}
+Counterexample: {} => {emplace((- 1), 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 1, 0, 3, 2, 0, 4)}
+Counterexample: {} => {emplace(1, 1, 0, 0, 1, 1, 0, 2)}
+Counterexample: {} => {emplace(1, 1, 8, 1, 11, 9, 1, 12)}
+Counterexample: {} => {emplace(127, 1, 0, 0, 2, 0, 0, 3)}
+Counterexample: {} => {emplace(1, 1, 2, 0, 5, 3, 0, 6)}
+Counterexample: {} => {emplace((- 58), 1, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(127, 127, 0, 1, 1, 0, 1, 2)}
+Counterexample: {} => {emplace(100, 0, 0, 0, 5, 0, 0, 6)}
+Counterexample: {} => {emplace(1, (- 1), 4, 0, 5, 5, 0, 6)}
+Counterexample: {} => {emplace((- 128), 0, 0, 0, 1, 0, 0, 2)}
+Counterexample: {} => {emplace(1, 124, 1, 0, 2, 2, 0, 3)}
+Counterexample: {} => {emplace(1, (- 1), 0, 0, 10, 1, 0, 11)}
+Counterexample: {} => {emplace((- 93), (- 93), 1, 0, 2, 1, 0, 3)}
+Counterexample: {} => {emplace((- 1), 0, 0, 0, 0, 0, 0, 1)}
+Counterexample: {} => {emplace(1, (- 1), 7, 0, 7, 8, 0, 8)}
+Counterexample: {} => {inv1(0, 1, 0, 0, 0)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 1), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 0, 0, 0), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 1, 1, 2), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 2, 0, 0, 2, 1), inv1(0, 0, 0, 2, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 2, 0, 0, 2, 3), inv1(0, 0, 0, 2, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 0, 0, 0, 1), inv1(0, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {emplace(2, 2, 0, 0, 1, 1, 1, 0), inv1(0, 0, 0, 0, 1)} => {fail@(true)}
+Conjectures
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool) => [|emplace#0|, |emplace#1|, |emplace#2|, |emplace#3|, |emplace#4|, |emplace#5|, |emplace#6|, |emplace#7|] -> (or (<= |emplace#1| 1) (and (> (- |emplace#4| |emplace#2|) 0) (> |emplace#1| 1)))
+(declare-fun inv1 (Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+In Naive Check
+Success (checked 214 CHCs, invoked learner 11 times)
+(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool) => [|emplace#0|, |emplace#1|, |emplace#2|, |emplace#3|, |emplace#4|, |emplace#5|, |emplace#6|, |emplace#7|] -> (or (<= |emplace#1| 1) (and (> |emplace#1| 2) (> |emplace#1| 1)))
+(declare-fun inv1 (Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 5(declare-fun inv1 (Int Int Int Int Int) Bool)inv1
+Relation : 8(declare-fun emplace (Int Int Int Int Int Int Int Int) Bool)emplace
+Final CHCs read
+CHC : (fail@ true)
+CHC : (emplace k!151 k!150 k!149 k!148 k!147 k!143 k!142 k!141)
+CHC : (inv1 k!146 k!144 k!149 k!148 k!147)
+CHC : (emplace k!160 k!159 k!158 k!157 k!156 k!154 k!152 k!155)
+CHC : (inv1 k!161 k!153 k!158 k!157 k!156)
+Total time: 2.35

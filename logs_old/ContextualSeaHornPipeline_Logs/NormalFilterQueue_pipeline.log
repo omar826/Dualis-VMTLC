@@ -1,0 +1,22 @@
+
+========================================
+         Starting Pipeline for: NormalFilterQueue (Mode: ContextualSeaHorn)
+========================================
+Initializing pipeline for benchmark: 'NormalFilterQueue'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/NormalFilterQueue/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Running SeaHorn Baseline ====================
+   -> Copied source file to working directory.
+   -> Starting SeaHorn(NormalFilterQueue) with a 1000-second timeout...
+   -> SeaHorn(NormalFilterQueue) completed: UNSAT (Safe).
+   -> Result logged to /Dualis/scripts/../logs/seahorn_baselines.log
+
+====================== Pipeline Finished =====================
+pipeline.run() took 0.0019 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualSeaHorn NormalFilterQueue
+PID: 22
+========================================
+
+
+Total Pipeline Duration: 48.10s

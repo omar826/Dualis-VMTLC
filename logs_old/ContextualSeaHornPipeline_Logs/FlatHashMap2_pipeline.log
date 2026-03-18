@@ -1,0 +1,22 @@
+
+========================================
+         Starting Pipeline for: FlatHashMap2 (Mode: ContextualSeaHorn)
+========================================
+Initializing pipeline for benchmark: 'FlatHashMap2'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/FlatHashMap2/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Running SeaHorn Baseline ====================
+   -> Copied source file to working directory.
+   -> Starting SeaHorn(FlatHashMap2) with a 1000-second timeout...
+   -> SeaHorn(FlatHashMap2) completed: UNSAT (Safe).
+   -> Result logged to /Dualis/scripts/../logs/seahorn_baselines.log
+
+====================== Pipeline Finished =====================
+pipeline.run() took 0.0015 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualSeaHorn FlatHashMap2
+PID: 20
+========================================
+
+
+Total Pipeline Duration: 3.88s

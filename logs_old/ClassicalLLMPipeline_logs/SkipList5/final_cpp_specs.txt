@@ -1,0 +1,7 @@
+insert
+(placeholder for declaration)
+(isPresent1 == 1 && min1 == (len == 0 ? v : (v < min ? v : min)) && max1 == (len == 0 ? v : (v > max ? v : max)) && len1 == len + 1)
+
+lower_bound
+(placeholder for declaration)
+(lb_ret1 >= k && (!(k <= min) || (lb_ret1 == min)))

@@ -1,0 +1,1034 @@
+(declare-rel remove_none (Int Int Int Int))
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel fail ())
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(declare-var E Int)
+(declare-var F Int)
+(declare-var G Int)
+(declare-var H Int)
+(rule (=> (and (= F 0) (= E 0) (= D 0) (= C 0) (= B 1) (= A 1)) (insert F E D C B A)))
+(rule (=> (and (= D 0) (= C 0) (= B 0) (= A 0)) (remove_none D C B A)))
+(rule (=> (and (= F 48) (= E 48) (= D 0) (= C 0) (= B 1) (= A 1))
+    (insert F E D C B A)))
+(rule (=> (and (> B 0) (= C 0) (= A 0)) (inv1 C B A)))
+(rule (=> (and (inv1 D B F)
+         (or (= E 1) (= E 0))
+         (< D B)
+         (= H D)
+         (= G D)
+         (insert H G F 0 A E)
+         (= C (+ D 1)))
+    (inv1 C B A)))
+(rule (let ((a!1 (and (inv1 F A B)
+                (or (= G 1) (= G 0))
+                (not (< F A))
+                (= E 0)
+                (remove_none B E D C)
+                (not (and (= C 0) (= B A))))))
+  (=> a!1 fail)))
+
+
+Read 6 rules and 1 queries (1)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun remove_none (Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int) Bool)
+(declare-fun insert (Int Int Int Int Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (= k!5 0) (= k!4 0) (= k!3 0) (= k!2 0) (= k!1 1) (= k!0 1))
+    (insert k!5 k!4 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insert k!5 k!4 k!3 k!2 k!1 k!0)
+
+ -- CHC
+(=> (and (= k!9 0) (= k!8 0) (= k!7 0) (= k!6 0)) (remove_none k!9 k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun remove_none (Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(remove_none k!9 k!8 k!7 k!6)
+
+ -- CHC
+(=> (and (= k!15 48) (= k!14 48) (= k!13 0) (= k!12 0) (= k!11 1) (= k!10 1))
+    (insert k!15 k!14 k!13 k!12 k!11 k!10))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insert k!15 k!14 k!13 k!12 k!11 k!10)
+
+ -- CHC
+(=> (and (> k!17 0) (= k!18 0) (= k!16 0)) (inv1 k!18 k!17 k!16))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv1 k!18 k!17 k!16)
+
+ -- CHC
+(=> (and (inv1 k!22 k!20 k!24)
+         (or (= k!23 1) (= k!23 0))
+         (< k!22 k!20)
+         (= k!26 k!22)
+         (= k!25 k!22)
+         (insert k!26 k!25 k!24 0 k!19 k!23)
+         (= k!21 (+ k!22 1)))
+    (inv1 k!21 k!20 k!19))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int) Bool)
+ -- LHS
+(insert k!26 k!25 k!24 0 k!19 k!23)
+(inv1 k!22 k!20 k!24)
+ -- RHS
+(inv1 k!21 k!20 k!19)
+
+ -- CHC
+(let ((a!1 (and (inv1 k!32 k!27 k!28)
+                (or (= k!33 1) (= k!33 0))
+                (not (< k!32 k!27))
+                (= k!31 0)
+                (remove_none k!28 k!31 k!30 k!29)
+                (not (and (= k!29 0) (= k!28 k!27))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun remove_none (Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int) Bool)
+ -- LHS
+(remove_none k!28 k!31 k!30 k!29)
+(inv1 k!32 k!27 k!28)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (= k!5 0) (= k!4 0) (= k!3 0) (= k!2 0) (= k!1 1) (= k!0 1))
+    (insert k!5 k!4 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insert k!5 k!4 k!3 k!2 k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (= k!9 0) (= k!8 0) (= k!7 0) (= k!6 0)) (remove_none k!9 k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun remove_none (Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(remove_none k!9 k!8 k!7 k!6)
+
+chc ::  -- CHC
+(=> (and (= k!15 48) (= k!14 48) (= k!13 0) (= k!12 0) (= k!11 1) (= k!10 1))
+    (insert k!15 k!14 k!13 k!12 k!11 k!10))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insert k!15 k!14 k!13 k!12 k!11 k!10)
+
+chc ::  -- CHC
+(=> (and (> k!17 0) (= k!18 0) (= k!16 0)) (inv1 k!18 k!17 k!16))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv1 k!18 k!17 k!16)
+
+chc ::  -- CHC
+(=> (and (inv1 k!22 k!20 k!24)
+         (or (= k!23 1) (= k!23 0))
+         (< k!22 k!20)
+         (= k!26 k!22)
+         (= k!25 k!22)
+         (insert k!26 k!25 k!24 0 k!19 k!23)
+         (= k!21 (+ k!22 1)))
+    (inv1 k!21 k!20 k!19))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int) Bool)
+ -- LHS
+(insert k!26 k!25 k!24 0 k!19 k!23)
+(inv1 k!22 k!20 k!24)
+ -- RHS
+(inv1 k!21 k!20 k!19)
+
+chc ::  -- CHC
+(let ((a!1 (and (inv1 k!32 k!27 k!28)
+                (or (= k!33 1) (= k!33 0))
+                (not (< k!32 k!27))
+                (= k!31 0)
+                (remove_none k!28 k!31 k!30 k!29)
+                (not (and (= k!29 0) (= k!28 k!27))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun remove_none (Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int) Bool)
+ -- LHS
+(remove_none k!28 k!31 k!30 k!29)
+(inv1 k!32 k!27 k!28)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun remove_none (Int Int Int Int) Bool)
+rel :: (declare-fun inv1 (Int Int Int) Bool)
+rel :: (declare-fun insert (Int Int Int Int Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun remove_none (Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int) Bool)
+(declare-fun insert (Int Int Int Int Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun remove_none (Int Int Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun remove_none (Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun remove_none (Int Int Int Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : remove_none#0Int
+add_integer_attribute::Integer Attribute::remove_none#0
+Attribute Identifier : 3 attribute : remove_none#1Int
+add_integer_attribute::Integer Attribute::remove_none#1
+Attribute Identifier : 4 attribute : remove_none#2Int
+add_integer_attribute::Integer Attribute::remove_none#2
+Attribute Identifier : 5 attribute : remove_none#3Int
+add_integer_attribute::Integer Attribute::remove_none#3
+add_integer_attribute::Integer Attribute::|remove_none#2|-|remove_none#0|
+add_integer_attribute::Integer Attribute::|remove_none#0|-|remove_none#2|
+add_integer_attribute::Integer Attribute::|remove_none#3|-|remove_none#1|
+add_integer_attribute::Integer Attribute::|remove_none#1|-|remove_none#3|
+learner_interface :: Relation : (declare-fun inv1 (Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun inv1 (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv1 (Int Int Int) Bool) is mapped to baseval :  9
+Attribute Identifier : 10 attribute : inv1#0Int
+add_integer_attribute::Integer Attribute::inv1#0
+Attribute Identifier : 11 attribute : inv1#1Int
+add_integer_attribute::Integer Attribute::inv1#1
+Attribute Identifier : 12 attribute : inv1#2Int
+add_integer_attribute::Integer Attribute::inv1#2
+add_integer_attribute::Integer Attribute::|inv1#2|-|inv1#0|
+add_integer_attribute::Integer Attribute::|inv1#0|-|inv1#2|
+add_integer_attribute::Integer Attribute::|inv1#1|-|inv1#0|
+add_integer_attribute::Integer Attribute::|inv1#1|-|inv1#2|
+learner_interface :: Relation : (declare-fun insert (Int Int Int Int Int Int) Bool) is mapped to CatID :  3
+learner_interfaceCatID : 3 is mapped to Relation : (declare-fun insert (Int Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun insert (Int Int Int Int Int Int) Bool) is mapped to baseval :  16
+Attribute Identifier : 17 attribute : insert#0Int
+add_integer_attribute::Integer Attribute::insert#0
+Attribute Identifier : 18 attribute : insert#1Int
+add_integer_attribute::Integer Attribute::insert#1
+Attribute Identifier : 19 attribute : insert#2Int
+add_integer_attribute::Integer Attribute::insert#2
+Attribute Identifier : 20 attribute : insert#3Int
+add_integer_attribute::Integer Attribute::insert#3
+Attribute Identifier : 21 attribute : insert#4Int
+add_integer_attribute::Integer Attribute::insert#4
+Attribute Identifier : 22 attribute : insert#5Int
+add_integer_attribute::Integer Attribute::insert#5
+add_integer_attribute::Integer Attribute::|insert#0|-|insert#1|
+add_integer_attribute::Integer Attribute::|insert#1|-|insert#0|
+add_integer_attribute::Integer Attribute::|insert#0|-|insert#2|
+add_integer_attribute::Integer Attribute::|insert#2|-|insert#0|
+add_integer_attribute::Integer Attribute::|insert#1|-|insert#2|
+add_integer_attribute::Integer Attribute::|insert#2|-|insert#1|
+add_integer_attribute::Integer Attribute::|insert#4|-|insert#2|
+add_integer_attribute::Integer Attribute::|insert#2|-|insert#4|
+add_integer_attribute::Integer Attribute::|insert#4|-|insert#0|
+add_integer_attribute::Integer Attribute::|insert#0|-|insert#4|
+add_integer_attribute::Integer Attribute::|insert#4|-|insert#1|
+add_integer_attribute::Integer Attribute::|insert#1|-|insert#4|
+===========================================
+Learning Iteration: 0
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+true
+Printing all the counter examples : 1
+Counterexample: {fail@(true)} => {}
+Conjectures
+===========================================
+Learning Iteration: 1
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+ NULL
+Printing all the counter examples : 5
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Conjectures
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> true
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> true
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> true
+===========================================
+Learning Iteration: 2
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ true
+ true
+Printing all the counter examples : 6
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> false
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> false
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 3
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[10] <= 0
+  false
+  true
+ true
+Printing all the counter examples : 7
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> true
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 4
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[14] <= 0
+  false
+  true
+ true
+Printing all the counter examples : 8
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (> |inv1#1| 0)
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 5
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[14] <= 0
+  false
+  if x[10] <= 0
+   false
+   true
+ true
+Printing all the counter examples : 9
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (> (- |inv1#1| |inv1#0|) 0)
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 6
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[14] <= 0
+  if x[13] <= 0
+   false
+   true
+  if x[10] <= 0
+   false
+   true
+ true
+Printing all the counter examples : 11
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 7
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[14] <= 0
+  false
+  true
+ if x[21] <= 0
+  false
+  true
+Printing all the counter examples : 12
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (or (and (> (- |inv1#0| |inv1#2|) 0) (<= (- |inv1#1| |inv1#0|) 0)) (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0)))
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 8
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[14] <= 0
+  false
+  true
+ if x[21] <= 0
+  false
+  if x[20] <= 0
+   false
+   true
+Printing all the counter examples : 13
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 1, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> (> |insert#5| 0)
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (> (- |inv1#1| |inv1#0|) 0)
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 9
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[15] <= 0
+  false
+  true
+ if x[21] <= 0
+  false
+  true
+Printing all the counter examples : 15
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 1, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insert((- 1), (- 1), (- 1), 0, 0, 1), inv1((- 1), 0, (- 1))} => {inv1(0, 0, 0)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, 0, (- 1))} => {fail@(true)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> (and (> |insert#4| 0) (> |insert#5| 0))
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (> (- |inv1#1| |inv1#0|) 0)
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 10
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[14] <= 0
+  false
+  true
+ if x[21] <= 0
+  false
+  if x[16] <= -1
+   false
+   true
+Printing all the counter examples : 16
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 1, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insert((- 1), (- 1), (- 1), 0, 0, 1), inv1((- 1), 0, (- 1))} => {inv1(0, 0, 0)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, 0, (- 1))} => {fail@(true)}
+Counterexample: {insert(0, 0, 0, 0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> (> |insert#5| 0)
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (> (- |inv1#1| |inv1#2|) 0)
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 11
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[14] <= 0
+  false
+  true
+ if x[21] <= 0
+  false
+  if x[24] <= 0
+   if x[20] <= 0
+    false
+    if x[25] <= 0
+     true
+     false
+   true
+Printing all the counter examples : 17
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 1, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insert((- 1), (- 1), (- 1), 0, 0, 1), inv1((- 1), 0, (- 1))} => {inv1(0, 0, 0)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, 0, (- 1))} => {fail@(true)}
+Counterexample: {insert(0, 0, 0, 0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, (- 1), 0, 1, 1), inv1(0, 1, (- 1))} => {inv1(1, 1, 1)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> (and (> |insert#0| (- 1)) (> |insert#5| 0))
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (> (- |inv1#1| |inv1#0|) 0)
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 12
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[14] <= 0
+  false
+  true
+ if x[21] <= 0
+  false
+  if x[16] <= 0
+   if x[20] <= 0
+    false
+    if x[16] <= -1
+     false
+     if x[24] <= 0
+      true
+      false
+   true
+Printing all the counter examples : 18
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 1, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insert((- 1), (- 1), (- 1), 0, 0, 1), inv1((- 1), 0, (- 1))} => {inv1(0, 0, 0)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, 0, (- 1))} => {fail@(true)}
+Counterexample: {insert(0, 0, 0, 0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, (- 1), 0, 1, 1), inv1(0, 1, (- 1))} => {inv1(1, 1, 1)}
+Counterexample: {insert(1, 1, 1, 0, 1, 1), inv1(1, 2, 1)} => {inv1(2, 2, 1)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> (let ((a!1 (or (and (<= (- |insert#2| |insert#0|) 0) (> |insert#4| 0) (<= (- |insert#0| |insert#2|) 0)) (> (- |insert#0| |insert#2|) 0)))) (and a!1 (> |insert#5| 0)))
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (> (- |inv1#1| |inv1#0|) 0)
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 13
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[14] <= 0
+  false
+  true
+ if x[21] <= 0
+  false
+  if x[31] <= 0
+   if x[20] <= 0
+    false
+    if x[28] <= 0
+     false
+     if x[16] <= -1
+      false
+      if x[24] <= 0
+       true
+       false
+   true
+Printing all the counter examples : 19
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 1, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insert((- 1), (- 1), (- 1), 0, 0, 1), inv1((- 1), 0, (- 1))} => {inv1(0, 0, 0)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, 0, (- 1))} => {fail@(true)}
+Counterexample: {insert(0, 0, 0, 0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, (- 1), 0, 1, 1), inv1(0, 1, (- 1))} => {inv1(1, 1, 1)}
+Counterexample: {insert(1, 1, 1, 0, 1, 1), inv1(1, 2, 1)} => {inv1(2, 2, 1)}
+Counterexample: {insert(2, 2, 2, 0, 1, 1), inv1(2, 3, 2)} => {inv1(3, 3, 1)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> (let ((a!1 (or (and (<= (- |insert#0| |insert#2|) 0) (> |insert#0| (- 1)) (> |insert#4| 0) (<= |insert#0| 0)) (> |insert#0| 0)))) (and a!1 (> |insert#5| 0)))
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (> (- |inv1#1| |inv1#0|) 0)
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 14
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[15] <= 0
+  false
+  if x[14] <= 0
+   if x[11] <= -1
+    false
+    true
+   if x[11] <= -1
+    false
+    true
+ if x[21] <= 0
+  false
+  true
+Printing all the counter examples : 21
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 1, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insert((- 1), (- 1), (- 1), 0, 0, 1), inv1((- 1), 0, (- 1))} => {inv1(0, 0, 0)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, 0, (- 1))} => {fail@(true)}
+Counterexample: {insert(0, 0, 0, 0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, (- 1), 0, 1, 1), inv1(0, 1, (- 1))} => {inv1(1, 1, 1)}
+Counterexample: {insert(1, 1, 1, 0, 1, 1), inv1(1, 2, 1)} => {inv1(2, 2, 1)}
+Counterexample: {insert(2, 2, 2, 0, 1, 1), inv1(2, 3, 2)} => {inv1(3, 3, 1)}
+Counterexample: {insert((- 1), (- 1), 0, 0, (- 1), 1), inv1((- 1), 1, 0)} => {inv1(0, 1, (- 1))}
+Counterexample: {remove_none(0, 0, 0, 0), inv1(1, 1, 0)} => {fail@(true)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> (let ((a!1 (or (and (<= (- |insert#0| |insert#2|) 0) (> |insert#0| (- 1)) (> (- |insert#4| |insert#2|) 0) (> |insert#4| 0) (<= (- |insert#0| |insert#4|) 0)) (> (- |insert#0| |insert#4|) 0)))) (and a!1 (> |insert#5| 0)))
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (> (- |inv1#1| |inv1#0|) 0)
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 15
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[15] <= 0
+  false
+  if x[14] <= 0
+   false
+   true
+ if x[21] <= 0
+  false
+  if x[20] <= 0
+   false
+   if x[24] <= 1
+    if x[16] <= 0
+     if x[18] <= -1
+      false
+      true
+     false
+    true
+Printing all the counter examples : 22
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 1, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insert((- 1), (- 1), (- 1), 0, 0, 1), inv1((- 1), 0, (- 1))} => {inv1(0, 0, 0)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, 0, (- 1))} => {fail@(true)}
+Counterexample: {insert(0, 0, 0, 0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, (- 1), 0, 1, 1), inv1(0, 1, (- 1))} => {inv1(1, 1, 1)}
+Counterexample: {insert(1, 1, 1, 0, 1, 1), inv1(1, 2, 1)} => {inv1(2, 2, 1)}
+Counterexample: {insert(2, 2, 2, 0, 1, 1), inv1(2, 3, 2)} => {inv1(3, 3, 1)}
+Counterexample: {insert((- 1), (- 1), 0, 0, (- 1), 1), inv1((- 1), 1, 0)} => {inv1(0, 1, (- 1))}
+Counterexample: {remove_none(0, 0, 0, 0), inv1(1, 1, 0)} => {fail@(true)}
+Counterexample: {insert(2, 2, 0, 0, 1, 1), inv1(2, 3, 0)} => {inv1(3, 3, 1)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> (> |insert#5| 0)
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (let ((a!1 (or (and (> |inv1#2| (- 1)) (<= (- |inv1#1| |inv1#0|) 0)) (and (> |inv1#2| (- 1)) (> (- |inv1#1| |inv1#0|) 0))))) (and a!1 (> (- |inv1#1| |inv1#2|) 0)))
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 16
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ if x[10] <= 0
+  false
+  if x[9] <= 0
+   true
+   false
+ if x[21] <= 0
+  false
+  if x[20] <= 0
+   false
+   if x[18] <= -1
+    false
+    true
+Printing all the counter examples : 23
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 1, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insert((- 1), (- 1), (- 1), 0, 0, 1), inv1((- 1), 0, (- 1))} => {inv1(0, 0, 0)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, 0, (- 1))} => {fail@(true)}
+Counterexample: {insert(0, 0, 0, 0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, (- 1), 0, 1, 1), inv1(0, 1, (- 1))} => {inv1(1, 1, 1)}
+Counterexample: {insert(1, 1, 1, 0, 1, 1), inv1(1, 2, 1)} => {inv1(2, 2, 1)}
+Counterexample: {insert(2, 2, 2, 0, 1, 1), inv1(2, 3, 2)} => {inv1(3, 3, 1)}
+Counterexample: {insert((- 1), (- 1), 0, 0, (- 1), 1), inv1((- 1), 1, 0)} => {inv1(0, 1, (- 1))}
+Counterexample: {remove_none(0, 0, 0, 0), inv1(1, 1, 0)} => {fail@(true)}
+Counterexample: {insert(2, 2, 0, 0, 1, 1), inv1(2, 3, 0)} => {inv1(3, 3, 1)}
+Counterexample: {insert(0, 0, 0, 0, 1, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> (let ((a!1 (or (and (> |insert#2| (- 1)) (<= |insert#0| 0) (<= (- |insert#0| |insert#2|) 1)) (> (- |insert#0| |insert#2|) 1)))) (and a!1 (> |insert#4| 0) (> |insert#5| 0)))
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> (- |inv1#1| |inv1#0|) 0) (> (- |inv1#1| |inv1#2|) 0))
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 17
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[4] <= 0
+  true
+  false
+ if x[13] <= 0
+  true
+  false
+ if x[20] <= 0
+  false
+  if x[18] <= 0
+   true
+   false
+Printing all the counter examples : 24
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 1, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insert((- 1), (- 1), (- 1), 0, 0, 1), inv1((- 1), 0, (- 1))} => {inv1(0, 0, 0)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, 0, (- 1))} => {fail@(true)}
+Counterexample: {insert(0, 0, 0, 0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, (- 1), 0, 1, 1), inv1(0, 1, (- 1))} => {inv1(1, 1, 1)}
+Counterexample: {insert(1, 1, 1, 0, 1, 1), inv1(1, 2, 1)} => {inv1(2, 2, 1)}
+Counterexample: {insert(2, 2, 2, 0, 1, 1), inv1(2, 3, 2)} => {inv1(3, 3, 1)}
+Counterexample: {insert((- 1), (- 1), 0, 0, (- 1), 1), inv1((- 1), 1, 0)} => {inv1(0, 1, (- 1))}
+Counterexample: {remove_none(0, 0, 0, 0), inv1(1, 1, 0)} => {fail@(true)}
+Counterexample: {insert(2, 2, 0, 0, 1, 1), inv1(2, 3, 0)} => {inv1(3, 3, 1)}
+Counterexample: {insert(0, 0, 0, 0, 1, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none(1, 0, 0, (- 1)), inv1(0, 0, 1)} => {fail@(true)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> (and (> |insert#2| (- 1)) (> |insert#4| 0) (> |insert#5| 0))
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (<= |inv1#0| 0) (> |inv1#1| 0))
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 18
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 0
+  true
+  false
+ if x[13] <= 0
+  if x[10] <= 0
+   false
+   if x[10] <= 1
+    true
+    false
+  false
+ if x[20] <= 0
+  false
+  true
+Printing all the counter examples : 25
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 1, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insert((- 1), (- 1), (- 1), 0, 0, 1), inv1((- 1), 0, (- 1))} => {inv1(0, 0, 0)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, 0, (- 1))} => {fail@(true)}
+Counterexample: {insert(0, 0, 0, 0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, (- 1), 0, 1, 1), inv1(0, 1, (- 1))} => {inv1(1, 1, 1)}
+Counterexample: {insert(1, 1, 1, 0, 1, 1), inv1(1, 2, 1)} => {inv1(2, 2, 1)}
+Counterexample: {insert(2, 2, 2, 0, 1, 1), inv1(2, 3, 2)} => {inv1(3, 3, 1)}
+Counterexample: {insert((- 1), (- 1), 0, 0, (- 1), 1), inv1((- 1), 1, 0)} => {inv1(0, 1, (- 1))}
+Counterexample: {remove_none(0, 0, 0, 0), inv1(1, 1, 0)} => {fail@(true)}
+Counterexample: {insert(2, 2, 0, 0, 1, 1), inv1(2, 3, 0)} => {inv1(3, 3, 1)}
+Counterexample: {insert(0, 0, 0, 0, 1, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none(1, 0, 0, (- 1)), inv1(0, 0, 1)} => {fail@(true)}
+Counterexample: {} => {inv1(0, 2, 0)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> (and (<= |insert#2| 0) (> |insert#4| 0))
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (<= (- |inv1#0| |inv1#2|) 0)
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> (<= |remove_none#3| 0)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 19
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 0
+  true
+  false
+ if x[9] <= 0
+  if x[10] <= 0
+   false
+   true
+  if x[11] <= 0
+   false
+   true
+ if x[20] <= 0
+  false
+  true
+Printing all the counter examples : 25
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(0, 0, 0, 0, 1, 1)}
+Counterexample: {} => {remove_none(0, 0, 0, 0)}
+Counterexample: {} => {insert(48, 48, 0, 0, 1, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {remove_none(0, 0, 0, 1), inv1(0, 0, 0)} => {fail@(true)}
+Counterexample: {remove_none(1, 0, 0, 1), inv1(1, 1, 1)} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 0), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert(0, 0, 0, 0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, 0, 0, 1, 0), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, (- 2), (- 1))} => {fail@(true)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 0)}
+Counterexample: {insert((- 1), (- 1), 0, 0, 1, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insert((- 1), (- 1), (- 1), 0, 0, 1), inv1((- 1), 0, (- 1))} => {inv1(0, 0, 0)}
+Counterexample: {remove_none((- 1), 0, 0, 0), inv1(0, 0, (- 1))} => {fail@(true)}
+Counterexample: {insert(0, 0, 0, 0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insert(0, 0, (- 1), 0, 1, 1), inv1(0, 1, (- 1))} => {inv1(1, 1, 1)}
+Counterexample: {insert(1, 1, 1, 0, 1, 1), inv1(1, 2, 1)} => {inv1(2, 2, 1)}
+Counterexample: {insert(2, 2, 2, 0, 1, 1), inv1(2, 3, 2)} => {inv1(3, 3, 1)}
+Counterexample: {insert((- 1), (- 1), 0, 0, (- 1), 1), inv1((- 1), 1, 0)} => {inv1(0, 1, (- 1))}
+Counterexample: {remove_none(0, 0, 0, 0), inv1(1, 1, 0)} => {fail@(true)}
+Counterexample: {insert(2, 2, 0, 0, 1, 1), inv1(2, 3, 0)} => {inv1(3, 3, 1)}
+Counterexample: {insert(0, 0, 0, 0, 1, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {remove_none(1, 0, 0, (- 1)), inv1(0, 0, 1)} => {fail@(true)}
+Counterexample: {} => {inv1(0, 2, 0)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> (> |insert#4| 0)
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (<= |inv1#1| 1) (> |inv1#1| 0) (<= (- |inv1#0| |inv1#2|) 0))
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> (<= |remove_none#0| 0)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+In Naive Check
+Success (checked 89 CHCs, invoked learner 20 times)
+(declare-fun insert (Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|] -> (> |insert#4| 0)
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (or (and (> |inv1#1| 0) (<= |inv1#0| 0)) (and (> |inv1#2| 0) (> |inv1#0| 0)))
+(declare-fun remove_none (Int Int Int Int) Bool) => [|remove_none#0|, |remove_none#1|, |remove_none#2|, |remove_none#3|] -> (<= |remove_none#0| 0)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 4(declare-fun remove_none (Int Int Int Int) Bool)remove_none
+Relation : 3(declare-fun inv1 (Int Int Int) Bool)inv1
+Relation : 6(declare-fun insert (Int Int Int Int Int Int) Bool)insert
+Final CHCs read
+CHC : (fail@ true)
+CHC : (insert k!26 k!25 k!24 0 k!19 k!23)
+CHC : (inv1 k!22 k!20 k!24)
+CHC : (remove_none k!28 k!31 k!30 k!29)
+CHC : (inv1 k!32 k!27 k!28)
+Total time: 1.39

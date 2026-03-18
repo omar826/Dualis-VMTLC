@@ -1,0 +1,245 @@
+
+========================================
+         Starting Pipeline for: BinaryHeap2 (Mode: ContextualCVC5)
+========================================
+Initializing pipeline for benchmark: 'BinaryHeap2'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/BinaryHeap2/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+Total External Iterations: 0
+Total Unique Test Cases Found: 0
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryHeap2/BinaryHeap2.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_1.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: BinaryHeap2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryHeap2/BinaryHeap2_fuzz.cpp'.
+   -> Starting AFL++(BinaryHeap2_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryHeap2/BinaryHeap2_fuzz
+   -> AFL++(BinaryHeap2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:1,execs:127,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:6,execs:319,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:1740,execs:1765,op:havoc,rep:12
+Checking queue
+   -> Found 18 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000014,time:0,execs:0,orig:insins
+   -> CRASH REPRODUCED with id:000015,time:0,execs:0,orig:insser
+   -> CRASH REPRODUCED with id:000016,time:0,execs:0,orig:serser
+Checking hangs
+   -> Converting counterexamples for 'BinaryHeap2'...
+       -> Found and validated 8 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (!(i == i))
+  deleteMin: (len <= ret1)
+  downHeap: (!(isHeap2 == isHeap2))
+  inv1: (i <= (len + len))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun insert ((i Int) (isHeap Int) (len Int) (isHeap1 Int) (len1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) i isHeap len isHeap1 len1))))
+(synth-fun deleteMin ((len Int) (isHeap Int) (len1 Int) (ret1 Int) (isHeap1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len isHeap len1 ret1 isHeap1))))
+(synth-fun downHeap ((isHeap2 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) isHeap2))))
+(synth-fun inv1 ((i Int) (N Int) (isHeap Int) (len Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) i N isHeap len))))
+
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var isHeap Int)
+(declare-var isHeap1 Int)
+(declare-var isHeap2 Int)
+(declare-var isHeap3 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var ret1 Int)
+
+(constraint (insert 0 1 0 1 1))
+(constraint (downHeap 1))
+(constraint (insert 209 1 0 1 1))
+(constraint (deleteMin 0 1 0 128 1))
+(constraint (deleteMin 1 1 0 3 1))
+(constraint (deleteMin 1 1 0 0 1))
+(constraint (insert 126 1 0 1 1))
+(constraint (insert 92 1 0 1 1))
+
+(constraint (=> (and (> N 0) (= i1 0) (= isHeap1 1) (= len1 0)) (inv1 i1 N isHeap1 len1)))
+(constraint (=> (and (inv1 i N isHeap len) (or (= isHeap 1) (= isHeap 0)) (< i N) (insert i isHeap len isHeap1 len1) (= i1 (+ i 1))) (inv1 i1 N isHeap1 len1)))
+(constraint (=> (and (inv1 i N isHeap len) (or (= isHeap 1) (= isHeap 0)) (not (< i N)) (deleteMin len isHeap len1 ret1 isHeap1) (or (= isHeap1 1) (= isHeap1 0)) (downHeap isHeap2) (or (= isHeap2 1) (= isHeap2 0))) (= isHeap2 1)))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryHeap2/BinaryHeap2.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_2.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: BinaryHeap2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryHeap2/BinaryHeap2_fuzz.cpp'.
+   -> Starting AFL++(BinaryHeap2_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryHeap2/BinaryHeap2_fuzz
+   -> AFL++(BinaryHeap2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:179,execs:109,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:329,execs:110,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:1832,execs:228,op:havoc,rep:4
+Checking queue
+   -> Found 18 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000014,time:0,execs:0,orig:insins
+   -> CRASH REPRODUCED with id:000015,time:0,execs:0,orig:insser
+   -> CRASH REPRODUCED with id:000016,time:0,execs:0,orig:serser
+Checking hangs
+   -> Converting counterexamples for 'BinaryHeap2'...
+       -> Found and validated 8 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (((len + len) + len1) == isHeap1)
+  deleteMin: (isHeap <= (ret1 + len))
+  downHeap: (!((isHeap2 + isHeap2) == isHeap2))
+  inv1: (N <= ((i + N) + N))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun insert ((i Int) (isHeap Int) (len Int) (isHeap1 Int) (len1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) i isHeap len isHeap1 len1))))
+(synth-fun deleteMin ((len Int) (isHeap Int) (len1 Int) (ret1 Int) (isHeap1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len isHeap len1 ret1 isHeap1))))
+(synth-fun downHeap ((isHeap2 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) isHeap2))))
+(synth-fun inv1 ((i Int) (N Int) (isHeap Int) (len Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) i N isHeap len))))
+
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var isHeap Int)
+(declare-var isHeap1 Int)
+(declare-var isHeap2 Int)
+(declare-var isHeap3 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var ret1 Int)
+
+
+(constraint (insert 0 1 0 1 1))
+(constraint (downHeap 1))
+(constraint (insert 209 1 0 1 1))
+(constraint (deleteMin 0 1 0 128 1))
+(constraint (deleteMin 1 1 0 3 1))
+(constraint (deleteMin 1 1 0 0 1))
+(constraint (insert 126 1 0 1 1))
+(constraint (insert 92 1 0 1 1))
+(constraint (=> (and (> N 0) (= i1 0) (= isHeap1 1) (= len1 0)) (inv1 i1 N isHeap1 len1)))
+(constraint (=> (and (inv1 i N isHeap len) (or (= isHeap 1) (= isHeap 0)) (< i N) (insert i isHeap len isHeap1 len1) (= i1 (+ i 1))) (inv1 i1 N isHeap1 len1)))
+(constraint (=> (and (inv1 i N isHeap len) (or (= isHeap 1) (= isHeap 0)) (not (< i N)) (deleteMin len isHeap len1 ret1 isHeap1) (or (= isHeap1 1) (= isHeap1 0)) (downHeap isHeap2) (or (= isHeap2 1) (= isHeap2 0))) (= isHeap2 1)))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryHeap2/BinaryHeap2.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_3.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: BinaryHeap2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryHeap2/BinaryHeap2_fuzz.cpp'.
+   -> Starting AFL++(BinaryHeap2_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/BinaryHeap2/BinaryHeap2_fuzz
+   -> AFL++(BinaryHeap2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:166,execs:115,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:11101,execs:827,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:3513,execs:315,op:havoc,rep:3
+Checking queue
+   -> Found 18 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000014,time:0,execs:0,orig:insins
+   -> CRASH REPRODUCED with id:000015,time:0,execs:0,orig:insser
+   -> CRASH REPRODUCED with id:000016,time:0,execs:0,orig:serser
+Checking hangs
+   -> Converting counterexamples for 'BinaryHeap2'...
+       -> Found and validated 8 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (((len + len) + len1) == isHeap1)
+  deleteMin: (isHeap <= (ret1 + len))
+  downHeap: (!((isHeap2 + isHeap2) == isHeap2))
+  inv1: (N <= ((i + N) + N))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun insert ((i Int) (isHeap Int) (len Int) (isHeap1 Int) (len1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) i isHeap len isHeap1 len1))))
+(synth-fun deleteMin ((len Int) (isHeap Int) (len1 Int) (ret1 Int) (isHeap1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len isHeap len1 ret1 isHeap1))))
+(synth-fun downHeap ((isHeap2 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) isHeap2))))
+(synth-fun inv1 ((i Int) (N Int) (isHeap Int) (len Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) i N isHeap len))))
+
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var isHeap Int)
+(declare-var isHeap1 Int)
+(declare-var isHeap2 Int)
+(declare-var isHeap3 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var ret1 Int)
+
+
+(constraint (insert 0 1 0 1 1))
+(constraint (downHeap 1))
+(constraint (insert 209 1 0 1 1))
+(constraint (deleteMin 0 1 0 128 1))
+(constraint (deleteMin 1 1 0 3 1))
+(constraint (deleteMin 1 1 0 0 1))
+(constraint (insert 126 1 0 1 1))
+(constraint (insert 92 1 0 1 1))
+(constraint (=> (and (> N 0) (= i1 0) (= isHeap1 1) (= len1 0)) (inv1 i1 N isHeap1 len1)))
+(constraint (=> (and (inv1 i N isHeap len) (or (= isHeap 1) (= isHeap 0)) (< i N) (insert i isHeap len isHeap1 len1) (= i1 (+ i 1))) (inv1 i1 N isHeap1 len1)))
+(constraint (=> (and (inv1 i N isHeap len) (or (= isHeap 1) (= isHeap 0)) (not (< i N)) (deleteMin len isHeap len1 ret1 isHeap1) (or (= isHeap1 1) (= isHeap1 0)) (downHeap isHeap2) (or (= isHeap2 1) (= isHeap2 0))) (= isHeap2 1)))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 3
+Total Unique Test Cases Found: 24
+pipeline.run() took 0.1973 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualCVC5 BinaryHeap2
+PID: 28
+========================================
+
+
+Total Pipeline Duration: 155.26s

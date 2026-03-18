@@ -1,0 +1,486 @@
+
+========================================
+         Starting Pipeline for: AtomicHashMap2 (Mode: ClassicalHornICE)
+========================================
+Initializing pipeline for benchmark: 'AtomicHashMap2'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/AtomicHashMap2/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/AtomicHashMap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 4 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 139 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:32,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+   -> Writing new specs to harness: find_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/find_fuzz.cpp'.
+   -> Starting AFL++(find_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/find_fuzz
+   -> AFL++(find_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 9 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:1678,execs:75,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1236,execs:65,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:933,execs:60,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:342,execs:36,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:169,execs:32,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:2949,execs:106,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1073,execs:61,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:8765,execs:228,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:677,execs:54,op:havoc,rep:3
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2ins
+Checking hangs
+   -> Converting counterexamples for 'find'...
+      -> Found and validated 8 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: (true)
+  insert: (true)
+  inv2: (true)
+  find: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var kveq2 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k -1) (= len 1) (= min -45) (= max -45) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 78) (= max 78) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -1) (= max 2) (= kveq 0) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -2) (= len 1) (= min -2) (= max -2) (= kveq 0) (= ret1 -26)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -114) (= max -1) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= ret1 -88)) (find k len min max kveq ret1)))
+
+(rule (=> (and (> N 3) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (distinct k max) (distinct k min) (<= 0 k) (< k N) (find k len min max kveq ret1) (or (= ret1 MIN) (= ret1 MAX))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/AtomicHashMap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 6 internal iterations.
+   -> Writing new specs to harness: find_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/find_fuzz.cpp'.
+   -> Starting AFL++(find_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/find_fuzz
+   -> AFL++(find_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 10 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:379,execs:199,op:flip2,pos:4
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000001,time:18733,execs:1001,op:arith32,pos:2,val:be:+3
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000001,time:18546,execs:1000,op:arith32,pos:2,val:be:+2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:193,execs:145,op:flip1,pos:5
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:1606,execs:269,op:flip16,pos:4
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000001,time:7229,execs:889,op:arith16,pos:4,val:+2
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000001,time:31294,execs:1344,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000001,time:34820,execs:1374,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:1736,execs:279,op:flip32,pos:2
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000001,time:33628,execs:1369,op:havoc,rep:3
+Checking queue
+   -> Found 34 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:1,execs:32,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'find'...
+      -> Found and validated 10 new rules.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 139 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:32,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  find: (((min - k) - min) > 0)
+  inv1: (true)
+  insert: (true)
+  inv2: (true)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var kveq2 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 127) (= len 2) (= min -2) (= max -1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 127) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 2) (= min -1) (= max 0) (= kveq 1) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 2) (= min -1) (= max 1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 1) (= len 2) (= min -14) (= max 86) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 3) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 1) (= min -1) (= max -1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 88) (= len 1) (= min 88) (= max 88) (= kveq 0) (= ret1 80)) (find k len min max kveq ret1)))
+
+(rule (=> (and (= k -1) (= len 1) (= min -45) (= max -45) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 78) (= max 78) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -1) (= max 2) (= kveq 0) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -2) (= len 1) (= min -2) (= max -2) (= kveq 0) (= ret1 -26)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -114) (= max -1) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= ret1 -88)) (find k len min max kveq ret1)))
+(rule (=> (and (> N 3) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (distinct k max) (distinct k min) (<= 0 k) (< k N) (find k len min max kveq ret1) (or (= ret1 MIN) (= ret1 MAX))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/AtomicHashMap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 38 internal iterations.
+   -> Writing new specs to harness: find_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/find_fuzz.cpp'.
+   -> Starting AFL++(find_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/find_fuzz
+   -> AFL++(find_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 135 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:32,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'find'...
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 10 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:2696,execs:69,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:546,execs:30,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:184,execs:27,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:1801,execs:54,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000000,time:5958,execs:108,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:364,execs:29,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1445,execs:46,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:735,execs:32,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1258,execs:42,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:5237,execs:100,op:havoc,rep:8
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2ins
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 9 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  find: (true)
+  inv1: (((N - i) - kveq) > 0)
+  insert: (false)
+  inv2: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var kveq2 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 2) (= v -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= len1 2) (= min1 -1) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -9) (= v 81) (= len 1) (= min -1) (= max -1) (= kveq 0) (= len1 2) (= min1 -9) (= max1 -1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= len1 1) (= min1 -1) (= max1 -1) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 1) (= min 2) (= max 2) (= kveq 0) (= len1 1) (= min1 2) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 110) (= v 110) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 110) (= max1 110) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 2) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v 1) (= len 2) (= min -1) (= max 0) (= kveq 0) (= len1 2) (= min1 -1) (= max1 0) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -32) (= v 0) (= len 2) (= min -128) (= max -32) (= kveq 0) (= len1 2) (= min1 -128) (= max1 -32) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 2) (= min 1) (= max 2) (= kveq 0) (= len1 2) (= min1 1) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+
+(rule (=> (and (= k 127) (= len 2) (= min -2) (= max -1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 127) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 2) (= min -1) (= max 0) (= kveq 1) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 2) (= min -1) (= max 1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 1) (= len 2) (= min -14) (= max 86) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 3) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 1) (= min -1) (= max -1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 88) (= len 1) (= min 88) (= max 88) (= kveq 0) (= ret1 80)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -45) (= max -45) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 78) (= max 78) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -1) (= max 2) (= kveq 0) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -2) (= len 1) (= min -2) (= max -2) (= kveq 0) (= ret1 -26)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -114) (= max -1) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= ret1 -88)) (find k len min max kveq ret1)))
+(rule (=> (and (> N 3) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (distinct k max) (distinct k min) (<= 0 k) (< k N) (find k len min max kveq ret1) (or (= ret1 MIN) (= ret1 MAX))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/AtomicHashMap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 25 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 8 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000001,time:1496,execs:295,op:havoc,rep:10
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:197,execs:73,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:350,execs:82,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000001,time:2788,execs:454,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000001,time:1168,execs:251,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:676,execs:145,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:522,execs:144,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000001,time:3090,execs:473,op:havoc,rep:2
+Checking queue
+   -> Found 61 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:32,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 8 new rules.
+   -> Writing new specs to harness: find_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/find_fuzz.cpp'.
+   -> Starting AFL++(find_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/find_fuzz
+   -> AFL++(find_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 156 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:32,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'find'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((((((len - k) - len) > 0) && ((k + v) <= 0)) || ((k + v) > 0)) && ((kveq - kveq1) > (-1)))
+  inv2: (i <= 0)
+  find: (true)
+  inv1: (true)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var kveq2 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 0) (= v -1) (= len 1) (= min 0) (= max 0) (= kveq 0) (= len1 1) (= min1 0) (= max1 0) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 1) (= v -1) (= len 3) (= min -1) (= max 100) (= kveq 0) (= len1 4) (= min1 -1) (= max1 100) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 10) (= v -56) (= len 1) (= min 1) (= max 1) (= kveq 1) (= len1 2) (= min1 1) (= max1 10) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 1) (= v -32) (= len 3) (= min -29) (= max 1) (= kveq 0) (= len1 3) (= min1 -29) (= max1 1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 1) (= v -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 1) (= max1 1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 0) (= v -1) (= len 2) (= min -33) (= max -1) (= kveq 0) (= len1 3) (= min1 -33) (= max1 0) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 0) (= v -14) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 0) (= max1 0) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 0) (= v 0) (= len 1) (= min 0) (= max 0) (= kveq 1) (= len1 1) (= min1 0) (= max1 0) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+
+(rule (=> (and (= k 2) (= v -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= len1 2) (= min1 -1) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -9) (= v 81) (= len 1) (= min -1) (= max -1) (= kveq 0) (= len1 2) (= min1 -9) (= max1 -1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= len1 1) (= min1 -1) (= max1 -1) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 1) (= min 2) (= max 2) (= kveq 0) (= len1 1) (= min1 2) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 110) (= v 110) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 110) (= max1 110) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 2) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v 1) (= len 2) (= min -1) (= max 0) (= kveq 0) (= len1 2) (= min1 -1) (= max1 0) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -32) (= v 0) (= len 2) (= min -128) (= max -32) (= kveq 0) (= len1 2) (= min1 -128) (= max1 -32) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 2) (= min 1) (= max 2) (= kveq 0) (= len1 2) (= min1 1) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 127) (= len 2) (= min -2) (= max -1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 127) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 2) (= min -1) (= max 0) (= kveq 1) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 2) (= min -1) (= max 1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 1) (= len 2) (= min -14) (= max 86) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 3) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 1) (= min -1) (= max -1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 88) (= len 1) (= min 88) (= max 88) (= kveq 0) (= ret1 80)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -45) (= max -45) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 78) (= max 78) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -1) (= max 2) (= kveq 0) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -2) (= len 1) (= min -2) (= max -2) (= kveq 0) (= ret1 -26)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -114) (= max -1) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= ret1 -88)) (find k len min max kveq ret1)))
+(rule (=> (and (> N 3) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (distinct k max) (distinct k min) (<= 0 k) (< k N) (find k len min max kveq ret1) (or (= ret1 MIN) (= ret1 MAX))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap2/AtomicHashMap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_5.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 5
+Total Unique Test Cases Found: 35
+Total Internal Iterations: 73
+  - Min: 4
+  - Max: 38
+  - Avg: 18.25
+pipeline.run() took 0.8439 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalHornICE AtomicHashMap2
+PID: 607020
+========================================
+

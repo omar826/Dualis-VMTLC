@@ -1,0 +1,624 @@
+
+========================================
+         Starting Pipeline for: AtomicHashMap5 (Mode: ClassicalLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'AtomicHashMap5'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/AtomicHashMap5/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/AtomicHashMap5.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 4 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 127 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+   -> Writing new specs to harness: find_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/find_fuzz.cpp'.
+   -> Starting AFL++(find_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/find_fuzz
+   -> AFL++(find_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 9 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:1591,execs:80,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1767,execs:101,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:2912,execs:159,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:2114,execs:109,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:6697,execs:265,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:183,execs:44,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:380,execs:46,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:8630,execs:302,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:747,execs:62,op:havoc,rep:4
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'find'...
+      -> Found and validated 9 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: (true)
+  insert: (true)
+  inv2: (true)
+  find: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k -1) (= len 2) (= min -1) (= max 0) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 103) (= max 103) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 1) (= max 1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -128) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= ret1 -18)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -6) (= max 2) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 1) (= min 4) (= max 4) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+
+(rule (=> (and (> N 0) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (and (>= k 0) (< k N ) (= k max)) (find k len min max kveq ret1) (= ret1 MAX)) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/AtomicHashMap5.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 19 internal iterations.
+   -> Writing new specs to harness: find_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/find_fuzz.cpp'.
+   -> Starting AFL++(find_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/find_fuzz
+   -> AFL++(find_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 8 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:622,execs:480,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1015,execs:698,op:havoc,rep:15
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:816,execs:585,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:421,execs:474,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1202,execs:733,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:225,execs:436,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:3749,execs:1141,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:1807,execs:853,op:havoc,rep:8
+Checking queue
+   -> Found 73 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'find'...
+      -> Found and validated 8 new rules.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 133 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  find: ((k <= (-1)) || (((((k - max) > 0) && ((max - k) <= 0)) || ((max - k) > 0)) && (k > (-1))))
+  inv1: (true)
+  insert: (true)
+  inv2: (true)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 97) (= len 3) (= min -114) (= max 97) (= kveq 0) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 127) (= len 4) (= min -128) (= max 127) (= kveq 0) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 1) (= min 0) (= max 0) (= kveq 1) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 2) (= min -12) (= max 2) (= kveq 0) (= ret1 -35)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 5) (= len 2) (= min 0) (= max 5) (= kveq 0) (= ret1 6)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 79) (= len 2) (= min 49) (= max 79) (= kveq 0) (= ret1 79)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 5) (= len 4) (= min -23) (= max 5) (= kveq 0) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 6) (= len 1) (= min 6) (= max 6) (= kveq 0) (= ret1 17)) (find k len min max kveq ret1)))
+
+(rule (=> (and (= k -1) (= len 2) (= min -1) (= max 0) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 103) (= max 103) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 1) (= max 1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -128) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= ret1 -18)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -6) (= max 2) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 1) (= min 4) (= max 4) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (> N 0) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (and (>= k 0) (< k N ) (= k max)) (find k len min max kveq ret1) (= ret1 MAX)) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/AtomicHashMap5.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 40 internal iterations.
+   -> Writing new specs to harness: find_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/find_fuzz.cpp'.
+   -> Starting AFL++(find_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/find_fuzz
+   -> AFL++(find_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 144 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'find'...
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 10 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:185,execs:33,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:734,execs:40,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:1854,execs:58,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:935,execs:42,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1490,execs:47,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:5646,execs:110,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:360,execs:37,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:4897,execs:96,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:536,execs:39,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000000,time:10972,execs:209,op:havoc,rep:8
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 10 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  find: (true)
+  inv1: ((N - i) > 0)
+  insert: (false)
+  inv2: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 20) (= v -2) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 20) (= max1 20) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 16) (= v -2) (= len 1) (= min -2) (= max -2) (= kveq 0) (= len1 2) (= min1 -2) (= max1 16) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 64) (= v 64) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 64) (= max1 64) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 64) (= v -33) (= len 1) (= min -1) (= max -1) (= kveq 1) (= len1 2) (= min1 -1) (= max1 64) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 6) (= v 0) (= len 2) (= min -1) (= max 0) (= kveq 0) (= len1 3) (= min1 -1) (= max1 6) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 1) (= min 2) (= max 2) (= kveq 1) (= len1 1) (= min1 2) (= max1 2) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 1) (= v 31) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 1) (= max1 1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 2) (= min -78) (= max -74) (= kveq 0) (= len1 3) (= min1 -78) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -65) (= v -1) (= len 1) (= min -32) (= max -32) (= kveq 0) (= len1 2) (= min1 -65) (= max1 -32) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v 2) (= len 2) (= min 1) (= max 2) (= kveq 0) (= len1 3) (= min1 -1) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+
+(rule (=> (and (= k 97) (= len 3) (= min -114) (= max 97) (= kveq 0) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 127) (= len 4) (= min -128) (= max 127) (= kveq 0) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 1) (= min 0) (= max 0) (= kveq 1) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 2) (= min -12) (= max 2) (= kveq 0) (= ret1 -35)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 5) (= len 2) (= min 0) (= max 5) (= kveq 0) (= ret1 6)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 79) (= len 2) (= min 49) (= max 79) (= kveq 0) (= ret1 79)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 5) (= len 4) (= min -23) (= max 5) (= kveq 0) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 6) (= len 1) (= min 6) (= max 6) (= kveq 0) (= ret1 17)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -1) (= max 0) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 103) (= max 103) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 1) (= max 1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -128) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= ret1 -18)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -6) (= max 2) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 1) (= min 4) (= max 4) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (> N 0) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (and (>= k 0) (< k N ) (= k max)) (find k len min max kveq ret1) (= ret1 MAX)) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/AtomicHashMap5.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 13 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 13 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:765,execs:109,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:3727,execs:562,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:2539,execs:441,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:578,execs:96,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:3327,execs:496,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000012,sig:06,src:000000,time:14435,execs:1790,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000000,time:4301,execs:613,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:3541,execs:551,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000000,time:4672,execs:637,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1177,execs:194,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000011,sig:06,src:000000,time:7521,execs:991,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:385,execs:39,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:190,execs:36,op:havoc,rep:2
+Checking queue
+   -> Found 80 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 12 new rules.
+   -> Writing new specs to harness: find_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/find_fuzz.cpp'.
+   -> Starting AFL++(find_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/find_fuzz
+   -> AFL++(find_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 141 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'find'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (((((v - k) > 0) && (k <= 0)) || (k > 0)) && (len1 > 0))
+  inv2: (i <= 0)
+  find: (true)
+  inv1: (true)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k -1) (= v -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= len1 1) (= min1 -1) (= max1 -1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -121) (= v -123) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 -121) (= max1 -121) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 0) (= v -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= len1 2) (= min1 -1) (= max1 0) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= len1 1) (= min1 -1) (= max1 -1) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -59) (= v -59) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 -59) (= max1 -59) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 0) (= v -1) (= len 2) (= min -18) (= max 6) (= kveq 0) (= len1 3) (= min1 -18) (= max1 6) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 3) (= min -45) (= max -15) (= kveq 0) (= len1 4) (= min1 -45) (= max1 -1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 1) (= min 0) (= max 0) (= kveq 0) (= len1 2) (= min1 -1) (= max1 0) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -15) (= v -15) (= len 1) (= min -15) (= max -15) (= kveq 1) (= len1 1) (= min1 -15) (= max1 -15) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -128) (= len 1) (= min -1) (= max -1) (= kveq 1) (= len1 1) (= min1 -1) (= max1 -1) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 -1) (= max1 -1) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 1) (= min 2) (= max 2) (= kveq 0) (= len1 2) (= min1 -1) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+
+(rule (=> (and (= k 20) (= v -2) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 20) (= max1 20) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 16) (= v -2) (= len 1) (= min -2) (= max -2) (= kveq 0) (= len1 2) (= min1 -2) (= max1 16) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 64) (= v 64) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 64) (= max1 64) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 64) (= v -33) (= len 1) (= min -1) (= max -1) (= kveq 1) (= len1 2) (= min1 -1) (= max1 64) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 6) (= v 0) (= len 2) (= min -1) (= max 0) (= kveq 0) (= len1 3) (= min1 -1) (= max1 6) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 1) (= min 2) (= max 2) (= kveq 1) (= len1 1) (= min1 2) (= max1 2) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 1) (= v 31) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 1) (= max1 1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 2) (= min -78) (= max -74) (= kveq 0) (= len1 3) (= min1 -78) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -65) (= v -1) (= len 1) (= min -32) (= max -32) (= kveq 0) (= len1 2) (= min1 -65) (= max1 -32) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v 2) (= len 2) (= min 1) (= max 2) (= kveq 0) (= len1 3) (= min1 -1) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 97) (= len 3) (= min -114) (= max 97) (= kveq 0) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 127) (= len 4) (= min -128) (= max 127) (= kveq 0) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 1) (= min 0) (= max 0) (= kveq 1) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 2) (= min -12) (= max 2) (= kveq 0) (= ret1 -35)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 5) (= len 2) (= min 0) (= max 5) (= kveq 0) (= ret1 6)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 79) (= len 2) (= min 49) (= max 79) (= kveq 0) (= ret1 79)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 5) (= len 4) (= min -23) (= max 5) (= kveq 0) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 6) (= len 1) (= min 6) (= max 6) (= kveq 0) (= ret1 17)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -1) (= max 0) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 103) (= max 103) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 1) (= max 1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -128) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= ret1 -18)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -6) (= max 2) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 1) (= min 4) (= max 4) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (> N 0) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (and (>= k 0) (< k N ) (= k max)) (find k len min max kveq ret1) (= ret1 MAX)) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/AtomicHashMap5.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_5.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_5.log
+      -> Found 20 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 9 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1434,execs:709,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:637,execs:422,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:243,execs:33,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:5367,execs:1569,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:1828,execs:728,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1240,execs:677,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:2408,execs:880,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:836,execs:568,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:439,execs:244,op:havoc,rep:7
+Checking queue
+   -> Found 73 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 9 new rules.
+   -> Writing new specs to harness: find_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/find_fuzz.cpp'.
+   -> Starting AFL++(find_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/find_fuzz
+   -> AFL++(find_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 163 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'find'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (((v <= (-1)) || ((((v > 0) && (k <= 0)) || (k > 0)) && (v > (-1)))) && (len1 > 0))
+  inv2: (i <= 0)
+  find: (true)
+  inv1: (true)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 0) (= v 0) (= len 2) (= min -69) (= max 0) (= kveq 1) (= len1 2) (= min1 -69) (= max1 0) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v 0) (= len 1) (= min 5) (= max 5) (= kveq 0) (= len1 2) (= min1 -1) (= max1 5) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -6) (= v 0) (= len 2) (= min 0) (= max 127) (= kveq 0) (= len1 3) (= min1 -6) (= max1 127) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 0) (= v 0) (= len 4) (= min 0) (= max 99) (= kveq 0) (= len1 4) (= min1 0) (= max1 99) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -32) (= v 0) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 -32) (= max1 -32) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -2) (= v 0) (= len 1) (= min -2) (= max -2) (= kveq 0) (= len1 1) (= min1 -2) (= max1 -2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -128) (= v 0) (= len 2) (= min -1) (= max 0) (= kveq 0) (= len1 3) (= min1 -128) (= max1 0) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 0) (= v 0) (= len 1) (= min -1) (= max -1) (= kveq 0) (= len1 2) (= min1 -1) (= max1 0) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 0) (= v 0) (= len 1) (= min 32) (= max 32) (= kveq 0) (= len1 2) (= min1 0) (= max1 32) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+
+(rule (=> (and (= k -1) (= v -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= len1 1) (= min1 -1) (= max1 -1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -121) (= v -123) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 -121) (= max1 -121) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 0) (= v -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= len1 2) (= min1 -1) (= max1 0) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= len1 1) (= min1 -1) (= max1 -1) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -59) (= v -59) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 -59) (= max1 -59) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 0) (= v -1) (= len 2) (= min -18) (= max 6) (= kveq 0) (= len1 3) (= min1 -18) (= max1 6) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 3) (= min -45) (= max -15) (= kveq 0) (= len1 4) (= min1 -45) (= max1 -1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 1) (= min 0) (= max 0) (= kveq 0) (= len1 2) (= min1 -1) (= max1 0) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -15) (= v -15) (= len 1) (= min -15) (= max -15) (= kveq 1) (= len1 1) (= min1 -15) (= max1 -15) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -128) (= len 1) (= min -1) (= max -1) (= kveq 1) (= len1 1) (= min1 -1) (= max1 -1) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 -1) (= max1 -1) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 1) (= min 2) (= max 2) (= kveq 0) (= len1 2) (= min1 -1) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 20) (= v -2) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 20) (= max1 20) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 16) (= v -2) (= len 1) (= min -2) (= max -2) (= kveq 0) (= len1 2) (= min1 -2) (= max1 16) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 64) (= v 64) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 64) (= max1 64) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 64) (= v -33) (= len 1) (= min -1) (= max -1) (= kveq 1) (= len1 2) (= min1 -1) (= max1 64) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 6) (= v 0) (= len 2) (= min -1) (= max 0) (= kveq 0) (= len1 3) (= min1 -1) (= max1 6) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 1) (= min 2) (= max 2) (= kveq 1) (= len1 1) (= min1 2) (= max1 2) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 1) (= v 31) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 1) (= max1 1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 2) (= min -78) (= max -74) (= kveq 0) (= len1 3) (= min1 -78) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -65) (= v -1) (= len 1) (= min -32) (= max -32) (= kveq 0) (= len1 2) (= min1 -65) (= max1 -32) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v 2) (= len 2) (= min 1) (= max 2) (= kveq 0) (= len1 3) (= min1 -1) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 97) (= len 3) (= min -114) (= max 97) (= kveq 0) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 127) (= len 4) (= min -128) (= max 127) (= kveq 0) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 1) (= min 0) (= max 0) (= kveq 1) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 2) (= min -12) (= max 2) (= kveq 0) (= ret1 -35)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 5) (= len 2) (= min 0) (= max 5) (= kveq 0) (= ret1 6)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 79) (= len 2) (= min 49) (= max 79) (= kveq 0) (= ret1 79)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 5) (= len 4) (= min -23) (= max 5) (= kveq 0) (= ret1 0)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 6) (= len 1) (= min 6) (= max 6) (= kveq 0) (= ret1 17)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -1) (= max 0) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 103) (= max 103) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 1) (= max 1) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -128) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= ret1 -18)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min -6) (= max 2) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= len 1) (= min 4) (= max 4) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (> N 0) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (and (>= k 0) (< k N ) (= k max)) (find k len min max kveq ret1) (= ret1 MAX)) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 6 ====================
+TIMEOUT : 120
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/AtomicHashMap5/AtomicHashMap5.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_6.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 6
+Total Unique Test Cases Found: 48
+Total Internal Iterations: 96
+  - Min: 4
+  - Max: 40
+  - Avg: 19.20
+pipeline.run() took 1.0114 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalLLMHornICE AtomicHashMap5
+PID: 607039
+========================================
+

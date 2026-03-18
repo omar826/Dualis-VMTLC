@@ -1,0 +1,162 @@
+
+========================================
+         Starting Pipeline for: BinaryTree (Mode: ClassicalCVC5)
+========================================
+Initializing pipeline for benchmark: 'BinaryTree'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/BinaryTree/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+Total External Iterations: 0
+Total Unique Test Cases Found: 0
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/BinaryTree/BinaryTree.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_1.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/BinaryTree/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/BinaryTree/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 10 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:2585,execs:141,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000000,time:2769,execs:143,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:511,execs:53,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:1450,execs:86,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:373,execs:37,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:665,execs:59,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:1648,execs:90,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:864,execs:63,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1248,execs:83,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:188,execs:33,op:havoc,rep:3
+Checking queue
+   -> Found 31 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+       -> Found and validated 21 new constraints.
+   -> Writing new specs to harness: search_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/BinaryTree/search_fuzz.cpp'.
+   -> Starting AFL++(search_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/BinaryTree/search_fuzz
+   -> ERROR: AFL++(search_fuzz) failed with exit code 1.
+      AFL++ Error Output:
+[1;92m[+] [0mEnabled environment variable AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_NO_UI with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_CMPLOG_ONLY_NEW with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_DEBUG_CHILD with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_IGNORE_PROBLEMS with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_SKIP_CPUFREQ with value 1[0m
+[1;94m[*] [0mSpinning up the fork server...[0m
+[1;92m[+] [0mAll right - new fork server model v1 is up.[0m
+[1;94m[*] [0mTarget map size: 231[0m
+search_fuzz: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/BinaryTree/search_fuzz.cpp:28: int main(int, char **): Assertion `expr' failed.
+search_fuzz: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/BinaryTree/search_fuzz.cpp:28: int main(int, char **): Assertion `expr' failed.
+search_fuzz: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/BinaryTree/search_fuzz.cpp:28: int main(int, char **): Assertion `expr' failed.
+search_fuzz: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/BinaryTree/search_fuzz.cpp:28: int main(int, char **): Assertion `expr' failed.
+
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,time:0,execs:0,orig:serins
+   -> CRASH REPRODUCED with id:000002,time:0,execs:0,orig:insser
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2ser
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:2ins
+Checking hangs
+   -> Converting counterexamples for 'search'...
+       -> Found and validated 12 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv: ((isEmpty + isEmpty) <= min)
+  insert: ((isEmpty1 + isEmpty1) <= min1)
+  search: (!(min == min))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun inv ((min Int) (isEmpty Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr)(- Expr Expr) min isEmpty ))))
+(synth-fun insert ((n Int) (min Int) (min1 Int) (isEmpty Int) (isEmpty1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start))) (Expr Int ((+ Expr Expr)(- Expr Expr) n min isEmpty min1 isEmpty1))))
+(synth-fun search ((v Int) (min Int) (isEmpty Int) (ret1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start))) (Expr Int ((+ Expr Expr)(- Expr Expr) v min isEmpty ret1))))
+
+(declare-var isEmpty Int)
+(declare-var isEmpty1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var n Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(constraint (insert (- 2) (- 1) (- 2) 0 0))
+(constraint (insert (- 1) (- 24) (- 24) 0 0))
+(constraint (insert 1 (- 2) (- 2) 0 0))
+(constraint (insert 4 (- 95) (- 95) 0 0))
+(constraint (insert 1 (- 102) (- 102) 0 0))
+(constraint (insert (- 1) 255 (- 1) 1 0))
+(constraint (insert (- 128) 255 (- 128) 1 0))
+(constraint (insert 127 (- 1) (- 1) 0 0))
+(constraint (insert 1 (- 1) (- 1) 0 0))
+(constraint (insert 1 (- 33) (- 33) 0 0))
+(constraint (insert 88 (- 108) (- 108) 0 0))
+(constraint (insert 1 1 1 0 0))
+(constraint (insert 1 255 1 1 0))
+(constraint (insert 1 23 1 0 0))
+(constraint (insert 38 38 38 0 0))
+(constraint (insert 1 50 1 0 0))
+(constraint (insert 1 0 0 0 0))
+(constraint (insert (- 2) (- 72) (- 72) 0 0))
+(constraint (insert (- 1) 1 (- 1) 0 0))
+(constraint (insert (- 122) (- 1) (- 122) 0 0))
+(constraint (insert 1 (- 12) (- 12) 0 0))
+(constraint (search 1 255 1 0))
+(constraint (search 2 (- 1) 0 0))
+(constraint (search 2 255 1 0))
+(constraint (search 1 (- 1) 0 0))
+(constraint (search (- 18) (- 6) 0 0))
+(constraint (search (- 1) 255 1 0))
+(constraint (search (- 111) 255 1 0))
+(constraint (search (- 1) (- 2) 0 1))
+(constraint (search (- 1) 0 0 0))
+(constraint (search (- 28) (- 1) 0 0))
+(constraint (search (- 18) (- 98) 0 0))
+(constraint (search (- 103) 255 1 0))
+
+(constraint (=> (and (= isEmpty 1) (= min MAX)) (inv min isEmpty)))
+(constraint (=> (and (inv min isEmpty) (>= n 0) (insert n min min1 isEmpty isEmpty1))(inv min1 isEmpty1)))
+(constraint (=> (and (inv min isEmpty) (< n 0)) (inv min isEmpty)))
+(constraint (=> (and (inv min isEmpty) (< v 0) (search v min isEmpty ret1))(= ret1 0)))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/BinaryTree/BinaryTree.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_2.log
+   -> ERROR: CVC5 timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 2
+Total Unique Test Cases Found: 33
+pipeline.run() took 0.0350 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalCVC5 BinaryTree
+PID: 21
+========================================
+
+
+Total Pipeline Duration: 1027.09s

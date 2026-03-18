@@ -1,0 +1,22 @@
+
+========================================
+         Starting Pipeline for: AtomicLinkedList2 (Mode: ContextualSeaHorn)
+========================================
+Initializing pipeline for benchmark: 'AtomicLinkedList2'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/AtomicLinkedList2/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Running SeaHorn Baseline ====================
+   -> Copied source file to working directory.
+   -> Starting SeaHorn(AtomicLinkedList2) with a 1000-second timeout...
+   -> SeaHorn(AtomicLinkedList2) completed: UNSAT (Safe).
+   -> Result logged to /Dualis/scripts/../logs/seahorn_baselines.log
+
+====================== Pipeline Finished =====================
+pipeline.run() took 0.0013 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualSeaHorn AtomicLinkedList2
+PID: 17
+========================================
+
+
+Total Pipeline Duration: 11.05s

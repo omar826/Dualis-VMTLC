@@ -1,0 +1,168 @@
+
+========================================
+         Starting Pipeline for: LruCache1 (Mode: ContextualHornICE)
+========================================
+Initializing pipeline for benchmark: 'LruCache1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/LruCache1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/LruCache1/LruCache1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: LruCache1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/LruCache1/LruCache1_fuzz.cpp'.
+   -> Starting AFL++(LruCache1_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/LruCache1/LruCache1_fuzz
+   -> AFL++(LruCache1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:545,execs:42,op:havoc,rep:2
+Checking queue
+   -> Found 5 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'LruCache1'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: (true)
+  insert_or_assign: (false)
+  find: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var size Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsmru Int)
+(declare-var containsmru1 Int)
+(declare-var containsk Int)
+(declare-var mru Int)
+(declare-var mru1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert_or_assign (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= mru 128) (= size 255) (= containsmru 0) (= len1 1) (= mru1 0) (= containsmru1 1) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+
+(rule (=> (and (>= N 3) (= size N) (= len 0) (= i 0) (= containsmru 0) (= containsk 0) (= mru MAX) ) (inv1 i N len  mru size containsmru containsk)))
+(rule (=> (and (inv1 i N len  mru size containsmru containsk) (is_valid containsmru) (< i N) (= k i) (= v i) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1) (= i1 (+ i 1))) (inv1 i1 N len1  mru1 size containsmru1 containsk)))
+(rule (=> (and (inv1 i N len  mru size containsmru containsk) (is_valid containsmru) (is_valid containsk) (not (< i N)) (<= 0 k) (< k N) (find k containsk  mru1) (= mru1 MAX)) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/LruCache1/LruCache1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: LruCache1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/LruCache1/LruCache1_fuzz.cpp'.
+   -> Starting AFL++(LruCache1_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/LruCache1/LruCache1_fuzz
+   -> AFL++(LruCache1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:8846,execs:114,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:662,execs:35,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:22555,execs:425,op:havoc,rep:6
+Checking queue
+   -> Found 5 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'LruCache1'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert_or_assign: (true)
+  inv1: (true)
+  find: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var size Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsmru Int)
+(declare-var containsmru1 Int)
+(declare-var containsk Int)
+(declare-var mru Int)
+(declare-var mru1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert_or_assign (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= k 0) (= containsk 1) (= mru1 0)) (find k containsk mru1)))
+(rule (=> (and (= k 1) (= containsk 0) (= mru1 128)) (find k containsk mru1)))
+(rule (=> (and (= k 26) (= containsk 0) (= mru1 128)) (find k containsk mru1)))
+
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= mru 128) (= size 255) (= containsmru 0) (= len1 1) (= mru1 0) (= containsmru1 1) (= ret1 0)) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1)))
+(rule (=> (and (>= N 3) (= size N) (= len 0) (= i 0) (= containsmru 0) (= containsk 0) (= mru MAX) ) (inv1 i N len  mru size containsmru containsk)))
+(rule (=> (and (inv1 i N len  mru size containsmru containsk) (is_valid containsmru) (< i N) (= k i) (= v i) (insert_or_assign k v len mru size containsmru len1 mru1 containsmru1 ret1) (= i1 (+ i 1))) (inv1 i1 N len1  mru1 size containsmru1 containsk)))
+(rule (=> (and (inv1 i N len  mru size containsmru containsk) (is_valid containsmru) (is_valid containsk) (not (< i N)) (<= 0 k) (< k N) (find k containsk  mru1) (= mru1 MAX)) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/LruCache1/LruCache1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_3.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 3
+Total Unique Test Cases Found: 4
+Total Internal Iterations: 6
+  - Min: 3
+  - Max: 3
+  - Avg: 3.00
+pipeline.run() took 0.5363 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualHornICE LruCache1
+PID: 607033
+========================================
+

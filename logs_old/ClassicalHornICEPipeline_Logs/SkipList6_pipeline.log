@@ -1,0 +1,137 @@
+
+========================================
+         Starting Pipeline for: SkipList6 (Mode: ClassicalHornICE)
+========================================
+Initializing pipeline for benchmark: 'SkipList6'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/SkipList6/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/SkipList6/SkipList6.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/SkipList6/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/SkipList6/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 11 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000003,time:326,execs:298,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000003,time:1,execs:107,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000003,time:1,execs:116,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000003,time:5,execs:217,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000003,time:335,execs:525,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000003,time:4,execs:180,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000003,time:332,execs:413,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000003,time:3,execs:153,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000003,time:330,execs:387,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000003,time:7,execs:280,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000003,time:348,execs:793,op:havoc,rep:2
+Checking queue
+   -> Found 12 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 9 new rules.
+   -> Writing new specs to harness: remove_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/SkipList6/remove_fuzz.cpp'.
+   -> Starting AFL++(remove_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/SkipList6/remove_fuzz
+   -> AFL++(remove_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000003,time:5,execs:133,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000003,time:2,execs:105,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000003,time:1,execs:96,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000003,time:1,execs:94,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000003,time:3,execs:106,op:havoc,rep:11
+Checking queue
+   -> Found 12 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'remove'...
+      -> Found and validated 5 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: (true)
+  insert: (false)
+  remove: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var isPresent Int)
+(declare-var isPresent1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var v Int)
+(declare-var k Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int))
+(declare-rel remove (Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= v -59) (= isPresent 0) (= min -59) (= max 0) (= len 2) (= isPresent1 0) (= min1 -59) (= max1 0) (= len1 2)) (insert v isPresent min max len isPresent1 min1 max1 len1)))
+(rule (=> (and (= v 1) (= isPresent 0) (= min 128) (= max -129) (= len 0) (= isPresent1 1) (= min1 1) (= max1 1) (= len1 1)) (insert v isPresent min max len isPresent1 min1 max1 len1)))
+(rule (=> (and (= v 1) (= isPresent 1) (= min 1) (= max 1) (= len 1) (= isPresent1 1) (= min1 1) (= max1 1) (= len1 1)) (insert v isPresent min max len isPresent1 min1 max1 len1)))
+(rule (=> (and (= v 5) (= isPresent 0) (= min 5) (= max 5) (= len 1) (= isPresent1 0) (= min1 5) (= max1 5) (= len1 1)) (insert v isPresent min max len isPresent1 min1 max1 len1)))
+(rule (=> (and (= v 1) (= isPresent 0) (= min -95) (= max -87) (= len 2) (= isPresent1 1) (= min1 -95) (= max1 1) (= len1 3)) (insert v isPresent min max len isPresent1 min1 max1 len1)))
+(rule (=> (and (= v -1) (= isPresent 0) (= min 128) (= max -129) (= len 0) (= isPresent1 0) (= min1 -1) (= max1 -1) (= len1 1)) (insert v isPresent min max len isPresent1 min1 max1 len1)))
+(rule (=> (and (= v 26) (= isPresent 1) (= min 1) (= max 1) (= len 1) (= isPresent1 1) (= min1 1) (= max1 26) (= len1 2)) (insert v isPresent min max len isPresent1 min1 max1 len1)))
+(rule (=> (and (= v -1) (= isPresent 1) (= min 1) (= max 1) (= len 1) (= isPresent1 1) (= min1 -1) (= max1 1) (= len1 2)) (insert v isPresent min max len isPresent1 min1 max1 len1)))
+(rule (=> (and (= v 1) (= isPresent 1) (= min -1) (= max 1) (= len 2) (= isPresent1 1) (= min1 -1) (= max1 1) (= len1 2)) (insert v isPresent min max len isPresent1 min1 max1 len1)))
+(rule (=> (and (= k 63) (= min 63) (= max 63) (= len 1) (= min1 128) (= max1 -129) (= len1 0) (= ret1 63)) (remove k min max len min1 max1 len1 ret1)))
+(rule (=> (and (= k -14) (= min 128) (= max -129) (= len 0) (= min1 128) (= max1 -129) (= len1 0) (= ret1 -129)) (remove k min max len min1 max1 len1 ret1)))
+(rule (=> (and (= k -23) (= min -1) (= max 27) (= len 3) (= min1 -1) (= max1 27) (= len1 3) (= ret1 -129)) (remove k min max len min1 max1 len1 ret1)))
+(rule (=> (and (= k 58) (= min 128) (= max -129) (= len 0) (= min1 128) (= max1 -129) (= len1 0) (= ret1 -129)) (remove k min max len min1 max1 len1 ret1)))
+(rule (=> (and (= k 1) (= min 0) (= max 23) (= len 3) (= min1 0) (= max1 23) (= len1 2) (= ret1 1)) (remove k min max len min1 max1 len1 ret1)))
+
+(rule (=> (and (> N 0) (= min MAX) (= max MIN) (= len 0) (= isPresent 0) (= i 0)) (inv1 i N isPresent min max len)))
+(rule (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (< i N) (= v 1) (insert v isPresent min max len isPresent1 min1 max1 len1) (= i1 (+ i 1))) (inv1 i1 N isPresent1 min1 max1 len1)))
+(rule (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (not (< i N)) (= k 1) (remove k min max len min1 max1 len1 ret1) (not (= len1 0))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/SkipList6/SkipList6.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_2.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 2
+Total Unique Test Cases Found: 14
+Total Internal Iterations: 3
+  - Min: 3
+  - Max: 3
+  - Avg: 3.00
+pipeline.run() took 1.1409 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalHornICE SkipList6
+PID: 607031
+========================================
+

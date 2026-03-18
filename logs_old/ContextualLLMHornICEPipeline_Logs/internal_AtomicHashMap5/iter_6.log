@@ -1,0 +1,1724 @@
+(declare-rel insert1 (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel fail ())
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(declare-var E Int)
+(declare-var F Int)
+(declare-var G Int)
+(declare-var H Int)
+(declare-var I Int)
+(declare-var J Int)
+(declare-var K Int)
+(declare-var L Int)
+(declare-var M Int)
+(rule (=> (and (= F 25) (= E 26) (= D 0) (= C 25) (= B 1) (= A 25))
+    (find F E D C B A)))
+(rule (=> (and (= F 21) (= E 22) (= D 0) (= C 21) (= B 1) (= A 21))
+    (find F E D C B A)))
+(rule (=> (and (= F 15) (= E 16) (= D 0) (= C 15) (= B 1) (= A 15))
+    (find F E D C B A)))
+(rule (=> (and (= F 14) (= E 15) (= D 0) (= C 14) (= B 1) (= A 14))
+    (find F E D C B A)))
+(rule (=> (and (= F 1) (= E 2) (= D 0) (= C 1) (= B 1) (= A 1)) (find F E D C B A)))
+(rule (=> (and (= F 0) (= E 1) (= D 0) (= C 0) (= B 1) (= A 0)) (find F E D C B A)))
+(rule (=> (and (> E 0) (= D 0) (= F 0) (= C 128) (= B (- 129)) (= A 1))
+    (inv1 F E D C B A)))
+(rule (=> (and (inv1 G E K J I H)
+         (or (= H 1) (= H 0))
+         (< G E)
+         (= M G)
+         (= L G)
+         (insert M L K J I H D C B A)
+         (= F (+ G 1)))
+    (inv1 F E D C B A)))
+(rule (=> (and (inv1 G E D C B A) (or (= A 1) (= A 0)) (not (< G E)) (= F 0))
+    (inv2 F E D C B A)))
+(rule (=> (and (inv2 G E K J I H)
+         (or (= H 1) (= H 0))
+         (< G E)
+         (= M G)
+         (= L G)
+         (insert1 M L K J I H D C B A)
+         (= F (+ G 1)))
+    (inv2 F E D C B A)))
+(rule (=> (and (inv2 H G E D C B)
+         (or (= B 1) (= B 0))
+         (not (< H G))
+         (>= F 0)
+         (< F G)
+         (= F C)
+         (find F E D C B A)
+         (= A 128))
+    fail))
+
+
+Read 11 rules and 1 queries (1)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv2 (Int Int Int Int Int Int) Bool)
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int Int Int) Bool)
+(declare-fun find (Int Int Int Int Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (= k!5 25) (= k!4 26) (= k!3 0) (= k!2 25) (= k!1 1) (= k!0 25))
+    (find k!5 k!4 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun find (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(find k!5 k!4 k!3 k!2 k!1 k!0)
+
+ -- CHC
+(=> (and (= k!11 21) (= k!10 22) (= k!9 0) (= k!8 21) (= k!7 1) (= k!6 21))
+    (find k!11 k!10 k!9 k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun find (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(find k!11 k!10 k!9 k!8 k!7 k!6)
+
+ -- CHC
+(=> (and (= k!17 15) (= k!16 16) (= k!15 0) (= k!14 15) (= k!13 1) (= k!12 15))
+    (find k!17 k!16 k!15 k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun find (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(find k!17 k!16 k!15 k!14 k!13 k!12)
+
+ -- CHC
+(=> (and (= k!23 14) (= k!22 15) (= k!21 0) (= k!20 14) (= k!19 1) (= k!18 14))
+    (find k!23 k!22 k!21 k!20 k!19 k!18))
+ -- Uninterpreted predicates
+(declare-fun find (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(find k!23 k!22 k!21 k!20 k!19 k!18)
+
+ -- CHC
+(=> (and (= k!29 1) (= k!28 2) (= k!27 0) (= k!26 1) (= k!25 1) (= k!24 1))
+    (find k!29 k!28 k!27 k!26 k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun find (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(find k!29 k!28 k!27 k!26 k!25 k!24)
+
+ -- CHC
+(=> (and (= k!35 0) (= k!34 1) (= k!33 0) (= k!32 0) (= k!31 1) (= k!30 0))
+    (find k!35 k!34 k!33 k!32 k!31 k!30))
+ -- Uninterpreted predicates
+(declare-fun find (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(find k!35 k!34 k!33 k!32 k!31 k!30)
+
+ -- CHC
+(=> (and (> k!40 0)
+         (= k!39 0)
+         (= k!41 0)
+         (= k!38 128)
+         (= k!37 (- 129))
+         (= k!36 1))
+    (inv1 k!41 k!40 k!39 k!38 k!37 k!36))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv1 k!41 k!40 k!39 k!38 k!37 k!36)
+
+ -- CHC
+(=> (and (inv1 k!48 k!46 k!52 k!51 k!50 k!49)
+         (or (= k!49 1) (= k!49 0))
+         (< k!48 k!46)
+         (= k!54 k!48)
+         (= k!53 k!48)
+         (insert k!54 k!53 k!52 k!51 k!50 k!49 k!45 k!44 k!43 k!42)
+         (= k!47 (+ k!48 1)))
+    (inv1 k!47 k!46 k!45 k!44 k!43 k!42))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int Int Int) Bool)
+ -- LHS
+(insert k!54 k!53 k!52 k!51 k!50 k!49 k!45 k!44 k!43 k!42)
+(inv1 k!48 k!46 k!52 k!51 k!50 k!49)
+ -- RHS
+(inv1 k!47 k!46 k!45 k!44 k!43 k!42)
+
+ -- CHC
+(=> (and (inv1 k!61 k!59 k!58 k!57 k!56 k!55)
+         (or (= k!55 1) (= k!55 0))
+         (not (< k!61 k!59))
+         (= k!60 0))
+    (inv2 k!60 k!59 k!58 k!57 k!56 k!55))
+ -- Uninterpreted predicates
+(declare-fun inv2 (Int Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int Int Int) Bool)
+ -- LHS
+(inv1 k!61 k!59 k!58 k!57 k!56 k!55)
+ -- RHS
+(inv2 k!60 k!59 k!58 k!57 k!56 k!55)
+
+ -- CHC
+(=> (and (inv2 k!68 k!66 k!72 k!71 k!70 k!69)
+         (or (= k!69 1) (= k!69 0))
+         (< k!68 k!66)
+         (= k!74 k!68)
+         (= k!73 k!68)
+         (insert1 k!74 k!73 k!72 k!71 k!70 k!69 k!65 k!64 k!63 k!62)
+         (= k!67 (+ k!68 1)))
+    (inv2 k!67 k!66 k!65 k!64 k!63 k!62))
+ -- Uninterpreted predicates
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv2 (Int Int Int Int Int Int) Bool)
+ -- LHS
+(insert1 k!74 k!73 k!72 k!71 k!70 k!69 k!65 k!64 k!63 k!62)
+(inv2 k!68 k!66 k!72 k!71 k!70 k!69)
+ -- RHS
+(inv2 k!67 k!66 k!65 k!64 k!63 k!62)
+
+ -- CHC
+(=> (and (inv2 k!82 k!81 k!79 k!78 k!77 k!76)
+         (or (= k!76 1) (= k!76 0))
+         (not (< k!82 k!81))
+         (>= k!80 0)
+         (< k!80 k!81)
+         (= k!80 k!77)
+         (find k!80 k!79 k!78 k!77 k!76 k!75)
+         (= k!75 128))
+    (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun find (Int Int Int Int Int Int) Bool)
+(declare-fun inv2 (Int Int Int Int Int Int) Bool)
+ -- LHS
+(find k!80 k!79 k!78 k!77 k!76 k!75)
+(inv2 k!82 k!81 k!79 k!78 k!77 k!76)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (= k!5 25) (= k!4 26) (= k!3 0) (= k!2 25) (= k!1 1) (= k!0 25))
+    (find k!5 k!4 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun find (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(find k!5 k!4 k!3 k!2 k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (= k!11 21) (= k!10 22) (= k!9 0) (= k!8 21) (= k!7 1) (= k!6 21))
+    (find k!11 k!10 k!9 k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun find (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(find k!11 k!10 k!9 k!8 k!7 k!6)
+
+chc ::  -- CHC
+(=> (and (= k!17 15) (= k!16 16) (= k!15 0) (= k!14 15) (= k!13 1) (= k!12 15))
+    (find k!17 k!16 k!15 k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun find (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(find k!17 k!16 k!15 k!14 k!13 k!12)
+
+chc ::  -- CHC
+(=> (and (= k!23 14) (= k!22 15) (= k!21 0) (= k!20 14) (= k!19 1) (= k!18 14))
+    (find k!23 k!22 k!21 k!20 k!19 k!18))
+ -- Uninterpreted predicates
+(declare-fun find (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(find k!23 k!22 k!21 k!20 k!19 k!18)
+
+chc ::  -- CHC
+(=> (and (= k!29 1) (= k!28 2) (= k!27 0) (= k!26 1) (= k!25 1) (= k!24 1))
+    (find k!29 k!28 k!27 k!26 k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun find (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(find k!29 k!28 k!27 k!26 k!25 k!24)
+
+chc ::  -- CHC
+(=> (and (= k!35 0) (= k!34 1) (= k!33 0) (= k!32 0) (= k!31 1) (= k!30 0))
+    (find k!35 k!34 k!33 k!32 k!31 k!30))
+ -- Uninterpreted predicates
+(declare-fun find (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(find k!35 k!34 k!33 k!32 k!31 k!30)
+
+chc ::  -- CHC
+(=> (and (> k!40 0)
+         (= k!39 0)
+         (= k!41 0)
+         (= k!38 128)
+         (= k!37 (- 129))
+         (= k!36 1))
+    (inv1 k!41 k!40 k!39 k!38 k!37 k!36))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv1 k!41 k!40 k!39 k!38 k!37 k!36)
+
+chc ::  -- CHC
+(=> (and (inv1 k!48 k!46 k!52 k!51 k!50 k!49)
+         (or (= k!49 1) (= k!49 0))
+         (< k!48 k!46)
+         (= k!54 k!48)
+         (= k!53 k!48)
+         (insert k!54 k!53 k!52 k!51 k!50 k!49 k!45 k!44 k!43 k!42)
+         (= k!47 (+ k!48 1)))
+    (inv1 k!47 k!46 k!45 k!44 k!43 k!42))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int Int Int) Bool)
+ -- LHS
+(insert k!54 k!53 k!52 k!51 k!50 k!49 k!45 k!44 k!43 k!42)
+(inv1 k!48 k!46 k!52 k!51 k!50 k!49)
+ -- RHS
+(inv1 k!47 k!46 k!45 k!44 k!43 k!42)
+
+chc ::  -- CHC
+(=> (and (inv1 k!61 k!59 k!58 k!57 k!56 k!55)
+         (or (= k!55 1) (= k!55 0))
+         (not (< k!61 k!59))
+         (= k!60 0))
+    (inv2 k!60 k!59 k!58 k!57 k!56 k!55))
+ -- Uninterpreted predicates
+(declare-fun inv2 (Int Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int Int Int) Bool)
+ -- LHS
+(inv1 k!61 k!59 k!58 k!57 k!56 k!55)
+ -- RHS
+(inv2 k!60 k!59 k!58 k!57 k!56 k!55)
+
+chc ::  -- CHC
+(=> (and (inv2 k!68 k!66 k!72 k!71 k!70 k!69)
+         (or (= k!69 1) (= k!69 0))
+         (< k!68 k!66)
+         (= k!74 k!68)
+         (= k!73 k!68)
+         (insert1 k!74 k!73 k!72 k!71 k!70 k!69 k!65 k!64 k!63 k!62)
+         (= k!67 (+ k!68 1)))
+    (inv2 k!67 k!66 k!65 k!64 k!63 k!62))
+ -- Uninterpreted predicates
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv2 (Int Int Int Int Int Int) Bool)
+ -- LHS
+(insert1 k!74 k!73 k!72 k!71 k!70 k!69 k!65 k!64 k!63 k!62)
+(inv2 k!68 k!66 k!72 k!71 k!70 k!69)
+ -- RHS
+(inv2 k!67 k!66 k!65 k!64 k!63 k!62)
+
+chc ::  -- CHC
+(=> (and (inv2 k!82 k!81 k!79 k!78 k!77 k!76)
+         (or (= k!76 1) (= k!76 0))
+         (not (< k!82 k!81))
+         (>= k!80 0)
+         (< k!80 k!81)
+         (= k!80 k!77)
+         (find k!80 k!79 k!78 k!77 k!76 k!75)
+         (= k!75 128))
+    (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun find (Int Int Int Int Int Int) Bool)
+(declare-fun inv2 (Int Int Int Int Int Int) Bool)
+ -- LHS
+(find k!80 k!79 k!78 k!77 k!76 k!75)
+(inv2 k!82 k!81 k!79 k!78 k!77 k!76)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool)
+rel :: (declare-fun inv2 (Int Int Int Int Int Int) Bool)
+rel :: (declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool)
+rel :: (declare-fun inv1 (Int Int Int Int Int Int) Bool)
+rel :: (declare-fun find (Int Int Int Int Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv2 (Int Int Int Int Int Int) Bool)
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int Int Int) Bool)
+(declare-fun find (Int Int Int Int Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : insert1#0Int
+add_integer_attribute::Integer Attribute::insert1#0
+Attribute Identifier : 3 attribute : insert1#1Int
+add_integer_attribute::Integer Attribute::insert1#1
+Attribute Identifier : 4 attribute : insert1#2Int
+add_integer_attribute::Integer Attribute::insert1#2
+Attribute Identifier : 5 attribute : insert1#3Int
+add_integer_attribute::Integer Attribute::insert1#3
+Attribute Identifier : 6 attribute : insert1#4Int
+add_integer_attribute::Integer Attribute::insert1#4
+Attribute Identifier : 7 attribute : insert1#5Int
+add_integer_attribute::Integer Attribute::insert1#5
+Attribute Identifier : 8 attribute : insert1#6Int
+add_integer_attribute::Integer Attribute::insert1#6
+Attribute Identifier : 9 attribute : insert1#7Int
+add_integer_attribute::Integer Attribute::insert1#7
+Attribute Identifier : 10 attribute : insert1#8Int
+add_integer_attribute::Integer Attribute::insert1#8
+Attribute Identifier : 11 attribute : insert1#9Int
+add_integer_attribute::Integer Attribute::insert1#9
+add_integer_attribute::Integer Attribute::|insert1#6|-|insert1#2|
+add_integer_attribute::Integer Attribute::|insert1#2|-|insert1#6|
+add_integer_attribute::Integer Attribute::|insert1#7|-|insert1#3|
+add_integer_attribute::Integer Attribute::|insert1#3|-|insert1#7|
+add_integer_attribute::Integer Attribute::|insert1#8|-|insert1#4|
+add_integer_attribute::Integer Attribute::|insert1#4|-|insert1#8|
+add_integer_attribute::Integer Attribute::|insert1#1|-|insert1#0|
+add_integer_attribute::Integer Attribute::|insert1#0|-|insert1#1|
+add_integer_attribute::Integer Attribute::|insert1#0|-|insert1#3|
+add_integer_attribute::Integer Attribute::|insert1#3|-|insert1#0|
+add_integer_attribute::Integer Attribute::|insert1#0|-|insert1#4|
+add_integer_attribute::Integer Attribute::|insert1#4|-|insert1#0|
+add_integer_attribute::Integer Attribute::|insert1#8|-|insert1#0|
+add_integer_attribute::Integer Attribute::|insert1#0|-|insert1#8|
+add_integer_attribute::Integer Attribute::|insert1#5|-|insert1#9|
+add_integer_attribute::Integer Attribute::|insert1#9|-|insert1#5|
+add_integer_attribute::Integer Attribute::|insert1#6|-|insert1#2|
+add_integer_attribute::Integer Attribute::|insert1#2|-|insert1#6|
+add_integer_attribute::Integer Attribute::|insert1#7|-|insert1#3|
+add_integer_attribute::Integer Attribute::|insert1#3|-|insert1#7|
+add_integer_attribute::Integer Attribute::|insert1#8|-|insert1#4|
+add_integer_attribute::Integer Attribute::|insert1#4|-|insert1#8|
+add_integer_attribute::Integer Attribute::|insert1#1|-|insert1#0|
+add_integer_attribute::Integer Attribute::|insert1#0|-|insert1#1|
+add_integer_attribute::Integer Attribute::|insert1#0|-|insert1#3|
+add_integer_attribute::Integer Attribute::|insert1#3|-|insert1#0|
+add_integer_attribute::Integer Attribute::|insert1#0|-|insert1#4|
+add_integer_attribute::Integer Attribute::|insert1#4|-|insert1#0|
+add_integer_attribute::Integer Attribute::|insert1#8|-|insert1#0|
+add_integer_attribute::Integer Attribute::|insert1#0|-|insert1#8|
+add_integer_attribute::Integer Attribute::|insert1#5|-|insert1#9|
+add_integer_attribute::Integer Attribute::|insert1#9|-|insert1#5|
+learner_interface :: Relation : (declare-fun inv2 (Int Int Int Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun inv2 (Int Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv2 (Int Int Int Int Int Int) Bool) is mapped to baseval :  43
+Attribute Identifier : 44 attribute : inv2#0Int
+add_integer_attribute::Integer Attribute::inv2#0
+Attribute Identifier : 45 attribute : inv2#1Int
+add_integer_attribute::Integer Attribute::inv2#1
+Attribute Identifier : 46 attribute : inv2#2Int
+add_integer_attribute::Integer Attribute::inv2#2
+Attribute Identifier : 47 attribute : inv2#3Int
+add_integer_attribute::Integer Attribute::inv2#3
+Attribute Identifier : 48 attribute : inv2#4Int
+add_integer_attribute::Integer Attribute::inv2#4
+Attribute Identifier : 49 attribute : inv2#5Int
+add_integer_attribute::Integer Attribute::inv2#5
+add_integer_attribute::Integer Attribute::|inv2#0|-|inv2#1|
+add_integer_attribute::Integer Attribute::|inv2#1|-|inv2#0|
+add_integer_attribute::Integer Attribute::|inv2#0|-|inv2#2|
+add_integer_attribute::Integer Attribute::|inv2#2|-|inv2#0|
+add_integer_attribute::Integer Attribute::|inv2#0|-|inv2#4|
+add_integer_attribute::Integer Attribute::|inv2#4|-|inv2#0|
+add_integer_attribute::Integer Attribute::|inv2#2|-|inv2#4|
+add_integer_attribute::Integer Attribute::|inv2#4|-|inv2#2|
+add_integer_attribute::Integer Attribute::|inv2#2|-|inv2#4|+|inv2#3|
+learner_interface :: Relation : (declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) is mapped to CatID :  3
+learner_interfaceCatID : 3 is mapped to Relation : (declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) is mapped to baseval :  58
+Attribute Identifier : 59 attribute : insert#0Int
+add_integer_attribute::Integer Attribute::insert#0
+Attribute Identifier : 60 attribute : insert#1Int
+add_integer_attribute::Integer Attribute::insert#1
+Attribute Identifier : 61 attribute : insert#2Int
+add_integer_attribute::Integer Attribute::insert#2
+Attribute Identifier : 62 attribute : insert#3Int
+add_integer_attribute::Integer Attribute::insert#3
+Attribute Identifier : 63 attribute : insert#4Int
+add_integer_attribute::Integer Attribute::insert#4
+Attribute Identifier : 64 attribute : insert#5Int
+add_integer_attribute::Integer Attribute::insert#5
+Attribute Identifier : 65 attribute : insert#6Int
+add_integer_attribute::Integer Attribute::insert#6
+Attribute Identifier : 66 attribute : insert#7Int
+add_integer_attribute::Integer Attribute::insert#7
+Attribute Identifier : 67 attribute : insert#8Int
+add_integer_attribute::Integer Attribute::insert#8
+Attribute Identifier : 68 attribute : insert#9Int
+add_integer_attribute::Integer Attribute::insert#9
+add_integer_attribute::Integer Attribute::|insert#6|-|insert#2|
+add_integer_attribute::Integer Attribute::|insert#2|-|insert#6|
+add_integer_attribute::Integer Attribute::|insert#7|-|insert#3|
+add_integer_attribute::Integer Attribute::|insert#3|-|insert#7|
+add_integer_attribute::Integer Attribute::|insert#8|-|insert#4|
+add_integer_attribute::Integer Attribute::|insert#4|-|insert#8|
+add_integer_attribute::Integer Attribute::|insert#1|-|insert#0|
+add_integer_attribute::Integer Attribute::|insert#0|-|insert#1|
+add_integer_attribute::Integer Attribute::|insert#0|-|insert#3|
+add_integer_attribute::Integer Attribute::|insert#3|-|insert#0|
+add_integer_attribute::Integer Attribute::|insert#0|-|insert#4|
+add_integer_attribute::Integer Attribute::|insert#4|-|insert#0|
+add_integer_attribute::Integer Attribute::|insert#8|-|insert#0|
+add_integer_attribute::Integer Attribute::|insert#0|-|insert#8|
+add_integer_attribute::Integer Attribute::|insert#5|-|insert#9|
+add_integer_attribute::Integer Attribute::|insert#9|-|insert#5|
+learner_interface :: Relation : (declare-fun inv1 (Int Int Int Int Int Int) Bool) is mapped to CatID :  4
+learner_interfaceCatID : 4 is mapped to Relation : (declare-fun inv1 (Int Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv1 (Int Int Int Int Int Int) Bool) is mapped to baseval :  84
+Attribute Identifier : 85 attribute : inv1#0Int
+add_integer_attribute::Integer Attribute::inv1#0
+Attribute Identifier : 86 attribute : inv1#1Int
+add_integer_attribute::Integer Attribute::inv1#1
+Attribute Identifier : 87 attribute : inv1#2Int
+add_integer_attribute::Integer Attribute::inv1#2
+Attribute Identifier : 88 attribute : inv1#3Int
+add_integer_attribute::Integer Attribute::inv1#3
+Attribute Identifier : 89 attribute : inv1#4Int
+add_integer_attribute::Integer Attribute::inv1#4
+Attribute Identifier : 90 attribute : inv1#5Int
+add_integer_attribute::Integer Attribute::inv1#5
+add_integer_attribute::Integer Attribute::|inv1#0|-|inv1#1|
+add_integer_attribute::Integer Attribute::|inv1#1|-|inv1#0|
+add_integer_attribute::Integer Attribute::|inv1#0|-|inv1#2|
+add_integer_attribute::Integer Attribute::|inv1#2|-|inv1#0|
+add_integer_attribute::Integer Attribute::|inv1#0|-|inv1#4|
+add_integer_attribute::Integer Attribute::|inv1#4|-|inv1#0|
+add_integer_attribute::Integer Attribute::|inv1#2|-|inv1#4|
+add_integer_attribute::Integer Attribute::|inv1#4|-|inv1#2|
+add_integer_attribute::Integer Attribute::|inv1#2|-|inv1#4|+|inv1#3|
+learner_interface :: Relation : (declare-fun find (Int Int Int Int Int Int) Bool) is mapped to CatID :  5
+learner_interfaceCatID : 5 is mapped to Relation : (declare-fun find (Int Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun find (Int Int Int Int Int Int) Bool) is mapped to baseval :  99
+Attribute Identifier : 100 attribute : find#0Int
+add_integer_attribute::Integer Attribute::find#0
+Attribute Identifier : 101 attribute : find#1Int
+add_integer_attribute::Integer Attribute::find#1
+Attribute Identifier : 102 attribute : find#2Int
+add_integer_attribute::Integer Attribute::find#2
+Attribute Identifier : 103 attribute : find#3Int
+add_integer_attribute::Integer Attribute::find#3
+Attribute Identifier : 104 attribute : find#4Int
+add_integer_attribute::Integer Attribute::find#4
+Attribute Identifier : 105 attribute : find#5Int
+add_integer_attribute::Integer Attribute::find#5
+add_integer_attribute::Integer Attribute::|find#5|-|find#0|
+add_integer_attribute::Integer Attribute::|find#0|-|find#5|
+add_integer_attribute::Integer Attribute::|find#3|-|find#0|
+add_integer_attribute::Integer Attribute::|find#0|-|find#3|
+add_integer_attribute::Integer Attribute::|find#2|-|find#0|
+add_integer_attribute::Integer Attribute::|find#0|-|find#2|
+add_integer_attribute::Integer Attribute::|find#1|-|find#3|+|find#2|
+===========================================
+Learning Iteration: 0
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+true
+Printing all the counter examples : 1
+Counterexample: {fail@(true)} => {}
+Conjectures
+===========================================
+Learning Iteration: 1
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+ NULL
+ NULL
+ NULL
+Printing all the counter examples : 8
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Conjectures
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> true
+===========================================
+Learning Iteration: 2
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+ NULL
+ true
+ true
+Printing all the counter examples : 9
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> false
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> false
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> false
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> false
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 3
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ true
+Printing all the counter examples : 10
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> true
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> false
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> false
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 4
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[103] <= 0
+  false
+  true
+Printing all the counter examples : 11
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> true
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 5
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[105] <= 0
+  true
+  false
+Printing all the counter examples : 12
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (> |find#4| 0)
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 6
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[111] <= 0
+  false
+  true
+Printing all the counter examples : 13
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (<= (- |find#5| |find#0|) 0)
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 7
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[103] <= 0
+  false
+  if x[105] <= 0
+   true
+   false
+Printing all the counter examples : 14
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (> (+ (- |find#1| |find#3|) |find#2|) 0)
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 8
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[111] <= 0
+  false
+  if x[103] <= 0
+   false
+   true
+Printing all the counter examples : 15
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (and (<= (- |find#5| |find#0|) 0) (> |find#4| 0))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 9
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[105] <= 0
+  if x[100] <= 0
+   false
+   true
+  false
+Printing all the counter examples : 16
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (and (> |find#4| 0) (> (+ (- |find#1| |find#3|) |find#2|) 0))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 10
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[100] <= 1
+  if x[104] <= 0
+   true
+   false
+  true
+Printing all the counter examples : 17
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (and (> |find#1| 0) (<= (- |find#5| |find#0|) 0))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 11
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[100] <= 2
+  if x[104] <= 1
+   true
+   false
+  true
+Printing all the counter examples : 18
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (or (and (<= |find#5| 0) (<= |find#1| 1)) (> |find#1| 1))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 12
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[100] <= 3
+  if x[104] <= 1
+   true
+   false
+  true
+Printing all the counter examples : 19
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (or (and (<= |find#5| 1) (<= |find#1| 2)) (> |find#1| 2))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 13
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[100] <= 4
+  if x[104] <= 1
+   true
+   false
+  true
+Printing all the counter examples : 20
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (or (and (<= |find#5| 1) (<= |find#1| 3)) (> |find#1| 3))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 14
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[100] <= 5
+  if x[104] <= 1
+   true
+   false
+  true
+Printing all the counter examples : 21
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 6, 0, 0, 0, 128), inv2(1, 1, 6, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (or (and (<= |find#5| 1) (<= |find#1| 4)) (> |find#1| 4))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 15
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[100] <= 6
+  if x[104] <= 1
+   true
+   false
+  true
+Printing all the counter examples : 22
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 6, 0, 0, 0, 128), inv2(1, 1, 6, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 7, 0, 0, 0, 128), inv2(1, 1, 7, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (or (and (<= |find#5| 1) (<= |find#1| 5)) (> |find#1| 5))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 16
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[100] <= 7
+  if x[104] <= 1
+   true
+   false
+  true
+Printing all the counter examples : 23
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 6, 0, 0, 0, 128), inv2(1, 1, 6, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 7, 0, 0, 0, 128), inv2(1, 1, 7, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 8, 0, 0, 0, 128), inv2(1, 1, 8, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (or (and (<= |find#5| 1) (<= |find#1| 6)) (> |find#1| 6))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 17
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[100] <= 8
+  if x[104] <= 1
+   true
+   false
+  true
+Printing all the counter examples : 24
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 6, 0, 0, 0, 128), inv2(1, 1, 6, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 7, 0, 0, 0, 128), inv2(1, 1, 7, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 8, 0, 0, 0, 128), inv2(1, 1, 8, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 9, 0, 0, 0, 128), inv2(1, 1, 9, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (or (and (<= |find#5| 1) (<= |find#1| 7)) (> |find#1| 7))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 18
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[100] <= 9
+  if x[104] <= 1
+   true
+   false
+  true
+Printing all the counter examples : 25
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 6, 0, 0, 0, 128), inv2(1, 1, 6, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 7, 0, 0, 0, 128), inv2(1, 1, 7, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 8, 0, 0, 0, 128), inv2(1, 1, 8, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 9, 0, 0, 0, 128), inv2(1, 1, 9, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 10, 0, 0, 0, 128), inv2(1, 1, 10, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (or (and (<= |find#5| 1) (<= |find#1| 8)) (> |find#1| 8))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 19
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[105] <= 0
+  if x[103] <= 0
+   false
+   if x[100] <= 1
+    if x[99] <= 0
+     true
+     false
+    true
+  false
+Printing all the counter examples : 26
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 6, 0, 0, 0, 128), inv2(1, 1, 6, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 7, 0, 0, 0, 128), inv2(1, 1, 7, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 8, 0, 0, 0, 128), inv2(1, 1, 8, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 9, 0, 0, 0, 128), inv2(1, 1, 9, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 10, 0, 0, 0, 128), inv2(1, 1, 10, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 2, 0, 128, 1, 128), inv2(129, 129, 2, 0, 128, 1)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (or (and (<= |find#5| 1) (<= |find#1| 9)) (> |find#1| 9))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 20
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[100] <= 10
+  if x[104] <= 1
+   true
+   false
+  true
+Printing all the counter examples : 27
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 6, 0, 0, 0, 128), inv2(1, 1, 6, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 7, 0, 0, 0, 128), inv2(1, 1, 7, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 8, 0, 0, 0, 128), inv2(1, 1, 8, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 9, 0, 0, 0, 128), inv2(1, 1, 9, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 10, 0, 0, 0, 128), inv2(1, 1, 10, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 2, 0, 128, 1, 128), inv2(129, 129, 2, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 11, 0, 0, 0, 128), inv2(1, 1, 11, 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (and (or (and (<= |find#0| 0) (<= |find#1| 1)) (> |find#1| 1)) (> |find#4| 0) (<= (- |find#5| |find#0|) 0))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 21
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[105] <= 0
+  if x[100] <= 2
+   if x[99] <= 1
+    true
+    false
+   true
+  false
+Printing all the counter examples : 28
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 6, 0, 0, 0, 128), inv2(1, 1, 6, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 7, 0, 0, 0, 128), inv2(1, 1, 7, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 8, 0, 0, 0, 128), inv2(1, 1, 8, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 9, 0, 0, 0, 128), inv2(1, 1, 9, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 10, 0, 0, 0, 128), inv2(1, 1, 10, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 2, 0, 128, 1, 128), inv2(129, 129, 2, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 11, 0, 0, 0, 128), inv2(1, 1, 11, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 3, 0, 128, 0, 128), inv2(129, 129, 3, 0, 128, 0)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (or (and (<= |find#5| 1) (<= |find#1| 10)) (> |find#1| 10))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 22
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ NULL
+ true
+ if x[103] <= 0
+  false
+  if x[111] <= 0
+   false
+   if x[105] <= 0
+    true
+    false
+Printing all the counter examples : 29
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 6, 0, 0, 0, 128), inv2(1, 1, 6, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 7, 0, 0, 0, 128), inv2(1, 1, 7, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 8, 0, 0, 0, 128), inv2(1, 1, 8, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 9, 0, 0, 0, 128), inv2(1, 1, 9, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 10, 0, 0, 0, 128), inv2(1, 1, 10, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 2, 0, 128, 1, 128), inv2(129, 129, 2, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 11, 0, 0, 0, 128), inv2(1, 1, 11, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 3, 0, 128, 0, 128), inv2(129, 129, 3, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(128, 129, 0, 128, 1, 128), inv2(129, 129, 129, 0, 128, 1)} => {fail@(true)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (and (or (and (<= |find#0| 1) (<= |find#1| 2)) (> |find#1| 2)) (<= (- |find#5| |find#0|) 0))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 23
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ false
+ NULL
+ if x[85] <= 0
+  false
+  true
+ true
+Printing all the counter examples : 30
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 6, 0, 0, 0, 128), inv2(1, 1, 6, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 7, 0, 0, 0, 128), inv2(1, 1, 7, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 8, 0, 0, 0, 128), inv2(1, 1, 8, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 9, 0, 0, 0, 128), inv2(1, 1, 9, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 10, 0, 0, 0, 128), inv2(1, 1, 10, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 2, 0, 128, 1, 128), inv2(129, 129, 2, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 11, 0, 0, 0, 128), inv2(1, 1, 11, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 3, 0, 128, 0, 128), inv2(129, 129, 3, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(128, 129, 0, 128, 1, 128), inv2(129, 129, 129, 0, 128, 1)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0, 0, 0, 0)} => {inv2(0, 1, 0, 0, 0, 0)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> (and (<= (- |find#5| |find#0|) 0) (> (+ (- |find#1| |find#3|) |find#2|) 0) (> |find#4| 0))
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> true
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> true
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 24
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ false
+ NULL
+ if x[87] <= 0
+  false
+  true
+ true
+Printing all the counter examples : 31
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 6, 0, 0, 0, 128), inv2(1, 1, 6, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 7, 0, 0, 0, 128), inv2(1, 1, 7, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 8, 0, 0, 0, 128), inv2(1, 1, 8, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 9, 0, 0, 0, 128), inv2(1, 1, 9, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 10, 0, 0, 0, 128), inv2(1, 1, 10, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 2, 0, 128, 1, 128), inv2(129, 129, 2, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 11, 0, 0, 0, 128), inv2(1, 1, 11, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 3, 0, 128, 0, 128), inv2(129, 129, 3, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(128, 129, 0, 128, 1, 128), inv2(129, 129, 129, 0, 128, 1)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0, 0, 0, 0)} => {inv2(0, 1, 0, 0, 0, 0)}
+Counterexample: {inv1(0, 0, 0, 1, 0, 0)} => {inv2(0, 0, 0, 1, 0, 0)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> true
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> (> |inv1#1| 0)
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> false
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> false
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 25
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ false
+ NULL
+ if x[89] <= 0
+  false
+  true
+ true
+Printing all the counter examples : 32
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 6, 0, 0, 0, 128), inv2(1, 1, 6, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 7, 0, 0, 0, 128), inv2(1, 1, 7, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 8, 0, 0, 0, 128), inv2(1, 1, 8, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 9, 0, 0, 0, 128), inv2(1, 1, 9, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 10, 0, 0, 0, 128), inv2(1, 1, 10, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 2, 0, 128, 1, 128), inv2(129, 129, 2, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 11, 0, 0, 0, 128), inv2(1, 1, 11, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 3, 0, 128, 0, 128), inv2(129, 129, 3, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(128, 129, 0, 128, 1, 128), inv2(129, 129, 129, 0, 128, 1)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0, 0, 0, 0)} => {inv2(0, 1, 0, 0, 0, 0)}
+Counterexample: {inv1(0, 0, 0, 1, 0, 0)} => {inv2(0, 0, 0, 1, 0, 0)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 1)} => {inv2(0, 0, 0, 0, 0, 1)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> true
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> (> |inv1#3| 0)
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> false
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> false
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 26
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ false
+ NULL
+ if x[91] <= 0
+  false
+  true
+ true
+Printing all the counter examples : 32
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {find(25, 26, 0, 25, 1, 25)}
+Counterexample: {} => {find(21, 22, 0, 21, 1, 21)}
+Counterexample: {} => {find(15, 16, 0, 15, 1, 15)}
+Counterexample: {} => {find(14, 15, 0, 14, 1, 14)}
+Counterexample: {} => {find(1, 2, 0, 1, 1, 1)}
+Counterexample: {} => {find(0, 1, 0, 0, 1, 0)}
+Counterexample: {} => {inv1(0, 1, 0, 128, (- 129), 1)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 0)} => {inv2(0, 0, 0, 0, 0, 0)}
+Counterexample: {find(0, 0, 0, 0, 0, 128), inv2(1, 1, 0, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 0, 0, 0, 1, 128), inv2(1, 1, 0, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 0, 128), inv2(129, 129, 0, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 0, 128), inv2(1, 1, 1, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 0, 0, 128, 1, 128), inv2(129, 129, 0, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 1, 0, 0, 1, 128), inv2(1, 1, 1, 0, 0, 1)} => {fail@(true)}
+Counterexample: {find(128, 1, 0, 128, 1, 128), inv2(129, 129, 1, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 2, 0, 0, 0, 128), inv2(1, 1, 2, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 3, 0, 0, 0, 128), inv2(1, 1, 3, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 4, 0, 0, 0, 128), inv2(1, 1, 4, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 5, 0, 0, 0, 128), inv2(1, 1, 5, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 6, 0, 0, 0, 128), inv2(1, 1, 6, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 7, 0, 0, 0, 128), inv2(1, 1, 7, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 8, 0, 0, 0, 128), inv2(1, 1, 8, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 9, 0, 0, 0, 128), inv2(1, 1, 9, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(0, 10, 0, 0, 0, 128), inv2(1, 1, 10, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 2, 0, 128, 1, 128), inv2(129, 129, 2, 0, 128, 1)} => {fail@(true)}
+Counterexample: {find(0, 11, 0, 0, 0, 128), inv2(1, 1, 11, 0, 0, 0)} => {fail@(true)}
+Counterexample: {find(128, 3, 0, 128, 0, 128), inv2(129, 129, 3, 0, 128, 0)} => {fail@(true)}
+Counterexample: {find(128, 129, 0, 128, 1, 128), inv2(129, 129, 129, 0, 128, 1)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0, 0, 0, 0)} => {inv2(0, 1, 0, 0, 0, 0)}
+Counterexample: {inv1(0, 0, 0, 1, 0, 0)} => {inv2(0, 0, 0, 1, 0, 0)}
+Counterexample: {inv1(0, 0, 0, 0, 0, 1)} => {inv2(0, 0, 0, 0, 0, 1)}
+Conjectures
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> true
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> (> |inv1#5| 0)
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> false
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> false
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+In Naive Check
+Success (checked 191 CHCs, invoked learner 27 times)
+(declare-fun find (Int Int Int Int Int Int) Bool) => [|find#0|, |find#1|, |find#2|, |find#3|, |find#4|, |find#5|] -> true
+(declare-fun inv1 (Int Int Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|, |inv1#4|, |inv1#5|] -> (> (- |inv1#1| |inv1#0|) 0)
+(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|, |insert#9|] -> false
+(declare-fun inv2 (Int Int Int Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|, |inv2#3|, |inv2#4|, |inv2#5|] -> false
+(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool) => [|insert1#0|, |insert1#1|, |insert1#2|, |insert1#3|, |insert1#4|, |insert1#5|, |insert1#6|, |insert1#7|, |insert1#8|, |insert1#9|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 10(declare-fun insert1 (Int Int Int Int Int Int Int Int Int Int) Bool)insert1
+Relation : 6(declare-fun inv2 (Int Int Int Int Int Int) Bool)inv2
+Relation : 10(declare-fun insert (Int Int Int Int Int Int Int Int Int Int) Bool)insert
+Relation : 6(declare-fun inv1 (Int Int Int Int Int Int) Bool)inv1
+Relation : 6(declare-fun find (Int Int Int Int Int Int) Bool)find
+Final CHCs read
+CHC : (fail@ true)
+CHC : (insert k!54 k!53 k!52 k!51 k!50 k!49 k!45 k!44 k!43 k!42)
+CHC : (inv1 k!48 k!46 k!52 k!51 k!50 k!49)
+CHC : (inv1 k!61 k!59 k!58 k!57 k!56 k!55)
+CHC : (insert1 k!74 k!73 k!72 k!71 k!70 k!69 k!65 k!64 k!63 k!62)
+CHC : (inv2 k!68 k!66 k!72 k!71 k!70 k!69)
+CHC : (find k!80 k!79 k!78 k!77 k!76 k!75)
+CHC : (inv2 k!82 k!81 k!79 k!78 k!77 k!76)
+Total time: 3.34

@@ -1,0 +1,2192 @@
+(declare-rel insertHead (Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+(declare-rel popHead (Int Int Int))
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(declare-var E Int)
+(declare-var F Int)
+(rule (=> (and (= C (- 1)) (= B 0) (= A 1)) (insertHead C B A)))
+(rule (=> (and (= C 2) (= B 0) (= A 1)) (insertHead C B A)))
+(rule (=> (and (= C 2) (= B 1) (= A 2)) (insertHead C B A)))
+(rule (=> (and (= C 32) (= B 1) (= A 2)) (insertHead C B A)))
+(rule (=> (and (= C (- 12)) (= B 7) (= A 8)) (insertHead C B A)))
+(rule (=> (and (= C 112) (= B 6) (= A 7)) (insertHead C B A)))
+(rule (=> (and (= C 0) (= B 128) (= A 0)) (popHead C B A)))
+(rule (=> (and (= C 1) (= B (- 94)) (= A 0)) (popHead C B A)))
+(rule (=> (and (= C 11) (= B 70) (= A 10)) (popHead C B A)))
+(rule (=> (and (= C 1) (= B 34) (= A 0)) (popHead C B A)))
+(rule (=> (and (= C 2) (= B 103) (= A 1)) (popHead C B A)))
+(rule (=> (and (> B 0) (= C 0) (= A 0)) (inv1 C B A)))
+(rule (=> (and (inv1 D B E) (< D B) (insertHead D E A) (= C (+ D 1))) (inv1 C B A)))
+(rule (=> (and (inv1 D A C) (not (< D A)) (= B 0)) (inv2 C B A)))
+(rule (=> (and (inv2 F D A) (not (= F 0)) (popHead F E C) (= B (+ D 1))) (inv2 C B A)))
+(rule (=> (and (inv2 C B A) (= C 0) (not (= B A))) fail))
+
+
+Read 16 rules and 1 queries (1)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun inv2 (Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int) Bool)
+(declare-fun popHead (Int Int Int) Bool)
+(declare-fun fail@ (Bool) Bool)
+(declare-fun insertHead (Int Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (= k!2 (- 1)) (= k!1 0) (= k!0 1)) (insertHead k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insertHead k!2 k!1 k!0)
+
+ -- CHC
+(=> (and (= k!5 2) (= k!4 0) (= k!3 1)) (insertHead k!5 k!4 k!3))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insertHead k!5 k!4 k!3)
+
+ -- CHC
+(=> (and (= k!8 2) (= k!7 1) (= k!6 2)) (insertHead k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insertHead k!8 k!7 k!6)
+
+ -- CHC
+(=> (and (= k!11 32) (= k!10 1) (= k!9 2)) (insertHead k!11 k!10 k!9))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insertHead k!11 k!10 k!9)
+
+ -- CHC
+(=> (and (= k!14 (- 12)) (= k!13 7) (= k!12 8)) (insertHead k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insertHead k!14 k!13 k!12)
+
+ -- CHC
+(=> (and (= k!17 112) (= k!16 6) (= k!15 7)) (insertHead k!17 k!16 k!15))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insertHead k!17 k!16 k!15)
+
+ -- CHC
+(=> (and (= k!20 0) (= k!19 128) (= k!18 0)) (popHead k!20 k!19 k!18))
+ -- Uninterpreted predicates
+(declare-fun popHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(popHead k!20 k!19 k!18)
+
+ -- CHC
+(=> (and (= k!23 1) (= k!22 (- 94)) (= k!21 0)) (popHead k!23 k!22 k!21))
+ -- Uninterpreted predicates
+(declare-fun popHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(popHead k!23 k!22 k!21)
+
+ -- CHC
+(=> (and (= k!26 11) (= k!25 70) (= k!24 10)) (popHead k!26 k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun popHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(popHead k!26 k!25 k!24)
+
+ -- CHC
+(=> (and (= k!29 1) (= k!28 34) (= k!27 0)) (popHead k!29 k!28 k!27))
+ -- Uninterpreted predicates
+(declare-fun popHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(popHead k!29 k!28 k!27)
+
+ -- CHC
+(=> (and (= k!32 2) (= k!31 103) (= k!30 1)) (popHead k!32 k!31 k!30))
+ -- Uninterpreted predicates
+(declare-fun popHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(popHead k!32 k!31 k!30)
+
+ -- CHC
+(=> (and (> k!34 0) (= k!35 0) (= k!33 0)) (inv1 k!35 k!34 k!33))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv1 k!35 k!34 k!33)
+
+ -- CHC
+(=> (and (inv1 k!39 k!37 k!40)
+         (< k!39 k!37)
+         (insertHead k!39 k!40 k!36)
+         (= k!38 (+ k!39 1)))
+    (inv1 k!38 k!37 k!36))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int) Bool)
+ -- LHS
+(insertHead k!39 k!40 k!36)
+(inv1 k!39 k!37 k!40)
+ -- RHS
+(inv1 k!38 k!37 k!36)
+
+ -- CHC
+(=> (and (inv1 k!44 k!41 k!43) (not (< k!44 k!41)) (= k!42 0))
+    (inv2 k!43 k!42 k!41))
+ -- Uninterpreted predicates
+(declare-fun inv2 (Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int) Bool)
+ -- LHS
+(inv1 k!44 k!41 k!43)
+ -- RHS
+(inv2 k!43 k!42 k!41)
+
+ -- CHC
+(=> (and (inv2 k!50 k!48 k!45)
+         (not (= k!50 0))
+         (popHead k!50 k!49 k!47)
+         (= k!46 (+ k!48 1)))
+    (inv2 k!47 k!46 k!45))
+ -- Uninterpreted predicates
+(declare-fun popHead (Int Int Int) Bool)
+(declare-fun inv2 (Int Int Int) Bool)
+ -- LHS
+(popHead k!50 k!49 k!47)
+(inv2 k!50 k!48 k!45)
+ -- RHS
+(inv2 k!47 k!46 k!45)
+
+ -- CHC
+(=> (and (inv2 k!53 k!52 k!51) (= k!53 0) (not (= k!52 k!51))) (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv2 (Int Int Int) Bool)
+ -- LHS
+(inv2 k!53 k!52 k!51)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (= k!2 (- 1)) (= k!1 0) (= k!0 1)) (insertHead k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insertHead k!2 k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (= k!5 2) (= k!4 0) (= k!3 1)) (insertHead k!5 k!4 k!3))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insertHead k!5 k!4 k!3)
+
+chc ::  -- CHC
+(=> (and (= k!8 2) (= k!7 1) (= k!6 2)) (insertHead k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insertHead k!8 k!7 k!6)
+
+chc ::  -- CHC
+(=> (and (= k!11 32) (= k!10 1) (= k!9 2)) (insertHead k!11 k!10 k!9))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insertHead k!11 k!10 k!9)
+
+chc ::  -- CHC
+(=> (and (= k!14 (- 12)) (= k!13 7) (= k!12 8)) (insertHead k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insertHead k!14 k!13 k!12)
+
+chc ::  -- CHC
+(=> (and (= k!17 112) (= k!16 6) (= k!15 7)) (insertHead k!17 k!16 k!15))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insertHead k!17 k!16 k!15)
+
+chc ::  -- CHC
+(=> (and (= k!20 0) (= k!19 128) (= k!18 0)) (popHead k!20 k!19 k!18))
+ -- Uninterpreted predicates
+(declare-fun popHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(popHead k!20 k!19 k!18)
+
+chc ::  -- CHC
+(=> (and (= k!23 1) (= k!22 (- 94)) (= k!21 0)) (popHead k!23 k!22 k!21))
+ -- Uninterpreted predicates
+(declare-fun popHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(popHead k!23 k!22 k!21)
+
+chc ::  -- CHC
+(=> (and (= k!26 11) (= k!25 70) (= k!24 10)) (popHead k!26 k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun popHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(popHead k!26 k!25 k!24)
+
+chc ::  -- CHC
+(=> (and (= k!29 1) (= k!28 34) (= k!27 0)) (popHead k!29 k!28 k!27))
+ -- Uninterpreted predicates
+(declare-fun popHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(popHead k!29 k!28 k!27)
+
+chc ::  -- CHC
+(=> (and (= k!32 2) (= k!31 103) (= k!30 1)) (popHead k!32 k!31 k!30))
+ -- Uninterpreted predicates
+(declare-fun popHead (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(popHead k!32 k!31 k!30)
+
+chc ::  -- CHC
+(=> (and (> k!34 0) (= k!35 0) (= k!33 0)) (inv1 k!35 k!34 k!33))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv1 k!35 k!34 k!33)
+
+chc ::  -- CHC
+(=> (and (inv1 k!39 k!37 k!40)
+         (< k!39 k!37)
+         (insertHead k!39 k!40 k!36)
+         (= k!38 (+ k!39 1)))
+    (inv1 k!38 k!37 k!36))
+ -- Uninterpreted predicates
+(declare-fun insertHead (Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int) Bool)
+ -- LHS
+(insertHead k!39 k!40 k!36)
+(inv1 k!39 k!37 k!40)
+ -- RHS
+(inv1 k!38 k!37 k!36)
+
+chc ::  -- CHC
+(=> (and (inv1 k!44 k!41 k!43) (not (< k!44 k!41)) (= k!42 0))
+    (inv2 k!43 k!42 k!41))
+ -- Uninterpreted predicates
+(declare-fun inv2 (Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int) Bool)
+ -- LHS
+(inv1 k!44 k!41 k!43)
+ -- RHS
+(inv2 k!43 k!42 k!41)
+
+chc ::  -- CHC
+(=> (and (inv2 k!50 k!48 k!45)
+         (not (= k!50 0))
+         (popHead k!50 k!49 k!47)
+         (= k!46 (+ k!48 1)))
+    (inv2 k!47 k!46 k!45))
+ -- Uninterpreted predicates
+(declare-fun popHead (Int Int Int) Bool)
+(declare-fun inv2 (Int Int Int) Bool)
+ -- LHS
+(popHead k!50 k!49 k!47)
+(inv2 k!50 k!48 k!45)
+ -- RHS
+(inv2 k!47 k!46 k!45)
+
+chc ::  -- CHC
+(=> (and (inv2 k!53 k!52 k!51) (= k!53 0) (not (= k!52 k!51))) (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv2 (Int Int Int) Bool)
+ -- LHS
+(inv2 k!53 k!52 k!51)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun inv2 (Int Int Int) Bool)
+rel :: (declare-fun inv1 (Int Int Int) Bool)
+rel :: (declare-fun popHead (Int Int Int) Bool)
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun insertHead (Int Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun inv2 (Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int) Bool)
+(declare-fun popHead (Int Int Int) Bool)
+(declare-fun fail@ (Bool) Bool)
+(declare-fun insertHead (Int Int Int) Bool)
+learner_interface :: Relation : (declare-fun inv2 (Int Int Int) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun inv2 (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv2 (Int Int Int) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : inv2#0Int
+add_integer_attribute::Integer Attribute::inv2#0
+Attribute Identifier : 2 attribute : inv2#1Int
+add_integer_attribute::Integer Attribute::inv2#1
+Attribute Identifier : 3 attribute : inv2#2Int
+add_integer_attribute::Integer Attribute::inv2#2
+add_integer_attribute::Integer Attribute::|inv2#0|+|inv2#1|-|inv2#2|
+add_integer_attribute::Integer Attribute::|inv2#2|-|inv2#0|-|inv2#1|
+add_integer_attribute::Integer Attribute::|inv2#0|
+add_integer_attribute::Integer Attribute::|inv2#1|
+add_integer_attribute::Integer Attribute::|inv2#2|-|inv2#0|
+add_integer_attribute::Integer Attribute::|inv2#0|-|inv2#2|
+add_integer_attribute::Integer Attribute::|inv2#2|-|inv2#1|
+add_integer_attribute::Integer Attribute::|inv2#1|-|inv2#2|
+learner_interface :: Relation : (declare-fun inv1 (Int Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun inv1 (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv1 (Int Int Int) Bool) is mapped to baseval :  11
+Attribute Identifier : 12 attribute : inv1#0Int
+add_integer_attribute::Integer Attribute::inv1#0
+Attribute Identifier : 13 attribute : inv1#1Int
+add_integer_attribute::Integer Attribute::inv1#1
+Attribute Identifier : 14 attribute : inv1#2Int
+add_integer_attribute::Integer Attribute::inv1#2
+add_integer_attribute::Integer Attribute::|inv1#0|-|inv1#2|
+add_integer_attribute::Integer Attribute::|inv1#2|-|inv1#0|
+add_integer_attribute::Integer Attribute::|inv1#1|-|inv1#0|
+add_integer_attribute::Integer Attribute::|inv1#0|-|inv1#1|
+learner_interface :: Relation : (declare-fun popHead (Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun popHead (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun popHead (Int Int Int) Bool) is mapped to baseval :  18
+Attribute Identifier : 19 attribute : popHead#0Int
+add_integer_attribute::Integer Attribute::popHead#0
+Attribute Identifier : 20 attribute : popHead#1Int
+add_integer_attribute::Integer Attribute::popHead#1
+Attribute Identifier : 21 attribute : popHead#2Int
+add_integer_attribute::Integer Attribute::popHead#2
+add_integer_attribute::Integer Attribute::|popHead#0|-|popHead#2|
+add_integer_attribute::Integer Attribute::|popHead#2|-|popHead#0|
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  3
+learner_interfaceCatID : 3 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  23
+Attribute Identifier : 24 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun insertHead (Int Int Int) Bool) is mapped to CatID :  4
+learner_interfaceCatID : 4 is mapped to Relation : (declare-fun insertHead (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun insertHead (Int Int Int) Bool) is mapped to baseval :  24
+Attribute Identifier : 25 attribute : insertHead#0Int
+add_integer_attribute::Integer Attribute::insertHead#0
+Attribute Identifier : 26 attribute : insertHead#1Int
+add_integer_attribute::Integer Attribute::insertHead#1
+Attribute Identifier : 27 attribute : insertHead#2Int
+add_integer_attribute::Integer Attribute::insertHead#2
+add_integer_attribute::Integer Attribute::|insertHead#2|-|insertHead#1|
+add_integer_attribute::Integer Attribute::|insertHead#1|-|insertHead#2|
+add_integer_attribute::Integer Attribute::|insertHead#0|-|insertHead#1|
+add_integer_attribute::Integer Attribute::|insertHead#1|-|insertHead#0|
+add_integer_attribute::Integer Attribute::|insertHead#2|-|insertHead#0|
+add_integer_attribute::Integer Attribute::|insertHead#0|-|insertHead#2|
+===========================================
+Learning Iteration: 0
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+true
+Printing all the counter examples : 1
+Counterexample: {fail@(true)} => {}
+Conjectures
+===========================================
+Learning Iteration: 1
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ NULL
+ NULL
+ NULL
+ false
+ NULL
+Printing all the counter examples : 13
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Conjectures
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> true
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> true
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> true
+===========================================
+Learning Iteration: 2
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ NULL
+ true
+ true
+ false
+ true
+Printing all the counter examples : 14
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> false
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> false
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 3
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ true
+ true
+ true
+ false
+ true
+Printing all the counter examples : 15
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> true
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 4
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[12] <= 0
+  false
+  true
+ true
+ false
+ true
+Printing all the counter examples : 16
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> true
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> true
+===========================================
+Learning Iteration: 5
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  true
+ true
+ false
+ true
+Printing all the counter examples : 17
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (> |inv1#1| 0)
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 6
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  true
+ true
+ false
+ if x[27] <= 0
+  false
+  true
+Printing all the counter examples : 18
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (> (- |inv1#1| |inv1#0|) 0)
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 7
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  true
+Printing all the counter examples : 19
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (> (- |insertHead#2| |insertHead#1|) 0)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (> (- |inv1#1| |inv1#0|) 0)
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 8
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   true
+Printing all the counter examples : 20
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (> (- |insertHead#2| |insertHead#1|) 0)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 9
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[25] <= 1
+    if x[24] <= 0
+     false
+     true
+    true
+Printing all the counter examples : 21
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1)))))) (and (or (and a!1 (<= |insertHead#1| 0)) (> |insertHead#1| 0)) (> (- |insertHead#2| |insertHead#1|) 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 10
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[15] <= 0
+   true
+   false
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[29] <= 0
+    if x[25] <= 2
+     false
+     true
+    true
+Printing all the counter examples : 22
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (and (or (and (> |insertHead#0| 0) (<= |insertHead#1| 1)) (> |insertHead#1| 1)) (> |insertHead#1| 0)))) (and (or (and a!1 (<= |insertHead#1| 0)) a!2) (> (- |insertHead#2| |insertHead#1|) 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 11
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[26] <= 3
+    if x[29] <= 0
+     false
+     true
+    true
+Printing all the counter examples : 23
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (> |insertHead#1| 2) (<= (- |insertHead#0| |insertHead#1|) 0)) (> (- |insertHead#0| |insertHead#1|) 0)))) (and (or (and a!1 (<= |insertHead#1| 0)) (and a!2 (> |insertHead#1| 0))) (> (- |insertHead#2| |insertHead#1|) 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (<= (- |inv1#2| |inv1#0|) 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 12
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[27] <= 1
+    if x[25] <= 2
+     if x[29] <= 0
+      false
+      true
+     true
+    false
+Printing all the counter examples : 24
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (> (- |insertHead#0| |insertHead#1|) 0) (<= |insertHead#2| 3)) (> |insertHead#2| 3)))) (and (or (and a!1 (<= |insertHead#1| 0)) (and a!2 (> |insertHead#1| 0))) (> (- |insertHead#2| |insertHead#1|) 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 13
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[27] <= 1
+    if x[25] <= 3
+     if x[24] <= 4
+      if x[29] <= 0
+       false
+       if x[25] <= 1
+        true
+        false
+      true
+     true
+    false
+Printing all the counter examples : 25
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (> (- |insertHead#0| |insertHead#1|) 0) (<= |insertHead#1| 2)) (> |insertHead#1| 2)))) (let ((a!3 (or (and a!1 (<= |insertHead#1| 0)) (and a!2 (<= (- |insertHead#2| |insertHead#1|) 1) (> |insertHead#1| 0))))) (and a!3 (> (- |insertHead#2| |insertHead#1|) 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 14
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[27] <= 1
+    if x[25] <= 4
+     if x[32] <= 0
+      if x[25] <= 1
+       if x[24] <= 0
+        false
+        true
+       false
+      true
+     true
+    false
+Printing all the counter examples : 26
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (<= |insertHead#1| 1) (> (- |insertHead#0| |insertHead#1|) 0) (<= |insertHead#0| 4)) (> |insertHead#0| 4)))) (let ((a!3 (and (or (and a!2 (<= |insertHead#1| 3)) (> |insertHead#1| 3)) (<= (- |insertHead#2| |insertHead#1|) 1) (> |insertHead#1| 0)))) (and (or (and a!1 (<= |insertHead#1| 0)) a!3) (> (- |insertHead#2| |insertHead#1|) 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 15
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[29] <= 0
+   if x[24] <= -1
+    true
+    false
+   if x[26] <= 2
+    true
+    if x[32] <= 1
+     false
+     true
+Printing all the counter examples : 27
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (> |insertHead#0| 0) (<= |insertHead#1| 1) (<= (- |insertHead#0| |insertHead#2|) 0)) (> (- |insertHead#0| |insertHead#2|) 0)))) (let ((a!3 (and (or (and a!2 (<= |insertHead#1| 4)) (> |insertHead#1| 4)) (<= (- |insertHead#2| |insertHead#1|) 1) (> |insertHead#1| 0)))) (and (or (and a!1 (<= |insertHead#1| 0)) a!3) (> (- |insertHead#2| |insertHead#1|) 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 16
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[32] <= 2
+    if x[30] <= 1
+     if x[26] <= 2
+      if x[24] <= 0
+       false
+       true
+      false
+     true
+    true
+Printing all the counter examples : 28
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= |insertHead#2| 2) (and (> (- |insertHead#0| |insertHead#2|) 1) (> |insertHead#2| 2))))) (let ((a!2 (or (and (<= |insertHead#0| (- 1)) (<= (- |insertHead#0| |insertHead#1|) 0)) (and a!1 (> (- |insertHead#0| |insertHead#1|) 0))))) (and a!2 (> (- |insertHead#2| |insertHead#1|) 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 17
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[32] <= 3
+    if x[30] <= 1
+     if x[27] <= 1
+      if x[24] <= 2
+       if x[29] <= 0
+        false
+        true
+       false
+      false
+     true
+    true
+Printing all the counter examples : 29
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Counterexample: {insertHead(7, 1, 3), inv1(7, 8, 1)} => {inv1(8, 8, 3)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (> |insertHead#0| 0) (<= |insertHead#2| 2) (<= (- |insertHead#1| |insertHead#0|) 1)) (> (- |insertHead#1| |insertHead#0|) 1)))) (let ((a!3 (or (and a!2 (<= (- |insertHead#0| |insertHead#2|) 2)) (> (- |insertHead#0| |insertHead#2|) 2)))) (and (or (and a!1 (<= |insertHead#1| 0)) (and a!3 (> |insertHead#1| 0))) (> (- |insertHead#2| |insertHead#1|) 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 18
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[32] <= 4
+    if x[30] <= 1
+     if x[26] <= 2
+      if x[31] <= -3
+       false
+       if x[24] <= 0
+        false
+        true
+      false
+     true
+    true
+Printing all the counter examples : 30
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Counterexample: {insertHead(7, 1, 3), inv1(7, 8, 1)} => {inv1(8, 8, 3)}
+Counterexample: {insertHead(8, 2, 3), inv1(8, 9, 2)} => {inv1(9, 9, 3)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (> (- |insertHead#0| |insertHead#1|) 0) (<= |insertHead#0| 2) (<= (- |insertHead#2| |insertHead#1|) 1) (<= (- |insertHead#1| |insertHead#0|) 1)) (> (- |insertHead#1| |insertHead#0|) 1)))) (let ((a!3 (or (and a!2 (<= (- |insertHead#0| |insertHead#2|) 3)) (> (- |insertHead#0| |insertHead#2|) 3)))) (and (or (and a!1 (<= |insertHead#1| 0)) (and a!3 (> |insertHead#1| 0))) (> (- |insertHead#2| |insertHead#1|) 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 19
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[32] <= 5
+    if x[30] <= 1
+     if x[26] <= 2
+      if x[31] <= -3
+       false
+       if x[24] <= 0
+        false
+        true
+      false
+     true
+    true
+Printing all the counter examples : 31
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Counterexample: {insertHead(7, 1, 3), inv1(7, 8, 1)} => {inv1(8, 8, 3)}
+Counterexample: {insertHead(8, 2, 3), inv1(8, 9, 2)} => {inv1(9, 9, 3)}
+Counterexample: {insertHead(9, 2, 3), inv1(9, 10, 2)} => {inv1(10, 10, 3)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (> |insertHead#0| 0) (> (- |insertHead#2| |insertHead#0|) (- 3)) (<= |insertHead#2| 2) (<= (- |insertHead#1| |insertHead#0|) 1)) (> (- |insertHead#1| |insertHead#0|) 1)))) (let ((a!3 (or (and a!2 (<= (- |insertHead#0| |insertHead#2|) 4)) (> (- |insertHead#0| |insertHead#2|) 4)))) (and (or (and a!1 (<= |insertHead#1| 0)) (and a!3 (> |insertHead#1| 0))) (> (- |insertHead#2| |insertHead#1|) 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 20
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[32] <= 6
+    if x[30] <= 1
+     if x[26] <= 2
+      if x[31] <= -3
+       false
+       if x[24] <= 0
+        false
+        true
+      false
+     true
+    true
+Printing all the counter examples : 32
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Counterexample: {insertHead(7, 1, 3), inv1(7, 8, 1)} => {inv1(8, 8, 3)}
+Counterexample: {insertHead(8, 2, 3), inv1(8, 9, 2)} => {inv1(9, 9, 3)}
+Counterexample: {insertHead(9, 2, 3), inv1(9, 10, 2)} => {inv1(10, 10, 3)}
+Counterexample: {insertHead(10, 2, 3), inv1(10, 11, 2)} => {inv1(11, 11, 3)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (> |insertHead#0| 0) (> (- |insertHead#2| |insertHead#0|) (- 3)) (<= |insertHead#2| 2) (<= (- |insertHead#1| |insertHead#0|) 1)) (> (- |insertHead#1| |insertHead#0|) 1)))) (let ((a!3 (or (and a!2 (<= (- |insertHead#0| |insertHead#2|) 5)) (> (- |insertHead#0| |insertHead#2|) 5)))) (and (or (and a!1 (<= |insertHead#1| 0)) (and a!3 (> |insertHead#1| 0))) (> (- |insertHead#2| |insertHead#1|) 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 21
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[32] <= 7
+    if x[30] <= 1
+     if x[26] <= 2
+      if x[31] <= -3
+       false
+       if x[24] <= 0
+        false
+        true
+      false
+     true
+    true
+Printing all the counter examples : 33
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Counterexample: {insertHead(7, 1, 3), inv1(7, 8, 1)} => {inv1(8, 8, 3)}
+Counterexample: {insertHead(8, 2, 3), inv1(8, 9, 2)} => {inv1(9, 9, 3)}
+Counterexample: {insertHead(9, 2, 3), inv1(9, 10, 2)} => {inv1(10, 10, 3)}
+Counterexample: {insertHead(10, 2, 3), inv1(10, 11, 2)} => {inv1(11, 11, 3)}
+Counterexample: {insertHead(11, 2, 3), inv1(11, 12, 2)} => {inv1(12, 12, 3)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (> |insertHead#0| 0) (> (- |insertHead#2| |insertHead#0|) (- 3)) (<= |insertHead#2| 2) (<= (- |insertHead#1| |insertHead#0|) 1)) (> (- |insertHead#1| |insertHead#0|) 1)))) (let ((a!3 (or (and a!2 (<= (- |insertHead#0| |insertHead#2|) 6)) (> (- |insertHead#0| |insertHead#2|) 6)))) (and (or (and a!1 (<= |insertHead#1| 0)) (and a!3 (> |insertHead#1| 0))) (> (- |insertHead#2| |insertHead#1|) 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 22
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[32] <= 8
+    if x[30] <= 1
+     if x[26] <= 2
+      if x[31] <= -3
+       false
+       if x[24] <= 0
+        false
+        true
+      false
+     true
+    true
+Printing all the counter examples : 34
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Counterexample: {insertHead(7, 1, 3), inv1(7, 8, 1)} => {inv1(8, 8, 3)}
+Counterexample: {insertHead(8, 2, 3), inv1(8, 9, 2)} => {inv1(9, 9, 3)}
+Counterexample: {insertHead(9, 2, 3), inv1(9, 10, 2)} => {inv1(10, 10, 3)}
+Counterexample: {insertHead(10, 2, 3), inv1(10, 11, 2)} => {inv1(11, 11, 3)}
+Counterexample: {insertHead(11, 2, 3), inv1(11, 12, 2)} => {inv1(12, 12, 3)}
+Counterexample: {insertHead(12, 2, 3), inv1(12, 13, 2)} => {inv1(13, 13, 3)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (> |insertHead#0| 0) (> (- |insertHead#2| |insertHead#0|) (- 3)) (<= |insertHead#2| 2) (<= (- |insertHead#1| |insertHead#0|) 1)) (> (- |insertHead#1| |insertHead#0|) 1)))) (let ((a!3 (or (and a!2 (<= (- |insertHead#0| |insertHead#2|) 7)) (> (- |insertHead#0| |insertHead#2|) 7)))) (and (or (and a!1 (<= |insertHead#1| 0)) (and a!3 (> |insertHead#1| 0))) (> (- |insertHead#2| |insertHead#1|) 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 23
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[32] <= 9
+    if x[30] <= 1
+     if x[26] <= 2
+      if x[31] <= -3
+       false
+       if x[24] <= 0
+        false
+        true
+      false
+     true
+    true
+Printing all the counter examples : 35
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Counterexample: {insertHead(7, 1, 3), inv1(7, 8, 1)} => {inv1(8, 8, 3)}
+Counterexample: {insertHead(8, 2, 3), inv1(8, 9, 2)} => {inv1(9, 9, 3)}
+Counterexample: {insertHead(9, 2, 3), inv1(9, 10, 2)} => {inv1(10, 10, 3)}
+Counterexample: {insertHead(10, 2, 3), inv1(10, 11, 2)} => {inv1(11, 11, 3)}
+Counterexample: {insertHead(11, 2, 3), inv1(11, 12, 2)} => {inv1(12, 12, 3)}
+Counterexample: {insertHead(12, 2, 3), inv1(12, 13, 2)} => {inv1(13, 13, 3)}
+Counterexample: {insertHead(13, 2, 3), inv1(13, 14, 2)} => {inv1(14, 14, 3)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (> |insertHead#0| 0) (> (- |insertHead#2| |insertHead#0|) (- 3)) (<= |insertHead#2| 2) (<= (- |insertHead#1| |insertHead#0|) 1)) (> (- |insertHead#1| |insertHead#0|) 1)))) (let ((a!3 (or (and a!2 (<= (- |insertHead#0| |insertHead#2|) 8)) (> (- |insertHead#0| |insertHead#2|) 8)))) (and (or (and a!1 (<= |insertHead#1| 0)) (and a!3 (> |insertHead#1| 0))) (> (- |insertHead#2| |insertHead#1|) 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 24
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[12] <= 0
+   false
+   true
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   if x[25] <= 5
+    if x[32] <= 10
+     if x[26] <= 2
+      if x[31] <= -3
+       false
+       if x[24] <= 0
+        false
+        true
+      false
+     true
+    true
+Printing all the counter examples : 36
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Counterexample: {insertHead(7, 1, 3), inv1(7, 8, 1)} => {inv1(8, 8, 3)}
+Counterexample: {insertHead(8, 2, 3), inv1(8, 9, 2)} => {inv1(9, 9, 3)}
+Counterexample: {insertHead(9, 2, 3), inv1(9, 10, 2)} => {inv1(10, 10, 3)}
+Counterexample: {insertHead(10, 2, 3), inv1(10, 11, 2)} => {inv1(11, 11, 3)}
+Counterexample: {insertHead(11, 2, 3), inv1(11, 12, 2)} => {inv1(12, 12, 3)}
+Counterexample: {insertHead(12, 2, 3), inv1(12, 13, 2)} => {inv1(13, 13, 3)}
+Counterexample: {insertHead(13, 2, 3), inv1(13, 14, 2)} => {inv1(14, 14, 3)}
+Counterexample: {insertHead(18, 6, 7), inv1(18, 19, 6)} => {inv1(19, 19, 7)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (> |insertHead#0| 0) (> (- |insertHead#2| |insertHead#0|) (- 3)) (<= |insertHead#2| 2) (<= (- |insertHead#1| |insertHead#0|) 1)) (> (- |insertHead#1| |insertHead#0|) 1)))) (let ((a!3 (or (and a!2 (<= (- |insertHead#0| |insertHead#2|) 9)) (> (- |insertHead#0| |insertHead#2|) 9)))) (and (or (and a!1 (<= |insertHead#1| 0)) (and a!3 (> |insertHead#1| 0))) (> (- |insertHead#2| |insertHead#1|) 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 25
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[13] <= 0
+   if x[12] <= 0
+    false
+    true
+   false
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   true
+Printing all the counter examples : 37
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Counterexample: {insertHead(7, 1, 3), inv1(7, 8, 1)} => {inv1(8, 8, 3)}
+Counterexample: {insertHead(8, 2, 3), inv1(8, 9, 2)} => {inv1(9, 9, 3)}
+Counterexample: {insertHead(9, 2, 3), inv1(9, 10, 2)} => {inv1(10, 10, 3)}
+Counterexample: {insertHead(10, 2, 3), inv1(10, 11, 2)} => {inv1(11, 11, 3)}
+Counterexample: {insertHead(11, 2, 3), inv1(11, 12, 2)} => {inv1(12, 12, 3)}
+Counterexample: {insertHead(12, 2, 3), inv1(12, 13, 2)} => {inv1(13, 13, 3)}
+Counterexample: {insertHead(13, 2, 3), inv1(13, 14, 2)} => {inv1(14, 14, 3)}
+Counterexample: {insertHead(18, 6, 7), inv1(18, 19, 6)} => {inv1(19, 19, 7)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 1, 0)} => {inv1(0, 1, 1)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1))))) (a!2 (or (and (> |insertHead#0| 0) (> (- |insertHead#2| |insertHead#0|) (- 3)) (<= |insertHead#2| 2) (<= (- |insertHead#0| |insertHead#2|) 10)) (> (- |insertHead#0| |insertHead#2|) 10)))) (let ((a!3 (and (or (and a!2 (<= |insertHead#1| 5)) (> |insertHead#1| 5)) (> |insertHead#1| 0)))) (and (or (and a!1 (<= |insertHead#1| 0)) a!3) (> (- |insertHead#2| |insertHead#1|) 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 26
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[13] <= 1
+   if x[12] <= 0
+    false
+    if x[13] <= 0
+     if x[15] <= 0
+      true
+      false
+     false
+   false
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   true
+Printing all the counter examples : 38
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Counterexample: {insertHead(7, 1, 3), inv1(7, 8, 1)} => {inv1(8, 8, 3)}
+Counterexample: {insertHead(8, 2, 3), inv1(8, 9, 2)} => {inv1(9, 9, 3)}
+Counterexample: {insertHead(9, 2, 3), inv1(9, 10, 2)} => {inv1(10, 10, 3)}
+Counterexample: {insertHead(10, 2, 3), inv1(10, 11, 2)} => {inv1(11, 11, 3)}
+Counterexample: {insertHead(11, 2, 3), inv1(11, 12, 2)} => {inv1(12, 12, 3)}
+Counterexample: {insertHead(12, 2, 3), inv1(12, 13, 2)} => {inv1(13, 13, 3)}
+Counterexample: {insertHead(13, 2, 3), inv1(13, 14, 2)} => {inv1(14, 14, 3)}
+Counterexample: {insertHead(18, 6, 7), inv1(18, 19, 6)} => {inv1(19, 19, 7)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 1, 0)} => {inv1(0, 1, 1)}
+Counterexample: {insertHead(3, 0, 2), inv1(3, 5, 0)} => {inv1(4, 5, 2)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1)))))) (and (or (and a!1 (<= |insertHead#1| 0)) (> |insertHead#1| 0)) (> (- |insertHead#2| |insertHead#1|) 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (> |inv1#1| 0) (<= |inv1#2| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 27
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[13] <= 2
+   if x[12] <= 0
+    false
+    if x[13] <= 0
+     if x[16] <= 1
+      true
+      false
+     false
+   false
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   true
+Printing all the counter examples : 40
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Counterexample: {insertHead(7, 1, 3), inv1(7, 8, 1)} => {inv1(8, 8, 3)}
+Counterexample: {insertHead(8, 2, 3), inv1(8, 9, 2)} => {inv1(9, 9, 3)}
+Counterexample: {insertHead(9, 2, 3), inv1(9, 10, 2)} => {inv1(10, 10, 3)}
+Counterexample: {insertHead(10, 2, 3), inv1(10, 11, 2)} => {inv1(11, 11, 3)}
+Counterexample: {insertHead(11, 2, 3), inv1(11, 12, 2)} => {inv1(12, 12, 3)}
+Counterexample: {insertHead(12, 2, 3), inv1(12, 13, 2)} => {inv1(13, 13, 3)}
+Counterexample: {insertHead(13, 2, 3), inv1(13, 14, 2)} => {inv1(14, 14, 3)}
+Counterexample: {insertHead(18, 6, 7), inv1(18, 19, 6)} => {inv1(19, 19, 7)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 1, 0)} => {inv1(0, 1, 1)}
+Counterexample: {insertHead(3, 0, 2), inv1(3, 5, 0)} => {inv1(4, 5, 2)}
+Counterexample: {insertHead(2, 0, 1), inv1(2, 3, 0)} => {inv1(3, 3, 1)}
+Counterexample: {} => {inv1(0, 2, 0)}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1)))))) (and (or (and a!1 (<= |insertHead#1| 0)) (> |insertHead#1| 0)) (> (- |insertHead#2| |insertHead#1|) 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (<= (- |inv1#2| |inv1#0|) 0) (<= |inv1#2| 0) (> |inv1#1| 0) (<= |inv1#2| 1) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 28
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[11] <= 0
+   if x[15] <= 0
+    true
+    false
+   false
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   true
+Printing all the counter examples : 41
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Counterexample: {insertHead(7, 1, 3), inv1(7, 8, 1)} => {inv1(8, 8, 3)}
+Counterexample: {insertHead(8, 2, 3), inv1(8, 9, 2)} => {inv1(9, 9, 3)}
+Counterexample: {insertHead(9, 2, 3), inv1(9, 10, 2)} => {inv1(10, 10, 3)}
+Counterexample: {insertHead(10, 2, 3), inv1(10, 11, 2)} => {inv1(11, 11, 3)}
+Counterexample: {insertHead(11, 2, 3), inv1(11, 12, 2)} => {inv1(12, 12, 3)}
+Counterexample: {insertHead(12, 2, 3), inv1(12, 13, 2)} => {inv1(13, 13, 3)}
+Counterexample: {insertHead(13, 2, 3), inv1(13, 14, 2)} => {inv1(14, 14, 3)}
+Counterexample: {insertHead(18, 6, 7), inv1(18, 19, 6)} => {inv1(19, 19, 7)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 1, 0)} => {inv1(0, 1, 1)}
+Counterexample: {insertHead(3, 0, 2), inv1(3, 5, 0)} => {inv1(4, 5, 2)}
+Counterexample: {insertHead(2, 0, 1), inv1(2, 3, 0)} => {inv1(3, 3, 1)}
+Counterexample: {} => {inv1(0, 2, 0)}
+Counterexample: {insertHead(0, (- 2), (- 1)), inv1(0, 2, (- 2))} => {inv1(1, 2, (- 1))}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1)))))) (and (or (and a!1 (<= |insertHead#1| 0)) (> |insertHead#1| 0)) (> (- |insertHead#2| |insertHead#1|) 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (<= (- |inv1#1| |inv1#0|) 1) (<= |inv1#2| 0) (> |inv1#1| 0) (<= |inv1#2| 2) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+===========================================
+Learning Iteration: 29
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[16] <= 0
+  false
+  if x[14] <= 1
+   if x[11] <= -1
+    false
+    if x[13] <= 0
+     true
+     false
+   false
+ true
+ false
+ if x[27] <= 0
+  false
+  if x[25] <= 0
+   if x[31] <= -1
+    true
+    if x[30] <= 0
+     false
+     true
+   true
+Printing all the counter examples : 41
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insertHead((- 1), 0, 1)}
+Counterexample: {} => {insertHead(2, 0, 1)}
+Counterexample: {} => {insertHead(2, 1, 2)}
+Counterexample: {} => {insertHead(32, 1, 2)}
+Counterexample: {} => {insertHead((- 12), 7, 8)}
+Counterexample: {} => {insertHead(112, 6, 7)}
+Counterexample: {} => {popHead(0, 128, 0)}
+Counterexample: {} => {popHead(1, (- 94), 0)}
+Counterexample: {} => {popHead(11, 70, 10)}
+Counterexample: {} => {popHead(1, 34, 0)}
+Counterexample: {} => {popHead(2, 103, 1)}
+Counterexample: {} => {inv1(0, 1, 0)}
+Counterexample: {inv1(0, 0, 0)} => {inv2(0, 0, 0)}
+Counterexample: {inv2(0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1(1, 1, 0)} => {inv2(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 0), inv1(0, 1, 0)} => {inv1(1, 1, 0)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 0, 0)} => {inv1(0, 0, 1)}
+Counterexample: {insertHead(0, 0, 1), inv1(0, 1, 0)} => {inv1(1, 1, 1)}
+Counterexample: {insertHead(0, 1, 2), inv1(0, 1, 1)} => {inv1(1, 1, 2)}
+Counterexample: {insertHead(2, 2, 3), inv1(2, 3, 2)} => {inv1(3, 3, 3)}
+Counterexample: {insertHead(4, 3, 6), inv1(4, 6, 3)} => {inv1(5, 6, 6)}
+Counterexample: {insertHead(2, 1, 4), inv1(2, 3, 1)} => {inv1(3, 3, 4)}
+Counterexample: {insertHead(4, 3, 4), inv1(4, 5, 3)} => {inv1(5, 5, 4)}
+Counterexample: {insertHead(5, 4, 5), inv1(5, 6, 4)} => {inv1(6, 6, 5)}
+Counterexample: {insertHead(7, 5, 6), inv1(7, 8, 5)} => {inv1(8, 8, 6)}
+Counterexample: {insertHead(5, 2, 3), inv1(5, 6, 2)} => {inv1(6, 6, 3)}
+Counterexample: {insertHead(5, 1, 2), inv1(5, 6, 1)} => {inv1(6, 6, 2)}
+Counterexample: {insertHead(7, 1, 3), inv1(7, 8, 1)} => {inv1(8, 8, 3)}
+Counterexample: {insertHead(8, 2, 3), inv1(8, 9, 2)} => {inv1(9, 9, 3)}
+Counterexample: {insertHead(9, 2, 3), inv1(9, 10, 2)} => {inv1(10, 10, 3)}
+Counterexample: {insertHead(10, 2, 3), inv1(10, 11, 2)} => {inv1(11, 11, 3)}
+Counterexample: {insertHead(11, 2, 3), inv1(11, 12, 2)} => {inv1(12, 12, 3)}
+Counterexample: {insertHead(12, 2, 3), inv1(12, 13, 2)} => {inv1(13, 13, 3)}
+Counterexample: {insertHead(13, 2, 3), inv1(13, 14, 2)} => {inv1(14, 14, 3)}
+Counterexample: {insertHead(18, 6, 7), inv1(18, 19, 6)} => {inv1(19, 19, 7)}
+Counterexample: {insertHead((- 1), 0, 1), inv1((- 1), 1, 0)} => {inv1(0, 1, 1)}
+Counterexample: {insertHead(3, 0, 2), inv1(3, 5, 0)} => {inv1(4, 5, 2)}
+Counterexample: {insertHead(2, 0, 1), inv1(2, 3, 0)} => {inv1(3, 3, 1)}
+Counterexample: {} => {inv1(0, 2, 0)}
+Counterexample: {insertHead(0, (- 2), (- 1)), inv1(0, 2, (- 2))} => {inv1(1, 2, (- 1))}
+Conjectures
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1)))))) (and (or (and a!1 (<= |insertHead#1| 0)) (> |insertHead#1| 0)) (> (- |insertHead#2| |insertHead#1|) 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (<= (- |inv1#2| |inv1#0|) 0) (<= |inv1#0| 0) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+In Naive Check
+Success (checked 214 CHCs, invoked learner 30 times)
+(declare-fun insertHead (Int Int Int) Bool) => [|insertHead#0|, |insertHead#1|, |insertHead#2|] -> (let ((a!1 (or (<= (- |insertHead#2| |insertHead#0|) (- 1)) (and (> (- |insertHead#1| |insertHead#0|) 0) (> (- |insertHead#2| |insertHead#0|) (- 1)))))) (and (or (and a!1 (<= |insertHead#1| 0)) (> |insertHead#1| 0)) (> (- |insertHead#2| |insertHead#1|) 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+(declare-fun popHead (Int Int Int) Bool) => [|popHead#0|, |popHead#1|, |popHead#2|] -> true
+(declare-fun inv1 (Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|] -> (and (<= |inv1#2| 0) (> |inv1#0| (- 1)) (<= (- |inv1#0| |inv1#2|) 1) (> (- |inv1#1| |inv1#0|) 0))
+(declare-fun inv2 (Int Int Int) Bool) => [|inv2#0|, |inv2#1|, |inv2#2|] -> false
+Final Relations read
+Relation : 3(declare-fun inv2 (Int Int Int) Bool)inv2
+Relation : 3(declare-fun inv1 (Int Int Int) Bool)inv1
+Relation : 3(declare-fun popHead (Int Int Int) Bool)popHead
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 3(declare-fun insertHead (Int Int Int) Bool)insertHead
+Final CHCs read
+CHC : (fail@ true)
+CHC : (insertHead k!39 k!40 k!36)
+CHC : (inv1 k!39 k!37 k!40)
+CHC : (inv1 k!44 k!41 k!43)
+CHC : (popHead k!50 k!49 k!47)
+CHC : (inv2 k!50 k!48 k!45)
+CHC : (inv2 k!53 k!52 k!51)
+Total time: 2.81

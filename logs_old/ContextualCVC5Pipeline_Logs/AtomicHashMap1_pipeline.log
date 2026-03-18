@@ -1,0 +1,108 @@
+
+========================================
+         Starting Pipeline for: AtomicHashMap1 (Mode: ContextualCVC5)
+========================================
+Initializing pipeline for benchmark: 'AtomicHashMap1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Contextual/AtomicHashMap1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+Total External Iterations: 0
+Total Unique Test Cases Found: 0
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/AtomicHashMap1/AtomicHashMap1.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_1.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: AtomicHashMap1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/AtomicHashMap1/AtomicHashMap1_fuzz.cpp'.
+   -> Starting AFL++(AtomicHashMap1_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/AtomicHashMap1/AtomicHashMap1_fuzz
+   -> AFL++(AtomicHashMap1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:245,execs:2412,op:havoc,rep:2
+Checking queue
+   -> Found 5 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'AtomicHashMap1'...
+       -> Found and validated 5 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (kveq1 <= v)
+  insert1: (kveq <= min)
+  find: (ret1 == kveq)
+  inv1: (len <= len)
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun insert ((k Int) (v Int) (len Int) (min Int) (max Int) (kveq Int) (len1 Int) (min1 Int) (max1 Int) (kveq1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int (k v len min max kveq len1 min1 max1 kveq1 (+ Expr Expr) (- Expr Expr)))))
+(synth-fun insert1 ((k Int) (v Int) (len Int) (min Int) (max Int) (kveq Int) (len1 Int) (min1 Int) (max1 Int) (kveq1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int (k v len min max kveq len1 min1 max1 kveq1 (+ Expr Expr) (- Expr Expr)))))
+(synth-fun find ((k Int) (len Int) (min Int) (max Int) (kveq Int) (ret1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int (k len min max kveq ret1 (+ Expr Expr) (- Expr Expr)))))
+(synth-fun inv1 ((i Int) (N Int) (len Int) (min Int) (max Int) (kveq Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int (i N len min max kveq (+ Expr Expr) (- Expr Expr)))))
+
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var len2 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var min2 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var max2 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var kveq2 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var v1 Int)
+(declare-var ret1 Int)
+
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(constraint (insert1 0 1 1 0 0 1 1 0 0 1))
+(constraint (insert1 1 2 2 0 1 1 2 0 1 1))
+(constraint (find 0 14 0 13 1 0))
+(constraint (find 2 6 0 5 1 2))
+(constraint (insert 0 0 0 128 (- 129) 1 1 0 0 1))
+
+(constraint (=> (and (> N 0) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(constraint (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (is_valid kveq1) (= v1 (+ i 1)) (insert1 k v1 len1 min1 max1 kveq1 len2 min2 max2 kveq2) (= i1 (+ i 1))) (inv1 i1 N len2 min2 max2 kveq2)))
+(constraint (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (<= 0 k) (< k N) (find k len min max kveq ret1)) (and (not (= ret1 MAX)) (not (= ret1 MIN)))))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/AtomicHashMap1/AtomicHashMap1.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_2.log
+   -> ERROR: CVC5 timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 2
+Total Unique Test Cases Found: 5
+pipeline.run() took 0.1038 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualCVC5 AtomicHashMap1
+PID: 23
+========================================
+
+
+Total Pipeline Duration: 1021.56s

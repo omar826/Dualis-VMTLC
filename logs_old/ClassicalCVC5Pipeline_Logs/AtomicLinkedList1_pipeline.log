@@ -1,0 +1,153 @@
+
+========================================
+         Starting Pipeline for: AtomicLinkedList1 (Mode: ClassicalCVC5)
+========================================
+Initializing pipeline for benchmark: 'AtomicLinkedList1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/AtomicLinkedList1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+Total External Iterations: 0
+Total Unique Test Cases Found: 0
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/AtomicLinkedList1/AtomicLinkedList1.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_1.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: insertHead_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/AtomicLinkedList1/insertHead_fuzz.cpp'.
+   -> Starting AFL++(insertHead_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/AtomicLinkedList1/insertHead_fuzz
+   -> AFL++(insertHead_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 8 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:2,execs:64,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:10,execs:258,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:7,execs:202,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:1088,execs:5103,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:31,execs:708,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:15,execs:374,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:8,execs:215,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:46,execs:1000,op:havoc,rep:2
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insertHead'...
+       -> Found and validated 18 new constraints.
+   -> Writing new specs to harness: popHead_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/AtomicLinkedList1/popHead_fuzz.cpp'.
+   -> Starting AFL++(popHead_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/AtomicLinkedList1/popHead_fuzz
+   -> AFL++(popHead_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1595,execs:190,op:havoc,rep:15
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:197,execs:33,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:1232,execs:182,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:417,execs:51,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:566,execs:55,op:havoc,rep:9
+Checking queue
+   -> Found 28 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'popHead'...
+       -> Found and validated 20 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insertHead: (!(k <= k))
+  popHead: ((len1 + len) == len1)
+  inv1: (!(N <= k))
+  inv2: (items_processed == N)
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun insertHead ((k Int) (len Int) (len1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) k len len1))))
+(synth-fun popHead ((len Int) (ret1 Int) (len1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len ret1 len1))))
+(synth-fun inv1 ((k Int) (N Int) (len Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) k N len))))
+(synth-fun inv2 ((len Int) (items_processed Int) (N Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len items_processed N))))
+
+(declare-var N Int)
+(declare-var k Int)
+(declare-var k1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var items_processed Int)
+(declare-var items_processed1 Int)
+(declare-var ret1 Int)
+
+(constraint (insertHead (- 84) 6 7))
+(constraint (insertHead 2 1 2))
+(constraint (insertHead 0 4 5))
+(constraint (insertHead 3 0 1))
+(constraint (insertHead 2 0 1))
+(constraint (insertHead (- 96) 0 1))
+(constraint (insertHead 0 0 1))
+(constraint (insertHead 1 1 2))
+(constraint (insertHead 52 15 16))
+(constraint (insertHead 53 0 1))
+(constraint (insertHead (- 93) 10 11))
+(constraint (insertHead 27 0 1))
+(constraint (insertHead 2 11 12))
+(constraint (insertHead (- 27) 3 4))
+(constraint (insertHead (- 88) 0 1))
+(constraint (insertHead 67 6 7))
+(constraint (insertHead 2 15 16))
+(constraint (insertHead 2 4 5))
+(constraint (popHead 1 118 0))
+(constraint (popHead 4 0 3))
+(constraint (popHead 1 0 0))
+(constraint (popHead 18 25 17))
+(constraint (popHead 3 (- 1) 2))
+(constraint (popHead 3 (- 126) 2))
+(constraint (popHead 2 (- 56) 1))
+(constraint (popHead 1 1 0))
+(constraint (popHead 5 5 4))
+(constraint (popHead 2 2 1))
+(constraint (popHead 11 (- 120) 10))
+(constraint (popHead 2 (- 127) 1))
+(constraint (popHead 6 70 5))
+(constraint (popHead 10 73 9))
+(constraint (popHead 12 (- 15) 11))
+(constraint (popHead 9 1 8))
+(constraint (popHead 2 48 1))
+(constraint (popHead 24 100 23))
+(constraint (popHead 6 113 5))
+(constraint (popHead 1 83 0))
+
+(constraint (=> (and (> N 0) (= k1 0) (= len1 0)) (inv1 k1 N len1)))
+(constraint (=> (and (inv1 k N len) (< k N) (insertHead k len len1) (= k1 (+ k 1))) (inv1 k1 N len1)))
+(constraint (=> (and (inv1 k N len) (not (< k N)) (= items_processed 0)) (inv2 len items_processed N)))
+(constraint (=> (and (inv2 len items_processed N) (not (= len 0)) (popHead len ret1 len1) (= items_processed1 (+ items_processed 1))) (inv2 len1 items_processed1 N)))
+(constraint (=> (and (inv2 len items_processed N) (= len 0)) (= items_processed N)))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/AtomicLinkedList1/AtomicLinkedList1.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_2.log
+   -> ERROR: CVC5 timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 2
+Total Unique Test Cases Found: 38
+pipeline.run() took 0.1301 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalCVC5 AtomicLinkedList1
+PID: 24
+========================================
+
+
+Total Pipeline Duration: 1046.52s

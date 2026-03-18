@@ -1,0 +1,245 @@
+
+========================================
+         Starting Pipeline for: Multimap1 (Mode: ClassicalHornICE)
+========================================
+Initializing pipeline for benchmark: 'Multimap1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/Multimap1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Multimap1/Multimap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 10 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Multimap1/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Multimap1/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 7 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:356,execs:26,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:1853,execs:62,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:740,execs:35,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:142,execs:17,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1345,execs:56,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:538,execs:32,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1718,execs:58,op:havoc,rep:5
+Checking queue
+   -> Found 1 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 7 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: ((i - N) <= (-1))
+  emplace: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= len 4) (= countko1 5) (= len1 5)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 0) (= v -103) (= countko 0) (= len 0) (= countko1 0) (= len1 1)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= len 1) (= countko1 2) (= len1 2)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k -1) (= v -55) (= countko 1) (= len 2) (= countko1 1) (= len1 3)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 0) (= v -5) (= countko 0) (= len 1) (= countko1 0) (= len1 2)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 28) (= v -111) (= countko 0) (= len 1) (= countko1 0) (= len1 2)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 2) (= len 4) (= countko1 2) (= len1 5)) (emplace k v countko len countko1 len1)))
+
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0)) (inv1 i N countko len)))
+(rule (=> (and (inv1 i N countko len) (< i N) (= k 1) (emplace k v countko len countko1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 len1)))
+(rule (=> (and (inv1 i N countko len) (not (< i N)) (not (= countko N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Multimap1/Multimap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 44 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Multimap1/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Multimap1/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 7 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:11625,execs:247,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:23587,execs:541,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:6926,execs:205,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:3379,execs:131,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:2215,execs:59,op:havoc,rep:15
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:5739,execs:201,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:1040,execs:38,op:havoc,rep:10
+Checking queue
+   -> Found 40 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 7 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: ((((k <= 0) && (len <= 0)) || (len > 0)) && ((len - len1) <= (-1)) && (((len - v) + len) > 0))
+  inv1: ((N > 0) && (len <= 0) && ((i - len) <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 0) (= v 0) (= countko 0) (= len 0) (= countko1 0) (= len1 1)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 62) (= v 92) (= countko 1) (= len 3) (= countko1 1) (= len1 4)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 1) (= v 12) (= countko 2) (= len 6) (= countko1 3) (= len1 7)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k -1) (= v 127) (= countko 0) (= len 3) (= countko1 0) (= len1 4)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 46) (= v 64) (= countko 0) (= len 3) (= countko1 0) (= len1 4)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 1) (= v 11) (= countko 1) (= len 3) (= countko1 2) (= len1 4)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 23) (= v 2) (= countko 0) (= len 0) (= countko1 0) (= len1 1)) (emplace k v countko len countko1 len1)))
+
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= len 4) (= countko1 5) (= len1 5)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 0) (= v -103) (= countko 0) (= len 0) (= countko1 0) (= len1 1)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= len 1) (= countko1 2) (= len1 2)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k -1) (= v -55) (= countko 1) (= len 2) (= countko1 1) (= len1 3)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 0) (= v -5) (= countko 0) (= len 1) (= countko1 0) (= len1 2)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 28) (= v -111) (= countko 0) (= len 1) (= countko1 0) (= len1 2)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 2) (= len 4) (= countko1 2) (= len1 5)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0)) (inv1 i N countko len)))
+(rule (=> (and (inv1 i N countko len) (< i N) (= k 1) (emplace k v countko len countko1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 len1)))
+(rule (=> (and (inv1 i N countko len) (not (< i N)) (not (= countko N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Multimap1/Multimap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 35 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Multimap1/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Multimap1/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:240,execs:1257,op:havoc,rep:4
+Checking queue
+   -> Found 72 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (((k <= 0) && ((k + len + len) <= 1)) || ((k + len + len) > 1))
+  inv1: ((len <= 0) && ((N - len) > 0) && ((i - len) <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= len 0) (= countko1 1) (= len1 1)) (emplace k v countko len countko1 len1)))
+
+(rule (=> (and (= k 0) (= v 0) (= countko 0) (= len 0) (= countko1 0) (= len1 1)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 62) (= v 92) (= countko 1) (= len 3) (= countko1 1) (= len1 4)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 1) (= v 12) (= countko 2) (= len 6) (= countko1 3) (= len1 7)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k -1) (= v 127) (= countko 0) (= len 3) (= countko1 0) (= len1 4)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 46) (= v 64) (= countko 0) (= len 3) (= countko1 0) (= len1 4)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 1) (= v 11) (= countko 1) (= len 3) (= countko1 2) (= len1 4)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 23) (= v 2) (= countko 0) (= len 0) (= countko1 0) (= len1 1)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= len 4) (= countko1 5) (= len1 5)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 0) (= v -103) (= countko 0) (= len 0) (= countko1 0) (= len1 1)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= len 1) (= countko1 2) (= len1 2)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k -1) (= v -55) (= countko 1) (= len 2) (= countko1 1) (= len1 3)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 0) (= v -5) (= countko 0) (= len 1) (= countko1 0) (= len1 2)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 28) (= v -111) (= countko 0) (= len 1) (= countko1 0) (= len1 2)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 2) (= len 4) (= countko1 2) (= len1 5)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0)) (inv1 i N countko len)))
+(rule (=> (and (inv1 i N countko len) (< i N) (= k 1) (emplace k v countko len countko1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 len1)))
+(rule (=> (and (inv1 i N countko len) (not (< i N)) (not (= countko N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Multimap1/Multimap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_4.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 4
+Total Unique Test Cases Found: 15
+Total Internal Iterations: 89
+  - Min: 10
+  - Max: 44
+  - Avg: 29.67
+pipeline.run() took 0.5966 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalHornICE Multimap1
+PID: 607027
+========================================
+

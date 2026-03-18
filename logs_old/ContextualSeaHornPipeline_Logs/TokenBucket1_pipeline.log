@@ -1,0 +1,22 @@
+
+========================================
+         Starting Pipeline for: TokenBucket1 (Mode: ContextualSeaHorn)
+========================================
+Initializing pipeline for benchmark: 'TokenBucket1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/TokenBucket1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Running SeaHorn Baseline ====================
+   -> Copied source file to working directory.
+   -> Starting SeaHorn(TokenBucket1) with a 1000-second timeout...
+   -> SeaHorn(TokenBucket1) completed: UNSAT (Safe).
+   -> Result logged to /Dualis/scripts/../logs/seahorn_baselines.log
+
+====================== Pipeline Finished =====================
+pipeline.run() took 0.0014 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualSeaHorn TokenBucket1
+PID: 19
+========================================
+
+
+Total Pipeline Duration: 0.31s

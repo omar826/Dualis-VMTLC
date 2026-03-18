@@ -1,0 +1,298 @@
+(declare-rel search (Int Int Int Int Int Int))
+(declare-rel fail ())
+(declare-rel inv (Int Int Int Int Int Int))
+(declare-rel insert (Int Int Int Int Int Int Int Int Int))
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(declare-var E Int)
+(declare-var F Int)
+(declare-var G Int)
+(declare-var H Int)
+(declare-var I Int)
+(declare-var J Int)
+(declare-var K Int)
+(rule (=> (and (> A 0) (= F 0) (= E (- 129)) (= D 128) (= B 1)) (inv F E D C B A)))
+(rule (=> (and (inv G K J I H A)
+         (or (= H 1) (= H 0))
+         (< G A)
+         (insert G K E J D I C H B)
+         (= F (+ G 1)))
+    (inv F E D C B A)))
+(rule (=> (and (inv H E D C B G)
+         (or (= B 1) (= B 0))
+         (>= H G)
+         (>= F 0)
+         (< F G)
+         (search F E D C B A)
+         (= A 0))
+    fail))
+
+
+Read 3 rules and 1 queries (1)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun search (Int Int Int Int Int Int) Bool)
+(declare-fun insert (Int Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int Int Int Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (> k!0 0) (= k!5 0) (= k!4 (- 129)) (= k!3 128) (= k!1 1))
+    (inv k!5 k!4 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!5 k!4 k!3 k!2 k!1 k!0)
+
+ -- CHC
+(=> (and (inv k!12 k!16 k!15 k!14 k!13 k!6)
+         (or (= k!13 1) (= k!13 0))
+         (< k!12 k!6)
+         (insert k!12 k!16 k!10 k!15 k!9 k!14 k!8 k!13 k!7)
+         (= k!11 (+ k!12 1)))
+    (inv k!11 k!10 k!9 k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int Int Int Int Int) Bool)
+ -- LHS
+(insert k!12 k!16 k!10 k!15 k!9 k!14 k!8 k!13 k!7)
+(inv k!12 k!16 k!15 k!14 k!13 k!6)
+ -- RHS
+(inv k!11 k!10 k!9 k!8 k!7 k!6)
+
+ -- CHC
+(=> (and (inv k!24 k!21 k!20 k!19 k!18 k!23)
+         (or (= k!18 1) (= k!18 0))
+         (>= k!24 k!23)
+         (>= k!22 0)
+         (< k!22 k!23)
+         (search k!22 k!21 k!20 k!19 k!18 k!17)
+         (= k!17 0))
+    (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun search (Int Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int Int Int Int Int) Bool)
+ -- LHS
+(search k!22 k!21 k!20 k!19 k!18 k!17)
+(inv k!24 k!21 k!20 k!19 k!18 k!23)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (> k!0 0) (= k!5 0) (= k!4 (- 129)) (= k!3 128) (= k!1 1))
+    (inv k!5 k!4 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!5 k!4 k!3 k!2 k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (inv k!12 k!16 k!15 k!14 k!13 k!6)
+         (or (= k!13 1) (= k!13 0))
+         (< k!12 k!6)
+         (insert k!12 k!16 k!10 k!15 k!9 k!14 k!8 k!13 k!7)
+         (= k!11 (+ k!12 1)))
+    (inv k!11 k!10 k!9 k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int Int Int Int Int) Bool)
+ -- LHS
+(insert k!12 k!16 k!10 k!15 k!9 k!14 k!8 k!13 k!7)
+(inv k!12 k!16 k!15 k!14 k!13 k!6)
+ -- RHS
+(inv k!11 k!10 k!9 k!8 k!7 k!6)
+
+chc ::  -- CHC
+(=> (and (inv k!24 k!21 k!20 k!19 k!18 k!23)
+         (or (= k!18 1) (= k!18 0))
+         (>= k!24 k!23)
+         (>= k!22 0)
+         (< k!22 k!23)
+         (search k!22 k!21 k!20 k!19 k!18 k!17)
+         (= k!17 0))
+    (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun search (Int Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int Int Int Int Int) Bool)
+ -- LHS
+(search k!22 k!21 k!20 k!19 k!18 k!17)
+(inv k!24 k!21 k!20 k!19 k!18 k!23)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun search (Int Int Int Int Int Int) Bool)
+rel :: (declare-fun insert (Int Int Int Int Int Int Int Int Int) Bool)
+rel :: (declare-fun inv (Int Int Int Int Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun search (Int Int Int Int Int Int) Bool)
+(declare-fun insert (Int Int Int Int Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int Int Int Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun search (Int Int Int Int Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun search (Int Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun search (Int Int Int Int Int Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : search#0Int
+add_integer_attribute::Integer Attribute::search#0
+Attribute Identifier : 3 attribute : search#1Int
+add_integer_attribute::Integer Attribute::search#1
+Attribute Identifier : 4 attribute : search#2Int
+add_integer_attribute::Integer Attribute::search#2
+Attribute Identifier : 5 attribute : search#3Int
+add_integer_attribute::Integer Attribute::search#3
+Attribute Identifier : 6 attribute : search#4Int
+add_integer_attribute::Integer Attribute::search#4
+Attribute Identifier : 7 attribute : search#5Int
+add_integer_attribute::Integer Attribute::search#5
+add_integer_attribute::Integer Attribute::|search#0|-|search#3|
+add_integer_attribute::Integer Attribute::|search#3|-|search#0|
+learner_interface :: Relation : (declare-fun insert (Int Int Int Int Int Int Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun insert (Int Int Int Int Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun insert (Int Int Int Int Int Int Int Int Int) Bool) is mapped to baseval :  9
+Attribute Identifier : 10 attribute : insert#0Int
+add_integer_attribute::Integer Attribute::insert#0
+Attribute Identifier : 11 attribute : insert#1Int
+add_integer_attribute::Integer Attribute::insert#1
+Attribute Identifier : 12 attribute : insert#2Int
+add_integer_attribute::Integer Attribute::insert#2
+Attribute Identifier : 13 attribute : insert#3Int
+add_integer_attribute::Integer Attribute::insert#3
+Attribute Identifier : 14 attribute : insert#4Int
+add_integer_attribute::Integer Attribute::insert#4
+Attribute Identifier : 15 attribute : insert#5Int
+add_integer_attribute::Integer Attribute::insert#5
+Attribute Identifier : 16 attribute : insert#6Int
+add_integer_attribute::Integer Attribute::insert#6
+Attribute Identifier : 17 attribute : insert#7Int
+add_integer_attribute::Integer Attribute::insert#7
+Attribute Identifier : 18 attribute : insert#8Int
+add_integer_attribute::Integer Attribute::insert#8
+add_integer_attribute::Integer Attribute::|insert#2|-|insert#0|
+add_integer_attribute::Integer Attribute::|insert#0|-|insert#2|
+add_integer_attribute::Integer Attribute::|insert#2|-|insert#1|
+add_integer_attribute::Integer Attribute::|insert#1|-|insert#2|
+add_integer_attribute::Integer Attribute::|insert#4|-|insert#0|
+add_integer_attribute::Integer Attribute::|insert#0|-|insert#4|
+add_integer_attribute::Integer Attribute::|insert#4|-|insert#3|
+add_integer_attribute::Integer Attribute::|insert#3|-|insert#4|
+add_integer_attribute::Integer Attribute::|insert#6|-|insert#5|
+add_integer_attribute::Integer Attribute::|insert#5|-|insert#6|
+learner_interface :: Relation : (declare-fun inv (Int Int Int Int Int Int) Bool) is mapped to CatID :  3
+learner_interfaceCatID : 3 is mapped to Relation : (declare-fun inv (Int Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv (Int Int Int Int Int Int) Bool) is mapped to baseval :  28
+Attribute Identifier : 29 attribute : inv#0Int
+add_integer_attribute::Integer Attribute::inv#0
+Attribute Identifier : 30 attribute : inv#1Int
+add_integer_attribute::Integer Attribute::inv#1
+Attribute Identifier : 31 attribute : inv#2Int
+add_integer_attribute::Integer Attribute::inv#2
+Attribute Identifier : 32 attribute : inv#3Int
+add_integer_attribute::Integer Attribute::inv#3
+Attribute Identifier : 33 attribute : inv#4Int
+add_integer_attribute::Integer Attribute::inv#4
+Attribute Identifier : 34 attribute : inv#5Int
+add_integer_attribute::Integer Attribute::inv#5
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#5|
+add_integer_attribute::Integer Attribute::|inv#5|-|inv#0|
+add_integer_attribute::Integer Attribute::|inv#3|-|inv#0|
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#3|
+add_integer_attribute::Integer Attribute::|inv#1|-|inv#0|
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#1|
+===========================================
+Learning Iteration: 0
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+true
+Printing all the counter examples : 1
+Counterexample: {fail@(true)} => {}
+Conjectures
+===========================================
+Learning Iteration: 1
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+ NULL
+Printing all the counter examples : 2
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {inv(0, (- 129), 128, 0, 1, 1)}
+Conjectures
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> true
+(declare-fun search (Int Int Int Int Int Int) Bool) => [|search#0|, |search#1|, |search#2|, |search#3|, |search#4|, |search#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|] -> true
+(declare-fun inv (Int Int Int Int Int Int) Bool) => [|inv#0|, |inv#1|, |inv#2|, |inv#3|, |inv#4|, |inv#5|] -> true
+===========================================
+Learning Iteration: 2
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+ true
+Printing all the counter examples : 2
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {inv(0, (- 129), 128, 0, 1, 1)}
+Conjectures
+(declare-fun inv (Int Int Int Int Int Int) Bool) => [|inv#0|, |inv#1|, |inv#2|, |inv#3|, |inv#4|, |inv#5|] -> false
+(declare-fun insert (Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|] -> false
+(declare-fun search (Int Int Int Int Int Int) Bool) => [|search#0|, |search#1|, |search#2|, |search#3|, |search#4|, |search#5|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+In Naive Check
+Success (checked 11 CHCs, invoked learner 3 times)
+(declare-fun inv (Int Int Int Int Int Int) Bool) => [|inv#0|, |inv#1|, |inv#2|, |inv#3|, |inv#4|, |inv#5|] -> true
+(declare-fun insert (Int Int Int Int Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|, |insert#5|, |insert#6|, |insert#7|, |insert#8|] -> false
+(declare-fun search (Int Int Int Int Int Int) Bool) => [|search#0|, |search#1|, |search#2|, |search#3|, |search#4|, |search#5|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 6(declare-fun search (Int Int Int Int Int Int) Bool)search
+Relation : 9(declare-fun insert (Int Int Int Int Int Int Int Int Int) Bool)insert
+Relation : 6(declare-fun inv (Int Int Int Int Int Int) Bool)inv
+Final CHCs read
+CHC : (fail@ true)
+CHC : (insert k!12 k!16 k!10 k!15 k!9 k!14 k!8 k!13 k!7)
+CHC : (inv k!12 k!16 k!15 k!14 k!13 k!6)
+CHC : (search k!22 k!21 k!20 k!19 k!18 k!17)
+CHC : (inv k!24 k!21 k!20 k!19 k!18 k!23)
+Total time: 0.22

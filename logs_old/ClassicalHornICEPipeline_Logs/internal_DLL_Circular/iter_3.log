@@ -1,0 +1,1304 @@
+(declare-rel fail ())
+(declare-rel push (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(rule (=> (and (= C (- 7)) (= B (- 129)) (= A (- 7))) (push C B A)))
+(rule (=> (and (= C (- 1)) (= B (- 1)) (= A (- 1))) (push C B A)))
+(rule (=> (and (= C (- 1)) (= B 1) (= A 1)) (push C B A)))
+(rule (=> (and (= C 1) (= B 2) (= A 2)) (push C B A)))
+(rule (=> (and (= C 1) (= B 1) (= A 1)) (push C B A)))
+(rule (=> (and (= C 1) (= B (- 1)) (= A 1)) (push C B A)))
+(rule (=> (and (= C 1) (= B (- 108)) (= A 1)) (push C B A)))
+(rule (=> (and (= C 3) (= B (- 129)) (= A 3)) (push C B A)))
+(rule (=> (and (= B 0) (= A 0)) (inv B A)))
+(rule (=> (and (inv D C) (< D 3) (= B (+ D 1)) (push B C A)) (inv B A)))
+(rule (=> (and (inv B C) (>= B 3) (push B C A)) (inv B A)))
+(rule (=> (and (inv B C) (push B C A)) (inv B A)))
+(rule (let ((a!1 (and (inv B A) (not (and (>= A 0) (<= A 3))))))
+  (=> a!1 fail)))
+
+
+Read 13 rules and 1 queries (1)
+
+---------- Query 0 ----------
+(fail@ true)
+SMTlIB :: expr : (fail@ true)
+SMTlIB :: expr_decl : (declare-fun fail@ (Bool) Bool)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+---------- Rule 0 ----------
+(forall ((val Int) (max Int) (max1 Int))
+  (=> (and (= val (- 7)) (= max (- 129)) (= max1 (- 7))) (push val max max1)))
+SMTlIB :: expr : (push k!2 k!1 k!0)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int) Bool)
+
+---------- Rule 1 ----------
+(forall ((val Int) (max Int) (max1 Int))
+  (=> (and (= val (- 1)) (= max (- 1)) (= max1 (- 1))) (push val max max1)))
+SMTlIB :: expr : (push k!5 k!4 k!3)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int) Bool)
+
+---------- Rule 2 ----------
+(forall ((val Int) (max Int) (max1 Int))
+  (=> (and (= val (- 1)) (= max 1) (= max1 1)) (push val max max1)))
+SMTlIB :: expr : (push k!8 k!7 k!6)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int) Bool)
+
+---------- Rule 3 ----------
+(forall ((val Int) (max Int) (max1 Int))
+  (=> (and (= val 1) (= max 2) (= max1 2)) (push val max max1)))
+SMTlIB :: expr : (push k!11 k!10 k!9)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int) Bool)
+
+---------- Rule 4 ----------
+(forall ((val Int) (max Int) (max1 Int))
+  (=> (and (= val 1) (= max 1) (= max1 1)) (push val max max1)))
+SMTlIB :: expr : (push k!14 k!13 k!12)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int) Bool)
+
+---------- Rule 5 ----------
+(forall ((val Int) (max Int) (max1 Int))
+  (=> (and (= val 1) (= max (- 1)) (= max1 1)) (push val max max1)))
+SMTlIB :: expr : (push k!17 k!16 k!15)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int) Bool)
+
+---------- Rule 6 ----------
+(forall ((val Int) (max Int) (max1 Int))
+  (=> (and (= val 1) (= max (- 108)) (= max1 1)) (push val max max1)))
+SMTlIB :: expr : (push k!20 k!19 k!18)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int) Bool)
+
+---------- Rule 7 ----------
+(forall ((val Int) (max Int) (max1 Int))
+  (=> (and (= val 3) (= max (- 129)) (= max1 3)) (push val max max1)))
+SMTlIB :: expr : (push k!23 k!22 k!21)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int) Bool)
+
+---------- Rule 8 ----------
+(forall ((val Int) (max Int)) (=> (and (= val 0) (= max 0)) (inv val max)))
+SMTlIB :: expr : (inv k!25 k!24)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+
+---------- Rule 9 ----------
+(forall ((val Int) (max Int) (val1 Int) (max1 Int))
+  (=> (and (inv val max) (< val 3) (= val1 (+ val 1)) (push val1 max max1))
+      (inv val1 max1)))
+SMTlIB :: expr : (inv k!29 k!28)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+SMTlIB :: expr : (push k!27 k!28 k!26)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int) Bool)
+SMTlIB :: expr : (inv k!27 k!26)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+
+---------- Rule 10 ----------
+(forall ((max Int) (val Int) (max1 Int))
+  (=> (and (inv val max) (>= val 3) (push val max max1)) (inv val max1)))
+SMTlIB :: expr : (inv k!31 k!32)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+SMTlIB :: expr : (push k!31 k!32 k!30)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int) Bool)
+SMTlIB :: expr : (inv k!31 k!30)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+
+---------- Rule 11 ----------
+(forall ((max Int) (val Int) (max1 Int))
+  (=> (and (inv val max) (push val max max1)) (inv val max1)))
+SMTlIB :: expr : (inv k!34 k!35)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+SMTlIB :: expr : (push k!34 k!35 k!33)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int) Bool)
+SMTlIB :: expr : (inv k!34 k!33)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+
+---------- Rule 12 ----------
+(forall ((val Int) (max Int))
+  (let ((a!1 (and (inv val max) (not (and (>= max 0) (<= max 3))))))
+    (=> a!1 (fail@ true))))
+SMTlIB :: expr : (inv k!37 k!36)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+SMTlIB :: expr : (fail@ true)
+SMTlIB :: expr_decl : (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+(declare-fun push (Int Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (= k!2 (- 7)) (= k!1 (- 129)) (= k!0 (- 7))) (push k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!2 k!1 k!0)
+
+ -- CHC
+(=> (and (= k!5 (- 1)) (= k!4 (- 1)) (= k!3 (- 1))) (push k!5 k!4 k!3))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!5 k!4 k!3)
+
+ -- CHC
+(=> (and (= k!8 (- 1)) (= k!7 1) (= k!6 1)) (push k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!8 k!7 k!6)
+
+ -- CHC
+(=> (and (= k!11 1) (= k!10 2) (= k!9 2)) (push k!11 k!10 k!9))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!11 k!10 k!9)
+
+ -- CHC
+(=> (and (= k!14 1) (= k!13 1) (= k!12 1)) (push k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!14 k!13 k!12)
+
+ -- CHC
+(=> (and (= k!17 1) (= k!16 (- 1)) (= k!15 1)) (push k!17 k!16 k!15))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!17 k!16 k!15)
+
+ -- CHC
+(=> (and (= k!20 1) (= k!19 (- 108)) (= k!18 1)) (push k!20 k!19 k!18))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!20 k!19 k!18)
+
+ -- CHC
+(=> (and (= k!23 3) (= k!22 (- 129)) (= k!21 3)) (push k!23 k!22 k!21))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!23 k!22 k!21)
+
+ -- CHC
+(=> (and (= k!25 0) (= k!24 0)) (inv k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!25 k!24)
+
+ -- CHC
+(=> (and (inv k!29 k!28) (< k!29 3) (= k!27 (+ k!29 1)) (push k!27 k!28 k!26))
+    (inv k!27 k!26))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!27 k!28 k!26)
+(inv k!29 k!28)
+ -- RHS
+(inv k!27 k!26)
+
+ -- CHC
+(=> (and (inv k!31 k!32) (>= k!31 3) (push k!31 k!32 k!30)) (inv k!31 k!30))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!31 k!32 k!30)
+(inv k!31 k!32)
+ -- RHS
+(inv k!31 k!30)
+
+ -- CHC
+(=> (and (inv k!34 k!35) (push k!34 k!35 k!33)) (inv k!34 k!33))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!34 k!35 k!33)
+(inv k!34 k!35)
+ -- RHS
+(inv k!34 k!33)
+
+ -- CHC
+(let ((a!1 (and (inv k!37 k!36) (not (and (>= k!36 0) (<= k!36 3))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!37 k!36)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (= k!2 (- 7)) (= k!1 (- 129)) (= k!0 (- 7))) (push k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!2 k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (= k!5 (- 1)) (= k!4 (- 1)) (= k!3 (- 1))) (push k!5 k!4 k!3))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!5 k!4 k!3)
+
+chc ::  -- CHC
+(=> (and (= k!8 (- 1)) (= k!7 1) (= k!6 1)) (push k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!8 k!7 k!6)
+
+chc ::  -- CHC
+(=> (and (= k!11 1) (= k!10 2) (= k!9 2)) (push k!11 k!10 k!9))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!11 k!10 k!9)
+
+chc ::  -- CHC
+(=> (and (= k!14 1) (= k!13 1) (= k!12 1)) (push k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!14 k!13 k!12)
+
+chc ::  -- CHC
+(=> (and (= k!17 1) (= k!16 (- 1)) (= k!15 1)) (push k!17 k!16 k!15))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!17 k!16 k!15)
+
+chc ::  -- CHC
+(=> (and (= k!20 1) (= k!19 (- 108)) (= k!18 1)) (push k!20 k!19 k!18))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!20 k!19 k!18)
+
+chc ::  -- CHC
+(=> (and (= k!23 3) (= k!22 (- 129)) (= k!21 3)) (push k!23 k!22 k!21))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!23 k!22 k!21)
+
+chc ::  -- CHC
+(=> (and (= k!25 0) (= k!24 0)) (inv k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!25 k!24)
+
+chc ::  -- CHC
+(=> (and (inv k!29 k!28) (< k!29 3) (= k!27 (+ k!29 1)) (push k!27 k!28 k!26))
+    (inv k!27 k!26))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!27 k!28 k!26)
+(inv k!29 k!28)
+ -- RHS
+(inv k!27 k!26)
+
+chc ::  -- CHC
+(=> (and (inv k!31 k!32) (>= k!31 3) (push k!31 k!32 k!30)) (inv k!31 k!30))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!31 k!32 k!30)
+(inv k!31 k!32)
+ -- RHS
+(inv k!31 k!30)
+
+chc ::  -- CHC
+(=> (and (inv k!34 k!35) (push k!34 k!35 k!33)) (inv k!34 k!33))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!34 k!35 k!33)
+(inv k!34 k!35)
+ -- RHS
+(inv k!34 k!33)
+
+chc ::  -- CHC
+(let ((a!1 (and (inv k!37 k!36) (not (and (>= k!36 0) (<= k!36 3))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!37 k!36)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun inv (Int Int) Bool)
+rel :: (declare-fun push (Int Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+(declare-fun push (Int Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun inv (Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun inv (Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv (Int Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : inv#0Int
+add_integer_attribute::Integer Attribute::inv#0
+Attribute Identifier : 3 attribute : inv#1Int
+add_integer_attribute::Integer Attribute::inv#1
+add_integer_attribute::Integer Attribute::|inv#0|+|inv#1|
+learner_interfaceDerived Attribute Identifier : 4 Derived attribute : (+ |inv#0| |inv#1|)
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#1|
+learner_interfaceDerived Attribute Identifier : 5 Derived attribute : (- |inv#0| |inv#1|)
+learner_interface :: Relation : (declare-fun push (Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun push (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun push (Int Int Int) Bool) is mapped to baseval :  5
+Attribute Identifier : 6 attribute : push#0Int
+add_integer_attribute::Integer Attribute::push#0
+Attribute Identifier : 7 attribute : push#1Int
+add_integer_attribute::Integer Attribute::push#1
+Attribute Identifier : 8 attribute : push#2Int
+add_integer_attribute::Integer Attribute::push#2
+add_integer_attribute::Integer Attribute::|push#0|+|push#1|+|push#2|
+learner_interfaceDerived Attribute Identifier : 9 Derived attribute : (+ |push#0| |push#1| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|-|push#2|
+learner_interfaceDerived Attribute Identifier : 10 Derived attribute : (- (- |push#0| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#1|-|push#2|
+learner_interfaceDerived Attribute Identifier : 11 Derived attribute : (- (+ |push#0| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|+|push#2|
+learner_interfaceDerived Attribute Identifier : 12 Derived attribute : (+ (- |push#0| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|+|push#1|
+learner_interfaceDerived Attribute Identifier : 13 Derived attribute : (+ |push#0| |push#2| |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|-|push#1|
+learner_interfaceDerived Attribute Identifier : 14 Derived attribute : (- (- |push#0| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|-|push#1|
+learner_interfaceDerived Attribute Identifier : 15 Derived attribute : (- (+ |push#0| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|+|push#1|
+learner_interfaceDerived Attribute Identifier : 16 Derived attribute : (+ (- |push#0| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 17 Derived attribute : (+ |push#1| |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 18 Derived attribute : (- (- |push#1| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 19 Derived attribute : (- (+ |push#1| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 20 Derived attribute : (+ (- |push#1| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 21 Derived attribute : (+ |push#1| |push#2| |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 22 Derived attribute : (- (- |push#1| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 23 Derived attribute : (- (+ |push#1| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 24 Derived attribute : (+ (- |push#1| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|+|push#1|
+learner_interfaceDerived Attribute Identifier : 25 Derived attribute : (+ |push#2| |push#0| |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|-|push#1|
+learner_interfaceDerived Attribute Identifier : 26 Derived attribute : (- (- |push#2| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|-|push#1|
+learner_interfaceDerived Attribute Identifier : 27 Derived attribute : (- (+ |push#2| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|+|push#1|
+learner_interfaceDerived Attribute Identifier : 28 Derived attribute : (+ (- |push#2| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#1|+|push#0|
+learner_interfaceDerived Attribute Identifier : 29 Derived attribute : (+ |push#2| |push#1| |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#1|-|push#0|
+learner_interfaceDerived Attribute Identifier : 30 Derived attribute : (- (- |push#2| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#1|-|push#0|
+learner_interfaceDerived Attribute Identifier : 31 Derived attribute : (- (+ |push#2| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#1|+|push#0|
+learner_interfaceDerived Attribute Identifier : 32 Derived attribute : (+ (- |push#2| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|+|push#2|
+learner_interfaceDerived Attribute Identifier : 33 Derived attribute : (+ |push#0| |push#2| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|-|push#2|
+learner_interfaceDerived Attribute Identifier : 34 Derived attribute : (- (- |push#0| |push#2|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|-|push#2|
+learner_interfaceDerived Attribute Identifier : 35 Derived attribute : (- (+ |push#0| |push#2|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|+|push#2|
+learner_interfaceDerived Attribute Identifier : 36 Derived attribute : (+ (- |push#0| |push#2|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 37 Derived attribute : (+ |push#2| |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 38 Derived attribute : (- (- |push#2| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 39 Derived attribute : (- (+ |push#2| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 40 Derived attribute : (+ (- |push#2| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 41 Derived attribute : (+ |push#2| |push#2| |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 42 Derived attribute : (- (- |push#2| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 43 Derived attribute : (- (+ |push#2| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 44 Derived attribute : (+ (- |push#2| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#1|
+learner_interfaceDerived Attribute Identifier : 45 Derived attribute : (+ |push#0| |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|
+learner_interfaceDerived Attribute Identifier : 46 Derived attribute : (- |push#0| |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 47 Derived attribute : (+ |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 48 Derived attribute : (- |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#2|
+learner_interfaceDerived Attribute Identifier : 49 Derived attribute : (+ |push#1| |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|
+learner_interfaceDerived Attribute Identifier : 50 Derived attribute : (- |push#1| |push#2|)
+===========================================
+Learning Iteration: 0
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+get_conjectures:: Printing the Decision Tree
+true
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> true
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> true
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> true
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: fail@(true)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: fail@(true)
+add_counterexample Current teacher datapoint(Negative) : fail@(true)
+===========================================
+Learning Iteration: 1
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> false
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> false
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+add_counterexample Current counterexample : {} => {push((- 7), (- 129), (- 7))}
+add_counterexample Current teacher datapoint : push((- 7), (- 129), (- 7))
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push((- 7), (- 129), (- 7))
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push((- 7), (- 129), (- 7))
+add_counterexample Current teacher datapoint(Positive) : push((- 7), (- 129), (- 7))
+In::add_counterexample
+add_counterexample Current counterexample : {} => {push((- 1), (- 1), (- 1))}
+add_counterexample Current teacher datapoint : push((- 1), (- 1), (- 1))
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push((- 1), (- 1), (- 1))
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push((- 1), (- 1), (- 1))
+add_counterexample Current teacher datapoint(Positive) : push((- 1), (- 1), (- 1))
+In::add_counterexample
+add_counterexample Current counterexample : {} => {push((- 1), 1, 1)}
+add_counterexample Current teacher datapoint : push((- 1), 1, 1)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push((- 1), 1, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push((- 1), 1, 1)
+add_counterexample Current teacher datapoint(Positive) : push((- 1), 1, 1)
+In::add_counterexample
+add_counterexample Current counterexample : {} => {push(1, 2, 2)}
+add_counterexample Current teacher datapoint : push(1, 2, 2)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(1, 2, 2)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(1, 2, 2)
+add_counterexample Current teacher datapoint(Positive) : push(1, 2, 2)
+In::add_counterexample
+add_counterexample Current counterexample : {} => {push(1, 1, 1)}
+add_counterexample Current teacher datapoint : push(1, 1, 1)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(1, 1, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(1, 1, 1)
+add_counterexample Current teacher datapoint(Positive) : push(1, 1, 1)
+In::add_counterexample
+add_counterexample Current counterexample : {} => {push(1, (- 1), 1)}
+add_counterexample Current teacher datapoint : push(1, (- 1), 1)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(1, (- 1), 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(1, (- 1), 1)
+add_counterexample Current teacher datapoint(Positive) : push(1, (- 1), 1)
+In::add_counterexample
+add_counterexample Current counterexample : {} => {push(1, (- 108), 1)}
+add_counterexample Current teacher datapoint : push(1, (- 108), 1)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(1, (- 108), 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(1, (- 108), 1)
+add_counterexample Current teacher datapoint(Positive) : push(1, (- 108), 1)
+In::add_counterexample
+add_counterexample Current counterexample : {} => {push(3, (- 129), 3)}
+add_counterexample Current teacher datapoint : push(3, (- 129), 3)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(3, (- 129), 3)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(3, (- 129), 3)
+add_counterexample Current teacher datapoint(Positive) : push(3, (- 129), 3)
+In::add_counterexample
+add_counterexample Current counterexample : {} => {inv(0, 0)}
+add_counterexample Current teacher datapoint : inv(0, 0)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, 0)
+add_counterexample Current teacher datapoint(Positive) : inv(0, 0)
+===========================================
+Learning Iteration: 2
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ true
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> true
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> true
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: fail@(true)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, 4)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, 4)
+add_counterexample Current teacher datapoint(horn) : {inv(0, 4)} => {fail@(true)}
+===========================================
+Learning Iteration: 3
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 0
+  true
+  false
+ true
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> true
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> (<= |inv#1| 0)
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: fail@(true)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, (- 1))
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, (- 1))
+add_counterexample Current teacher datapoint(horn) : {inv(0, (- 1))} => {fail@(true)}
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(3, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(3, 1)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(3, 0, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(3, 0, 1)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(2, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(2, 0)
+add_counterexample Current teacher datapoint(horn) : {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(3, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(3, 1)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(3, 0, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(3, 0, 1)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(3, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(3, 0)
+add_counterexample Current teacher datapoint(horn) : {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, 1)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(0, 0, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(0, 0, 1)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, 0)
+add_counterexample Current teacher datapoint(horn) : {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+===========================================
+Learning Iteration: 4
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 1
+   true
+   false
+ true
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> true
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> (and (<= |inv#1| 1) (> |inv#1| (- 1)))
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(3, 2)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(3, 2)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(3, 0, 2)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(3, 0, 2)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(2, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(2, 0)
+add_counterexample Current teacher datapoint(horn) : {push(3, 0, 2), inv(2, 0)} => {inv(3, 2)}
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(3, 2)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(3, 2)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(3, 0, 2)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(3, 0, 2)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(3, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(3, 0)
+add_counterexample Current teacher datapoint(horn) : {push(3, 0, 2), inv(3, 0)} => {inv(3, 2)}
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, 2)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, 2)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(0, 0, 2)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(0, 0, 2)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, 0)
+add_counterexample Current teacher datapoint(horn) : {push(0, 0, 2), inv(0, 0)} => {inv(0, 2)}
+===========================================
+Learning Iteration: 5
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[3] <= 0
+  if x[4] <= 0
+   true
+   false
+  false
+ if x[7] <= 1
+  if x[47] <= -1
+   if x[6] <= 0
+    false
+    true
+   true
+  if x[5] <= 0
+   false
+   true
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> (let ((a!1 (or (and (> |push#1| 0) (<= (- |push#0| |push#2|) (- 1))) (> (- |push#0| |push#2|) (- 1))))) (or (and a!1 (<= |push#2| 1)) (and (> |push#0| 0) (> |push#2| 1))))
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (<= (+ |inv#0| |inv#1|) 0))
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(1, 2)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(1, 2)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(1, 0, 2)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(1, 0, 2)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, 0)
+add_counterexample Current teacher datapoint(horn) : {push(1, 0, 2), inv(0, 0)} => {inv(1, 2)}
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv((- 1), (- 2))
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv((- 1), (- 2))
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push((- 1), 1, (- 2))
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push((- 1), 1, (- 2))
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv((- 1), 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv((- 1), 1)
+add_counterexample Current teacher datapoint(horn) : {push((- 1), 1, (- 2)), inv((- 1), 1)} => {inv((- 1), (- 2))}
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: fail@(true)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv((- 4), 4)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv((- 4), 4)
+add_counterexample Current teacher datapoint(horn) : {inv((- 4), 4)} => {fail@(true)}
+===========================================
+Learning Iteration: 6
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[4] <= -1
+  false
+  if x[4] <= 0
+   true
+   false
+ if x[47] <= -1
+  if x[6] <= 0
+   false
+   true
+  true
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> (or (and (> |push#1| 0) (<= (- |push#0| |push#2|) (- 1))) (> (- |push#0| |push#2|) (- 1)))
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (> (- |inv#0| |inv#1|) (- 1)))
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(2, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(2, 0)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(2, 1, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(2, 1, 0)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(1, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(1, 1)
+add_counterexample Current teacher datapoint(horn) : {push(2, 1, 0), inv(1, 1)} => {inv(2, 0)}
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(1, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(1, 0)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(1, 1, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(1, 1, 0)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(1, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(1, 1)
+add_counterexample Current teacher datapoint(horn) : {push(1, 1, 0), inv(1, 1)} => {inv(1, 0)}
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: fail@(true)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(4, 4)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(4, 4)
+add_counterexample Current teacher datapoint(horn) : {inv(4, 4)} => {fail@(true)}
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(3, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(3, 0)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(3, 3, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(3, 3, 0)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(3, 3)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(3, 3)
+add_counterexample Current teacher datapoint(horn) : {push(3, 3, 0), inv(3, 3)} => {inv(3, 0)}
+===========================================
+Learning Iteration: 7
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[3] <= 0
+  if x[1] <= -1
+   false
+   if x[4] <= 0
+    true
+    false
+  false
+ if x[47] <= -1
+  if x[6] <= 0
+   false
+   true
+  true
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> (or (and (> |push#1| 0) (<= (- |push#0| |push#2|) (- 1))) (> (- |push#0| |push#2|) (- 1)))
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (> |inv#0| (- 1)) (<= (+ |inv#0| |inv#1|) 0))
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(1, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(1, 0)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(1, 0, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(1, 0, 0)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, 0)
+add_counterexample Current teacher datapoint(horn) : {push(1, 0, 0), inv(0, 0)} => {inv(1, 0)}
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, (- 1))
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, (- 1))
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(0, 0, (- 1))
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(0, 0, (- 1))
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, 0)
+add_counterexample Current teacher datapoint(horn) : {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+===========================================
+Learning Iteration: 8
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[3] <= 0
+  if x[1] <= -1
+   false
+   if x[4] <= 0
+    true
+    false
+  false
+ if x[47] <= 0
+  if x[47] <= -1
+   if x[6] <= 0
+    false
+    true
+   true
+  false
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> (let ((a!1 (or (and (> |push#1| 0) (<= (- |push#0| |push#2|) (- 1))) (> (- |push#0| |push#2|) (- 1))))) (and a!1 (<= (- |push#0| |push#2|) 0)))
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (> |inv#0| (- 1)) (<= (+ |inv#0| |inv#1|) 0))
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(1, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(1, 1)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: push(1, 0, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: push(1, 0, 1)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, 0)
+add_counterexample Current teacher datapoint(horn) : {push(1, 0, 1), inv(0, 0)} => {inv(1, 1)}
+===========================================
+Learning Iteration: 9
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[3] <= 0
+  if x[1] <= -1
+   false
+   if x[4] <= 0
+    true
+    false
+  false
+ if x[47] <= 0
+  if x[6] <= -1
+   true
+   if x[6] <= 0
+    false
+    true
+  false
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> (and (or (<= |push#1| (- 1)) (and (> |push#1| 0) (> |push#1| (- 1)))) (<= (- |push#0| |push#2|) 0))
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (> |inv#0| (- 1)) (<= (+ |inv#0| |inv#1|) 0))
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+Success (checked 104 CHCs, invoked learner 10 times)
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (and (or (<= |push#1| (- 1)) (and (> |push#1| 0) (> |push#1| (- 1)))) (<= (- |push#0| |push#2|) 0))
+Simplified Formual
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (> |inv#0| (- 1)) (<= (+ |inv#0| |inv#1|) 0))
+Simplified Formual
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Simplified Formual
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 2(declare-fun inv (Int Int) Bool)inv
+Relation : 3(declare-fun push (Int Int Int) Bool)push
+Final CHCs read
+CHC : (fail@ true)
+CHC : (push k!27 k!28 k!26)
+CHC : (inv k!29 k!28)
+CHC : (push k!31 k!32 k!30)
+CHC : (inv k!31 k!32)
+CHC : (push k!34 k!35 k!33)
+CHC : (inv k!34 k!35)
+CHC : (inv k!37 k!36)
+Total time: 1.25

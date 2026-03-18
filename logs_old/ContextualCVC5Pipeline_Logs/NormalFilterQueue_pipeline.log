@@ -1,0 +1,97 @@
+
+========================================
+         Starting Pipeline for: NormalFilterQueue (Mode: ContextualCVC5)
+========================================
+Initializing pipeline for benchmark: 'NormalFilterQueue'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/NormalFilterQueue/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+Total External Iterations: 0
+Total Unique Test Cases Found: 0
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/NormalFilterQueue/NormalFilterQueue.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_1.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: NormalFilterQueue_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/NormalFilterQueue/NormalFilterQueue_fuzz.cpp'.
+   -> Starting AFL++(NormalFilterQueue_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/NormalFilterQueue/NormalFilterQueue_fuzz
+   -> AFL++(NormalFilterQueue_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:282,execs:165,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:282,execs:172,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:2,execs:58,op:havoc,rep:4
+Checking queue
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,src:000000,time:0,execs:26,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'NormalFilterQueue'...
+       -> Found and validated 7 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: (!(minPacketSize1 == len1))
+  processQueue: ((len + len1) == minPacketSize)
+  inv: (!(minPacketSize == len))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun append ((prio Int) (packetSize Int) (len Int) (maxPrio Int) (minPacketSize Int) (len1 Int) (maxPrio1 Int) (minPacketSize1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) prio packetSize len maxPrio minPacketSize len1 maxPrio1 minPacketSize1))))
+(synth-fun processQueue ((len Int) (maxPrio Int) (minPacketSize Int) (len1 Int) (maxPrio1 Int) (minPacketSize1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) len maxPrio minPacketSize len1 maxPrio1 minPacketSize1))))
+(synth-fun inv ((len Int) (maxPrio Int) (minPacketSize Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) len maxPrio minPacketSize))))
+
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var maxPrio Int)
+(declare-var maxPrio1 Int)
+(declare-var minPacketSize Int)
+(declare-var minPacketSize1 Int)
+(declare-var packetSize Int)
+(declare-var prio Int)
+
+(constraint (processQueue 1 0 54 1 0 54))
+(constraint (processQueue 0 (- 1) (- 1) 0 (- 1) (- 1)))
+(constraint (processQueue 1 0 101 1 0 101))
+(constraint (append 0 101 0 (- 1) (- 1) 1 0 101))
+(constraint (append 0 120 0 (- 1) (- 1) 1 0 120))
+(constraint (append 0 92 0 (- 1) (- 1) 1 0 92))
+(constraint (processQueue 1 0 110 1 0 110))
+
+(constraint (=> (and (= len 0) (= maxPrio -1) (= minPacketSize -1)) (inv len maxPrio minPacketSize)))
+(constraint (=> (and (inv len maxPrio minPacketSize) (= prio 0) (>= packetSize 500) (append prio packetSize len maxPrio minPacketSize len1 maxPrio1 minPacketSize1)) (inv len1 maxPrio1 minPacketSize1)))
+(constraint (=> (and (inv len maxPrio minPacketSize) (not (and (= prio 0) (>= packetSize 500)))) (inv len maxPrio minPacketSize)))
+(constraint (=> (and (inv len maxPrio minPacketSize) (processQueue len maxPrio minPacketSize len1 maxPrio1 minPacketSize1)) (=> (= len1 0) (and (= maxPrio1 -1) (= minPacketSize1 -1)))))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ContextualCVC5_working_temp/NormalFilterQueue/NormalFilterQueue.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_2.log
+   -> ERROR: CVC5 timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 2
+Total Unique Test Cases Found: 7
+pipeline.run() took 0.1483 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualCVC5 NormalFilterQueue
+PID: 31
+========================================
+
+
+Total Pipeline Duration: 1024.34s

@@ -1,0 +1,155 @@
+
+========================================
+         Starting Pipeline for: AtomicHashMap1 (Mode: ClassicalHornICE)
+========================================
+Initializing pipeline for benchmark: 'AtomicHashMap1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/AtomicHashMap1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap1/AtomicHashMap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap1/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap1/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 11 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:10931,execs:56,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:2316,execs:29,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:10550,execs:51,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:12221,execs:71,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:4720,execs:31,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:11655,execs:65,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000000,time:18986,execs:163,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:10744,execs:52,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:5919,execs:42,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:1144,execs:27,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000000,time:12413,execs:72,op:havoc,rep:5
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2ins
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 12 new rules.
+   -> Writing new specs to harness: find_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap1/find_fuzz.cpp'.
+   -> Starting AFL++(find_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap1/find_fuzz
+   -> AFL++(find_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 9 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:2823,execs:126,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:4152,execs:174,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:778,execs:47,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1925,execs:93,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:973,execs:69,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:9926,execs:329,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:187,execs:31,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:5085,execs:203,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:390,execs:43,op:havoc,rep:2
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2ins
+Checking hangs
+   -> Converting counterexamples for 'find'...
+      -> Found and validated 9 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: (true)
+  insert: (false)
+  find: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var len2 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var min2 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var max2 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var kveq2 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var v1 Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 0) (= v -128) (= len 2) (= min -1) (= max 1) (= kveq 0) (= len1 3) (= min1 -1) (= max1 1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -8) (= v -19) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 -8) (= max1 -8) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -28) (= v 90) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 -28) (= max1 -28) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -2) (= v 19) (= len 1) (= min 1) (= max 1) (= kveq 0) (= len1 2) (= min1 -2) (= max1 1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -2) (= v -1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= len1 2) (= min1 -2) (= max1 -1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 3) (= min 1) (= max 64) (= kveq 0) (= len1 3) (= min1 1) (= max1 64) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 4) (= min -114) (= max 2) (= kveq 0) (= len1 4) (= min1 -114) (= max1 2) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 2) (= v -1) (= len 1) (= min 27) (= max 27) (= kveq 0) (= len1 2) (= min1 2) (= max1 27) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= len1 1) (= min1 -1) (= max1 -1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 1) (= v 0) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 1) (= max1 1) (= kveq1 0)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 -1) (= max1 -1) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k -1) (= v -1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= len1 1) (= min1 -1) (= max1 -1) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (= k 26) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min 2) (= max 55) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min 2) (= max 2) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -101) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 1) (= ret1 -1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 2) (= min 13) (= max 16) (= kveq 0) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -1) (= len 1) (= min -1) (= max -1) (= kveq 0) (= ret1 2)) (find k len min max kveq ret1)))
+(rule (=> (and (= k -7) (= len 0) (= min 128) (= max -129) (= kveq 1) (= ret1 128)) (find k len min max kveq ret1)))
+
+(rule (=> (and (> N 0) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1) ) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq  len1 min1 max1 kveq1) (is_valid kveq1) (= v1 (+ i 1)) (insert k v1 len1 min1 max1 kveq1 len2 min2 max2 kveq2) (= i1 (+ i 1))) (inv1 i1 N len2 min2 max2 kveq2)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (<= 0 k) (< k N) (find k len min max kveq ret1) (or (= ret1 MAX) (= ret1 MIN))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AtomicHashMap1/AtomicHashMap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_2.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 2
+Total Unique Test Cases Found: 21
+Total Internal Iterations: 3
+  - Min: 3
+  - Max: 3
+  - Avg: 3.00
+pipeline.run() took 0.5561 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalHornICE AtomicHashMap1
+PID: 607020
+========================================
+

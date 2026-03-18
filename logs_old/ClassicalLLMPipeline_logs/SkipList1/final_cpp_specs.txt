@@ -1,0 +1,7 @@
+insert
+(placeholder for declaration)
+(len1 == len + 1 && min1 == (len == 0 ? v : (v < min ? v : min)) && max1 == (len == 0 ? v : (v > max ? v : max)) && isPresent1 == 1)
+
+remove
+(placeholder for declaration)
+((! ( (len > 0 && len == max - min + 1 && k >= min && k <= max) ) || (len1 == len - 1) ) && (len1 == len - 1 || len1 == len) && ( (! (len1 == len - 1) || (ret1 == 1)) && (! (len1 == len) || (ret1 == 0)) ))

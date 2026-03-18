@@ -1,0 +1,501 @@
+
+========================================
+         Starting Pipeline for: AtomicHashMap2 (Mode: ContextualHornICE)
+========================================
+Initializing pipeline for benchmark: 'AtomicHashMap2'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Contextual/AtomicHashMap2/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 4 internal iterations.
+   -> Writing new specs to harness: AtomicHashMap2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2_fuzz.cpp'.
+   -> Starting AFL++(AtomicHashMap2_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2_fuzz
+   -> AFL++(AtomicHashMap2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:5,execs:147,op:havoc,rep:5
+Checking queue
+   -> Found 6 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'AtomicHashMap2'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: (true)
+  insert: (true)
+  inv2: (true)
+  insert1: (false)
+  find: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var kveq2 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel insert1 (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 0) (= v 0) (= len 14) (= min 0) (= max 13) (= kveq 1) (= len1 14) (= min1 0) (= max1 13) (= kveq1 1)) (insert1 k v len min max kveq len1 min1 max1 kveq1)))
+
+(rule (=> (and (> N 3) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert1 k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (distinct k max) (distinct k min) (<= 0 k) (< k N) (find k len min max kveq ret1) (or (= ret1 MIN) (= ret1 MAX))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 4 internal iterations.
+   -> Writing new specs to harness: AtomicHashMap2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2_fuzz.cpp'.
+   -> Starting AFL++(AtomicHashMap2_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2_fuzz
+   -> AFL++(AtomicHashMap2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000004,time:346,execs:609,op:havoc,rep:11
+Checking queue
+   -> Found 6 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'AtomicHashMap2'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert1: (true)
+  inv1: (true)
+  insert: (true)
+  inv2: (true)
+  find: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var kveq2 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel insert1 (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 1) (= len 5) (= min 0) (= max 4) (= kveq 1) (= ret1 1)) (find k len min max kveq ret1)))
+
+(rule (=> (and (= k 0) (= v 0) (= len 14) (= min 0) (= max 13) (= kveq 1) (= len1 14) (= min1 0) (= max1 13) (= kveq1 1)) (insert1 k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (> N 3) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert1 k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (distinct k max) (distinct k min) (<= 0 k) (< k N) (find k len min max kveq ret1) (or (= ret1 MIN) (= ret1 MAX))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 54 internal iterations.
+   -> Writing new specs to harness: AtomicHashMap2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2_fuzz.cpp'.
+   -> Starting AFL++(AtomicHashMap2_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2_fuzz
+   -> AFL++(AtomicHashMap2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000004,time:177,execs:288,op:havoc,rep:15
+Checking queue
+   -> Found 9 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'AtomicHashMap2'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  find: ((ret1 <= 1) && (((k - ret1) - ret1) <= (-1)))
+  insert1: (true)
+  inv1: (true)
+  insert: (true)
+  inv2: (true)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var kveq2 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel insert1 (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 2) (= len 6) (= min 0) (= max 5) (= kveq 1) (= ret1 2)) (find k len min max kveq ret1)))
+
+(rule (=> (and (= k 1) (= len 5) (= min 0) (= max 4) (= kveq 1) (= ret1 1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= v 0) (= len 14) (= min 0) (= max 13) (= kveq 1) (= len1 14) (= min1 0) (= max1 13) (= kveq1 1)) (insert1 k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (> N 3) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert1 k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (distinct k max) (distinct k min) (<= 0 k) (< k N) (find k len min max kveq ret1) (or (= ret1 MIN) (= ret1 MAX))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 112 internal iterations.
+   -> Writing new specs to harness: AtomicHashMap2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2_fuzz.cpp'.
+   -> Starting AFL++(AtomicHashMap2_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2_fuzz
+   -> AFL++(AtomicHashMap2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:237,execs:646,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000005,time:15788,execs:3373,op:havoc,rep:4
+Checking queue
+   -> Found 13 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'AtomicHashMap2'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  find: (((ret1 <= 1) || ((((kveq - min) - kveq) <= 0) && (((min - kveq) + ret1) <= 1) && (ret1 > 1))) && ((kveq - ret1) <= 0) && (((ret1 - len) + ret1) <= (-1)) && (kveq > 0))
+  insert1: (true)
+  inv1: (true)
+  insert: (true)
+  inv2: (true)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var kveq2 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel insert1 (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 3) (= len 6) (= min 0) (= max 5) (= kveq 1) (= ret1 3)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 4) (= min 0) (= max 3) (= kveq 1) (= ret1 2)) (find k len min max kveq ret1)))
+
+(rule (=> (and (= k 2) (= len 6) (= min 0) (= max 5) (= kveq 1) (= ret1 2)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 1) (= len 5) (= min 0) (= max 4) (= kveq 1) (= ret1 1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= v 0) (= len 14) (= min 0) (= max 13) (= kveq 1) (= len1 14) (= min1 0) (= max1 13) (= kveq1 1)) (insert1 k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (> N 3) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert1 k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (distinct k max) (distinct k min) (<= 0 k) (< k N) (find k len min max kveq ret1) (or (= ret1 MIN) (= ret1 MAX))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_5.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_5.log
+      -> Found 89 internal iterations.
+   -> Writing new specs to harness: AtomicHashMap2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2_fuzz.cpp'.
+   -> Starting AFL++(AtomicHashMap2_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2_fuzz
+   -> AFL++(AtomicHashMap2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000004,time:467,execs:808,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000004,time:63594,execs:12881,op:havoc,rep:7
+Checking queue
+   -> Found 18 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'AtomicHashMap2'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  find: ((((k - kveq) - kveq) <= 1) && (((ret1 - k) - min) <= 0) && (((min - k) + ret1) <= 0) && (((max - len) + kveq) <= 0) && ((k - ret1) <= 0) && (((ret1 - max) + ret1) <= 1))
+  insert1: (true)
+  inv1: (true)
+  insert: (true)
+  inv2: (true)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var kveq2 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel insert1 (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 4) (= len 11) (= min 0) (= max 10) (= kveq 1) (= ret1 4)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 3) (= len 5) (= min 0) (= max 4) (= kveq 1) (= ret1 3)) (find k len min max kveq ret1)))
+
+(rule (=> (and (= k 3) (= len 6) (= min 0) (= max 5) (= kveq 1) (= ret1 3)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 4) (= min 0) (= max 3) (= kveq 1) (= ret1 2)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 6) (= min 0) (= max 5) (= kveq 1) (= ret1 2)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 1) (= len 5) (= min 0) (= max 4) (= kveq 1) (= ret1 1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= v 0) (= len 14) (= min 0) (= max 13) (= kveq 1) (= len1 14) (= min1 0) (= max1 13) (= kveq1 1)) (insert1 k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (> N 3) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert1 k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (distinct k max) (distinct k min) (<= 0 k) (< k N) (find k len min max kveq ret1) (or (= ret1 MIN) (= ret1 MAX))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 6 ====================
+TIMEOUT : 120
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_6.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_6.log
+      -> Found 112 internal iterations.
+   -> Writing new specs to harness: AtomicHashMap2_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2_fuzz.cpp'.
+   -> Starting AFL++(AtomicHashMap2_fuzz) with a 120-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2_fuzz
+   -> AFL++(AtomicHashMap2_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000004,time:166,execs:321,op:havoc,rep:1
+Checking queue
+   -> Found 5 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'AtomicHashMap2'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  find: (true)
+  insert1: (true)
+  inv1: (((N - i) - kveq) > 0)
+  insert: (false)
+  inv2: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var kveq2 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel insert1 (Int Int Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= min 128) (= max -129) (= kveq 1) (= len1 1) (= min1 0) (= max1 0) (= kveq1 1)) (insert k v len min max kveq len1 min1 max1 kveq1)))
+
+(rule (=> (and (= k 4) (= len 11) (= min 0) (= max 10) (= kveq 1) (= ret1 4)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 3) (= len 5) (= min 0) (= max 4) (= kveq 1) (= ret1 3)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 3) (= len 6) (= min 0) (= max 5) (= kveq 1) (= ret1 3)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 4) (= min 0) (= max 3) (= kveq 1) (= ret1 2)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 2) (= len 6) (= min 0) (= max 5) (= kveq 1) (= ret1 2)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 1) (= len 5) (= min 0) (= max 4) (= kveq 1) (= ret1 1)) (find k len min max kveq ret1)))
+(rule (=> (and (= k 0) (= v 0) (= len 14) (= min 0) (= max 13) (= kveq 1) (= len1 14) (= min1 0) (= max1 13) (= kveq1 1)) (insert1 k v len min max kveq len1 min1 max1 kveq1)))
+(rule (=> (and (> N 3) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv1 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (= i1 0)) (inv2 i1 N len min max kveq)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert1 k v len min max kveq len1 min1 max1 kveq1) (= i1 (+ i 1))) (inv2 i1 N len1 min1 max1 kveq1)))
+(rule (=> (and (inv2 i N len min max kveq) (is_valid kveq) (not (< i N)) (distinct k max) (distinct k min) (<= 0 k) (< k N) (find k len min max kveq ret1) (or (= ret1 MIN) (= ret1 MAX))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 7 ====================
+TIMEOUT : 140
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/AtomicHashMap2/AtomicHashMap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_7.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 7
+Total Unique Test Cases Found: 8
+Total Internal Iterations: 375
+  - Min: 4
+  - Max: 112
+  - Avg: 62.50
+pipeline.run() took 1.3347 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualHornICE AtomicHashMap2
+PID: 607035
+========================================
+

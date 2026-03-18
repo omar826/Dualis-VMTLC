@@ -1,0 +1,338 @@
+(declare-rel fail ())
+(declare-rel insert (Int Int Int Int Int))
+(declare-rel deleteMin (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel downHeap (Int))
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(declare-var E Int)
+(declare-var F Int)
+(declare-var G Int)
+(declare-var H Int)
+(rule (=> (and (= E 74) (= D 1) (= C 0) (= B 1) (= A 1)) (insert E D C B A)))
+(rule (=> (and (= E 0) (= D 1) (= C 0) (= B 128) (= A 1)) (deleteMin E D C B A)))
+(rule (=> (and (> C 0) (= D 0) (= B 1) (= A 0)) (inv1 D C B A)))
+(rule (=> (and (inv1 E C G F)
+         (or (= G 1) (= G 0))
+         (< E C)
+         (insert E G F B A)
+         (= D (+ E 1)))
+    (inv1 D C B A)))
+(rule (=> (and (inv1 H G E F)
+         (or (= E 1) (= E 0))
+         (not (< H G))
+         (deleteMin F E D C B)
+         (or (= B 1) (= B 0))
+         (downHeap A)
+         (or (= A 1) (= A 0))
+         (not (= A 1)))
+    fail))
+
+
+Read 5 rules and 1 queries (1)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun downHeap (Int) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+(declare-fun deleteMin (Int Int Int Int Int) Bool)
+(declare-fun insert (Int Int Int Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (= k!4 74) (= k!3 1) (= k!2 0) (= k!1 1) (= k!0 1))
+    (insert k!4 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insert k!4 k!3 k!2 k!1 k!0)
+
+ -- CHC
+(=> (and (= k!9 0) (= k!8 1) (= k!7 0) (= k!6 128) (= k!5 1))
+    (deleteMin k!9 k!8 k!7 k!6 k!5))
+ -- Uninterpreted predicates
+(declare-fun deleteMin (Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(deleteMin k!9 k!8 k!7 k!6 k!5)
+
+ -- CHC
+(=> (and (> k!12 0) (= k!13 0) (= k!11 1) (= k!10 0))
+    (inv1 k!13 k!12 k!11 k!10))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv1 k!13 k!12 k!11 k!10)
+
+ -- CHC
+(=> (and (inv1 k!18 k!16 k!20 k!19)
+         (or (= k!20 1) (= k!20 0))
+         (< k!18 k!16)
+         (insert k!18 k!20 k!19 k!15 k!14)
+         (= k!17 (+ k!18 1)))
+    (inv1 k!17 k!16 k!15 k!14))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+(insert k!18 k!20 k!19 k!15 k!14)
+(inv1 k!18 k!16 k!20 k!19)
+ -- RHS
+(inv1 k!17 k!16 k!15 k!14)
+
+ -- CHC
+(=> (and (inv1 k!28 k!27 k!25 k!26)
+         (or (= k!25 1) (= k!25 0))
+         (not (< k!28 k!27))
+         (deleteMin k!26 k!25 k!24 k!23 k!22)
+         (or (= k!22 1) (= k!22 0))
+         (downHeap k!21)
+         (or (= k!21 1) (= k!21 0))
+         (not (= k!21 1)))
+    (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun downHeap (Int) Bool)
+(declare-fun deleteMin (Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+(downHeap k!21)
+(deleteMin k!26 k!25 k!24 k!23 k!22)
+(inv1 k!28 k!27 k!25 k!26)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (= k!4 74) (= k!3 1) (= k!2 0) (= k!1 1) (= k!0 1))
+    (insert k!4 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(insert k!4 k!3 k!2 k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (= k!9 0) (= k!8 1) (= k!7 0) (= k!6 128) (= k!5 1))
+    (deleteMin k!9 k!8 k!7 k!6 k!5))
+ -- Uninterpreted predicates
+(declare-fun deleteMin (Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(deleteMin k!9 k!8 k!7 k!6 k!5)
+
+chc ::  -- CHC
+(=> (and (> k!12 0) (= k!13 0) (= k!11 1) (= k!10 0))
+    (inv1 k!13 k!12 k!11 k!10))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv1 k!13 k!12 k!11 k!10)
+
+chc ::  -- CHC
+(=> (and (inv1 k!18 k!16 k!20 k!19)
+         (or (= k!20 1) (= k!20 0))
+         (< k!18 k!16)
+         (insert k!18 k!20 k!19 k!15 k!14)
+         (= k!17 (+ k!18 1)))
+    (inv1 k!17 k!16 k!15 k!14))
+ -- Uninterpreted predicates
+(declare-fun insert (Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+(insert k!18 k!20 k!19 k!15 k!14)
+(inv1 k!18 k!16 k!20 k!19)
+ -- RHS
+(inv1 k!17 k!16 k!15 k!14)
+
+chc ::  -- CHC
+(=> (and (inv1 k!28 k!27 k!25 k!26)
+         (or (= k!25 1) (= k!25 0))
+         (not (< k!28 k!27))
+         (deleteMin k!26 k!25 k!24 k!23 k!22)
+         (or (= k!22 1) (= k!22 0))
+         (downHeap k!21)
+         (or (= k!21 1) (= k!21 0))
+         (not (= k!21 1)))
+    (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun downHeap (Int) Bool)
+(declare-fun deleteMin (Int Int Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+(downHeap k!21)
+(deleteMin k!26 k!25 k!24 k!23 k!22)
+(inv1 k!28 k!27 k!25 k!26)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun downHeap (Int) Bool)
+rel :: (declare-fun inv1 (Int Int Int Int) Bool)
+rel :: (declare-fun deleteMin (Int Int Int Int Int) Bool)
+rel :: (declare-fun insert (Int Int Int Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun downHeap (Int) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+(declare-fun deleteMin (Int Int Int Int Int) Bool)
+(declare-fun insert (Int Int Int Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun downHeap (Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun downHeap (Int) Bool)
+learner_interfaceRelation : (declare-fun downHeap (Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : downHeap#0Int
+add_integer_attribute::Integer Attribute::downHeap#0
+learner_interface :: Relation : (declare-fun inv1 (Int Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun inv1 (Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv1 (Int Int Int Int) Bool) is mapped to baseval :  2
+Attribute Identifier : 3 attribute : inv1#0Int
+add_integer_attribute::Integer Attribute::inv1#0
+Attribute Identifier : 4 attribute : inv1#1Int
+add_integer_attribute::Integer Attribute::inv1#1
+Attribute Identifier : 5 attribute : inv1#2Int
+add_integer_attribute::Integer Attribute::inv1#2
+Attribute Identifier : 6 attribute : inv1#3Int
+add_integer_attribute::Integer Attribute::inv1#3
+add_integer_attribute::Integer Attribute::|inv1#3|-|inv1#0|
+add_integer_attribute::Integer Attribute::|inv1#0|-|inv1#3|
+add_integer_attribute::Integer Attribute::|inv1#0|-|inv1#1|
+add_integer_attribute::Integer Attribute::|inv1#1|-|inv1#0|
+learner_interface :: Relation : (declare-fun deleteMin (Int Int Int Int Int) Bool) is mapped to CatID :  3
+learner_interfaceCatID : 3 is mapped to Relation : (declare-fun deleteMin (Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun deleteMin (Int Int Int Int Int) Bool) is mapped to baseval :  10
+Attribute Identifier : 11 attribute : deleteMin#0Int
+add_integer_attribute::Integer Attribute::deleteMin#0
+Attribute Identifier : 12 attribute : deleteMin#1Int
+add_integer_attribute::Integer Attribute::deleteMin#1
+Attribute Identifier : 13 attribute : deleteMin#2Int
+add_integer_attribute::Integer Attribute::deleteMin#2
+Attribute Identifier : 14 attribute : deleteMin#3Int
+add_integer_attribute::Integer Attribute::deleteMin#3
+Attribute Identifier : 15 attribute : deleteMin#4Int
+add_integer_attribute::Integer Attribute::deleteMin#4
+add_integer_attribute::Integer Attribute::|deleteMin#2|-|deleteMin#0|
+add_integer_attribute::Integer Attribute::|deleteMin#0|-|deleteMin#2|
+learner_interface :: Relation : (declare-fun insert (Int Int Int Int Int) Bool) is mapped to CatID :  4
+learner_interfaceCatID : 4 is mapped to Relation : (declare-fun insert (Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun insert (Int Int Int Int Int) Bool) is mapped to baseval :  17
+Attribute Identifier : 18 attribute : insert#0Int
+add_integer_attribute::Integer Attribute::insert#0
+Attribute Identifier : 19 attribute : insert#1Int
+add_integer_attribute::Integer Attribute::insert#1
+Attribute Identifier : 20 attribute : insert#2Int
+add_integer_attribute::Integer Attribute::insert#2
+Attribute Identifier : 21 attribute : insert#3Int
+add_integer_attribute::Integer Attribute::insert#3
+Attribute Identifier : 22 attribute : insert#4Int
+add_integer_attribute::Integer Attribute::insert#4
+add_integer_attribute::Integer Attribute::|insert#4|-|insert#2|
+add_integer_attribute::Integer Attribute::|insert#2|-|insert#4|
+add_integer_attribute::Integer Attribute::|insert#3|-|insert#1|
+add_integer_attribute::Integer Attribute::|insert#1|-|insert#3|
+===========================================
+Learning Iteration: 0
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+true
+Printing all the counter examples : 1
+Counterexample: {fail@(true)} => {}
+Conjectures
+===========================================
+Learning Iteration: 1
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+ NULL
+ NULL
+Printing all the counter examples : 4
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(74, 1, 0, 1, 1)}
+Counterexample: {} => {deleteMin(0, 1, 0, 128, 1)}
+Counterexample: {} => {inv1(0, 1, 1, 0)}
+Conjectures
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> true
+(declare-fun downHeap (Int) Bool) => [|downHeap#0|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> true
+(declare-fun deleteMin (Int Int Int Int Int) Bool) => [|deleteMin#0|, |deleteMin#1|, |deleteMin#2|, |deleteMin#3|, |deleteMin#4|] -> true
+(declare-fun insert (Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|] -> true
+===========================================
+Learning Iteration: 2
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ true
+ true
+Printing all the counter examples : 4
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {insert(74, 1, 0, 1, 1)}
+Counterexample: {} => {deleteMin(0, 1, 0, 128, 1)}
+Counterexample: {} => {inv1(0, 1, 1, 0)}
+Conjectures
+(declare-fun insert (Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|] -> false
+(declare-fun deleteMin (Int Int Int Int Int) Bool) => [|deleteMin#0|, |deleteMin#1|, |deleteMin#2|, |deleteMin#3|, |deleteMin#4|] -> false
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> false
+(declare-fun downHeap (Int) Bool) => [|downHeap#0|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+In Naive Check
+Success (checked 17 CHCs, invoked learner 3 times)
+(declare-fun insert (Int Int Int Int Int) Bool) => [|insert#0|, |insert#1|, |insert#2|, |insert#3|, |insert#4|] -> true
+(declare-fun deleteMin (Int Int Int Int Int) Bool) => [|deleteMin#0|, |deleteMin#1|, |deleteMin#2|, |deleteMin#3|, |deleteMin#4|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> true
+(declare-fun downHeap (Int) Bool) => [|downHeap#0|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 1(declare-fun downHeap (Int) Bool)downHeap
+Relation : 4(declare-fun inv1 (Int Int Int Int) Bool)inv1
+Relation : 5(declare-fun deleteMin (Int Int Int Int Int) Bool)deleteMin
+Relation : 5(declare-fun insert (Int Int Int Int Int) Bool)insert
+Final CHCs read
+CHC : (fail@ true)
+CHC : (insert k!18 k!20 k!19 k!15 k!14)
+CHC : (inv1 k!18 k!16 k!20 k!19)
+CHC : (downHeap k!21)
+CHC : (deleteMin k!26 k!25 k!24 k!23 k!22)
+CHC : (inv1 k!28 k!27 k!25 k!26)
+Total time: 0.37

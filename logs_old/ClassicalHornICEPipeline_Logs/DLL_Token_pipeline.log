@@ -1,0 +1,660 @@
+
+========================================
+         Starting Pipeline for: DLL_Token (Mode: ClassicalHornICE)
+========================================
+Initializing pipeline for benchmark: 'DLL_Token'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/DLL_Token/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/DLL_Token.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 13 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:173,execs:24,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:669,execs:31,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:521,execs:29,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:319,execs:25,op:havoc,rep:7
+Checking queue
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:2pu
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 5 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv: ((((max - len) - max) <= 0) && (len <= 0))
+  push: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var len Int)
+(declare-var val Int)
+(declare-var len1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-rel push (Int Int Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= val 1) (= min -1) (= len 15) (= max 73) (= min1 -1) (= len1 16) (= max1 73)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -28) (= min 128) (= len 0) (= max -129) (= min1 -28) (= len1 1) (= max1 -28)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -36) (= len 1) (= max -36) (= min1 -36) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 23) (= max 13) (= min1 -1) (= len1 24) (= max1 13)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 128) (= len 0) (= max -129) (= min1 49) (= len1 1) (= max1 49)) (push val min len max min1 len1 max1)))
+
+(rule (=> (and (= len 0) (= min MAX) (= max MIN)) (inv len min max)))
+(rule (=> (and (inv len min max) (= val 0) (push val min len max min1 len1 max1)) (inv len1 min1 max1)))
+(rule (=> (and (inv len min max) (not (or (= len 0) (and (= min 0) (= max 0))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/DLL_Token.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 37 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 7 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:2331,execs:397,op:int32,pos:0,val:+1
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:303,execs:369,op:int16,pos:2,val:+1
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:11089,execs:592,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:3412,execs:410,op:int32,pos:0,val:be:-32768
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:5223,execs:424,op:int32,pos:0,val:+32767
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:11461,execs:637,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:170,execs:368,op:int16,pos:2,val:+0
+Checking queue
+   -> Found 22 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 6 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: ((((((len - val) - len) > 0) && (val <= 0)) || (val > 0)) && ((min1 - max1) <= 0))
+  inv: ((len <= 0) && (((max - len) - max) <= 0) && ((len + min + max) <= (-1)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var len Int)
+(declare-var val Int)
+(declare-var len1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-rel push (Int Int Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= val 0) (= min 0) (= len 1) (= max 0) (= min1 0) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 128) (= len 0) (= max -129) (= min1 0) (= len1 1) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 88) (= len 2) (= max 92) (= min1 0) (= len1 3) (= max1 92)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 1) (= max -1) (= min1 -1) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 127) (= len 1) (= max 127) (= min1 0) (= len1 2) (= max1 127)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 4) (= len 1) (= max 4) (= min1 0) (= len1 2) (= max1 4)) (push val min len max min1 len1 max1)))
+
+(rule (=> (and (= val 1) (= min -1) (= len 15) (= max 73) (= min1 -1) (= len1 16) (= max1 73)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -28) (= min 128) (= len 0) (= max -129) (= min1 -28) (= len1 1) (= max1 -28)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -36) (= len 1) (= max -36) (= min1 -36) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 23) (= max 13) (= min1 -1) (= len1 24) (= max1 13)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 128) (= len 0) (= max -129) (= min1 49) (= len1 1) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= len 0) (= min MAX) (= max MIN)) (inv len min max)))
+(rule (=> (and (inv len min max) (= val 0) (push val min len max min1 len1 max1)) (inv len1 min1 max1)))
+(rule (=> (and (inv len min max) (not (or (= len 0) (and (= min 0) (= max 0))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/DLL_Token.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 104 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 8 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:132,execs:256,op:int16,pos:2,val:-128
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:10591,execs:2528,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:1060,execs:293,op:int32,pos:0,val:-1
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:877,execs:291,op:int32,pos:0,val:-128
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:13810,execs:3666,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:57000,execs:16319,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:39305,execs:11309,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:314,execs:258,op:int16,pos:2,val:-1
+Checking queue
+   -> Found 30 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 6 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: (((((((min1 <= 0) && (((val - min1) - max1) <= 0) && ((min1 + max1 + max1) <= 0) && (((val - min) - max) <= 1)) || (((val - min) - max) > 1)) && (((min - val) + max) <= 0)) || (((min - val) + max) > 0)) && (val <= 0)) || (val > 0))
+  inv: ((((((len - min) - max) <= 1) && (len <= 0) && (((max - len) - max) <= 0) && (min > 1) && (max <= (-1))) || (max > (-1))) && ((min + max) <= 0) && (min > (-1)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var len Int)
+(declare-var val Int)
+(declare-var len1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-rel push (Int Int Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= val -1) (= min 128) (= len 0) (= max -129) (= min1 -1) (= len1 1) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -1) (= len 2) (= max -1) (= min1 -1) (= len1 3) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -1) (= len 1) (= max -1) (= min1 -1) (= len1 2) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -128) (= min -128) (= len 2) (= max -1) (= min1 -128) (= len1 3) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -117) (= len 12) (= max 116) (= min1 -117) (= len1 13) (= max1 116)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 2) (= max 0) (= min1 -1) (= len1 3) (= max1 0)) (push val min len max min1 len1 max1)))
+
+(rule (=> (and (= val 0) (= min 0) (= len 1) (= max 0) (= min1 0) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 128) (= len 0) (= max -129) (= min1 0) (= len1 1) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 88) (= len 2) (= max 92) (= min1 0) (= len1 3) (= max1 92)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 1) (= max -1) (= min1 -1) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 127) (= len 1) (= max 127) (= min1 0) (= len1 2) (= max1 127)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 4) (= len 1) (= max 4) (= min1 0) (= len1 2) (= max1 4)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 15) (= max 73) (= min1 -1) (= len1 16) (= max1 73)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -28) (= min 128) (= len 0) (= max -129) (= min1 -28) (= len1 1) (= max1 -28)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -36) (= len 1) (= max -36) (= min1 -36) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 23) (= max 13) (= min1 -1) (= len1 24) (= max1 13)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 128) (= len 0) (= max -129) (= min1 49) (= len1 1) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= len 0) (= min MAX) (= max MIN)) (inv len min max)))
+(rule (=> (and (inv len min max) (= val 0) (push val min len max min1 len1 max1)) (inv len1 min1 max1)))
+(rule (=> (and (inv len min max) (not (or (= len 0) (and (= min 0) (= max 0))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/DLL_Token.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 79 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:212,execs:1011,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:401,execs:1103,op:havoc,rep:2
+Checking queue
+   -> Found 32 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: (((((((val + min + max) > 0) && ((min1 - max1) <= (-1))) || ((min1 - max1) > (-1))) && (((max - min) - max) <= 0)) || (((max - min) - max) > 0)) && ((val - max1) <= 0) && ((len - len1) <= (-1)) && ((val - min1) > (-1)))
+  inv: (((((max - len) - max) <= 0) && (((len - min) - max) <= 1) && ((len + min) > 1) && ((min + max) <= (-1))) || ((max <= 0) && (min <= 0) && ((min + max) > (-1))))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var len Int)
+(declare-var val Int)
+(declare-var len1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-rel push (Int Int Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= val -128) (= min 1) (= len 3) (= max 49) (= min1 -128) (= len1 4) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -115) (= min 1) (= len 1) (= max 1) (= min1 -115) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+
+(rule (=> (and (= val -1) (= min 128) (= len 0) (= max -129) (= min1 -1) (= len1 1) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -1) (= len 2) (= max -1) (= min1 -1) (= len1 3) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -1) (= len 1) (= max -1) (= min1 -1) (= len1 2) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -128) (= min -128) (= len 2) (= max -1) (= min1 -128) (= len1 3) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -117) (= len 12) (= max 116) (= min1 -117) (= len1 13) (= max1 116)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 2) (= max 0) (= min1 -1) (= len1 3) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 0) (= len 1) (= max 0) (= min1 0) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 128) (= len 0) (= max -129) (= min1 0) (= len1 1) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 88) (= len 2) (= max 92) (= min1 0) (= len1 3) (= max1 92)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 1) (= max -1) (= min1 -1) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 127) (= len 1) (= max 127) (= min1 0) (= len1 2) (= max1 127)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 4) (= len 1) (= max 4) (= min1 0) (= len1 2) (= max1 4)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 15) (= max 73) (= min1 -1) (= len1 16) (= max1 73)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -28) (= min 128) (= len 0) (= max -129) (= min1 -28) (= len1 1) (= max1 -28)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -36) (= len 1) (= max -36) (= min1 -36) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 23) (= max 13) (= min1 -1) (= len1 24) (= max1 13)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 128) (= len 0) (= max -129) (= min1 49) (= len1 1) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= len 0) (= min MAX) (= max MIN)) (inv len min max)))
+(rule (=> (and (inv len min max) (= val 0) (push val min len max min1 len1 max1)) (inv len1 min1 max1)))
+(rule (=> (and (inv len min max) (not (or (= len 0) (and (= min 0) (= max 0))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/DLL_Token.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_5.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_5.log
+      -> Found 90 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 7 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:2424,execs:967,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:2614,execs:976,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:2217,execs:951,op:havoc,rep:14
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:4206,execs:1392,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:1885,execs:866,op:havoc,rep:10
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:929,execs:675,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:206,execs:107,op:flip4,pos:0
+Checking queue
+   -> Found 35 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 7 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: ((((((((((((val + min) + len) <= 0) || ((min1 <= 0) && (((val - min1) - min1) <= 0) && (((val - max1) - max1) <= 0) && (((len1 - len) + max1) > 0) && (max1 <= 0) && (((val + min) + len) > 0))) && (val <= 0)) || (val > 0)) && (((len - val) - len) <= 0)) || (((len - val) - len) > 0)) && (((val - len1) + max1) <= 1)) || ((((val + min) + max) > 0) && (((val - len1) + max1) > 1))) && (((max - val) - min) <= 0)) || (((max - val) - min) > 0))
+  inv: ((((min <= 0) && (min > (-1)) && (max <= 0) && (max > (-1)) && (min <= 1)) || ((((max - len) - max) <= 0) && (len <= 0) && (min > 1))) && (((len - min) - max) > 0) && (((len + min) - max) > 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var len Int)
+(declare-var val Int)
+(declare-var len1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-rel push (Int Int Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= val 52) (= min -92) (= len 2) (= max -87) (= min1 -92) (= len1 3) (= max1 52)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 1) (= len 1) (= max 1) (= min1 0) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 2) (= max -1) (= min1 -1) (= len1 3) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 97) (= min -117) (= len 1) (= max -117) (= min1 -117) (= len1 2) (= max1 97)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min -49) (= len 3) (= max -19) (= min1 -49) (= len1 4) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min -79) (= len 16) (= max -79) (= min1 -79) (= len1 17) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min -72) (= len 1) (= max -72) (= min1 -72) (= len1 2) (= max1 49)) (push val min len max min1 len1 max1)))
+
+(rule (=> (and (= val -128) (= min 1) (= len 3) (= max 49) (= min1 -128) (= len1 4) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -115) (= min 1) (= len 1) (= max 1) (= min1 -115) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min 128) (= len 0) (= max -129) (= min1 -1) (= len1 1) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -1) (= len 2) (= max -1) (= min1 -1) (= len1 3) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -1) (= len 1) (= max -1) (= min1 -1) (= len1 2) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -128) (= min -128) (= len 2) (= max -1) (= min1 -128) (= len1 3) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -117) (= len 12) (= max 116) (= min1 -117) (= len1 13) (= max1 116)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 2) (= max 0) (= min1 -1) (= len1 3) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 0) (= len 1) (= max 0) (= min1 0) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 128) (= len 0) (= max -129) (= min1 0) (= len1 1) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 88) (= len 2) (= max 92) (= min1 0) (= len1 3) (= max1 92)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 1) (= max -1) (= min1 -1) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 127) (= len 1) (= max 127) (= min1 0) (= len1 2) (= max1 127)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 4) (= len 1) (= max 4) (= min1 0) (= len1 2) (= max1 4)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 15) (= max 73) (= min1 -1) (= len1 16) (= max1 73)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -28) (= min 128) (= len 0) (= max -129) (= min1 -28) (= len1 1) (= max1 -28)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -36) (= len 1) (= max -36) (= min1 -36) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 23) (= max 13) (= min1 -1) (= len1 24) (= max1 13)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 128) (= len 0) (= max -129) (= min1 49) (= len1 1) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= len 0) (= min MAX) (= max MIN)) (inv len min max)))
+(rule (=> (and (inv len min max) (= val 0) (push val min len max min1 len1 max1)) (inv len1 min1 max1)))
+(rule (=> (and (inv len min max) (not (or (= len 0) (and (= min 0) (= max 0))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 6 ====================
+TIMEOUT : 120
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/DLL_Token.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_6.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_6.log
+      -> Found 96 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 120-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:2141,execs:291,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:156,execs:134,op:int16,pos:0,val:-128
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:3114,execs:360,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:4079,execs:408,op:havoc,rep:1
+Checking queue
+   -> Found 21 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 4 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: (((((((max1 - min) - max) <= 0) || (((val - max1) > (-1)) && (((max1 - min) - max) > 0))) && ((val - min1) > (-1)) && ((val - min1) <= 0) && (((max - min) - max) <= 0)) || (((max - min) - max) > 0)) && ((len - len1) <= (-1)) && ((min1 - max1) <= 0))
+  inv: ((((len <= 0) && (((max - len) - max) <= 0) && (((len + min) + max) <= (-1))) || (((min - max) <= 0) && (max <= 0) && (min > (-1)) && (min <= 0) && (((len + min) + max) > (-1)))) && ((len + min) > 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var len Int)
+(declare-var val Int)
+(declare-var len1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-rel push (Int Int Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= val 49) (= min 1) (= len 2) (= max 120) (= min1 1) (= len1 3) (= max1 120)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 48) (= len 1) (= max 48) (= min1 48) (= len1 2) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 1) (= len 1) (= max 1) (= min1 1) (= len1 2) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 92) (= min 1) (= len 1) (= max 1) (= min1 1) (= len1 2) (= max1 92)) (push val min len max min1 len1 max1)))
+
+(rule (=> (and (= val 52) (= min -92) (= len 2) (= max -87) (= min1 -92) (= len1 3) (= max1 52)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 1) (= len 1) (= max 1) (= min1 0) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 2) (= max -1) (= min1 -1) (= len1 3) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 97) (= min -117) (= len 1) (= max -117) (= min1 -117) (= len1 2) (= max1 97)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min -49) (= len 3) (= max -19) (= min1 -49) (= len1 4) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min -79) (= len 16) (= max -79) (= min1 -79) (= len1 17) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min -72) (= len 1) (= max -72) (= min1 -72) (= len1 2) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -128) (= min 1) (= len 3) (= max 49) (= min1 -128) (= len1 4) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -115) (= min 1) (= len 1) (= max 1) (= min1 -115) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min 128) (= len 0) (= max -129) (= min1 -1) (= len1 1) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -1) (= len 2) (= max -1) (= min1 -1) (= len1 3) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -1) (= len 1) (= max -1) (= min1 -1) (= len1 2) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -128) (= min -128) (= len 2) (= max -1) (= min1 -128) (= len1 3) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -117) (= len 12) (= max 116) (= min1 -117) (= len1 13) (= max1 116)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 2) (= max 0) (= min1 -1) (= len1 3) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 0) (= len 1) (= max 0) (= min1 0) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 128) (= len 0) (= max -129) (= min1 0) (= len1 1) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 88) (= len 2) (= max 92) (= min1 0) (= len1 3) (= max1 92)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 1) (= max -1) (= min1 -1) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 127) (= len 1) (= max 127) (= min1 0) (= len1 2) (= max1 127)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 4) (= len 1) (= max 4) (= min1 0) (= len1 2) (= max1 4)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 15) (= max 73) (= min1 -1) (= len1 16) (= max1 73)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -28) (= min 128) (= len 0) (= max -129) (= min1 -28) (= len1 1) (= max1 -28)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -36) (= len 1) (= max -36) (= min1 -36) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 23) (= max 13) (= min1 -1) (= len1 24) (= max1 13)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 128) (= len 0) (= max -129) (= min1 49) (= len1 1) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= len 0) (= min MAX) (= max MIN)) (inv len min max)))
+(rule (=> (and (inv len min max) (= val 0) (push val min len max min1 len1 max1)) (inv len1 min1 max1)))
+(rule (=> (and (inv len min max) (not (or (= len 0) (and (= min 0) (= max 0))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 7 ====================
+TIMEOUT : 140
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/DLL_Token.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_7.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_7.log
+      -> Found 72 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 140-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 41 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: (((((((val - max1) > (-1)) && ((max - max1) <= (-1))) || ((max - max1) > (-1))) && ((len - len1) <= (-1)) && ((val - min1) > (-1)) && ((val - min1) <= 0) && ((val - min) <= 0)) || ((val - min) > 0)) && ((val - max1) <= 0))
+  inv: ((((len <= 0) && (((max - len) - max) <= 0) && ((len + min) > 1) && ((min + max) <= (-1))) || ((max <= 0) && (min <= 0) && ((min + max) > (-1)))) && (min > (-1)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var len Int)
+(declare-var val Int)
+(declare-var len1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-rel push (Int Int Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+
+(rule (=> (and (= val 49) (= min 1) (= len 2) (= max 120) (= min1 1) (= len1 3) (= max1 120)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 48) (= len 1) (= max 48) (= min1 48) (= len1 2) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 1) (= len 1) (= max 1) (= min1 1) (= len1 2) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 92) (= min 1) (= len 1) (= max 1) (= min1 1) (= len1 2) (= max1 92)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 52) (= min -92) (= len 2) (= max -87) (= min1 -92) (= len1 3) (= max1 52)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 1) (= len 1) (= max 1) (= min1 0) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 2) (= max -1) (= min1 -1) (= len1 3) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 97) (= min -117) (= len 1) (= max -117) (= min1 -117) (= len1 2) (= max1 97)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min -49) (= len 3) (= max -19) (= min1 -49) (= len1 4) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min -79) (= len 16) (= max -79) (= min1 -79) (= len1 17) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min -72) (= len 1) (= max -72) (= min1 -72) (= len1 2) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -128) (= min 1) (= len 3) (= max 49) (= min1 -128) (= len1 4) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -115) (= min 1) (= len 1) (= max 1) (= min1 -115) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min 128) (= len 0) (= max -129) (= min1 -1) (= len1 1) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -1) (= len 2) (= max -1) (= min1 -1) (= len1 3) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -1) (= len 1) (= max -1) (= min1 -1) (= len1 2) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -128) (= min -128) (= len 2) (= max -1) (= min1 -128) (= len1 3) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -117) (= len 12) (= max 116) (= min1 -117) (= len1 13) (= max1 116)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 2) (= max 0) (= min1 -1) (= len1 3) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 0) (= len 1) (= max 0) (= min1 0) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 128) (= len 0) (= max -129) (= min1 0) (= len1 1) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 88) (= len 2) (= max 92) (= min1 0) (= len1 3) (= max1 92)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 1) (= max -1) (= min1 -1) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 127) (= len 1) (= max 127) (= min1 0) (= len1 2) (= max1 127)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 4) (= len 1) (= max 4) (= min1 0) (= len1 2) (= max1 4)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 15) (= max 73) (= min1 -1) (= len1 16) (= max1 73)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -28) (= min 128) (= len 0) (= max -129) (= min1 -28) (= len1 1) (= max1 -28)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -36) (= len 1) (= max -36) (= min1 -36) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 23) (= max 13) (= min1 -1) (= len1 24) (= max1 13)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 128) (= len 0) (= max -129) (= min1 49) (= len1 1) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= len 0) (= min MAX) (= max MIN)) (inv len min max)))
+(rule (=> (and (inv len min max) (= val 0) (push val min len max min1 len1 max1)) (inv len1 min1 max1)))
+(rule (=> (and (inv len min max) (not (or (= len 0) (and (= min 0) (= max 0))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 8 ====================
+TIMEOUT : 160
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/DLL_Token.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_8.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_8.log
+      -> Found 72 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 160-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/DLL_Token/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 39 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: (((((((val - max1) > (-1)) && ((max - max1) <= (-1))) || ((max - max1) > (-1))) && ((len - len1) <= (-1)) && ((val - min1) > (-1)) && ((val - min1) <= 0) && ((val - min) <= 0)) || ((val - min) > 0)) && ((val - max1) <= 0))
+  inv: ((((len <= 0) && (((max - len) - max) <= 0) && ((len + min) > 1) && ((min + max) <= (-1))) || ((max <= 0) && (min <= 0) && ((min + max) > (-1)))) && (min > (-1)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var len Int)
+(declare-var val Int)
+(declare-var len1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-rel push (Int Int Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+
+(rule (=> (and (= val 49) (= min 1) (= len 2) (= max 120) (= min1 1) (= len1 3) (= max1 120)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 48) (= len 1) (= max 48) (= min1 48) (= len1 2) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 1) (= len 1) (= max 1) (= min1 1) (= len1 2) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 92) (= min 1) (= len 1) (= max 1) (= min1 1) (= len1 2) (= max1 92)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 52) (= min -92) (= len 2) (= max -87) (= min1 -92) (= len1 3) (= max1 52)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 1) (= len 1) (= max 1) (= min1 0) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 2) (= max -1) (= min1 -1) (= len1 3) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 97) (= min -117) (= len 1) (= max -117) (= min1 -117) (= len1 2) (= max1 97)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min -49) (= len 3) (= max -19) (= min1 -49) (= len1 4) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min -79) (= len 16) (= max -79) (= min1 -79) (= len1 17) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min -72) (= len 1) (= max -72) (= min1 -72) (= len1 2) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -128) (= min 1) (= len 3) (= max 49) (= min1 -128) (= len1 4) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -115) (= min 1) (= len 1) (= max 1) (= min1 -115) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min 128) (= len 0) (= max -129) (= min1 -1) (= len1 1) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -1) (= len 2) (= max -1) (= min1 -1) (= len1 3) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -1) (= len 1) (= max -1) (= min1 -1) (= len1 2) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -128) (= min -128) (= len 2) (= max -1) (= min1 -128) (= len1 3) (= max1 -1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -1) (= min -117) (= len 12) (= max 116) (= min1 -117) (= len1 13) (= max1 116)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 2) (= max 0) (= min1 -1) (= len1 3) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 0) (= len 1) (= max 0) (= min1 0) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 128) (= len 0) (= max -129) (= min1 0) (= len1 1) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 88) (= len 2) (= max 92) (= min1 0) (= len1 3) (= max1 92)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min -1) (= len 1) (= max -1) (= min1 -1) (= len1 2) (= max1 0)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 127) (= len 1) (= max 127) (= min1 0) (= len1 2) (= max1 127)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 0) (= min 4) (= len 1) (= max 4) (= min1 0) (= len1 2) (= max1 4)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 15) (= max 73) (= min1 -1) (= len1 16) (= max1 73)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val -28) (= min 128) (= len 0) (= max -129) (= min1 -28) (= len1 1) (= max1 -28)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -36) (= len 1) (= max -36) (= min1 -36) (= len1 2) (= max1 1)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 1) (= min -1) (= len 23) (= max 13) (= min1 -1) (= len1 24) (= max1 13)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= val 49) (= min 128) (= len 0) (= max -129) (= min1 49) (= len1 1) (= max1 49)) (push val min len max min1 len1 max1)))
+(rule (=> (and (= len 0) (= min MAX) (= max MIN)) (inv len min max)))
+(rule (=> (and (inv len min max) (= val 0) (push val min len max min1 len1 max1)) (inv len1 min1 max1)))
+(rule (=> (and (inv len min max) (not (or (= len 0) (and (= min 0) (= max 0))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 8
+Total Unique Test Cases Found: 30
+Total Internal Iterations: 563
+  - Min: 13
+  - Max: 104
+  - Avg: 70.38
+pipeline.run() took 1.4858 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalHornICE DLL_Token
+PID: 607024
+========================================
+

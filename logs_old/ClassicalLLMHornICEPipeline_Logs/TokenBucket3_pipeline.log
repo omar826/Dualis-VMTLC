@@ -1,0 +1,119 @@
+
+========================================
+         Starting Pipeline for: TokenBucket3 (Mode: ClassicalLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'TokenBucket3'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/TokenBucket3/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/TokenBucket3/TokenBucket3.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 2 internal iterations.
+   -> Writing new specs to harness: generateTokens_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/TokenBucket3/generateTokens_fuzz.cpp'.
+   -> Starting AFL++(generateTokens_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/TokenBucket3/generateTokens_fuzz
+   -> AFL++(generateTokens_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 6 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:429,execs:41,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:827,execs:48,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:647,execs:42,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1044,execs:49,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:2561,execs:65,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:219,execs:34,op:havoc,rep:6
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'generateTokens'...
+      -> Found and validated 4 new rules.
+   -> Writing new specs to harness: consume_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/TokenBucket3/consume_fuzz.cpp'.
+   -> Starting AFL++(consume_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/TokenBucket3/consume_fuzz
+   -> AFL++(consume_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 6 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:5772,execs:438,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:7335,execs:514,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:2118,execs:206,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:1708,execs:169,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:219,execs:69,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:9454,execs:611,op:havoc,rep:2
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'consume'...
+      -> Found and validated 4 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  generateTokens: (false)
+  inv1: (false)
+  consume: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var b_size Int)
+(declare-var c_rate Int)
+(declare-var avai_tokens Int)
+(declare-var avai_tokens1 Int)
+(declare-var consumed_tokens Int)
+(declare-var consumed_tokens1 Int)
+(declare-var token_counter Int)
+(declare-rel generateTokens (Int Int))
+(declare-rel consume (Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= b_size 2) (= avai_tokens1 2)) (generateTokens b_size avai_tokens1)))
+(rule (=> (and (= b_size 152) (= avai_tokens1 152)) (generateTokens b_size avai_tokens1)))
+(rule (=> (and (= b_size 0) (= avai_tokens1 0)) (generateTokens b_size avai_tokens1)))
+(rule (=> (and (= b_size 255) (= avai_tokens1 255)) (generateTokens b_size avai_tokens1)))
+(rule (=> (and (= c_rate 3) (= avai_tokens 14) (= avai_tokens1 11)) (consume c_rate avai_tokens avai_tokens1)))
+(rule (=> (and (= c_rate 160) (= avai_tokens 34) (= avai_tokens1 34)) (consume c_rate avai_tokens avai_tokens1)))
+(rule (=> (and (= c_rate 2) (= avai_tokens 255) (= avai_tokens1 253)) (consume c_rate avai_tokens avai_tokens1)))
+(rule (=> (and (= c_rate 0) (= avai_tokens 0) (= avai_tokens1 0)) (consume c_rate avai_tokens avai_tokens1)))
+
+(rule (=> (and (> b_size 0) (> c_rate 0) (>= b_size c_rate) (= consumed_tokens1 0) (generateTokens b_size avai_tokens1)) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
+(rule (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens)   (>= avai_tokens c_rate) (consume c_rate avai_tokens avai_tokens1) (= consumed_tokens1 (+ consumed_tokens c_rate))) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
+(rule (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens) (not (>= avai_tokens c_rate)) (not (<= consumed_tokens b_size) )) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/TokenBucket3/TokenBucket3.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 2
+Total Unique Test Cases Found: 8
+Total Internal Iterations: 2
+  - Min: 2
+  - Max: 2
+  - Avg: 2.00
+pipeline.run() took 0.5137 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalLLMHornICE TokenBucket3
+PID: 607021
+========================================
+

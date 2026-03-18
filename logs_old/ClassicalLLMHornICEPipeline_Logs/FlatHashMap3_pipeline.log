@@ -1,0 +1,493 @@
+
+========================================
+         Starting Pipeline for: FlatHashMap3 (Mode: ClassicalLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'FlatHashMap3'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/FlatHashMap3/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/FlatHashMap3.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 6 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 10 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000000,time:4270,execs:118,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:2421,execs:94,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1568,execs:87,op:havoc,rep:10
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:640,execs:78,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:424,execs:77,op:havoc,rep:13
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:830,execs:79,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1765,execs:90,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:2923,execs:99,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:211,execs:75,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:3866,execs:113,op:havoc,rep:10
+Checking queue
+   -> Found 11 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000007,time:0,execs:0,orig:insersremaremn
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 11 new rules.
+   -> Writing new specs to harness: erase_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/erase_fuzz.cpp'.
+   -> Starting AFL++(erase_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/erase_fuzz
+   -> AFL++(erase_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 7 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:1954,execs:102,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:211,execs:78,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:7640,execs:206,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:683,execs:81,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:1369,execs:89,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:2422,execs:104,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:2649,execs:111,op:havoc,rep:3
+Checking queue
+   -> Found 11 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000007,time:0,execs:0,orig:insersremaremn
+Checking hangs
+   -> Converting counterexamples for 'erase'...
+      -> Found and validated 6 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: ((N - i) > 0)
+  insert: (false)
+  inv2: (false)
+  erase: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var ret Int)
+(declare-var ret1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel erase (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= k 3) (= v 52) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 24) (= v 80) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -98) (= v -4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 120) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 16) (= v 0) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 55) (= v 1) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v -25) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 127) (= len 4) (= containsk 1) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= len 0) (= flag 1) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 48) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 48) (= len 1) (= flag 0) (= len1 1) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k -1) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 48) (= len 1) (= flag 1) (= len1 1) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 51) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+
+(rule (=> (and (> N 0) (= i 0)  (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len ) (is_valid flag) (not (< i N)) (= i1 0) (= flag 1) (= ret1 MAX)) (inv2 i1 N len flag ret)))
+(rule (=> (and (inv2 i N len flag ret)  (< i N) (is_valid flag) (= flag 1) (= k i) (erase k len flag len1 ret1) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len1 flag1 ret1)))
+(rule (=> (and (inv2 i N len flag ret)  (is_valid flag) (< i N) (= flag 0) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len flag1 ret)))
+(rule (=> (and (inv2 i N len flag ret) (is_valid flag) (not (< i N)) (not (=> (= flag 1) (= ret (- N 2))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/FlatHashMap3.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 48 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 9 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000007,time:605,execs:1211,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000007,time:2585,execs:2050,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000007,time:220,execs:677,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000007,time:811,execs:1396,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000007,time:9543,execs:5341,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000007,time:6359,execs:4015,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000007,time:433,execs:1203,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000007,time:1227,execs:1537,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000007,time:1003,execs:1511,op:havoc,rep:1
+Checking queue
+   -> Found 66 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 4 new rules.
+   -> Writing new specs to harness: erase_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/erase_fuzz.cpp'.
+   -> Starting AFL++(erase_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/erase_fuzz
+   -> AFL++(erase_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 129 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'erase'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (((((v - k) > 0) && (k <= 0)) || (k > 0)) && (len1 > 0) && (containsk1 > 0))
+  inv1: ((i <= 0) && (N > 0))
+  erase: (true)
+  inv2: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var ret Int)
+(declare-var ret1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel erase (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -15) (= v -15) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -117) (= v -117) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 0) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+
+(rule (=> (and (= k 3) (= v 52) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 24) (= v 80) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -98) (= v -4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 120) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 16) (= v 0) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 55) (= v 1) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v -25) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 127) (= len 4) (= containsk 1) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= len 0) (= flag 1) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 48) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 48) (= len 1) (= flag 0) (= len1 1) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k -1) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 48) (= len 1) (= flag 1) (= len1 1) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 51) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (> N 0) (= i 0)  (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len ) (is_valid flag) (not (< i N)) (= i1 0) (= flag 1) (= ret1 MAX)) (inv2 i1 N len flag ret)))
+(rule (=> (and (inv2 i N len flag ret)  (< i N) (is_valid flag) (= flag 1) (= k i) (erase k len flag len1 ret1) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len1 flag1 ret1)))
+(rule (=> (and (inv2 i N len flag ret)  (is_valid flag) (< i N) (= flag 0) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len flag1 ret)))
+(rule (=> (and (inv2 i N len flag ret) (is_valid flag) (not (< i N)) (not (=> (= flag 1) (= ret (- N 2))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/FlatHashMap3.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 40 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 6 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000058,time:8861,execs:88154,op:havoc,rep:10
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000061,time:5206,execs:63459,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000041,time:6386,execs:70005,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000061,time:4002,execs:60059,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000058,time:11241,execs:90500,op:havoc,rep:14
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000061,time:2800,execs:59135,op:havoc,rep:10
+Checking queue
+   -> Found 134 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 4 new rules.
+   -> Writing new specs to harness: erase_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/erase_fuzz.cpp'.
+   -> Starting AFL++(erase_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/erase_fuzz
+   -> AFL++(erase_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 129 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'erase'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((((((v <= 0) || ((k > 1) && (v > 0))) && (containsk1 > 0) && ((v - k) <= 0)) || ((v - k) > 0)) && (containsk <= 0)) || (containsk > 0))
+  inv1: ((i <= 1) && (N > 0))
+  erase: (true)
+  inv2: ((((flag > 0) && (i <= 0)) || ((flag <= 0) && (i > 0))) && (i > (-1)) && ((i - N) <= 0) && (N > 0) && (N <= 1))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var ret Int)
+(declare-var ret1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel erase (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= k 1) (= v 1) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 1) (= len 4) (= containsk 0) (= len1 5) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 1) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 1) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -15) (= v -15) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -117) (= v -117) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 0) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 3) (= v 52) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 24) (= v 80) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -98) (= v -4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 120) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 16) (= v 0) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 55) (= v 1) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v -25) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 127) (= len 4) (= containsk 1) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= len 0) (= flag 1) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 48) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 48) (= len 1) (= flag 0) (= len1 1) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k -1) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 48) (= len 1) (= flag 1) (= len1 1) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 51) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (> N 0) (= i 0)  (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len ) (is_valid flag) (not (< i N)) (= i1 0) (= flag 1) (= ret1 MAX)) (inv2 i1 N len flag ret)))
+(rule (=> (and (inv2 i N len flag ret)  (< i N) (is_valid flag) (= flag 1) (= k i) (erase k len flag len1 ret1) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len1 flag1 ret1)))
+(rule (=> (and (inv2 i N len flag ret)  (is_valid flag) (< i N) (= flag 0) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len flag1 ret)))
+(rule (=> (and (inv2 i N len flag ret) (is_valid flag) (not (< i N)) (not (=> (= flag 1) (= ret (- N 2))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/FlatHashMap3.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 176 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 131 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+   -> Writing new specs to harness: erase_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/erase_fuzz.cpp'.
+   -> Starting AFL++(erase_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/erase_fuzz
+   -> AFL++(erase_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 10 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000007,time:1303,execs:1034,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000007,time:509,execs:675,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000007,time:2248,execs:1255,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000007,time:7491,execs:2046,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000007,time:332,execs:656,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000007,time:4317,execs:1546,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000007,time:699,execs:794,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000007,time:1496,execs:1080,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000007,time:200,execs:598,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000007,time:7100,execs:2007,op:havoc,rep:4
+Checking queue
+   -> Found 72 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'erase'...
+      -> Found and validated 9 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (true)
+  inv1: (N > 0)
+  erase: ((((flag <= 0) && (k <= 0)) || (k > 0)) && (ret1 <= (-10)) && (len <= 1))
+  inv2: ((((flag > 0) && (N > 0) && (N <= 1)) || ((flag > 0) && (N > 1))) && (i <= 0) && ((i - N) <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var ret Int)
+(declare-var ret1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel erase (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= k 86) (= len 2) (= flag 0) (= len1 2) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k -52) (= len 0) (= flag 1) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k -21) (= len 0) (= flag 1) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 51) (= len 1) (= flag 1) (= len1 0) (= ret1 51)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 51) (= len 2) (= flag 0) (= len1 2) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k -128) (= len 2) (= flag 0) (= len1 2) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 76) (= len 2) (= flag 0) (= len1 2) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 92) (= len 2) (= flag 0) (= len1 2) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k -128) (= len 0) (= flag 1) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+
+(rule (=> (and (= k 1) (= v 1) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 1) (= len 4) (= containsk 0) (= len1 5) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 1) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 1) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -15) (= v -15) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -117) (= v -117) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 0) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 3) (= v 52) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 24) (= v 80) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -98) (= v -4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 120) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 16) (= v 0) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 55) (= v 1) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v -25) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 127) (= len 4) (= containsk 1) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= len 0) (= flag 1) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 48) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 48) (= len 1) (= flag 0) (= len1 1) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k -1) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 48) (= len 1) (= flag 1) (= len1 1) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (= k 51) (= len 0) (= flag 0) (= len1 0) (= ret1 -129)) (erase k len flag len1 ret1)))
+(rule (=> (and (> N 0) (= i 0)  (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len ) (is_valid flag) (not (< i N)) (= i1 0) (= flag 1) (= ret1 MAX)) (inv2 i1 N len flag ret)))
+(rule (=> (and (inv2 i N len flag ret)  (< i N) (is_valid flag) (= flag 1) (= k i) (erase k len flag len1 ret1) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len1 flag1 ret1)))
+(rule (=> (and (inv2 i N len flag ret)  (is_valid flag) (< i N) (= flag 0) (= i1 (+ i 1)) (= flag1 (- 1 flag))) (inv2 i1 N len flag1 ret)))
+(rule (=> (and (inv2 i N len flag ret) (is_valid flag) (not (< i N)) (not (=> (= flag 1) (= ret (- N 2))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/FlatHashMap3/FlatHashMap3.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_5.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 5
+Total Unique Test Cases Found: 34
+Total Internal Iterations: 270
+  - Min: 6
+  - Max: 176
+  - Avg: 67.50
+pipeline.run() took 0.9550 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalLLMHornICE FlatHashMap3
+PID: 607034
+========================================
+

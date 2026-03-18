@@ -1,0 +1,299 @@
+
+========================================
+         Starting Pipeline for: Calender (Mode: ClassicalCVC5)
+========================================
+Initializing pipeline for benchmark: 'Calender'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/Calender/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+Total External Iterations: 0
+Total Unique Test Cases Found: 0
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/Calender/Calender.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_1.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/Calender/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/Calender/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:406,execs:24,op:havoc,rep:13
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:994,execs:38,op:havoc,rep:15
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:2777,execs:67,op:havoc,rep:10
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:195,execs:19,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:551,execs:29,op:havoc,rep:14
+Checking queue
+   -> Found 1 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+       -> Found and validated 36 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((len1 + ev1) == ev1)
+  inv: ((len + maxDiff) == maxDiff)
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun insert ((len Int) (ev1 Int) (ev2 Int) (maxDiff Int) (len1 Int) (maxDiff1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len ev1 ev2 maxDiff len1 maxDiff1))))
+(synth-fun inv ((len Int) (maxDiff Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len maxDiff))))
+
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var maxDiff Int)
+(declare-var maxDiff1 Int)
+(declare-var ev1 Int)
+(declare-var ev2 Int)
+
+(define-fun MIN () Int -129)
+
+(constraint (insert 9 10 255 254 232 232))
+(constraint (insert 2 3 64 255 135 191))
+(constraint (insert 1 2 19 113 254 254))
+(constraint (insert 1 2 0 0 99 99))
+(constraint (insert 0 1 4 4 0 0))
+(constraint (insert 4 5 255 255 192 192))
+(constraint (insert 0 1 255 255 0 0))
+(constraint (insert 6 7 0 127 11 127))
+(constraint (insert 7 8 255 31 0 224))
+(constraint (insert 0 1 1 255 0 254))
+(constraint (insert 6 7 100 157 0 57))
+(constraint (insert 3 4 255 255 64 64))
+(constraint (insert 2 3 255 255 0 0))
+(constraint (insert 7 8 255 255 0 0))
+(constraint (insert 6 7 11 255 0 244))
+(constraint (insert 0 1 1 2 0 1))
+(constraint (insert 3 4 18 240 0 222))
+(constraint (insert 2 3 253 255 31 31))
+(constraint (insert 0 1 32 214 0 182))
+(constraint (insert 1 2 84 95 0 11))
+(constraint (insert 8 9 1 255 0 254))
+(constraint (insert 9 10 255 126 254 254))
+(constraint (insert 0 1 255 253 0 2))
+(constraint (insert 1 2 66 255 0 189))
+(constraint (insert 9 10 255 255 27 27))
+(constraint (insert 1 2 242 242 13 13))
+(constraint (insert 1 2 255 254 37 37))
+(constraint (insert 10 11 255 255 0 0))
+(constraint (insert 0 1 16 16 0 0))
+(constraint (insert 1 2 15 241 0 226))
+(constraint (insert 1 2 255 0 27 255))
+(constraint (insert 14 15 33 222 189 189))
+(constraint (insert 5 6 252 255 226 226))
+(constraint (insert 0 1 234 16 0 218))
+(constraint (insert 1 2 0 0 32 32))
+(constraint (insert 18 19 0 64 4 64))
+
+(constraint (=> (and (= len 0) (= maxDiff MIN)) (inv len maxDiff)))
+(constraint (=> (and (inv len maxDiff) (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (- ev1 ev2) 2)) (insert len ev1 ev2 maxDiff len1 maxDiff1)) (inv len1 maxDiff1)))
+(constraint (=> (and (inv len maxDiff) (not (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (- ev1 ev2) 2)))) (inv len maxDiff)))
+(constraint (=> (inv len maxDiff) (=> (> len 0) (< maxDiff 2))))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/Calender/Calender.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_2.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/Calender/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/Calender/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 35 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+       -> Found and validated 36 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (len <= (maxDiff + len))
+  inv: (!(maxDiff <= (maxDiff + maxDiff)))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun insert ((len Int) (ev1 Int) (ev2 Int) (maxDiff Int) (len1 Int) (maxDiff1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len ev1 ev2 maxDiff len1 maxDiff1))))
+(synth-fun inv ((len Int) (maxDiff Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len maxDiff))))
+
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var maxDiff Int)
+(declare-var maxDiff1 Int)
+(declare-var ev1 Int)
+(declare-var ev2 Int)
+
+(define-fun MIN () Int -129)
+
+
+(constraint (insert 9 10 255 254 232 232))
+(constraint (insert 2 3 64 255 135 191))
+(constraint (insert 1 2 19 113 254 254))
+(constraint (insert 1 2 0 0 99 99))
+(constraint (insert 0 1 4 4 0 0))
+(constraint (insert 4 5 255 255 192 192))
+(constraint (insert 0 1 255 255 0 0))
+(constraint (insert 6 7 0 127 11 127))
+(constraint (insert 7 8 255 31 0 224))
+(constraint (insert 0 1 1 255 0 254))
+(constraint (insert 6 7 100 157 0 57))
+(constraint (insert 3 4 255 255 64 64))
+(constraint (insert 2 3 255 255 0 0))
+(constraint (insert 7 8 255 255 0 0))
+(constraint (insert 6 7 11 255 0 244))
+(constraint (insert 0 1 1 2 0 1))
+(constraint (insert 3 4 18 240 0 222))
+(constraint (insert 2 3 253 255 31 31))
+(constraint (insert 0 1 32 214 0 182))
+(constraint (insert 1 2 84 95 0 11))
+(constraint (insert 8 9 1 255 0 254))
+(constraint (insert 9 10 255 126 254 254))
+(constraint (insert 0 1 255 253 0 2))
+(constraint (insert 1 2 66 255 0 189))
+(constraint (insert 9 10 255 255 27 27))
+(constraint (insert 1 2 242 242 13 13))
+(constraint (insert 1 2 255 254 37 37))
+(constraint (insert 10 11 255 255 0 0))
+(constraint (insert 0 1 16 16 0 0))
+(constraint (insert 1 2 15 241 0 226))
+(constraint (insert 1 2 255 0 27 255))
+(constraint (insert 14 15 33 222 189 189))
+(constraint (insert 5 6 252 255 226 226))
+(constraint (insert 0 1 234 16 0 218))
+(constraint (insert 1 2 0 0 32 32))
+(constraint (insert 18 19 0 64 4 64))
+(constraint (=> (and (= len 0) (= maxDiff MIN)) (inv len maxDiff)))
+(constraint (=> (and (inv len maxDiff) (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (- ev1 ev2) 2)) (insert len ev1 ev2 maxDiff len1 maxDiff1)) (inv len1 maxDiff1)))
+(constraint (=> (and (inv len maxDiff) (not (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (- ev1 ev2) 2)))) (inv len maxDiff)))
+(constraint (=> (inv len maxDiff) (=> (> len 0) (< maxDiff 2))))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/Calender/Calender.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_3.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/Calender/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/Calender/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 46 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+       -> Found and validated 36 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (len <= (maxDiff + len))
+  inv: (!(maxDiff <= (maxDiff + maxDiff)))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun insert ((len Int) (ev1 Int) (ev2 Int) (maxDiff Int) (len1 Int) (maxDiff1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len ev1 ev2 maxDiff len1 maxDiff1))))
+(synth-fun inv ((len Int) (maxDiff Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len maxDiff))))
+
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var maxDiff Int)
+(declare-var maxDiff1 Int)
+(declare-var ev1 Int)
+(declare-var ev2 Int)
+
+(define-fun MIN () Int -129)
+
+
+(constraint (insert 9 10 255 254 232 232))
+(constraint (insert 2 3 64 255 135 191))
+(constraint (insert 1 2 19 113 254 254))
+(constraint (insert 1 2 0 0 99 99))
+(constraint (insert 0 1 4 4 0 0))
+(constraint (insert 4 5 255 255 192 192))
+(constraint (insert 0 1 255 255 0 0))
+(constraint (insert 6 7 0 127 11 127))
+(constraint (insert 7 8 255 31 0 224))
+(constraint (insert 0 1 1 255 0 254))
+(constraint (insert 6 7 100 157 0 57))
+(constraint (insert 3 4 255 255 64 64))
+(constraint (insert 2 3 255 255 0 0))
+(constraint (insert 7 8 255 255 0 0))
+(constraint (insert 6 7 11 255 0 244))
+(constraint (insert 0 1 1 2 0 1))
+(constraint (insert 3 4 18 240 0 222))
+(constraint (insert 2 3 253 255 31 31))
+(constraint (insert 0 1 32 214 0 182))
+(constraint (insert 1 2 84 95 0 11))
+(constraint (insert 8 9 1 255 0 254))
+(constraint (insert 9 10 255 126 254 254))
+(constraint (insert 0 1 255 253 0 2))
+(constraint (insert 1 2 66 255 0 189))
+(constraint (insert 9 10 255 255 27 27))
+(constraint (insert 1 2 242 242 13 13))
+(constraint (insert 1 2 255 254 37 37))
+(constraint (insert 10 11 255 255 0 0))
+(constraint (insert 0 1 16 16 0 0))
+(constraint (insert 1 2 15 241 0 226))
+(constraint (insert 1 2 255 0 27 255))
+(constraint (insert 14 15 33 222 189 189))
+(constraint (insert 5 6 252 255 226 226))
+(constraint (insert 0 1 234 16 0 218))
+(constraint (insert 1 2 0 0 32 32))
+(constraint (insert 18 19 0 64 4 64))
+(constraint (=> (and (= len 0) (= maxDiff MIN)) (inv len maxDiff)))
+(constraint (=> (and (inv len maxDiff) (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (- ev1 ev2) 2)) (insert len ev1 ev2 maxDiff len1 maxDiff1)) (inv len1 maxDiff1)))
+(constraint (=> (and (inv len maxDiff) (not (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (- ev1 ev2) 2)))) (inv len maxDiff)))
+(constraint (=> (inv len maxDiff) (=> (> len 0) (< maxDiff 2))))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 3
+Total Unique Test Cases Found: 108
+pipeline.run() took 0.0423 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalCVC5 Calender
+PID: 35
+========================================
+
+
+Total Pipeline Duration: 728.54s

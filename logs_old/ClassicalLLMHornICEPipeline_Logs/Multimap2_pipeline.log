@@ -1,0 +1,1360 @@
+
+========================================
+         Starting Pipeline for: Multimap2 (Mode: ClassicalLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'Multimap2'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/Multimap2/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/Multimap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 9 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:2796,execs:27,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000001,time:11564,execs:234,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000001,time:6092,execs:64,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:1615,execs:26,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:530,execs:24,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:3983,execs:32,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000001,time:5723,execs:57,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000001,time:6650,execs:74,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000001,time:7376,execs:101,op:havoc,rep:5
+Checking queue
+   -> Found 2 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 9 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: (true)
+  emplace: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var countkt Int)
+(declare-var countkt1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 127) (= v 127) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 100) (= v 0) (= countko 0) (= countkt 0) (= len 5) (= countko1 0) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= countkt 0) (= len 5) (= countko1 5) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -128) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 124) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 10) (= countko1 1) (= countkt1 0) (= len1 11)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -93) (= v -93) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 7) (= countkt 0) (= len 7) (= countko1 8) (= countkt1 0) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0) (= countkt 0)) (inv1 i N countko countkt len)))
+(rule (=> (and (inv1 i N countko countkt len) (< i N) (= k 1) (= v 1) (emplace k v countko countkt len countko1 countkt1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 countkt1 len1)))
+(rule (=> (and (inv1 i N countko countkt len) (not (< i N)) (= k 2) (= v 2)(emplace k v countko countkt len countko1 countkt1 len1) (not (and (= countko1 N) (= countkt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/Multimap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 11 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 8 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:780,execs:357,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:393,execs:188,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000001,time:1384,execs:774,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:204,execs:62,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000009,time:27626,execs:14200,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000009,time:24722,execs:13913,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000001,time:6411,execs:4613,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:584,execs:349,op:havoc,rep:2
+Checking queue
+   -> Found 59 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 8 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: ((v <= 0) || ((v > 2) && (v > 0)))
+  inv1: (true)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var countkt Int)
+(declare-var countkt1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 1) (= v 1) (= countko 3) (= countkt 0) (= len 3) (= countko1 4) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 3) (= countko1 2) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 8) (= countkt 1) (= len 11) (= countko1 9) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 5) (= countko1 3) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -58) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+
+(rule (=> (and (= k 127) (= v 127) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 100) (= v 0) (= countko 0) (= countkt 0) (= len 5) (= countko1 0) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= countkt 0) (= len 5) (= countko1 5) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -128) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 124) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 10) (= countko1 1) (= countkt1 0) (= len1 11)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -93) (= v -93) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 7) (= countkt 0) (= len 7) (= countko1 8) (= countkt1 0) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0) (= countkt 0)) (inv1 i N countko countkt len)))
+(rule (=> (and (inv1 i N countko countkt len) (< i N) (= k 1) (= v 1) (emplace k v countko countkt len countko1 countkt1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 countkt1 len1)))
+(rule (=> (and (inv1 i N countko countkt len) (not (< i N)) (= k 2) (= v 2)(emplace k v countko countkt len countko1 countkt1 len1) (not (and (= countko1 N) (= countkt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/Multimap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 11 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 10 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000037,time:18623,execs:28827,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000044,time:3260,execs:14628,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:737,execs:9742,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000044,time:1929,execs:13974,op:havoc,rep:13
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000044,time:2867,execs:14443,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000044,time:10858,execs:21175,op:havoc,rep:14
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000044,time:9664,execs:19927,op:havoc,rep:13
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:335,execs:4114,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000044,time:1312,execs:13466,op:havoc,rep:14
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000044,time:1500,execs:13537,op:havoc,rep:7
+Checking queue
+   -> Found 72 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 10 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: ((v <= 1) || ((v > 2) && (v > 1)))
+  inv1: (true)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var countkt Int)
+(declare-var countkt1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 31) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 1) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 1) (= len 5) (= countko1 3) (= countkt1 2) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 11) (= v 2) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -99) (= v 2) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 73) (= v 2) (= countko 0) (= countkt 0) (= len 4) (= countko1 0) (= countkt1 0) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 10) (= countkt 0) (= len 16) (= countko1 11) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 8) (= countkt 0) (= len 9) (= countko1 8) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+
+(rule (=> (and (= k 1) (= v 1) (= countko 3) (= countkt 0) (= len 3) (= countko1 4) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 3) (= countko1 2) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 8) (= countkt 1) (= len 11) (= countko1 9) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 5) (= countko1 3) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -58) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 127) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 100) (= v 0) (= countko 0) (= countkt 0) (= len 5) (= countko1 0) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= countkt 0) (= len 5) (= countko1 5) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -128) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 124) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 10) (= countko1 1) (= countkt1 0) (= len1 11)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -93) (= v -93) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 7) (= countkt 0) (= len 7) (= countko1 8) (= countkt1 0) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0) (= countkt 0)) (inv1 i N countko countkt len)))
+(rule (=> (and (inv1 i N countko countkt len) (< i N) (= k 1) (= v 1) (emplace k v countko countkt len countko1 countkt1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 countkt1 len1)))
+(rule (=> (and (inv1 i N countko countkt len) (not (< i N)) (= k 2) (= v 2)(emplace k v countko countkt len countko1 countkt1 len1) (not (and (= countko1 N) (= countkt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/Multimap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 250 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 9 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:648,execs:5154,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000001,time:3485,execs:9144,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000001,time:3697,execs:9494,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000001,time:2000,execs:7111,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000047,time:16698,execs:15847,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:842,execs:5244,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:1437,execs:6439,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000047,time:6598,execs:13698,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:344,execs:3151,op:havoc,rep:2
+Checking queue
+   -> Found 63 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 9 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: ((((k <= 1) || ((k > 2) && (k > 1))) && (countkt1 <= 0)) || ((countkt > 0) && (countkt1 > 0)))
+  inv1: (countkt <= 0)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var countkt Int)
+(declare-var countkt1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 2) (= v 5) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 23) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 15) (= countko 7) (= countkt 0) (= len 7) (= countko1 7) (= countkt1 1) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 18) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 29) (= countko 0) (= countkt 0) (= len 11) (= countko1 0) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 26) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+
+(rule (=> (and (= k 31) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 1) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 1) (= len 5) (= countko1 3) (= countkt1 2) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 11) (= v 2) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -99) (= v 2) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 73) (= v 2) (= countko 0) (= countkt 0) (= len 4) (= countko1 0) (= countkt1 0) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 10) (= countkt 0) (= len 16) (= countko1 11) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 8) (= countkt 0) (= len 9) (= countko1 8) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 3) (= countkt 0) (= len 3) (= countko1 4) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 3) (= countko1 2) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 8) (= countkt 1) (= len 11) (= countko1 9) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 5) (= countko1 3) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -58) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 127) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 100) (= v 0) (= countko 0) (= countkt 0) (= len 5) (= countko1 0) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= countkt 0) (= len 5) (= countko1 5) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -128) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 124) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 10) (= countko1 1) (= countkt1 0) (= len1 11)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -93) (= v -93) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 7) (= countkt 0) (= len 7) (= countko1 8) (= countkt1 0) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0) (= countkt 0)) (inv1 i N countko countkt len)))
+(rule (=> (and (inv1 i N countko countkt len) (< i N) (= k 1) (= v 1) (emplace k v countko countkt len countko1 countkt1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 countkt1 len1)))
+(rule (=> (and (inv1 i N countko countkt len) (not (< i N)) (= k 2) (= v 2)(emplace k v countko countkt len countko1 countkt1 len1) (not (and (= countko1 N) (= countkt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/Multimap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_5.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_5.log
+      -> Found 183 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:847,execs:1104,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:383,execs:629,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:631,execs:989,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:175,execs:348,op:havoc,rep:2
+Checking queue
+   -> Found 63 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 4 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: ((((((k <= (-1)) && (v <= 1)) || (v > 1)) && (len <= 0)) || (len > 0)) && ((len1 - len) > 0))
+  inv1: ((len <= 0) && ((N - i) > 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var countkt Int)
+(declare-var countkt1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 0) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -30) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 16) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+
+(rule (=> (and (= k 2) (= v 5) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 23) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 15) (= countko 7) (= countkt 0) (= len 7) (= countko1 7) (= countkt1 1) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 18) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 29) (= countko 0) (= countkt 0) (= len 11) (= countko1 0) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 26) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 31) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 1) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 1) (= len 5) (= countko1 3) (= countkt1 2) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 11) (= v 2) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -99) (= v 2) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 73) (= v 2) (= countko 0) (= countkt 0) (= len 4) (= countko1 0) (= countkt1 0) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 10) (= countkt 0) (= len 16) (= countko1 11) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 8) (= countkt 0) (= len 9) (= countko1 8) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 3) (= countkt 0) (= len 3) (= countko1 4) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 3) (= countko1 2) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 8) (= countkt 1) (= len 11) (= countko1 9) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 5) (= countko1 3) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -58) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 127) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 100) (= v 0) (= countko 0) (= countkt 0) (= len 5) (= countko1 0) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= countkt 0) (= len 5) (= countko1 5) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -128) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 124) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 10) (= countko1 1) (= countkt1 0) (= len1 11)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -93) (= v -93) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 7) (= countkt 0) (= len 7) (= countko1 8) (= countkt1 0) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0) (= countkt 0)) (inv1 i N countko countkt len)))
+(rule (=> (and (inv1 i N countko countkt len) (< i N) (= k 1) (= v 1) (emplace k v countko countkt len countko1 countkt1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 countkt1 len1)))
+(rule (=> (and (inv1 i N countko countkt len) (not (< i N)) (= k 2) (= v 2)(emplace k v countko countkt len countko1 countkt1 len1) (not (and (= countko1 N) (= countkt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 6 ====================
+TIMEOUT : 120
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/Multimap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_6.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_6.log
+      -> Found 130 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 120-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:3338,execs:3020,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:1028,execs:1399,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:2148,execs:2113,op:havoc,rep:2
+Checking queue
+   -> Found 81 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (((k <= (-1)) || (((((v <= 0) || ((v > 1) && (v > 0))) && (len <= 0)) || (len > 0)) && (k > (-1)))) && ((len1 - len) > 0))
+  inv1: ((len <= 0) && ((N - i) > 0) && (N > 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var countkt Int)
+(declare-var countkt1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 14) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+
+(rule (=> (and (= k 0) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -30) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 16) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 5) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 23) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 15) (= countko 7) (= countkt 0) (= len 7) (= countko1 7) (= countkt1 1) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 18) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 29) (= countko 0) (= countkt 0) (= len 11) (= countko1 0) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 26) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 31) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 1) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 1) (= len 5) (= countko1 3) (= countkt1 2) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 11) (= v 2) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -99) (= v 2) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 73) (= v 2) (= countko 0) (= countkt 0) (= len 4) (= countko1 0) (= countkt1 0) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 10) (= countkt 0) (= len 16) (= countko1 11) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 8) (= countkt 0) (= len 9) (= countko1 8) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 3) (= countkt 0) (= len 3) (= countko1 4) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 3) (= countko1 2) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 8) (= countkt 1) (= len 11) (= countko1 9) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 5) (= countko1 3) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -58) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 127) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 100) (= v 0) (= countko 0) (= countkt 0) (= len 5) (= countko1 0) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= countkt 0) (= len 5) (= countko1 5) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -128) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 124) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 10) (= countko1 1) (= countkt1 0) (= len1 11)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -93) (= v -93) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 7) (= countkt 0) (= len 7) (= countko1 8) (= countkt1 0) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0) (= countkt 0)) (inv1 i N countko countkt len)))
+(rule (=> (and (inv1 i N countko countkt len) (< i N) (= k 1) (= v 1) (emplace k v countko countkt len countko1 countkt1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 countkt1 len1)))
+(rule (=> (and (inv1 i N countko countkt len) (not (< i N)) (= k 2) (= v 2)(emplace k v countko countkt len countko1 countkt1 len1) (not (and (= countko1 N) (= countkt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 7 ====================
+TIMEOUT : 140
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/Multimap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_7.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_7.log
+      -> Found 201 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 140-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 9 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000001,time:4631,execs:8783,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:1009,execs:3449,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:823,execs:3420,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000001,time:2044,execs:4779,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000001,time:1170,execs:3465,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:234,execs:465,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000001,time:1354,execs:3580,op:havoc,rep:10
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:412,execs:769,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000001,time:3783,execs:6829,op:havoc,rep:4
+Checking queue
+   -> Found 82 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 9 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: ((((countkt1 <= 0) && (k <= 1) && ((len1 - countko1) <= 0)) || (((((((v <= (-1)) || (((((countko1 - countko) > 0) && (k <= 1)) || ((((len <= 0) && (countkt <= 0)) || (countkt > 0)) && (k > 1))) && (v > (-1)))) && (v <= 2)) || (v > 2)) && ((((countko + countkt) - countko1) - countkt1) <= (-1))) || (((v <= 1) || (((((k <= 0) || ((k > 2) && (k > 0))) && (v <= 2)) || (v > 2)) && (v > 1))) && (countkt > (-1)) && ((len1 - len) <= 1) && ((countkt1 - countkt) <= 0) && ((((countko + countkt) - countko1) - countkt1) > (-1)))) && ((len1 - countko1) > 0))) && ((((countko1 + countkt1) - countko) - countkt) <= 1) && ((len1 - len) > 0))
+  inv1: ((countkt <= 0) && ((i - len) <= 0) && (N > 0) && ((i - N) <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var countkt Int)
+(declare-var countkt1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 2) (= v 0) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 3) (= countko1 0) (= countkt1 1) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 9) (= countkt 0) (= len 9) (= countko1 9) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 11) (= countkt 0) (= len 13) (= countko1 11) (= countkt1 1) (= len1 14)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 6) (= countko1 0) (= countkt1 1) (= len1 7)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 1) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+
+(rule (=> (and (= k 14) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -30) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 16) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 5) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 23) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 15) (= countko 7) (= countkt 0) (= len 7) (= countko1 7) (= countkt1 1) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 18) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 29) (= countko 0) (= countkt 0) (= len 11) (= countko1 0) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 26) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 31) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 1) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 1) (= len 5) (= countko1 3) (= countkt1 2) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 11) (= v 2) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -99) (= v 2) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 73) (= v 2) (= countko 0) (= countkt 0) (= len 4) (= countko1 0) (= countkt1 0) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 10) (= countkt 0) (= len 16) (= countko1 11) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 8) (= countkt 0) (= len 9) (= countko1 8) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 3) (= countkt 0) (= len 3) (= countko1 4) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 3) (= countko1 2) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 8) (= countkt 1) (= len 11) (= countko1 9) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 5) (= countko1 3) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -58) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 127) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 100) (= v 0) (= countko 0) (= countkt 0) (= len 5) (= countko1 0) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= countkt 0) (= len 5) (= countko1 5) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -128) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 124) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 10) (= countko1 1) (= countkt1 0) (= len1 11)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -93) (= v -93) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 7) (= countkt 0) (= len 7) (= countko1 8) (= countkt1 0) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0) (= countkt 0)) (inv1 i N countko countkt len)))
+(rule (=> (and (inv1 i N countko countkt len) (< i N) (= k 1) (= v 1) (emplace k v countko countkt len countko1 countkt1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 countkt1 len1)))
+(rule (=> (and (inv1 i N countko countkt len) (not (< i N)) (= k 2) (= v 2)(emplace k v countko countkt len countko1 countkt1 len1) (not (and (= countko1 N) (= countkt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 8 ====================
+TIMEOUT : 160
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/Multimap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_8.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_8.log
+      -> Found 181 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 160-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 12 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:210,execs:558,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:849,execs:1430,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000001,time:3324,execs:4733,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:1022,execs:1763,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000001,time:5638,execs:6992,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:366,execs:852,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000001,time:3507,execs:4781,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000011,sig:06,src:000064,time:156260,execs:56204,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000001,time:10317,execs:13054,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000039,time:14552,execs:14314,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000039,time:17940,execs:16354,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000039,time:13472,execs:13582,op:havoc,rep:5
+Checking queue
+   -> Found 71 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 8 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (((((v <= 0) || (((k <= 0) || ((((((((((len <= 1) && (k <= 1)) || (k > 1)) && (v <= 1)) || ((countkt1 > 0) && (countkt1 <= 1) && (countko1 > (-1)) && (countko1 <= 0) && (len <= 0) && (v > 1))) && (v <= 2)) || (v > 2)) && (k <= 2)) || (k > 2)) && (k > 0))) && (v > 0))) && (len <= 2)) || (len > 2)) && ((((countko1 + countkt1) - countko) - countkt) <= 1) && ((len1 - len) <= 1) && ((len1 - len) > 0))
+  inv1: ((len <= 2) && ((i - len) <= 0) && (N > (-1)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var countkt Int)
+(declare-var countkt1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 3) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 2) (= len 2) (= countko1 1) (= countkt1 2) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 2) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 1) (= len 2) (= countko1 2) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+
+(rule (=> (and (= k 2) (= v 0) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 3) (= countko1 0) (= countkt1 1) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 9) (= countkt 0) (= len 9) (= countko1 9) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 11) (= countkt 0) (= len 13) (= countko1 11) (= countkt1 1) (= len1 14)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 6) (= countko1 0) (= countkt1 1) (= len1 7)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 1) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 14) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -30) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 16) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 5) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 23) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 15) (= countko 7) (= countkt 0) (= len 7) (= countko1 7) (= countkt1 1) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 18) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 29) (= countko 0) (= countkt 0) (= len 11) (= countko1 0) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 26) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 31) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 1) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 1) (= len 5) (= countko1 3) (= countkt1 2) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 11) (= v 2) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -99) (= v 2) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 73) (= v 2) (= countko 0) (= countkt 0) (= len 4) (= countko1 0) (= countkt1 0) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 10) (= countkt 0) (= len 16) (= countko1 11) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 8) (= countkt 0) (= len 9) (= countko1 8) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 3) (= countkt 0) (= len 3) (= countko1 4) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 3) (= countko1 2) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 8) (= countkt 1) (= len 11) (= countko1 9) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 5) (= countko1 3) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -58) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 127) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 100) (= v 0) (= countko 0) (= countkt 0) (= len 5) (= countko1 0) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= countkt 0) (= len 5) (= countko1 5) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -128) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 124) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 10) (= countko1 1) (= countkt1 0) (= len1 11)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -93) (= v -93) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 7) (= countkt 0) (= len 7) (= countko1 8) (= countkt1 0) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0) (= countkt 0)) (inv1 i N countko countkt len)))
+(rule (=> (and (inv1 i N countko countkt len) (< i N) (= k 1) (= v 1) (emplace k v countko countkt len countko1 countkt1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 countkt1 len1)))
+(rule (=> (and (inv1 i N countko countkt len) (not (< i N)) (= k 2) (= v 2)(emplace k v countko countkt len countko1 countkt1 len1) (not (and (= countko1 N) (= countkt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 9 ====================
+TIMEOUT : 180
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/Multimap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_9.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_9.log
+      -> Found 168 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 180-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000042,time:744,execs:24069,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000043,time:1621,execs:55018,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000062,time:5279,execs:176882,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000042,time:9984,execs:333342,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000042,time:4591,execs:163889,op:havoc,rep:1
+Checking queue
+   -> Found 111 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (((((((countkt1 - countkt) <= 0) && (k <= 1)) || (((((v <= 1) || ((((countko <= 0) && (v <= 2)) || (v > 2)) && (v > 1))) && (countkt <= 0)) || (countkt > 0)) && (countkt1 > 0) && ((countkt1 - countkt) > 0) && (k > 1))) && (((countko + countkt) - len) <= 0) && (((len1 - countko1) - countkt1) <= 0)) || (((((k <= 0) || ((k > 2) && (k > 0))) && ((len - countko) <= 0)) || ((len - countko) > 0)) && (((len1 - countko1) - countkt1) > 0))) && ((len1 - len) > 0) && ((countkt1 - countkt) <= 1) && (countkt1 > (-1)))
+  inv1: (((len - countko) <= 0) && ((i - len) <= 0) && (N > 0) && ((i - N) <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var countkt Int)
+(declare-var countkt1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 2) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 0) (= len 3) (= countko1 3) (= countkt1 1) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 11) (= countkt 0) (= len 11) (= countko1 11) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 3) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 2) (= len 2) (= countko1 1) (= countkt1 2) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 2) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 1) (= len 2) (= countko1 2) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 3) (= countko1 0) (= countkt1 1) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 9) (= countkt 0) (= len 9) (= countko1 9) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 11) (= countkt 0) (= len 13) (= countko1 11) (= countkt1 1) (= len1 14)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 6) (= countko1 0) (= countkt1 1) (= len1 7)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 1) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 14) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -30) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 16) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 5) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 23) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 15) (= countko 7) (= countkt 0) (= len 7) (= countko1 7) (= countkt1 1) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 18) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 29) (= countko 0) (= countkt 0) (= len 11) (= countko1 0) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 26) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 31) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 1) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 1) (= len 5) (= countko1 3) (= countkt1 2) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 11) (= v 2) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -99) (= v 2) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 73) (= v 2) (= countko 0) (= countkt 0) (= len 4) (= countko1 0) (= countkt1 0) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 10) (= countkt 0) (= len 16) (= countko1 11) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 8) (= countkt 0) (= len 9) (= countko1 8) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 3) (= countkt 0) (= len 3) (= countko1 4) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 3) (= countko1 2) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 8) (= countkt 1) (= len 11) (= countko1 9) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 5) (= countko1 3) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -58) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 127) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 100) (= v 0) (= countko 0) (= countkt 0) (= len 5) (= countko1 0) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= countkt 0) (= len 5) (= countko1 5) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -128) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 124) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 10) (= countko1 1) (= countkt1 0) (= len1 11)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -93) (= v -93) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 7) (= countkt 0) (= len 7) (= countko1 8) (= countkt1 0) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0) (= countkt 0)) (inv1 i N countko countkt len)))
+(rule (=> (and (inv1 i N countko countkt len) (< i N) (= k 1) (= v 1) (emplace k v countko countkt len countko1 countkt1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 countkt1 len1)))
+(rule (=> (and (inv1 i N countko countkt len) (not (< i N)) (= k 2) (= v 2)(emplace k v countko countkt len countko1 countkt1 len1) (not (and (= countko1 N) (= countkt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 10 ====================
+TIMEOUT : 200
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/Multimap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_10.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_10.log
+      -> Found 154 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 200-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 10 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000045,time:14227,execs:32100,op:havoc,rep:15
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:287,execs:1912,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000001,time:857,execs:3197,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:734,execs:3108,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000001,time:1792,execs:9817,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:132,execs:511,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000018,time:2823,execs:15344,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:453,execs:2493,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000018,time:7399,execs:22103,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000001,time:2235,execs:12769,op:havoc,rep:4
+Checking queue
+   -> Found 77 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 10 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (((((v <= 0) || (((((((((k <= 0) || ((k > 1) && (k > 0))) && (countkt1 <= 0) && (v <= 1)) || (((countko <= 0) || (((k <= 0) || ((countkt1 > 0) && (k > 0))) && (countko > 0))) && (v > 1))) && ((countko1 - countko) <= 0)) || ((countko1 - countko) > 0)) && (countko1 <= 1) && (countko1 <= 2)) || (countko1 > 2)) && (v > 0))) && ((len - countko) <= 0)) || ((len - countko) > 0)) && (countkt > (-1)) && (((countko + countkt) - len) <= 0) && ((countkt - countkt1) <= 0) && ((((countko1 + countkt1) - countko) - countkt) <= 1) && ((len1 - len) <= 1) && ((len1 - len) > 0) && ((countko - countko1) <= 0))
+  inv1: (((len - countko) <= 0) && ((i - len) <= 0) && (countko <= 1) && (N > 0) && ((i - N) <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var countkt Int)
+(declare-var countkt1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 20) (= v 20) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 38) (= v 38) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 1) (= countko1 2) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 62) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -9) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 19) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -24) (= v 3) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+
+(rule (=> (and (= k 2) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 0) (= len 3) (= countko1 3) (= countkt1 1) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 11) (= countkt 0) (= len 11) (= countko1 11) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 3) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 2) (= len 2) (= countko1 1) (= countkt1 2) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 2) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 1) (= len 2) (= countko1 2) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 3) (= countko1 0) (= countkt1 1) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 9) (= countkt 0) (= len 9) (= countko1 9) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 11) (= countkt 0) (= len 13) (= countko1 11) (= countkt1 1) (= len1 14)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 6) (= countko1 0) (= countkt1 1) (= len1 7)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 1) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 14) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -30) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 16) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 5) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 23) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 15) (= countko 7) (= countkt 0) (= len 7) (= countko1 7) (= countkt1 1) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 18) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 29) (= countko 0) (= countkt 0) (= len 11) (= countko1 0) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 26) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 31) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 1) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 1) (= len 5) (= countko1 3) (= countkt1 2) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 11) (= v 2) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -99) (= v 2) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 73) (= v 2) (= countko 0) (= countkt 0) (= len 4) (= countko1 0) (= countkt1 0) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 10) (= countkt 0) (= len 16) (= countko1 11) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 8) (= countkt 0) (= len 9) (= countko1 8) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 3) (= countkt 0) (= len 3) (= countko1 4) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 3) (= countko1 2) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 8) (= countkt 1) (= len 11) (= countko1 9) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 5) (= countko1 3) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -58) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 127) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 100) (= v 0) (= countko 0) (= countkt 0) (= len 5) (= countko1 0) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= countkt 0) (= len 5) (= countko1 5) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -128) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 124) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 10) (= countko1 1) (= countkt1 0) (= len1 11)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -93) (= v -93) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 7) (= countkt 0) (= len 7) (= countko1 8) (= countkt1 0) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0) (= countkt 0)) (inv1 i N countko countkt len)))
+(rule (=> (and (inv1 i N countko countkt len) (< i N) (= k 1) (= v 1) (emplace k v countko countkt len countko1 countkt1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 countkt1 len1)))
+(rule (=> (and (inv1 i N countko countkt len) (not (< i N)) (= k 2) (= v 2)(emplace k v countko countkt len countko1 countkt1 len1) (not (and (= countko1 N) (= countkt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 11 ====================
+TIMEOUT : 220
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/Multimap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_11.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_11.log
+      -> Found 180 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 220-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 98 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (((((k <= 0) || ((((((k <= 1) && (countkt1 <= 0)) || ((k > 1) && (countkt1 > 0))) && ((((countko1 + countkt1) - countko) - countkt) > 0) && (k <= 2)) || (k > 2)) && (k > 0))) && (((len - countko) - countkt) <= 0) && ((countko - len) <= 0) && (((countko1 + countkt1) - len1) <= 0) && ((len - countko) <= 0)) || ((len - countko) > 0)) && ((countko - countko1) <= 0) && ((countkt1 - countkt) <= 1) && (countkt1 > (-1)) && ((len1 - len) > 0) && ((len1 - len) <= 1))
+  inv1: (((i - countko) <= 0) && ((i - len) <= 0) && ((len - i) <= 0) && ((i - N) <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var countkt Int)
+(declare-var countkt1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 20) (= v 20) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 38) (= v 38) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 1) (= countko1 2) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 62) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -9) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 19) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -24) (= v 3) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 0) (= len 3) (= countko1 3) (= countkt1 1) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 11) (= countkt 0) (= len 11) (= countko1 11) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 3) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 2) (= len 2) (= countko1 1) (= countkt1 2) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 2) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 1) (= len 2) (= countko1 2) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 3) (= countko1 0) (= countkt1 1) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 9) (= countkt 0) (= len 9) (= countko1 9) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 11) (= countkt 0) (= len 13) (= countko1 11) (= countkt1 1) (= len1 14)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 6) (= countko1 0) (= countkt1 1) (= len1 7)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 1) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 14) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -30) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 16) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 5) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 23) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 15) (= countko 7) (= countkt 0) (= len 7) (= countko1 7) (= countkt1 1) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 18) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 29) (= countko 0) (= countkt 0) (= len 11) (= countko1 0) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 26) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 31) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 1) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 1) (= len 5) (= countko1 3) (= countkt1 2) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 11) (= v 2) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -99) (= v 2) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 73) (= v 2) (= countko 0) (= countkt 0) (= len 4) (= countko1 0) (= countkt1 0) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 10) (= countkt 0) (= len 16) (= countko1 11) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 8) (= countkt 0) (= len 9) (= countko1 8) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 3) (= countkt 0) (= len 3) (= countko1 4) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 3) (= countko1 2) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 8) (= countkt 1) (= len 11) (= countko1 9) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 5) (= countko1 3) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -58) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 127) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 100) (= v 0) (= countko 0) (= countkt 0) (= len 5) (= countko1 0) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= countkt 0) (= len 5) (= countko1 5) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -128) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 124) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 10) (= countko1 1) (= countkt1 0) (= len1 11)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -93) (= v -93) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 7) (= countkt 0) (= len 7) (= countko1 8) (= countkt1 0) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0) (= countkt 0)) (inv1 i N countko countkt len)))
+(rule (=> (and (inv1 i N countko countkt len) (< i N) (= k 1) (= v 1) (emplace k v countko countkt len countko1 countkt1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 countkt1 len1)))
+(rule (=> (and (inv1 i N countko countkt len) (not (< i N)) (= k 2) (= v 2)(emplace k v countko countkt len countko1 countkt1 len1) (not (and (= countko1 N) (= countkt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 12 ====================
+TIMEOUT : 240
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/Multimap2.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_12.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_12.log
+      -> Found 180 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 240-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multimap2/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 104 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (((((k <= 0) || ((((((k <= 1) && (countkt1 <= 0)) || ((k > 1) && (countkt1 > 0))) && ((((countko1 + countkt1) - countko) - countkt) > 0) && (k <= 2)) || (k > 2)) && (k > 0))) && (((len - countko) - countkt) <= 0) && ((countko - len) <= 0) && (((countko1 + countkt1) - len1) <= 0) && ((len - countko) <= 0)) || ((len - countko) > 0)) && ((countko - countko1) <= 0) && ((countkt1 - countkt) <= 1) && (countkt1 > (-1)) && ((len1 - len) > 0) && ((len1 - len) <= 1))
+  inv1: (((i - countko) <= 0) && ((i - len) <= 0) && ((len - i) <= 0) && ((i - N) <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var countkt Int)
+(declare-var countkt1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 20) (= v 20) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 38) (= v 38) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 1) (= countko1 2) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 62) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -9) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 19) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -24) (= v 3) (= countko 2) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 0) (= len 3) (= countko1 3) (= countkt1 1) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 11) (= countkt 0) (= len 11) (= countko1 11) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 2) (= countko1 3) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 2) (= len 2) (= countko1 1) (= countkt1 2) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 2) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 1) (= len 2) (= countko1 2) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 3) (= countko1 0) (= countkt1 1) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 9) (= countkt 0) (= len 9) (= countko1 9) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 11) (= countkt 0) (= len 13) (= countko1 11) (= countkt1 1) (= len1 14)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 6) (= countko1 0) (= countkt1 1) (= len1 7)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 0) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 1) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 14) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -30) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 16) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 0) (= countko1 1) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 5) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 23) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 15) (= countko 7) (= countkt 0) (= len 7) (= countko1 7) (= countkt1 1) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 18) (= countko 2) (= countkt 0) (= len 4) (= countko1 2) (= countkt1 1) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 1) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 29) (= countko 0) (= countkt 0) (= len 11) (= countko1 0) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 26) (= countko 0) (= countkt 0) (= len 9) (= countko1 0) (= countkt1 1) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v -1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 1) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 31) (= v 2) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 0) (= v 2) (= countko 1) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 0) (= countkt 0) (= len 9) (= countko1 1) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 2) (= v 2) (= countko 3) (= countkt 1) (= len 5) (= countko1 3) (= countkt1 2) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 11) (= v 2) (= countko 0) (= countkt 0) (= len 16) (= countko1 0) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -99) (= v 2) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 73) (= v 2) (= countko 0) (= countkt 0) (= len 4) (= countko1 0) (= countkt1 0) (= len1 5)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 2) (= countko 10) (= countkt 0) (= len 16) (= countko1 11) (= countkt1 0) (= len1 17)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 2) (= countko 8) (= countkt 0) (= len 9) (= countko1 8) (= countkt1 0) (= len1 10)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 3) (= countkt 0) (= len 3) (= countko1 4) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 1) (= countkt 0) (= len 3) (= countko1 2) (= countkt1 0) (= len1 4)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 0) (= countkt 0) (= len 1) (= countko1 1) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 8) (= countkt 1) (= len 11) (= countko1 9) (= countkt1 1) (= len1 12)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 1) (= countko 0) (= countkt 0) (= len 2) (= countko1 0) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 1) (= countko 2) (= countkt 0) (= len 5) (= countko1 3) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -58) (= v 1) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 127) (= v 127) (= countko 0) (= countkt 1) (= len 1) (= countko1 0) (= countkt1 1) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 100) (= v 0) (= countko 0) (= countkt 0) (= len 5) (= countko1 0) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 4) (= countkt 0) (= len 5) (= countko1 5) (= countkt1 0) (= len1 6)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -128) (= v 0) (= countko 0) (= countkt 0) (= len 1) (= countko1 0) (= countkt1 0) (= len1 2)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v 124) (= countko 1) (= countkt 0) (= len 2) (= countko1 2) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 0) (= countkt 0) (= len 10) (= countko1 1) (= countkt1 0) (= len1 11)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -93) (= v -93) (= countko 1) (= countkt 0) (= len 2) (= countko1 1) (= countkt1 0) (= len1 3)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k -1) (= v 0) (= countko 0) (= countkt 0) (= len 0) (= countko1 0) (= countkt1 0) (= len1 1)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (= k 1) (= v -1) (= countko 7) (= countkt 0) (= len 7) (= countko1 8) (= countkt1 0) (= len1 8)) (emplace k v countko countkt len countko1 countkt1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0) (= countkt 0)) (inv1 i N countko countkt len)))
+(rule (=> (and (inv1 i N countko countkt len) (< i N) (= k 1) (= v 1) (emplace k v countko countkt len countko1 countkt1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 countkt1 len1)))
+(rule (=> (and (inv1 i N countko countkt len) (not (< i N)) (= k 2) (= v 2)(emplace k v countko countkt len countko1 countkt1 len1) (not (and (= countko1 N) (= countkt1 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 12
+Total Unique Test Cases Found: 73
+Total Internal Iterations: 1652
+  - Min: 3
+  - Max: 250
+  - Avg: 137.67
+pipeline.run() took 2.8899 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalLLMHornICE Multimap2
+PID: 607033
+========================================
+

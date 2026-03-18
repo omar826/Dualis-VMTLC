@@ -1,0 +1,2211 @@
+(declare-rel append (Int Int Int))
+(declare-rel fail ())
+(declare-rel inv (Int Int))
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(rule (=> (and (= C 1) (= B (- 129)) (= A 1)) (append C B A)))
+(rule (=> (and (= C 3) (= B 2) (= A 3)) (append C B A)))
+(rule (=> (and (= C 2) (= B (- 1)) (= A 2)) (append C B A)))
+(rule (=> (and (= C (- 1)) (= B (- 103)) (= A (- 1))) (append C B A)))
+(rule (=> (and (= C 0) (= B 127) (= A 127)) (append C B A)))
+(rule (=> (and (= C (- 49)) (= B 1) (= A 1)) (append C B A)))
+(rule (=> (and (= B (- 129)) (= A (- 129))) (inv B A)))
+(rule (=> (and (inv D C) (append A D B) (< C A)) (inv B A)))
+(rule (=> (and (inv D A) (append C D B) (not (< A C))) (inv B A)))
+(rule (=> (and (inv A B) (not (= B A))) fail))
+
+
+Read 10 rules and 1 queries (1)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+(declare-fun append (Int Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (= k!2 1) (= k!1 (- 129)) (= k!0 1)) (append k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(append k!2 k!1 k!0)
+
+ -- CHC
+(=> (and (= k!5 3) (= k!4 2) (= k!3 3)) (append k!5 k!4 k!3))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(append k!5 k!4 k!3)
+
+ -- CHC
+(=> (and (= k!8 2) (= k!7 (- 1)) (= k!6 2)) (append k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(append k!8 k!7 k!6)
+
+ -- CHC
+(=> (and (= k!11 (- 1)) (= k!10 (- 103)) (= k!9 (- 1))) (append k!11 k!10 k!9))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(append k!11 k!10 k!9)
+
+ -- CHC
+(=> (and (= k!14 0) (= k!13 127) (= k!12 127)) (append k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(append k!14 k!13 k!12)
+
+ -- CHC
+(=> (and (= k!17 (- 49)) (= k!16 1) (= k!15 1)) (append k!17 k!16 k!15))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(append k!17 k!16 k!15)
+
+ -- CHC
+(=> (and (= k!19 (- 129)) (= k!18 (- 129))) (inv k!19 k!18))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!19 k!18)
+
+ -- CHC
+(=> (and (inv k!23 k!22) (append k!20 k!23 k!21) (< k!22 k!20)) (inv k!21 k!20))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(append k!20 k!23 k!21)
+(inv k!23 k!22)
+ -- RHS
+(inv k!21 k!20)
+
+ -- CHC
+(=> (and (inv k!27 k!24) (append k!26 k!27 k!25) (not (< k!24 k!26)))
+    (inv k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(append k!26 k!27 k!25)
+(inv k!27 k!24)
+ -- RHS
+(inv k!25 k!24)
+
+ -- CHC
+(=> (and (inv k!28 k!29) (not (= k!29 k!28))) (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!28 k!29)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (= k!2 1) (= k!1 (- 129)) (= k!0 1)) (append k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(append k!2 k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (= k!5 3) (= k!4 2) (= k!3 3)) (append k!5 k!4 k!3))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(append k!5 k!4 k!3)
+
+chc ::  -- CHC
+(=> (and (= k!8 2) (= k!7 (- 1)) (= k!6 2)) (append k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(append k!8 k!7 k!6)
+
+chc ::  -- CHC
+(=> (and (= k!11 (- 1)) (= k!10 (- 103)) (= k!9 (- 1))) (append k!11 k!10 k!9))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(append k!11 k!10 k!9)
+
+chc ::  -- CHC
+(=> (and (= k!14 0) (= k!13 127) (= k!12 127)) (append k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(append k!14 k!13 k!12)
+
+chc ::  -- CHC
+(=> (and (= k!17 (- 49)) (= k!16 1) (= k!15 1)) (append k!17 k!16 k!15))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(append k!17 k!16 k!15)
+
+chc ::  -- CHC
+(=> (and (= k!19 (- 129)) (= k!18 (- 129))) (inv k!19 k!18))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!19 k!18)
+
+chc ::  -- CHC
+(=> (and (inv k!23 k!22) (append k!20 k!23 k!21) (< k!22 k!20)) (inv k!21 k!20))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(append k!20 k!23 k!21)
+(inv k!23 k!22)
+ -- RHS
+(inv k!21 k!20)
+
+chc ::  -- CHC
+(=> (and (inv k!27 k!24) (append k!26 k!27 k!25) (not (< k!24 k!26)))
+    (inv k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun append (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(append k!26 k!27 k!25)
+(inv k!27 k!24)
+ -- RHS
+(inv k!25 k!24)
+
+chc ::  -- CHC
+(=> (and (inv k!28 k!29) (not (= k!29 k!28))) (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!28 k!29)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun inv (Int Int) Bool)
+rel :: (declare-fun append (Int Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+(declare-fun append (Int Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun inv (Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun inv (Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv (Int Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : inv#0Int
+add_integer_attribute::Integer Attribute::inv#0
+Attribute Identifier : 3 attribute : inv#1Int
+add_integer_attribute::Integer Attribute::inv#1
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#1|
+add_integer_attribute::Integer Attribute::|inv#1|-|inv#0|
+learner_interface :: Relation : (declare-fun append (Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun append (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun append (Int Int Int) Bool) is mapped to baseval :  5
+Attribute Identifier : 6 attribute : append#0Int
+add_integer_attribute::Integer Attribute::append#0
+Attribute Identifier : 7 attribute : append#1Int
+add_integer_attribute::Integer Attribute::append#1
+Attribute Identifier : 8 attribute : append#2Int
+add_integer_attribute::Integer Attribute::append#2
+add_integer_attribute::Integer Attribute::|append#2|-|append#0|
+add_integer_attribute::Integer Attribute::|append#0|-|append#2|
+add_integer_attribute::Integer Attribute::|append#1|-|append#2|
+add_integer_attribute::Integer Attribute::|append#2|-|append#1|
+===========================================
+Learning Iteration: 0
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+true
+Printing all the counter examples : 1
+Counterexample: {fail@(true)} => {}
+Conjectures
+===========================================
+Learning Iteration: 1
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+Printing all the counter examples : 8
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Conjectures
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> true
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> true
+===========================================
+Learning Iteration: 2
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ true
+Printing all the counter examples : 9
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> false
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 3
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[4] <= 0
+  true
+  false
+ true
+Printing all the counter examples : 12
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 4
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  true
+  false
+ true
+Printing all the counter examples : 15
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (<= (- |inv#1| |inv#0|) 0)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 5
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -129
+  true
+  false
+ true
+Printing all the counter examples : 18
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (<= |inv#0| (- 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 6
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -129
+  true
+  false
+ true
+Printing all the counter examples : 20
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (<= |inv#0| (- 129))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 7
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  if x[4] <= 0
+   if x[3] <= 0
+    true
+    false
+   false
+  false
+ true
+Printing all the counter examples : 22
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (<= |inv#1| (- 129))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 8
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -128
+  if x[2] <= -129
+   if x[3] <= 0
+    true
+    false
+   false
+  false
+ true
+Printing all the counter examples : 25
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (<= (- |inv#1| |inv#0|) 0) (<= |inv#0| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 9
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[4] <= 0
+  if x[3] <= 0
+   true
+   if x[3] <= 1
+    false
+    true
+  false
+ if x[5] <= -49
+  true
+  if x[6] <= -1
+   if x[11] <= 1
+    false
+    if x[8] <= 0
+     true
+     false
+   if x[6] <= 0
+    false
+    true
+Printing all the counter examples : 28
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (<= |inv#1| (- 129)) (<= |inv#0| (- 128)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 10
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -2
+  if x[4] <= 0
+   if x[3] <= 0
+    true
+    false
+   false
+  false
+ if x[6] <= -1
+  if x[8] <= 0
+   true
+   false
+  true
+Printing all the counter examples : 30
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (or (and (<= (- |append#2| |append#0|) 0) (> (- |append#2| |append#1|) 1) (<= |append#1| (- 1))) (and (> |append#1| 0) (> |append#1| (- 1)))))) (or (<= |append#0| (- 49)) (and a!1 (> |append#0| (- 49)))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (let ((a!1 (or (<= (- |inv#0| |inv#1|) 0) (and (> (- |inv#0| |inv#1|) 1) (> (- |inv#0| |inv#1|) 0))))) (and a!1 (<= (- |inv#1| |inv#0|) 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 11
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -3
+  if x[4] <= 0
+   if x[3] <= 0
+    true
+    false
+   false
+  false
+ if x[10] <= -3
+  if x[8] <= 0
+   true
+   false
+  true
+Printing all the counter examples : 32
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (or (and (<= (- |append#2| |append#0|) 0) (<= |append#1| (- 1))) (> |append#1| (- 1)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (<= (- |inv#1| |inv#0|) 0) (<= |inv#0| (- 2)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 12
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -128
+  if x[1] <= -130
+   false
+   if x[2] <= -129
+    if x[3] <= 0
+     true
+     false
+    false
+  false
+ if x[6] <= -129
+  if x[5] <= 0
+   false
+   true
+  true
+Printing all the counter examples : 33
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (or (and (<= (- |append#2| |append#0|) 0) (<= (- |append#1| |append#2|) (- 3))) (> (- |append#1| |append#2|) (- 3)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (<= (- |inv#1| |inv#0|) 0) (<= |inv#0| (- 3)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 13
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -128
+  if x[1] <= -130
+   false
+   if x[2] <= -129
+    if x[3] <= 0
+     true
+     false
+    false
+  false
+ if x[6] <= -129
+  if x[8] <= 0
+   true
+   false
+  true
+Printing all the counter examples : 35
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (or (and (> |append#0| 0) (<= |append#1| (- 129))) (> |append#1| (- 129)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (<= |inv#1| (- 129)) (> |inv#0| (- 130)) (<= |inv#0| (- 128)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 14
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -128
+  if x[1] <= -130
+   false
+   if x[2] <= -129
+    if x[3] <= 0
+     true
+     false
+    false
+  false
+ if x[5] <= -129
+  false
+  if x[11] <= 102
+   true
+   if x[5] <= 0
+    false
+    if x[8] <= 0
+     true
+     false
+Printing all the counter examples : 36
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (or (and (<= (- |append#2| |append#0|) 0) (<= |append#1| (- 129))) (> |append#1| (- 129)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (<= |inv#1| (- 129)) (> |inv#0| (- 130)) (<= |inv#0| (- 128)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 15
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -128
+  if x[1] <= -130
+   false
+   if x[2] <= -129
+    if x[3] <= 0
+     true
+     false
+    false
+  false
+ if x[5] <= -129
+  false
+  if x[11] <= 102
+   true
+   if x[5] <= 0
+    false
+    if x[7] <= 0
+     false
+     if x[8] <= 0
+      true
+      false
+Printing all the counter examples : 37
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (or (<= (- |append#2| |append#1|) 102) (and (<= (- |append#2| |append#0|) 0) (> |append#0| 0) (> (- |append#2| |append#1|) 102))))) (and a!1 (> |append#0| (- 129))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (<= |inv#1| (- 129)) (> |inv#0| (- 130)) (<= |inv#0| (- 128)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 16
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[3] <= 0
+  if x[4] <= 0
+   true
+   false
+  false
+ if x[9] <= 0
+  if x[11] <= 3
+   if x[7] <= 0
+    false
+    true
+   if x[8] <= 0
+    true
+    false
+  false
+Printing all the counter examples : 39
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (or (<= (- |append#2| |append#1|) 102) (and (<= (- |append#2| |append#0|) 0) (> |append#2| 0) (> |append#0| 0) (> (- |append#2| |append#1|) 102))))) (and a!1 (> |append#0| (- 129))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (<= |inv#1| (- 129)) (> |inv#0| (- 130)) (<= |inv#0| (- 128)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 17
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[3] <= 0
+  if x[4] <= 0
+   true
+   false
+  false
+ if x[9] <= 0
+  if x[11] <= 3
+   if x[8] <= 2
+    if x[5] <= 1
+     false
+     true
+    true
+   if x[8] <= 0
+    true
+    false
+  false
+Printing all the counter examples : 41
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 3), inv(1, 1)} => {inv(3, 2)}
+Counterexample: {append(2, 3, 2), inv(3, 3)} => {inv(2, 3)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (or (and (> |append#2| 0) (<= (- |append#2| |append#1|) 3)) (and (<= (- |append#2| |append#0|) 0) (> (- |append#2| |append#1|) 3))))) (and a!1 (<= (- |append#0| |append#2|) 0)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#1| |inv#0|) 0) (<= (- |inv#0| |inv#1|) 0))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 18
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[3] <= 0
+  if x[4] <= 0
+   true
+   false
+  false
+ if x[9] <= 0
+  if x[8] <= 0
+   if x[10] <= -1
+    true
+    false
+   if x[11] <= 0
+    true
+    false
+  false
+Printing all the counter examples : 42
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 3), inv(1, 1)} => {inv(3, 2)}
+Counterexample: {append(2, 3, 2), inv(3, 3)} => {inv(2, 3)}
+Counterexample: {append((- 1), 1, 0), inv(1, 1)} => {inv(0, 1)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (or (and (> |append#0| 1) (<= (- |append#2| |append#0|) 2)) (> (- |append#2| |append#0|) 2)))) (let ((a!2 (or (and a!1 (<= (- |append#2| |append#1|) 3)) (and (<= (- |append#2| |append#0|) 0) (> (- |append#2| |append#1|) 3))))) (and a!2 (<= (- |append#0| |append#2|) 0))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#1| |inv#0|) 0) (<= (- |inv#0| |inv#1|) 0))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 19
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[3] <= 0
+  if x[4] <= 0
+   true
+   false
+  false
+ if x[7] <= 0
+  if x[7] <= -1
+   if x[11] <= 2
+    false
+    true
+   false
+  if x[7] <= 3
+   if x[8] <= 1
+    if x[8] <= 0
+     if x[10] <= -1
+      true
+      false
+     false
+    true
+   true
+Printing all the counter examples : 44
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 3), inv(1, 1)} => {inv(3, 2)}
+Counterexample: {append(2, 3, 2), inv(3, 3)} => {inv(2, 3)}
+Counterexample: {append((- 1), 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append(0, 2, 4), inv(2, 2)} => {inv(4, 2)}
+Counterexample: {append(5, 4, 4), inv(4, 4)} => {inv(4, 5)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (or (and (<= (- |append#1| |append#2|) (- 1)) (<= (- |append#2| |append#0|) 0)) (and (<= (- |append#2| |append#1|) 0) (> (- |append#2| |append#0|) 0))))) (and a!1 (<= (- |append#0| |append#2|) 0)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#1| |inv#0|) 0) (<= (- |inv#0| |inv#1|) 0))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 20
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 0
+  if x[1] <= -128
+   if x[1] <= -130
+    false
+    if x[2] <= -129
+     if x[3] <= 0
+      true
+      false
+     false
+   false
+  true
+ if x[5] <= -129
+  false
+  if x[7] <= 0
+   if x[7] <= -1
+    if x[10] <= -102
+     true
+     false
+    false
+   true
+Printing all the counter examples : 46
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 3), inv(1, 1)} => {inv(3, 2)}
+Counterexample: {append(2, 3, 2), inv(3, 3)} => {inv(2, 3)}
+Counterexample: {append((- 1), 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append(0, 2, 4), inv(2, 2)} => {inv(4, 2)}
+Counterexample: {append(5, 4, 4), inv(4, 4)} => {inv(4, 5)}
+Counterexample: {append(0, (- 129), (- 27)), inv((- 129), (- 129))} => {inv((- 27), 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (or (and (<= (- |append#1| |append#2|) (- 1)) (<= (- |append#2| |append#0|) 0) (<= (- |append#2| |append#0|) 1)) (> (- |append#2| |append#0|) 1)))) (let ((a!2 (and (or (and a!1 (<= |append#2| 3)) (> |append#2| 3)) (> |append#2| 0)))) (or (and (> (- |append#2| |append#1|) 2) (<= |append#2| (- 1)) (<= |append#2| 0)) a!2)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#1| |inv#0|) 0) (<= (- |inv#0| |inv#1|) 0))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 21
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -3
+  if x[4] <= 0
+   if x[3] <= 0
+    true
+    false
+   false
+  if x[1] <= 0
+   false
+   if x[3] <= 0
+    if x[2] <= 1
+     true
+     if x[2] <= 2
+      false
+      true
+    true
+ if x[7] <= 0
+  if x[7] <= -1
+   if x[7] <= -3
+    false
+    if x[11] <= 2
+     false
+     true
+   false
+  true
+Printing all the counter examples : 49
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 3), inv(1, 1)} => {inv(3, 2)}
+Counterexample: {append(2, 3, 2), inv(3, 3)} => {inv(2, 3)}
+Counterexample: {append((- 1), 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append(0, 2, 4), inv(2, 2)} => {inv(4, 2)}
+Counterexample: {append(5, 4, 4), inv(4, 4)} => {inv(4, 5)}
+Counterexample: {append(0, (- 129), (- 27)), inv((- 129), (- 129))} => {inv((- 27), 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Counterexample: {append(2, (- 3), 1), inv((- 3), (- 3))} => {inv(1, 2)}
+Counterexample: {inv(1, 3)} => {fail@(true)}
+Counterexample: {append(2, 3, 1), inv(3, 2)} => {inv(1, 2)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (or (and (<= (- |append#1| |append#2|) (- 102)) (<= |append#2| (- 1)) (<= |append#2| 0)) (> |append#2| 0)))) (and a!1 (> |append#0| (- 129))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (or (and (<= (- |inv#0| |inv#1|) 0) (<= |inv#1| (- 129)) (> |inv#0| (- 130)) (<= |inv#0| (- 128)) (<= |inv#0| 0)) (> |inv#0| 0))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 22
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -27
+  if x[4] <= 0
+   if x[3] <= 0
+    true
+    false
+   false
+  if x[1] <= 0
+   false
+   if x[2] <= 1
+    true
+    false
+ if x[7] <= 0
+  if x[7] <= -1
+   if x[7] <= -27
+    false
+    if x[7] <= -2
+     false
+     true
+   false
+  if x[7] <= 1
+   true
+   if x[8] <= 0
+    if x[9] <= 0
+     true
+     false
+    if x[5] <= 0
+     true
+     false
+Printing all the counter examples : 52
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 3), inv(1, 1)} => {inv(3, 2)}
+Counterexample: {append(2, 3, 2), inv(3, 3)} => {inv(2, 3)}
+Counterexample: {append((- 1), 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append(0, 2, 4), inv(2, 2)} => {inv(4, 2)}
+Counterexample: {append(5, 4, 4), inv(4, 4)} => {inv(4, 5)}
+Counterexample: {append(0, (- 129), (- 27)), inv((- 129), (- 129))} => {inv((- 27), 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Counterexample: {append(2, (- 3), 1), inv((- 3), (- 3))} => {inv(1, 2)}
+Counterexample: {inv(1, 3)} => {fail@(true)}
+Counterexample: {append(2, 3, 1), inv(3, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 1), inv(1, 1)} => {inv(1, 2)}
+Counterexample: {inv(1, 0)} => {fail@(true)}
+Counterexample: {append((- 27), (- 27), (- 1)), inv((- 27), (- 27))} => {inv((- 1), (- 27))}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (or (and (> (- |append#2| |append#1|) 2) (> |append#2| (- 3)) (<= |append#2| (- 1)) (<= |append#2| 0)) (> |append#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (let ((a!1 (and (or (<= |inv#1| 1) (and (> |inv#1| 2) (> |inv#1| 1))) (<= (- |inv#0| |inv#1|) 0)))) (let ((a!2 (and (or a!1 (> (- |inv#0| |inv#1|) 0)) (> |inv#0| 0) (> |inv#1| (- 3))))) (or (and (<= (- |inv#0| |inv#1|) 0) (<= (- |inv#1| |inv#0|) 0) (<= |inv#1| (- 3))) a!2)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 23
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  if x[4] <= 0
+   if x[3] <= 0
+    true
+    false
+   false
+  if x[1] <= 0
+   false
+   if x[4] <= 1
+    if x[3] <= 0
+     if x[2] <= 1
+      true
+      false
+     false
+    false
+ if x[9] <= 0
+  if x[8] <= 0
+   if x[11] <= 3
+    true
+    if x[5] <= -1
+     true
+     if x[5] <= 0
+      false
+      true
+   if x[8] <= 1
+    false
+    if x[11] <= 0
+     true
+     false
+  false
+Printing all the counter examples : 54
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 3), inv(1, 1)} => {inv(3, 2)}
+Counterexample: {append(2, 3, 2), inv(3, 3)} => {inv(2, 3)}
+Counterexample: {append((- 1), 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append(0, 2, 4), inv(2, 2)} => {inv(4, 2)}
+Counterexample: {append(5, 4, 4), inv(4, 4)} => {inv(4, 5)}
+Counterexample: {append(0, (- 129), (- 27)), inv((- 129), (- 129))} => {inv((- 27), 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Counterexample: {append(2, (- 3), 1), inv((- 3), (- 3))} => {inv(1, 2)}
+Counterexample: {inv(1, 3)} => {fail@(true)}
+Counterexample: {append(2, 3, 1), inv(3, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 1), inv(1, 1)} => {inv(1, 2)}
+Counterexample: {inv(1, 0)} => {fail@(true)}
+Counterexample: {append((- 27), (- 27), (- 1)), inv((- 27), (- 27))} => {inv((- 1), (- 27))}
+Counterexample: {append(5, 1, 5), inv(1, 1)} => {inv(5, 5)}
+Counterexample: {append(0, 1, 0), inv(1, 1)} => {inv(0, 1)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (or (and (<= (- |append#0| |append#2|) 0) (<= (- |append#2| |append#0|) 0)) (and (<= |append#0| 0) (> (- |append#2| |append#0|) 0))))) (let ((a!2 (and (or (<= |append#2| 1) (and a!1 (> |append#2| 1))) (> |append#2| 0)))) (or (and (> |append#2| (- 2)) (> |append#2| (- 27)) (<= |append#2| (- 1)) (<= |append#2| 0)) a!2)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (or (and (<= (- |inv#0| |inv#1|) 0) (<= (- |inv#1| |inv#0|) 0) (<= |inv#0| (- 27))) (and (<= |inv#1| 1) (> |inv#0| 0) (> |inv#0| (- 27))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 24
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -3
+  if x[4] <= 0
+   if x[3] <= 0
+    true
+    false
+   false
+  if x[4] <= 1
+   if x[2] <= 0
+    false
+    if x[4] <= 0
+     true
+     false
+   false
+ if x[9] <= 0
+  if x[10] <= 0
+   if x[8] <= 0
+    if x[5] <= 0
+     if x[5] <= -1
+      true
+      false
+     true
+    if x[11] <= 0
+     true
+     false
+   false
+  false
+Printing all the counter examples : 56
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 3), inv(1, 1)} => {inv(3, 2)}
+Counterexample: {append(2, 3, 2), inv(3, 3)} => {inv(2, 3)}
+Counterexample: {append((- 1), 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append(0, 2, 4), inv(2, 2)} => {inv(4, 2)}
+Counterexample: {append(5, 4, 4), inv(4, 4)} => {inv(4, 5)}
+Counterexample: {append(0, (- 129), (- 27)), inv((- 129), (- 129))} => {inv((- 27), 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Counterexample: {append(2, (- 3), 1), inv((- 3), (- 3))} => {inv(1, 2)}
+Counterexample: {inv(1, 3)} => {fail@(true)}
+Counterexample: {append(2, 3, 1), inv(3, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 1), inv(1, 1)} => {inv(1, 2)}
+Counterexample: {inv(1, 0)} => {fail@(true)}
+Counterexample: {append((- 27), (- 27), (- 1)), inv((- 27), (- 27))} => {inv((- 1), (- 27))}
+Counterexample: {append(5, 1, 5), inv(1, 1)} => {inv(5, 5)}
+Counterexample: {append(0, 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 4), (- 1)), inv((- 4), (- 4))} => {inv((- 1), (- 1))}
+Counterexample: {inv(2, 1)} => {fail@(true)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (and (or (<= |append#0| (- 1)) (and (> |append#0| 0) (> |append#0| (- 1)))) (> (- |append#2| |append#1|) 3)))) (let ((a!2 (and (or (<= (- |append#2| |append#1|) 3) a!1) (<= (- |append#2| |append#0|) 0)))) (let ((a!3 (or a!2 (and (<= (- |append#2| |append#1|) 0) (> (- |append#2| |append#0|) 1) (> (- |append#2| |append#0|) 0))))) (and a!3 (<= (- |append#0| |append#2|) 0)))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (or (and (<= (- |inv#0| |inv#1|) 0) (<= (- |inv#1| |inv#0|) 0) (<= |inv#0| (- 1))) (and (<= |inv#1| 1) (<= (- |inv#0| |inv#1|) 0) (<= (- |inv#1| |inv#0|) 1) (> |inv#0| 0) (> |inv#0| (- 1))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 25
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  if x[4] <= 0
+   if x[3] <= 0
+    true
+    false
+   false
+  if x[1] <= 0
+   false
+   if x[4] <= 1
+    if x[3] <= 0
+     if x[4] <= 0
+      true
+      false
+     false
+    false
+ if x[9] <= 0
+  if x[10] <= 0
+   if x[11] <= 3
+    if x[7] <= 0
+     false
+     if x[11] <= 1
+      true
+      if x[11] <= 2
+       false
+       true
+    if x[8] <= 0
+     if x[5] <= -1
+      true
+      if x[5] <= 0
+       false
+       true
+     false
+   false
+  false
+Printing all the counter examples : 58
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 3), inv(1, 1)} => {inv(3, 2)}
+Counterexample: {append(2, 3, 2), inv(3, 3)} => {inv(2, 3)}
+Counterexample: {append((- 1), 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append(0, 2, 4), inv(2, 2)} => {inv(4, 2)}
+Counterexample: {append(5, 4, 4), inv(4, 4)} => {inv(4, 5)}
+Counterexample: {append(0, (- 129), (- 27)), inv((- 129), (- 129))} => {inv((- 27), 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Counterexample: {append(2, (- 3), 1), inv((- 3), (- 3))} => {inv(1, 2)}
+Counterexample: {inv(1, 3)} => {fail@(true)}
+Counterexample: {append(2, 3, 1), inv(3, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 1), inv(1, 1)} => {inv(1, 2)}
+Counterexample: {inv(1, 0)} => {fail@(true)}
+Counterexample: {append((- 27), (- 27), (- 1)), inv((- 27), (- 27))} => {inv((- 1), (- 27))}
+Counterexample: {append(5, 1, 5), inv(1, 1)} => {inv(5, 5)}
+Counterexample: {append(0, 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 4), (- 1)), inv((- 4), (- 4))} => {inv((- 1), (- 1))}
+Counterexample: {inv(2, 1)} => {fail@(true)}
+Counterexample: {append(3, 1, 4), inv(1, 1)} => {inv(4, 3)}
+Counterexample: {append(1, 1, 4), inv(1, 1)} => {inv(4, 1)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (and (or (and (<= |append#0| (- 1)) (<= |append#0| 0)) (> |append#0| 0)) (<= (- |append#2| |append#0|) 0)))) (let ((a!2 (or a!1 (and (<= (- |append#2| |append#1|) 0) (> (- |append#2| |append#0|) 0))))) (and a!2 (<= (- |append#1| |append#2|) 0) (<= (- |append#0| |append#2|) 0))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (or (and (<= (- |inv#0| |inv#1|) 0) (<= (- |inv#1| |inv#0|) 0) (<= |inv#1| (- 3))) (and (<= (- |inv#1| |inv#0|) 0) (> |inv#1| 0) (<= (- |inv#1| |inv#0|) 1) (> |inv#1| (- 3))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 26
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  if x[4] <= 0
+   if x[3] <= 0
+    true
+    false
+   false
+  if x[1] <= 0
+   false
+   if x[4] <= 1
+    if x[2] <= 0
+     false
+     if x[1] <= 1
+      if x[4] <= 0
+       true
+       false
+      if x[1] <= 2
+       false
+       true
+    false
+ if x[9] <= 0
+  if x[10] <= 0
+   if x[11] <= 3
+    if x[7] <= 0
+     false
+     true
+    if x[8] <= 0
+     if x[5] <= -1
+      true
+      if x[5] <= 0
+       false
+       true
+     false
+   false
+  false
+Printing all the counter examples : 61
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 3), inv(1, 1)} => {inv(3, 2)}
+Counterexample: {append(2, 3, 2), inv(3, 3)} => {inv(2, 3)}
+Counterexample: {append((- 1), 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append(0, 2, 4), inv(2, 2)} => {inv(4, 2)}
+Counterexample: {append(5, 4, 4), inv(4, 4)} => {inv(4, 5)}
+Counterexample: {append(0, (- 129), (- 27)), inv((- 129), (- 129))} => {inv((- 27), 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Counterexample: {append(2, (- 3), 1), inv((- 3), (- 3))} => {inv(1, 2)}
+Counterexample: {inv(1, 3)} => {fail@(true)}
+Counterexample: {append(2, 3, 1), inv(3, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 1), inv(1, 1)} => {inv(1, 2)}
+Counterexample: {inv(1, 0)} => {fail@(true)}
+Counterexample: {append((- 27), (- 27), (- 1)), inv((- 27), (- 27))} => {inv((- 1), (- 27))}
+Counterexample: {append(5, 1, 5), inv(1, 1)} => {inv(5, 5)}
+Counterexample: {append(0, 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 4), (- 1)), inv((- 4), (- 4))} => {inv((- 1), (- 1))}
+Counterexample: {inv(2, 1)} => {fail@(true)}
+Counterexample: {append(3, 1, 4), inv(1, 1)} => {inv(4, 3)}
+Counterexample: {append(1, 1, 4), inv(1, 1)} => {inv(4, 1)}
+Counterexample: {append(2, 1, 2), inv(1, 1)} => {inv(2, 2)}
+Counterexample: {append((- 1), 1, 2), inv(1, 1)} => {inv(2, 1)}
+Counterexample: {inv(3, 4)} => {fail@(true)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (or (<= (- |append#2| |append#1|) 1) (and (> (- |append#2| |append#1|) 2) (> (- |append#2| |append#1|) 1)))) (a!2 (and (or (<= |append#0| (- 1)) (and (> |append#0| 0) (> |append#0| (- 1)))) (<= (- |append#2| |append#0|) 0) (> (- |append#2| |append#1|) 3)))) (let ((a!3 (or (and a!1 (> |append#2| 0) (<= (- |append#2| |append#1|) 3)) a!2))) (and a!3 (<= (- |append#1| |append#2|) 0) (<= (- |append#0| |append#2|) 0))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (or (and (<= (- |inv#0| |inv#1|) 0) (<= (- |inv#1| |inv#0|) 0) (<= |inv#0| (- 1))) (and (<= (- |inv#1| |inv#0|) 0) (<= (- |inv#0| |inv#1|) 0) (<= (- |inv#1| |inv#0|) 1) (> |inv#0| 0) (> |inv#0| (- 1))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 27
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 1
+  if x[3] <= 0
+   if x[4] <= 0
+    true
+    false
+   false
+  false
+ if x[9] <= 0
+  if x[8] <= 3
+   if x[8] <= 0
+    if x[11] <= 4
+     if x[6] <= -1
+      true
+      if x[6] <= 1
+       false
+       true
+     true
+    false
+   if x[11] <= 0
+    true
+    false
+  false
+Printing all the counter examples : 63
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 3), inv(1, 1)} => {inv(3, 2)}
+Counterexample: {append(2, 3, 2), inv(3, 3)} => {inv(2, 3)}
+Counterexample: {append((- 1), 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append(0, 2, 4), inv(2, 2)} => {inv(4, 2)}
+Counterexample: {append(5, 4, 4), inv(4, 4)} => {inv(4, 5)}
+Counterexample: {append(0, (- 129), (- 27)), inv((- 129), (- 129))} => {inv((- 27), 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Counterexample: {append(2, (- 3), 1), inv((- 3), (- 3))} => {inv(1, 2)}
+Counterexample: {inv(1, 3)} => {fail@(true)}
+Counterexample: {append(2, 3, 1), inv(3, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 1), inv(1, 1)} => {inv(1, 2)}
+Counterexample: {inv(1, 0)} => {fail@(true)}
+Counterexample: {append((- 27), (- 27), (- 1)), inv((- 27), (- 27))} => {inv((- 1), (- 27))}
+Counterexample: {append(5, 1, 5), inv(1, 1)} => {inv(5, 5)}
+Counterexample: {append(0, 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 4), (- 1)), inv((- 4), (- 4))} => {inv((- 1), (- 1))}
+Counterexample: {inv(2, 1)} => {fail@(true)}
+Counterexample: {append(3, 1, 4), inv(1, 1)} => {inv(4, 3)}
+Counterexample: {append(1, 1, 4), inv(1, 1)} => {inv(4, 1)}
+Counterexample: {append(2, 1, 2), inv(1, 1)} => {inv(2, 2)}
+Counterexample: {append((- 1), 1, 2), inv(1, 1)} => {inv(2, 1)}
+Counterexample: {inv(3, 4)} => {fail@(true)}
+Counterexample: {append(2, (- 1), 2), inv((- 1), (- 1))} => {inv(2, 2)}
+Counterexample: {append((- 2), (- 1), (- 2)), inv((- 1), (- 1))} => {inv((- 2), (- 1))}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (and (or (<= |append#0| (- 1)) (and (> |append#0| 0) (> |append#0| (- 1)))) (<= (- |append#2| |append#0|) 0) (> (- |append#2| |append#1|) 3)))) (let ((a!2 (or (and (> |append#2| 0) (<= (- |append#2| |append#1|) 3)) a!1))) (and a!2 (<= (- |append#1| |append#2|) 0) (<= (- |append#0| |append#2|) 0))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (let ((a!1 (or (and (<= (- |inv#1| |inv#0|) 0) (<= |inv#0| 1)) (and (> |inv#0| 2) (> |inv#0| 1))))) (or (and (<= (- |inv#0| |inv#1|) 0) (<= (- |inv#1| |inv#0|) 0) (<= |inv#0| (- 1))) (and a!1 (> |inv#1| 0) (<= (- |inv#1| |inv#0|) 1) (> |inv#0| 0) (> |inv#0| (- 1)))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 28
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -4
+  if x[4] <= 0
+   if x[3] <= 0
+    true
+    false
+   false
+  if x[2] <= 2
+   if x[2] <= 0
+    false
+    if x[2] <= 1
+     if x[1] <= 0
+      false
+      if x[3] <= 0
+       true
+       false
+     false
+   false
+ if x[9] <= 0
+  if x[10] <= 0
+   if x[8] <= 3
+    if x[8] <= 0
+     if x[11] <= 4
+      if x[6] <= 1
+       if x[6] <= -1
+        if x[6] <= -4
+         false
+         true
+        false
+       true
+      if x[5] <= -1
+       true
+       if x[5] <= 0
+        false
+        true
+     false
+    if x[11] <= 0
+     true
+     false
+   false
+  false
+Printing all the counter examples : 64
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 3), inv(1, 1)} => {inv(3, 2)}
+Counterexample: {append(2, 3, 2), inv(3, 3)} => {inv(2, 3)}
+Counterexample: {append((- 1), 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append(0, 2, 4), inv(2, 2)} => {inv(4, 2)}
+Counterexample: {append(5, 4, 4), inv(4, 4)} => {inv(4, 5)}
+Counterexample: {append(0, (- 129), (- 27)), inv((- 129), (- 129))} => {inv((- 27), 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Counterexample: {append(2, (- 3), 1), inv((- 3), (- 3))} => {inv(1, 2)}
+Counterexample: {inv(1, 3)} => {fail@(true)}
+Counterexample: {append(2, 3, 1), inv(3, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 1), inv(1, 1)} => {inv(1, 2)}
+Counterexample: {inv(1, 0)} => {fail@(true)}
+Counterexample: {append((- 27), (- 27), (- 1)), inv((- 27), (- 27))} => {inv((- 1), (- 27))}
+Counterexample: {append(5, 1, 5), inv(1, 1)} => {inv(5, 5)}
+Counterexample: {append(0, 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 4), (- 1)), inv((- 4), (- 4))} => {inv((- 1), (- 1))}
+Counterexample: {inv(2, 1)} => {fail@(true)}
+Counterexample: {append(3, 1, 4), inv(1, 1)} => {inv(4, 3)}
+Counterexample: {append(1, 1, 4), inv(1, 1)} => {inv(4, 1)}
+Counterexample: {append(2, 1, 2), inv(1, 1)} => {inv(2, 2)}
+Counterexample: {append((- 1), 1, 2), inv(1, 1)} => {inv(2, 1)}
+Counterexample: {inv(3, 4)} => {fail@(true)}
+Counterexample: {append(2, (- 1), 2), inv((- 1), (- 1))} => {inv(2, 2)}
+Counterexample: {append((- 2), (- 1), (- 2)), inv((- 1), (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {append(3, (- 4), 3), inv((- 4), (- 4))} => {inv(3, 3)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (and (or (<= |append#1| (- 1)) (and (> |append#1| 1) (> |append#1| (- 1)))) (<= (- |append#2| |append#1|) 4)))) (let ((a!2 (and (or a!1 (> (- |append#2| |append#1|) 4)) (<= (- |append#2| |append#0|) 0) (<= (- |append#2| |append#0|) 3)))) (let ((a!3 (or a!2 (and (<= (- |append#2| |append#1|) 0) (> (- |append#2| |append#0|) 3))))) (and a!3 (<= (- |append#0| |append#2|) 0)))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#1| |inv#0|) 0) (<= (- |inv#0| |inv#1|) 0) (<= |inv#1| 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 29
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[4] <= 1
+  if x[3] <= 0
+   if x[4] <= 0
+    true
+    false
+   false
+  false
+ if x[9] <= 0
+  if x[10] <= 0
+   if x[8] <= 0
+    true
+    if x[11] <= 0
+     true
+     false
+   false
+  false
+Printing all the counter examples : 64
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {append(1, (- 129), 1)}
+Counterexample: {} => {append(3, 2, 3)}
+Counterexample: {} => {append(2, (- 1), 2)}
+Counterexample: {} => {append((- 1), (- 103), (- 1))}
+Counterexample: {} => {append(0, 127, 127)}
+Counterexample: {} => {append((- 49), 1, 1)}
+Counterexample: {} => {inv((- 129), (- 129))}
+Counterexample: {inv(0, 1)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {append(1, 0, 0), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {append(0, 0, (- 1)), inv(0, 0)} => {inv((- 1), 0)}
+Counterexample: {inv((- 1), 0)} => {fail@(true)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), 0)} => {inv(0, 1)}
+Counterexample: {append(0, (- 1), 0), inv((- 1), 0)} => {inv(0, 0)}
+Counterexample: {inv((- 129), (- 128))} => {fail@(true)}
+Counterexample: {append(1, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 1)}
+Counterexample: {append(0, (- 129), (- 128)), inv((- 129), 0)} => {inv((- 128), 0)}
+Counterexample: {inv((- 128), (- 129))} => {fail@(true)}
+Counterexample: {append(0, 0, 0), inv(0, (- 129))} => {inv(0, 0)}
+Counterexample: {append(1, (- 1), 0), inv((- 1), (- 1))} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 1), 0), inv((- 1), (- 1))} => {inv(0, (- 1))}
+Counterexample: {append(0, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 0)}
+Counterexample: {append((- 129), (- 129), 0), inv((- 129), (- 129))} => {inv(0, (- 129))}
+Counterexample: {inv((- 130), (- 129))} => {fail@(true)}
+Counterexample: {append(4, 1, 3), inv(1, (- 1))} => {inv(3, 4)}
+Counterexample: {append((- 3), 1, (- 2)), inv(1, (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {inv(0, (- 2))} => {fail@(true)}
+Counterexample: {append(0, (- 2), (- 1)), inv((- 2), (- 2))} => {inv((- 1), 0)}
+Counterexample: {append((- 2), (- 2), (- 3)), inv((- 2), (- 2))} => {inv((- 3), (- 2))}
+Counterexample: {append(0, (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), 0)}
+Counterexample: {append((- 3), (- 3), (- 1)), inv((- 3), (- 3))} => {inv((- 1), (- 3))}
+Counterexample: {append(1, (- 129), 2), inv((- 129), (- 129))} => {inv(2, 1)}
+Counterexample: {append(0, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 0)}
+Counterexample: {append((- 129), (- 129), (- 130)), inv((- 129), (- 129))} => {inv((- 130), (- 129))}
+Counterexample: {append(1, (- 129), 0), inv((- 129), (- 129))} => {inv(0, 1)}
+Counterexample: {append(1, (- 129), 1), inv((- 129), (- 129))} => {inv(1, 1)}
+Counterexample: {append(1, 0, 2), inv(0, 0)} => {inv(2, 1)}
+Counterexample: {append(1, 2, 1), inv(2, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 3), inv(1, 1)} => {inv(3, 2)}
+Counterexample: {append(2, 3, 2), inv(3, 3)} => {inv(2, 3)}
+Counterexample: {append((- 1), 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append(0, 2, 4), inv(2, 2)} => {inv(4, 2)}
+Counterexample: {append(5, 4, 4), inv(4, 4)} => {inv(4, 5)}
+Counterexample: {append(0, (- 129), (- 27)), inv((- 129), (- 129))} => {inv((- 27), 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Counterexample: {append(2, (- 3), 1), inv((- 3), (- 3))} => {inv(1, 2)}
+Counterexample: {inv(1, 3)} => {fail@(true)}
+Counterexample: {append(2, 3, 1), inv(3, 2)} => {inv(1, 2)}
+Counterexample: {append(2, 1, 1), inv(1, 1)} => {inv(1, 2)}
+Counterexample: {inv(1, 0)} => {fail@(true)}
+Counterexample: {append((- 27), (- 27), (- 1)), inv((- 27), (- 27))} => {inv((- 1), (- 27))}
+Counterexample: {append(5, 1, 5), inv(1, 1)} => {inv(5, 5)}
+Counterexample: {append(0, 1, 0), inv(1, 1)} => {inv(0, 1)}
+Counterexample: {append((- 1), (- 4), (- 1)), inv((- 4), (- 4))} => {inv((- 1), (- 1))}
+Counterexample: {inv(2, 1)} => {fail@(true)}
+Counterexample: {append(3, 1, 4), inv(1, 1)} => {inv(4, 3)}
+Counterexample: {append(1, 1, 4), inv(1, 1)} => {inv(4, 1)}
+Counterexample: {append(2, 1, 2), inv(1, 1)} => {inv(2, 2)}
+Counterexample: {append((- 1), 1, 2), inv(1, 1)} => {inv(2, 1)}
+Counterexample: {inv(3, 4)} => {fail@(true)}
+Counterexample: {append(2, (- 1), 2), inv((- 1), (- 1))} => {inv(2, 2)}
+Counterexample: {append((- 2), (- 1), (- 2)), inv((- 1), (- 1))} => {inv((- 2), (- 1))}
+Counterexample: {append(3, (- 4), 3), inv((- 4), (- 4))} => {inv(3, 3)}
+Conjectures
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (and (or (and (> |append#1| (- 4)) (<= |append#1| (- 1)) (<= |append#1| 1)) (> |append#1| 1)) (<= (- |append#2| |append#1|) 4))) (a!2 (and (or (<= |append#0| (- 1)) (and (> |append#0| 0) (> |append#0| (- 1)))) (> (- |append#2| |append#1|) 4)))) (let ((a!3 (or (and (or a!1 a!2) (<= (- |append#2| |append#0|) 0) (<= (- |append#2| |append#0|) 3)) (and (<= (- |append#2| |append#1|) 0) (> (- |append#2| |append#0|) 3))))) (and a!3 (<= (- |append#1| |append#2|) 0) (<= (- |append#0| |append#2|) 0))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (or (and (<= (- |inv#0| |inv#1|) 0) (<= (- |inv#1| |inv#0|) 0) (<= |inv#0| (- 4))) (and (<= (- |inv#0| |inv#1|) 0) (> |inv#0| 0) (<= |inv#1| 1) (> |inv#1| 0) (<= |inv#1| 2) (> |inv#0| (- 4))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+In Naive Check
+Success (checked 254 CHCs, invoked learner 30 times)
+(declare-fun append (Int Int Int) Bool) => [|append#0|, |append#1|, |append#2|] -> (let ((a!1 (or (<= (- |append#2| |append#0|) 0) (and (<= (- |append#2| |append#1|) 0) (> (- |append#2| |append#0|) 0))))) (and a!1 (<= (- |append#1| |append#2|) 0) (<= (- |append#0| |append#2|) 0)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#1| |inv#0|) 0) (<= (- |inv#0| |inv#1|) 0) (<= (- |inv#1| |inv#0|) 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 2(declare-fun inv (Int Int) Bool)inv
+Relation : 3(declare-fun append (Int Int Int) Bool)append
+Final CHCs read
+CHC : (fail@ true)
+CHC : (append k!20 k!23 k!21)
+CHC : (inv k!23 k!22)
+CHC : (append k!26 k!27 k!25)
+CHC : (inv k!27 k!24)
+CHC : (inv k!28 k!29)
+Total time: 4.14

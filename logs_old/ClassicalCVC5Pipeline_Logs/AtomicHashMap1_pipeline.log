@@ -1,0 +1,211 @@
+
+========================================
+         Starting Pipeline for: AtomicHashMap1 (Mode: ClassicalCVC5)
+========================================
+Initializing pipeline for benchmark: 'AtomicHashMap1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/AtomicHashMap1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+Total External Iterations: 0
+Total Unique Test Cases Found: 0
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/AtomicHashMap1/AtomicHashMap1.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_1.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/AtomicHashMap1/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/AtomicHashMap1/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 12 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:2,execs:68,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000001,time:12,execs:247,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000001,time:6,execs:107,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000001,time:4,execs:91,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000001,time:4,execs:93,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000001,time:9,execs:183,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000011,sig:06,src:000001,time:1463,execs:529,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000001,time:3,execs:90,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:1,execs:67,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:2,execs:79,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:3,execs:88,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000001,time:11,execs:218,op:havoc,rep:11
+Checking queue
+   -> Found 77 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:32,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+       -> Found and validated 48 new constraints.
+   -> Writing new specs to harness: find_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/AtomicHashMap1/find_fuzz.cpp'.
+   -> Starting AFL++(find_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/AtomicHashMap1/find_fuzz
+   -> AFL++(find_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 11 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000000,time:5336,execs:103,op:havoc,rep:15
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:2445,execs:77,op:havoc,rep:13
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:766,execs:35,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:580,execs:33,op:havoc,rep:15
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:2137,execs:71,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000000,time:5178,execs:102,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:1614,execs:44,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:396,execs:32,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:918,execs:37,op:havoc,rep:14
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:206,execs:30,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1265,execs:42,op:havoc,rep:10
+Checking queue
+   -> Found 11 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2ins
+Checking hangs
+   -> Converting counterexamples for 'find'...
+       -> Found and validated 25 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (v <= k)
+  find: (ret1 == kveq)
+  inv1: (len == i)
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun insert ((k Int) (v Int) (len Int) (min Int) (max Int) (kveq Int) (len1 Int) (min1 Int) (max1 Int) (kveq1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int (k v len min max kveq len1 min1 max1 kveq1 (+ Expr Expr) (- Expr Expr)))))
+(synth-fun find ((k Int) (len Int) (min Int) (max Int) (kveq Int) (ret1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int (k len min max kveq ret1 (+ Expr Expr) (- Expr Expr)))))
+(synth-fun inv1 ((i Int) (N Int) (len Int) (min Int) (max Int) (kveq Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int (i N len min max kveq (+ Expr Expr) (- Expr Expr)))))
+
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var len2 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var min2 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var max2 Int)
+(declare-var kveq Int)
+(declare-var kveq1 Int)
+(declare-var kveq2 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-var v1 Int)
+(declare-var ret1 Int)
+
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(constraint (insert (- 1) (- 30) 4 (- 19) 58 0 4 (- 19) 58 0))
+(constraint (insert (- 1) (- 36) 2 (- 1) 14 0 2 (- 1) 14 0))
+(constraint (insert 1 (- 1) 2 0 21 0 3 0 21 0))
+(constraint (insert 0 (- 96) 1 28 28 1 2 0 28 0))
+(constraint (insert (- 1) (- 41) 2 0 8 0 3 (- 1) 8 0))
+(constraint (insert 0 (- 1) 0 128 (- 129) 1 1 0 0 0))
+(constraint (insert 0 (- 29) 3 (- 7) 1 0 3 (- 7) 1 0))
+(constraint (insert (- 1) (- 6) 1 (- 1) (- 1) 0 1 (- 1) (- 1) 0))
+(constraint (insert 14 (- 1) 2 26 46 0 3 14 46 0))
+(constraint (insert (- 1) (- 2) 1 (- 1) (- 1) 1 1 (- 1) (- 1) 1))
+(constraint (insert 0 7 1 (- 1) (- 1) 0 2 (- 1) 0 0))
+(constraint (insert (- 31) 127 2 (- 31) 0 0 2 (- 31) 0 0))
+(constraint (insert 119 118 2 1 119 0 2 1 119 0))
+(constraint (insert 50 50 0 128 (- 129) 1 1 50 50 1))
+(constraint (insert (- 1) 45 2 (- 1) 0 0 2 (- 1) 0 0))
+(constraint (insert 119 119 0 128 (- 129) 1 1 119 119 1))
+(constraint (insert 0 3 0 128 (- 129) 1 1 0 0 0))
+(constraint (insert 0 5 1 12 12 0 2 0 12 0))
+(constraint (insert 0 32 1 (- 1) (- 1) 1 2 (- 1) 0 0))
+(constraint (insert 63 0 3 (- 39) 85 0 3 (- 39) 85 0))
+(constraint (insert (- 128) 0 2 (- 1) 19 0 3 (- 128) 19 0))
+(constraint (insert (- 1) 0 1 (- 1) (- 1) 1 1 (- 1) (- 1) 1))
+(constraint (insert 19 0 2 0 19 0 2 0 19 0))
+(constraint (insert 100 0 0 128 (- 129) 1 1 100 100 0))
+(constraint (insert (- 117) 0 1 (- 117) (- 117) 1 1 (- 117) (- 117) 1))
+(constraint (insert 0 0 0 128 (- 129) 1 1 0 0 1))
+(constraint (insert 0 0 1 (- 1) (- 1) 1 2 (- 1) 0 1))
+(constraint (insert 0 0 2 (- 1) 0 0 2 (- 1) 0 0))
+(constraint (insert (- 1) 1 1 (- 1) (- 1) 1 1 (- 1) (- 1) 1))
+(constraint (insert (- 21) 1 1 (- 21) (- 21) 0 1 (- 21) (- 21) 0))
+(constraint (insert 0 1 0 128 (- 129) 1 1 0 0 0))
+(constraint (insert 23 1 1 0 0 1 2 0 23 0))
+(constraint (insert 1 1 2 0 34 0 3 0 34 0))
+(constraint (insert (- 1) 1 2 (- 1) 1 0 2 (- 1) 1 0))
+(constraint (insert (- 1) 1 1 4 4 0 2 (- 1) 4 0))
+(constraint (insert (- 29) 1 4 (- 1) 31 0 5 (- 29) 31 0))
+(constraint (insert 1 25 2 2 25 0 3 1 25 0))
+(constraint (insert 0 64 3 (- 1) 17 0 4 (- 1) 17 0))
+(constraint (insert (- 78) 1 3 (- 104) 50 0 3 (- 104) 50 0))
+(constraint (insert 1 36 1 (- 33) (- 33) 0 2 (- 33) 1 0))
+(constraint (insert (- 34) (- 1) 0 128 (- 129) 1 1 (- 34) (- 34) 0))
+(constraint (insert (- 1) 0 4 (- 1) 60 0 4 (- 1) 60 0))
+(constraint (insert (- 1) 1 3 (- 1) 116 1 3 (- 1) 116 1))
+(constraint (insert (- 29) 11 2 1 14 0 3 (- 29) 14 0))
+(constraint (insert (- 1) 9 1 0 0 0 2 (- 1) 0 0))
+(constraint (insert (- 7) (- 1) 2 (- 7) (- 1) 0 2 (- 7) (- 1) 0))
+(constraint (insert 0 127 1 12 12 0 2 0 12 0))
+(constraint (insert 0 39 1 (- 1) (- 1) 1 2 (- 1) 0 0))
+(constraint (find (- 1) 1 0 0 0 128))
+(constraint (find (- 1) 1 (- 1) (- 1) 0 2))
+(constraint (find (- 1) 1 (- 1) (- 1) 1 (- 1)))
+(constraint (find (- 1) 0 128 (- 129) 1 128))
+(constraint (find (- 1) 2 (- 126) (- 1) 0 2))
+(constraint (find (- 1) 1 (- 1) (- 1) 0 1))
+(constraint (find 2 0 128 (- 129) 1 128))
+(constraint (find (- 1) 2 (- 1) 67 0 2))
+(constraint (find (- 1) 1 1 1 0 128))
+(constraint (find 0 3 (- 128) 127 0 128))
+(constraint (find 0 2 (- 1) 1 0 128))
+(constraint (find 0 0 128 (- 129) 1 128))
+(constraint (find 0 3 (- 128) (- 23) 0 128))
+(constraint (find 0 1 (- 1) (- 1) 1 128))
+(constraint (find 0 2 (- 1) 0 1 0))
+(constraint (find 0 2 (- 128) (- 1) 0 128))
+(constraint (find (- 98) 3 0 127 0 128))
+(constraint (find (- 6) 0 128 (- 129) 1 128))
+(constraint (find (- 2) 2 (- 113) (- 5) 1 128))
+(constraint (find 2 1 0 0 0 128))
+(constraint (find (- 28) 1 18 18 0 128))
+(constraint (find 64 1 0 0 0 128))
+(constraint (find (- 94) 2 (- 1) 0 0 128))
+(constraint (find (- 3) 1 (- 94) (- 94) 1 128))
+(constraint (find (- 1) 4 (- 83) 82 0 128))
+
+(constraint (=> (and (> N 0) (= len 0) (= i 0) (= min MAX) (= max MIN) (= kveq 1)) (inv1 i N len min max kveq)))
+(constraint (=> (and (inv1 i N len min max kveq) (is_valid kveq) (< i N) (= k i) (= v i) (insert k v len min max kveq len1 min1 max1 kveq1) (is_valid kveq1) (= v1 (+ i 1)) (insert k v1 len1 min1 max1 kveq1 len2 min2 max2 kveq2) (= i1 (+ i 1))) (inv1 i1 N len2 min2 max2 kveq2)))
+(constraint (=> (and (inv1 i N len min max kveq) (is_valid kveq) (not (< i N)) (<= 0 k) (< k N) (find k len min max kveq ret1)) (and (not (= ret1 MAX)) (not (= ret1 MIN)))))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/AtomicHashMap1/AtomicHashMap1.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_2.log
+   -> ERROR: CVC5 timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 2
+Total Unique Test Cases Found: 73
+pipeline.run() took 0.2004 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalCVC5 AtomicHashMap1
+PID: 22
+========================================
+
+
+Total Pipeline Duration: 1048.37s

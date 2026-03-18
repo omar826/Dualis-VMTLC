@@ -1,0 +1,137 @@
+
+========================================
+         Starting Pipeline for: NormalFilterQueue (Mode: ClassicalCVC5)
+========================================
+Initializing pipeline for benchmark: 'NormalFilterQueue'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/NormalFilterQueue/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+Total External Iterations: 0
+Total Unique Test Cases Found: 0
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/NormalFilterQueue/NormalFilterQueue.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_1.log
+   -> CVC5 completed successfully.
+   -> Writing new specs to harness: append_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/NormalFilterQueue/append_fuzz.cpp'.
+   -> Starting AFL++(append_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/NormalFilterQueue/append_fuzz
+   -> AFL++(append_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 6 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000002,time:286,execs:2042,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000002,time:1520,execs:4295,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000002,time:2098,execs:5933,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000002,time:2454,execs:7157,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000002,time:713,execs:2581,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000002,time:509,execs:2420,op:havoc,rep:8
+Checking queue
+   -> Found 56 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,src:000002,time:1,execs:26,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'append'...
+       -> Found and validated 9 new constraints.
+   -> Writing new specs to harness: processQueue_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/NormalFilterQueue/processQueue_fuzz.cpp'.
+   -> Starting AFL++(processQueue_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/NormalFilterQueue/processQueue_fuzz
+   -> ERROR: AFL++(processQueue_fuzz) failed with exit code 1.
+      AFL++ Error Output:
+[1;92m[+] [0mEnabled environment variable AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_NO_UI with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_CMPLOG_ONLY_NEW with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_DEBUG_CHILD with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_IGNORE_PROBLEMS with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_SKIP_CPUFREQ with value 1[0m
+[1;94m[*] [0mSpinning up the fork server...[0m
+[1;92m[+] [0mAll right - new fork server model v1 is up.[0m
+[1;94m[*] [0mTarget map size: 373[0m
+processQueue_fuzz: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/NormalFilterQueue/processQueue_fuzz.cpp:26: int main(int, char **): Assertion `expr' failed.
+processQueue_fuzz: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/NormalFilterQueue/processQueue_fuzz.cpp:26: int main(int, char **): Assertion `expr' failed.
+queue is empty!
+queue is empty!
+queue is empty!
+queue is empty!
+processQueue_fuzz: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/NormalFilterQueue/processQueue_fuzz.cpp:26: int main(int, char **): Assertion `expr' failed.
+
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:apppq
+   -> CRASH REPRODUCED with id:000002,time:0,execs:0,orig:pqpq
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:appapp
+Checking hangs
+   -> Converting counterexamples for 'processQueue'...
+       -> Found and validated 2 new constraints.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: (!(minPacketSize1 == len1))
+  processQueue: ((len + len1) == minPacketSize)
+  inv: (!(minPacketSize == len))
+
+--- New Test Cases Found ---
+
+--- Updated SYGUS (for next iteration) ---
+(set-logic LIA)
+
+(synth-fun append ((prio Int) (packetSize Int) (len Int) (maxPrio Int) (minPacketSize Int) (len1 Int) (maxPrio1 Int) (minPacketSize1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) prio packetSize len maxPrio minPacketSize len1 maxPrio1 minPacketSize1))))
+(synth-fun processQueue ((len Int) (maxPrio Int) (minPacketSize Int) (len1 Int) (maxPrio1 Int) (minPacketSize1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) len maxPrio minPacketSize len1 maxPrio1 minPacketSize1))))
+(synth-fun inv ((len Int) (maxPrio Int) (minPacketSize Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) len maxPrio minPacketSize))))
+
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var maxPrio Int)
+(declare-var maxPrio1 Int)
+(declare-var minPacketSize Int)
+(declare-var minPacketSize1 Int)
+(declare-var packetSize Int)
+(declare-var prio Int)
+
+(constraint (append 50 10 1 92 120 2 92 10))
+(constraint (append 50 10 0 (- 1) (- 1) 1 50 10))
+(constraint (append 49 10 1 92 120 2 92 10))
+(constraint (append 0 2 1 92 120 2 92 2))
+(constraint (append 50 50 3 110 4 4 110 4))
+(constraint (append 4 4 3 4 4 4 4 4))
+(constraint (append 120 48 3 4 4 4 120 4))
+(constraint (append 0 1 0 (- 1) (- 1) 1 0 1))
+(constraint (append 48 77 2 101 3 3 101 3))
+(constraint (processQueue 1 92 120 1 92 120))
+(constraint (processQueue 0 (- 1) (- 1) 0 (- 1) (- 1)))
+
+(constraint (=> (and (= len 0) (= maxPrio -1) (= minPacketSize -1)) (inv len maxPrio minPacketSize)))
+(constraint (=> (and (inv len maxPrio minPacketSize) (= prio 0) (>= packetSize 500) (append prio packetSize len maxPrio minPacketSize len1 maxPrio1 minPacketSize1)) (inv len1 maxPrio1 minPacketSize1)))
+(constraint (=> (and (inv len maxPrio minPacketSize) (not (and (= prio 0) (>= packetSize 500)))) (inv len maxPrio minPacketSize)))
+(constraint (=> (and (inv len maxPrio minPacketSize) (processQueue len maxPrio minPacketSize len1 maxPrio1 minPacketSize1)) (=> (= len1 0) (and (= maxPrio1 -1) (= minPacketSize1 -1)))))
+
+(check-synth)
+==============================================================
+   -> Checking if specs have changed...
+      -> SYGUS files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing SYGUS file: /Dualis/scripts/../benchmarks/ClassicalCVC5_working_temp/NormalFilterQueue/NormalFilterQueue.sy
+   -> Starting CVC5 with a 1000-second timeout...
+      -> Logging CVC5 output to iter_2.log
+   -> ERROR: CVC5 timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 2
+Total Unique Test Cases Found: 11
+pipeline.run() took 0.1666 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalCVC5 NormalFilterQueue
+PID: 19
+========================================
+
+
+Total Pipeline Duration: 1027.44s
