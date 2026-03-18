@@ -1,0 +1,336 @@
+
+========================================
+         Starting Pipeline for: ProcessQueue (Mode: ClassicalLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'ProcessQueue'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/ProcessQueue/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/ProcessQueue.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 5 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 7 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:4694,execs:464,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:1993,execs:144,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:8829,execs:758,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:12575,execs:1069,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:252,execs:40,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:449,execs:52,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:665,execs:66,op:havoc,rep:2
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 7 new rules.
+   -> Writing new specs to harness: choosenext_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/choosenext_fuzz.cpp'.
+   -> Starting AFL++(choosenext_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/choosenext_fuzz
+   -> AFL++(choosenext_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 9 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:780,execs:22,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:583,execs:20,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1017,execs:23,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:201,execs:17,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1180,execs:25,op:havoc,rep:14
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:9532,execs:109,op:havoc,rep:15
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:3967,execs:53,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:2111,execs:37,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:385,execs:19,op:havoc,rep:9
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,time:0,execs:0,orig:pushpop
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2push
+   -> CRASH REPRODUCED with id:000002,time:0,execs:0,orig:poppush
+Checking hangs
+   -> Converting counterexamples for 'choosenext'...
+      -> Found and validated 7 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv: (len <= 0)
+  insert: (false)
+  choosenext: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-rel inv (Int Int Int))
+(declare-rel insert (Int Int Int Int Int))
+(declare-rel choosenext (Int Int Int Int))
+(declare-rel fail ())
+(declare-var nexttime Int)
+(declare-var len Int)
+(declare-var min_ttw Int)
+(declare-var nexttime1 Int)
+(declare-var len1 Int)
+(declare-var min_ttw1 Int)
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= nexttime 44) (= len 0) (= len1 1) (= min_ttw 128) (= min_ttw1 44)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 22) (= len 17) (= len1 18) (= min_ttw -108) (= min_ttw1 -108)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 82) (= len 12) (= len1 13) (= min_ttw 81) (= min_ttw1 81)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 2) (= len 1) (= len1 2) (= min_ttw -111) (= min_ttw1 -111)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 1) (= len 3) (= len1 4) (= min_ttw 1) (= min_ttw1 1)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 111) (= len 0) (= len1 1) (= min_ttw 128) (= min_ttw1 111)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 26) (= len 1) (= len1 2) (= min_ttw 10) (= min_ttw1 10)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 0) (= len1 0) (= min_ttw 128) (= min_ttw1 128)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 5) (= len1 5) (= min_ttw -33) (= min_ttw1 -34)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 2) (= len1 2) (= min_ttw 2) (= min_ttw1 1)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 3) (= len1 2) (= min_ttw -77) (= min_ttw1 -78)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 3) (= len1 3) (= min_ttw -100) (= min_ttw1 -101)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 1) (= len1 0) (= min_ttw 1) (= min_ttw1 128)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 1) (= len1 1) (= min_ttw -1) (= min_ttw1 -2)) (choosenext len len1 min_ttw min_ttw1)))
+
+(rule (=> (and (= len1 0) (= nexttime1 1) (= min_ttw1 MAX)) (inv nexttime1 len1 min_ttw1)))
+(rule (=> (and (inv nexttime len min_ttw) (insert nexttime len len1 min_ttw min_ttw1) (= nexttime1 (+ nexttime 1))) (inv nexttime1 len1 min_ttw1)))
+(rule (=> (and (inv nexttime len min_ttw) (and (> nexttime 1) (choosenext len len1 min_ttw min_ttw1) (= nexttime1 (- nexttime 1)))) (inv nexttime1 len1 min_ttw1)))
+(rule (=> (and (inv nexttime len min_ttw) (<= nexttime 1)) (inv nexttime len min_ttw)))
+(rule (=> (and (inv nexttime len min_ttw) (not(=> (> len 0) (>= min_ttw 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/ProcessQueue.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 39 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:437,execs:147,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:829,execs:383,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:1243,execs:527,op:havoc,rep:14
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:2048,execs:1087,op:havoc,rep:13
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:269,execs:138,op:havoc,rep:11
+Checking queue
+   -> Found 61 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 2 new rules.
+   -> Writing new specs to harness: choosenext_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/choosenext_fuzz.cpp'.
+   -> Starting AFL++(choosenext_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/choosenext_fuzz
+   -> AFL++(choosenext_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 91 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'choosenext'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((((len > 0) && (nexttime <= 1)) || (nexttime > 1)) && ((min_ttw1 - nexttime) <= 0) && ((len1 - len) > 0))
+  choosenext: (true)
+  inv: ((nexttime <= 1) && (len <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-rel inv (Int Int Int))
+(declare-rel insert (Int Int Int Int Int))
+(declare-rel choosenext (Int Int Int Int))
+(declare-rel fail ())
+(declare-var nexttime Int)
+(declare-var len Int)
+(declare-var min_ttw Int)
+(declare-var nexttime1 Int)
+(declare-var len1 Int)
+(declare-var min_ttw1 Int)
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= nexttime 0) (= len 0) (= len1 1) (= min_ttw 128) (= min_ttw1 0)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 1) (= len 0) (= len1 1) (= min_ttw 128) (= min_ttw1 1)) (insert nexttime len len1 min_ttw min_ttw1)))
+
+(rule (=> (and (= nexttime 44) (= len 0) (= len1 1) (= min_ttw 128) (= min_ttw1 44)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 22) (= len 17) (= len1 18) (= min_ttw -108) (= min_ttw1 -108)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 82) (= len 12) (= len1 13) (= min_ttw 81) (= min_ttw1 81)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 2) (= len 1) (= len1 2) (= min_ttw -111) (= min_ttw1 -111)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 1) (= len 3) (= len1 4) (= min_ttw 1) (= min_ttw1 1)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 111) (= len 0) (= len1 1) (= min_ttw 128) (= min_ttw1 111)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 26) (= len 1) (= len1 2) (= min_ttw 10) (= min_ttw1 10)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 0) (= len1 0) (= min_ttw 128) (= min_ttw1 128)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 5) (= len1 5) (= min_ttw -33) (= min_ttw1 -34)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 2) (= len1 2) (= min_ttw 2) (= min_ttw1 1)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 3) (= len1 2) (= min_ttw -77) (= min_ttw1 -78)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 3) (= len1 3) (= min_ttw -100) (= min_ttw1 -101)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 1) (= len1 0) (= min_ttw 1) (= min_ttw1 128)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 1) (= len1 1) (= min_ttw -1) (= min_ttw1 -2)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len1 0) (= nexttime1 1) (= min_ttw1 MAX)) (inv nexttime1 len1 min_ttw1)))
+(rule (=> (and (inv nexttime len min_ttw) (insert nexttime len len1 min_ttw min_ttw1) (= nexttime1 (+ nexttime 1))) (inv nexttime1 len1 min_ttw1)))
+(rule (=> (and (inv nexttime len min_ttw) (and (> nexttime 1) (choosenext len len1 min_ttw min_ttw1) (= nexttime1 (- nexttime 1)))) (inv nexttime1 len1 min_ttw1)))
+(rule (=> (and (inv nexttime len min_ttw) (<= nexttime 1)) (inv nexttime len min_ttw)))
+(rule (=> (and (inv nexttime len min_ttw) (not(=> (> len 0) (>= min_ttw 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/ProcessQueue.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 151 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 7 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:1158,execs:1260,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:5054,execs:5562,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:780,execs:728,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000004,time:9210,execs:10105,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:190,execs:290,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:393,execs:472,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1330,execs:1372,op:havoc,rep:2
+Checking queue
+   -> Found 67 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 7 new rules.
+   -> Writing new specs to harness: choosenext_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/choosenext_fuzz.cpp'.
+   -> Starting AFL++(choosenext_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/choosenext_fuzz
+   -> AFL++(choosenext_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:412,execs:178,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:1441,execs:436,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:8642,execs:2236,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:206,execs:51,op:havoc,rep:4
+Checking queue
+   -> Found 52 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'choosenext'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((((((nexttime <= 0) || (((min_ttw - min_ttw1) <= 0) && (nexttime > 0))) && (len <= 1)) || (len > 1)) && ((len1 - len) > 0) && (min_ttw1 <= 0)) || ((((len > 1) && ((nexttime - min_ttw) <= 0) && (min_ttw <= 1)) || (((((min_ttw1 - nexttime) <= 0) && (len <= 0) && (len1 > 0) && (nexttime <= 1)) || (nexttime > 1)) && (min_ttw > 1))) && ((len1 - len) > 0) && ((len1 - len) <= 1) && (min_ttw1 > 0)))
+  choosenext: ((((len <= 0) || (((min_ttw <= (-1)) || ((min_ttw1 > 0) && (len1 <= 0) && (min_ttw > (-1)))) && (len > 0))) && (len <= 1)) || (len > 1))
+  inv: (((nexttime <= 1) || ((min_ttw <= 1) && (len > 0) && (nexttime > 1))) && (nexttime <= 2) && (len <= 1) && (nexttime > 0) && (min_ttw > 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-rel inv (Int Int Int))
+(declare-rel insert (Int Int Int Int Int))
+(declare-rel choosenext (Int Int Int Int))
+(declare-rel fail ())
+(declare-var nexttime Int)
+(declare-var len Int)
+(declare-var min_ttw Int)
+(declare-var nexttime1 Int)
+(declare-var len1 Int)
+(declare-var min_ttw1 Int)
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= nexttime 238) (= len 1) (= len1 2) (= min_ttw 1) (= min_ttw1 1)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 1) (= len 1) (= len1 2) (= min_ttw 3) (= min_ttw1 1)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 2) (= len 1) (= len1 2) (= min_ttw 1) (= min_ttw1 1)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 1) (= len 1) (= len1 2) (= min_ttw 103) (= min_ttw1 1)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 1) (= len 8) (= len1 9) (= min_ttw 2) (= min_ttw1 1)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 223) (= len 7) (= len1 8) (= min_ttw 1) (= min_ttw1 1)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 2) (= len 9) (= len1 10) (= min_ttw 1) (= min_ttw1 1)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 1) (= len1 1) (= min_ttw 9) (= min_ttw1 8)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 1) (= len1 1) (= min_ttw 2) (= min_ttw1 1)) (choosenext len len1 min_ttw min_ttw1)))
+
+(rule (=> (and (= nexttime 0) (= len 0) (= len1 1) (= min_ttw 128) (= min_ttw1 0)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 1) (= len 0) (= len1 1) (= min_ttw 128) (= min_ttw1 1)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 44) (= len 0) (= len1 1) (= min_ttw 128) (= min_ttw1 44)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 22) (= len 17) (= len1 18) (= min_ttw -108) (= min_ttw1 -108)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 82) (= len 12) (= len1 13) (= min_ttw 81) (= min_ttw1 81)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 2) (= len 1) (= len1 2) (= min_ttw -111) (= min_ttw1 -111)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 1) (= len 3) (= len1 4) (= min_ttw 1) (= min_ttw1 1)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 111) (= len 0) (= len1 1) (= min_ttw 128) (= min_ttw1 111)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= nexttime 26) (= len 1) (= len1 2) (= min_ttw 10) (= min_ttw1 10)) (insert nexttime len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 0) (= len1 0) (= min_ttw 128) (= min_ttw1 128)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 5) (= len1 5) (= min_ttw -33) (= min_ttw1 -34)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 2) (= len1 2) (= min_ttw 2) (= min_ttw1 1)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 3) (= len1 2) (= min_ttw -77) (= min_ttw1 -78)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 3) (= len1 3) (= min_ttw -100) (= min_ttw1 -101)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 1) (= len1 0) (= min_ttw 1) (= min_ttw1 128)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len 1) (= len1 1) (= min_ttw -1) (= min_ttw1 -2)) (choosenext len len1 min_ttw min_ttw1)))
+(rule (=> (and (= len1 0) (= nexttime1 1) (= min_ttw1 MAX)) (inv nexttime1 len1 min_ttw1)))
+(rule (=> (and (inv nexttime len min_ttw) (insert nexttime len len1 min_ttw min_ttw1) (= nexttime1 (+ nexttime 1))) (inv nexttime1 len1 min_ttw1)))
+(rule (=> (and (inv nexttime len min_ttw) (and (> nexttime 1) (choosenext len len1 min_ttw min_ttw1) (= nexttime1 (- nexttime 1)))) (inv nexttime1 len1 min_ttw1)))
+(rule (=> (and (inv nexttime len min_ttw) (<= nexttime 1)) (inv nexttime len min_ttw)))
+(rule (=> (and (inv nexttime len min_ttw) (not(=> (> len 0) (>= min_ttw 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/ProcessQueue/ProcessQueue.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 4
+Total Unique Test Cases Found: 25
+Total Internal Iterations: 195
+  - Min: 5
+  - Max: 151
+  - Avg: 65.00
+pipeline.run() took 0.8132 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalLLMHornICE ProcessQueue
+PID: 6004
+========================================
+
+
+Total Pipeline Duration: 1351.56s

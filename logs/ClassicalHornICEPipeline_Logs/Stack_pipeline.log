@@ -1,0 +1,709 @@
+
+========================================
+         Starting Pipeline for: Stack (Mode: ClassicalHornICE)
+========================================
+Initializing pipeline for benchmark: 'Stack'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/Stack/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 8 internal iterations.
+   -> Writing new specs to harness: pu_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz.cpp'.
+   -> Starting AFL++(pu_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz
+   -> AFL++(pu_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 7 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:615,execs:33,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:5371,execs:41,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:365,execs:32,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:15920,execs:60,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:167,execs:28,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:11149,execs:49,op:havoc,rep:14
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:1793,execs:35,op:havoc,rep:3
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2push
+Checking hangs
+   -> Converting counterexamples for 'pu'...
+      -> Found and validated 8 new rules.
+   -> Writing new specs to harness: po_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz.cpp'.
+   -> Starting AFL++(po_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz
+   -> AFL++(po_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:2368,execs:32,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:7167,execs:74,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:11942,execs:137,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:1174,execs:27,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:15591,execs:171,op:havoc,rep:2
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2push
+Checking hangs
+   -> Converting counterexamples for 'po'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: ((c - N) <= (-1))
+  pu: (false)
+  inv2: (false)
+  po: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= N 0) (= sl 4) (= sl1 5)) (pu N sl sl1)))
+(rule (=> (and (= N -24) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 27) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -128) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -9) (= sl 33) (= sl1 34)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 9) (= sl1 10)) (pu N sl sl1)))
+(rule (=> (and (= N 20) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= sl 0) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 8) (= sl1 7)) (po sl sl1)))
+(rule (=> (and (= sl 2) (= sl1 1)) (po sl sl1)))
+
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 64 internal iterations.
+   -> Writing new specs to harness: pu_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz.cpp'.
+   -> Starting AFL++(pu_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz
+   -> AFL++(pu_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 6 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:193,execs:31,op:(null),pos:0
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:1225,execs:152,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:1425,execs:153,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000001,time:2003,execs:178,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000001,time:4096,execs:260,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:391,execs:41,op:quick,pos:0
+Checking queue
+   -> Found 27 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:194,execs:32,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'pu'...
+      -> Found and validated 3 new rules.
+   -> Writing new specs to harness: po_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz.cpp'.
+   -> Starting AFL++(po_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz
+   -> AFL++(po_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 58 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:31,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'po'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  pu: ((((N - sl) <= (-1)) || (((N - sl1) > 1) && ((N - sl) > (-1)))) && ((sl - sl1) <= (-1)))
+  po: (true)
+  inv1: ((((c - sl) <= 0) && ((N - sl) > (-1)) && ((c + d) <= 0) && ((N + d) > 0) && ((N + d) <= 1)) || (((c - sl) <= 0) && ((N - sl) > 1) && ((N + d) > 1)))
+  inv2: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= N 0) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+
+(rule (=> (and (= N 0) (= sl 4) (= sl1 5)) (pu N sl sl1)))
+(rule (=> (and (= N -24) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 27) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -128) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -9) (= sl 33) (= sl1 34)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 9) (= sl1 10)) (pu N sl sl1)))
+(rule (=> (and (= N 20) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= sl 0) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 8) (= sl1 7)) (po sl sl1)))
+(rule (=> (and (= sl 2) (= sl1 1)) (po sl sl1)))
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 33 internal iterations.
+   -> Writing new specs to harness: pu_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz.cpp'.
+   -> Starting AFL++(pu_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz
+   -> AFL++(pu_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:458,execs:485,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:955,execs:910,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:222,execs:186,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:710,execs:585,op:havoc,rep:2
+Checking queue
+   -> Found 35 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:1,execs:31,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'pu'...
+      -> Found and validated 2 new rules.
+   -> Writing new specs to harness: po_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz.cpp'.
+   -> Starting AFL++(po_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz
+   -> AFL++(po_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 57 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:31,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'po'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  pu: ((((N - sl) <= 0) || (((N - sl1) > 0) && ((N - sl) > 0))) && ((sl - sl1) <= (-1)))
+  po: (true)
+  inv1: ((d <= 0) && (d > (-1)) && (((N - d) - sl) > 0) && (((c - d) - sl) <= 0))
+  inv2: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= N 2) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+
+(rule (=> (and (= N 0) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 4) (= sl1 5)) (pu N sl sl1)))
+(rule (=> (and (= N -24) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 27) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -128) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -9) (= sl 33) (= sl1 34)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 9) (= sl1 10)) (pu N sl sl1)))
+(rule (=> (and (= N 20) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= sl 0) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 8) (= sl1 7)) (po sl sl1)))
+(rule (=> (and (= sl 2) (= sl1 1)) (po sl sl1)))
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 38 internal iterations.
+   -> Writing new specs to harness: pu_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz.cpp'.
+   -> Starting AFL++(pu_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz
+   -> AFL++(pu_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 55 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:31,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'pu'...
+   -> Writing new specs to harness: po_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz.cpp'.
+   -> Starting AFL++(po_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz
+   -> AFL++(po_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:12577,execs:339,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:2205,execs:61,op:flip2,pos:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:798,execs:31,op:(null),pos:0
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:8921,execs:239,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000001,time:27421,execs:634,op:havoc,rep:2
+Checking queue
+   -> Found 26 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'po'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  pu: ((sl - sl1) <= (-1))
+  po: ((sl <= (-1)) || ((((sl <= 0) && (sl <= 1)) || (sl > 1)) && ((sl - sl1) <= 1) && (sl > (-1))))
+  inv1: (((N - c) + sl) > 0)
+  inv2: (sl > 0)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= sl 1) (= sl1 0)) (po sl sl1)))
+
+(rule (=> (and (= N 2) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 4) (= sl1 5)) (pu N sl sl1)))
+(rule (=> (and (= N -24) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 27) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -128) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -9) (= sl 33) (= sl1 34)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 9) (= sl1 10)) (pu N sl sl1)))
+(rule (=> (and (= N 20) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= sl 0) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 8) (= sl1 7)) (po sl sl1)))
+(rule (=> (and (= sl 2) (= sl1 1)) (po sl sl1)))
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_5.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_5.log
+      -> Found 73 internal iterations.
+   -> Writing new specs to harness: po_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz.cpp'.
+   -> Starting AFL++(po_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz
+   -> AFL++(po_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 64 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:31,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'po'...
+   -> Writing new specs to harness: pu_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz.cpp'.
+   -> Starting AFL++(pu_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz
+   -> AFL++(pu_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:814,execs:78,op:havoc,rep:14
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:3375,execs:288,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:215,execs:39,op:(null),pos:0
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:414,execs:40,op:havoc,rep:14
+Checking queue
+   -> Found 30 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:31,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'pu'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  po: ((((sl > (-1)) && ((sl + sl1) <= 0) && ((sl - sl1) > (-1)) && ((sl - sl1) <= 0)) || ((sl - sl1) > 0)) && ((sl - sl1) <= 1))
+  pu: (((sl1 <= 1) || ((((N - sl) <= 0) || (((N - sl) <= 1) && ((N - sl1) > (-1)) && (sl > 0) && ((N - sl) > 0))) && (sl1 > 1))) && ((sl - sl1) <= (-1)))
+  inv1: ((((c - N) - d) <= 0) && (((d - c) - d) <= 0) && (((c - d) - sl) <= 0) && (((sl - c) - d) <= 0) && (d <= 0) && (((N - c) + sl) > 0))
+  inv2: ((((N - d) - sl) <= 0) && (((d - N) + sl) <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= N 64) (= sl 8) (= sl1 9)) (pu N sl sl1)))
+(rule (=> (and (= N 90) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 18) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+
+(rule (=> (and (= sl 1) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= N 2) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 4) (= sl1 5)) (pu N sl sl1)))
+(rule (=> (and (= N -24) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 27) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -128) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -9) (= sl 33) (= sl1 34)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 9) (= sl1 10)) (pu N sl sl1)))
+(rule (=> (and (= N 20) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= sl 0) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 8) (= sl1 7)) (po sl sl1)))
+(rule (=> (and (= sl 2) (= sl1 1)) (po sl sl1)))
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 6 ====================
+TIMEOUT : 120
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_6.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_6.log
+      -> Found 73 internal iterations.
+   -> Writing new specs to harness: pu_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz.cpp'.
+   -> Starting AFL++(pu_fuzz) with a 120-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz
+   -> AFL++(pu_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:648,execs:420,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:224,execs:109,op:arith8,pos:2,val:+3
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:1253,execs:798,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000001,time:1632,execs:952,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:845,execs:469,op:havoc,rep:9
+Checking queue
+   -> Found 34 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000005,src:000001,time:1,execs:39,op:(null),pos:0,+cov
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:31,op:(null),pos:0,+cov
+   -> CRASH REPRODUCED with id:000006,src:000001,time:1,execs:47,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'pu'...
+      -> Found and validated 5 new rules.
+   -> Writing new specs to harness: po_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz.cpp'.
+   -> Starting AFL++(po_fuzz) with a 120-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz
+   -> AFL++(po_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 61 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:31,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'po'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  pu: ((((sl1 <= 1) && (sl <= 0)) || (((((((N - sl) <= 0) && (((N + sl) - sl1) <= 0)) || (((N + sl) - sl1) > 0)) && (sl <= 1)) || ((((N <= 1) && (((N + sl) - sl1) <= 0)) || ((((N - sl) - sl1) > (-1)) && (((N + sl) - sl1) > 0))) && (sl > 1))) && (sl > 0))) && ((sl - sl1) <= (-1)))
+  po: ((((sl > (-1)) && (sl <= 0) && ((sl - sl1) <= 0)) || ((sl - sl1) > 0)) && ((sl - sl1) <= 1))
+  inv1: (((((c - N) - d) <= 0) && (((c + N) + d) > 0) && (((N - c) + sl) > 0) && (((c + N) - sl) > 0) && ((N + d) > 0) && (d <= 0) && (N > 0) && (N <= 1)) || ((((c - d) - sl) <= 0) && (((d - N) + sl) <= 0) && (d <= 0) && (N > 1)))
+  inv2: ((((N - d) - sl) <= 0) && (((d - N) + sl) <= 0) && (N > 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= N 3) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= N 4) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= N 22) (= sl 17) (= sl1 18)) (pu N sl sl1)))
+(rule (=> (and (= N 3) (= sl 17) (= sl1 18)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 5) (= sl1 6)) (pu N sl sl1)))
+
+(rule (=> (and (= N 64) (= sl 8) (= sl1 9)) (pu N sl sl1)))
+(rule (=> (and (= N 90) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 18) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= sl 1) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= N 2) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 4) (= sl1 5)) (pu N sl sl1)))
+(rule (=> (and (= N -24) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 27) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -128) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -9) (= sl 33) (= sl1 34)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 9) (= sl1 10)) (pu N sl sl1)))
+(rule (=> (and (= N 20) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= sl 0) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 8) (= sl1 7)) (po sl sl1)))
+(rule (=> (and (= sl 2) (= sl1 1)) (po sl sl1)))
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 7 ====================
+TIMEOUT : 140
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_7.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_7.log
+      -> Found 90 internal iterations.
+   -> Writing new specs to harness: pu_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz.cpp'.
+   -> Starting AFL++(pu_fuzz) with a 140-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/pu_fuzz
+   -> AFL++(pu_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:372,execs:965,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000001,time:558,execs:1580,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:194,execs:635,op:havoc,rep:15
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000001,time:761,execs:1896,op:havoc,rep:7
+Checking queue
+   -> Found 34 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000005,src:000001,time:1,execs:39,op:(null),pos:0,+cov
+   -> CRASH REPRODUCED with id:000004,src:000001,time:1,execs:31,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'pu'...
+      -> Found and validated 2 new rules.
+   -> Writing new specs to harness: po_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz.cpp'.
+   -> Starting AFL++(po_fuzz) with a 140-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/po_fuzz
+   -> AFL++(po_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 61 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:0,execs:31,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'po'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  pu: ((((sl1 <= 1) && (sl <= 0)) || (((((((N - sl) <= 0) && (((N + sl) - sl1) <= 0)) || (((N + sl) - sl1) > 0)) && (sl <= 1)) || (((((N - sl) <= (-1)) && (((N + sl) - sl1) <= 1)) || (((((N - sl) <= (-1)) && ((N - sl1) <= (-1))) || ((N - sl1) > (-1))) && (((N + sl) - sl1) > 1))) && (sl > 1))) && (sl > 0))) && ((sl - sl1) <= (-1)))
+  po: ((((sl > (-1)) && (sl <= 0) && ((sl - sl1) <= 0)) || ((sl - sl1) > 0)) && ((sl - sl1) <= 1))
+  inv1: (((((c - N) - d) <= 0) && (((c + N) + d) > 0) && (((N - c) + sl) > 0) && (((c + N) - sl) > 0) && ((N + d) > 0) && (d <= 0) && (N > 0) && (N <= 1)) || ((d > (-1)) && (((c - d) - sl) <= 0) && (((d - N) + sl) <= 0) && (d <= 0) && (N > 1)))
+  inv2: ((((N - d) - sl) <= 0) && (((d - N) + sl) <= 0) && (N > 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= N 2) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= N 3) (= sl 3) (= sl1 4)) (pu N sl sl1)))
+
+(rule (=> (and (= N 3) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= N 4) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= N 22) (= sl 17) (= sl1 18)) (pu N sl sl1)))
+(rule (=> (and (= N 3) (= sl 17) (= sl1 18)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 5) (= sl1 6)) (pu N sl sl1)))
+(rule (=> (and (= N 64) (= sl 8) (= sl1 9)) (pu N sl sl1)))
+(rule (=> (and (= N 90) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 18) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= sl 1) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= N 2) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 4) (= sl1 5)) (pu N sl sl1)))
+(rule (=> (and (= N -24) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 27) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -128) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N -9) (= sl 33) (= sl1 34)) (pu N sl sl1)))
+(rule (=> (and (= N 0) (= sl 9) (= sl1 10)) (pu N sl sl1)))
+(rule (=> (and (= N 20) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= N 1) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= sl 0) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 8) (= sl1 7)) (po sl sl1)))
+(rule (=> (and (= sl 2) (= sl1 1)) (po sl sl1)))
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 8 ====================
+TIMEOUT : 160
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_8.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 8
+Total Unique Test Cases Found: 27
+Total Internal Iterations: 379
+  - Min: 8
+  - Max: 90
+  - Avg: 54.14
+pipeline.run() took 1.0664 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalHornICE Stack
+PID: 5996
+========================================
+
+
+Total Pipeline Duration: 2389.37s

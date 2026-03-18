@@ -1,0 +1,687 @@
+
+========================================
+         Starting Pipeline for: AlternatingList (Mode: ClassicalHornICE)
+========================================
+Initializing pipeline for benchmark: 'AlternatingList'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/AlternatingList/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/AlternatingList.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 7 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:14,execs:140,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:1,execs:20,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:8,execs:84,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:1,execs:22,op:havoc,rep:1
+Checking queue
+   -> Found 1 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 4 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv: (((len + flag) > 0) && (len <= 0))
+  push: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var top Int)
+(declare-var top1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var val Int)
+(declare-rel push (Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= val -128) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 121) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 2) (= len 16) (= top1 1) (= len1 17)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 3) (= top1 1) (= len1 4)) (push val top len top1 len1)))
+
+(rule (=> (and (= flag 1) (= len 0) (= top MAX) ) (inv top len flag)))
+(rule (=> (and (inv top len flag) (= flag 1) (= val 1) (push val top len top1 len1) (= flag1 0)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (= flag 1)) (= val 2) (push val top len top1 len1) (= flag1 1)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (or (= len 0) (and (=> (= flag 0) (= top 1)) (=> (= flag 1) (= top 2)))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/AlternatingList.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 18 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 7 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:28,execs:526,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:10,execs:238,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:10,execs:240,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:8,execs:210,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:8,execs:209,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:9,execs:225,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:24,execs:448,op:havoc,rep:4
+Checking queue
+   -> Found 38 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: (((((((len - len1) - len1) <= 0) && (len1 <= 0) && (len <= 0)) || (len > 0)) && (((len1 - val) - len) <= 0) && (((len - val) - len) <= (-1))) || (((len - val) - len) > (-1)))
+  inv: ((len > (-1)) && (len <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var top Int)
+(declare-var top1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var val Int)
+(declare-rel push (Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= val 2) (= top 128) (= len 0) (= top1 2) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 128) (= len 0) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+
+(rule (=> (and (= val -128) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 121) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 2) (= len 16) (= top1 1) (= len1 17)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 3) (= top1 1) (= len1 4)) (push val top len top1 len1)))
+(rule (=> (and (= flag 1) (= len 0) (= top MAX) ) (inv top len flag)))
+(rule (=> (and (inv top len flag) (= flag 1) (= val 1) (push val top len top1 len1) (= flag1 0)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (= flag 1)) (= val 2) (push val top len top1 len1) (= flag1 1)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (or (= len 0) (and (=> (= flag 0) (= top 1)) (=> (= flag 1) (= top 2)))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/AlternatingList.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 46 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:239,execs:533,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:3431,execs:2637,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:451,execs:825,op:havoc,rep:2
+Checking queue
+   -> Found 33 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: ((((((val > 1) && ((val - top1) <= (-1))) || ((val - top1) > (-1))) && (((top1 - val) - top) <= (-1))) || (((top1 - val) - top) > (-1))) && ((top - top1) > (-1)) && ((val - top1) <= 0))
+  inv: (((top <= 1) || ((len > (-1)) && ((len + flag) > 0) && ((len + flag) <= 1) && (flag > 0) && (top > 1))) && ((top - flag) > 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var top Int)
+(declare-var top1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var val Int)
+(declare-rel push (Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= val 16) (= top 1) (= len 1) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 20) (= top 2) (= len 10) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 1) (= len 9) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+
+(rule (=> (and (= val 2) (= top 128) (= len 0) (= top1 2) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 128) (= len 0) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val -128) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 121) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 2) (= len 16) (= top1 1) (= len1 17)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 3) (= top1 1) (= len1 4)) (push val top len top1 len1)))
+(rule (=> (and (= flag 1) (= len 0) (= top MAX) ) (inv top len flag)))
+(rule (=> (and (inv top len flag) (= flag 1) (= val 1) (push val top len top1 len1) (= flag1 0)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (= flag 1)) (= val 2) (push val top len top1 len1) (= flag1 1)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (or (= len 0) (and (=> (= flag 0) (= top 1)) (=> (= flag 1) (= top 2)))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/AlternatingList.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 45 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:2226,execs:603,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:1024,execs:307,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:208,execs:18,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:7283,execs:1538,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:386,execs:202,op:havoc,rep:4
+Checking queue
+   -> Found 30 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: (((((((top1 > 0) && (len1 > 0) && (((top1 - val) + len1) <= 1) && (len <= 0) && ((val - len) <= 1)) || ((val - len) > 1)) && (len <= 1)) || (len > 1)) && (((len - val) - len) <= (-1))) || (((len - val) - len) > (-1)))
+  inv: ((((flag <= 1) && (len <= 0) && (len > (-1)) && ((len - flag) <= (-1))) || ((((len - top) - flag) <= 0) && (len > 0) && (flag <= 0) && (((top - flag) - flag) > 0) && (((top - flag) - flag) <= 1) && ((top - len) <= 1) && ((len - flag) > (-1)))) && ((top - flag) > 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var top Int)
+(declare-var top1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var val Int)
+(declare-rel push (Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= val 1) (= top 1) (= len 1) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 2) (= len 1) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 1) (= len 1) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+
+(rule (=> (and (= val 16) (= top 1) (= len 1) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 20) (= top 2) (= len 10) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 1) (= len 9) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 128) (= len 0) (= top1 2) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 128) (= len 0) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val -128) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 121) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 2) (= len 16) (= top1 1) (= len1 17)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 3) (= top1 1) (= len1 4)) (push val top len top1 len1)))
+(rule (=> (and (= flag 1) (= len 0) (= top MAX) ) (inv top len flag)))
+(rule (=> (and (inv top len flag) (= flag 1) (= val 1) (push val top len top1 len1) (= flag1 0)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (= flag 1)) (= val 2) (push val top len top1 len1) (= flag1 1)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (or (= len 0) (and (=> (= flag 0) (= top 1)) (=> (= flag 1) (= top 2)))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/AlternatingList.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_5.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_5.log
+      -> Found 48 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:748,execs:444,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:7372,execs:4823,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:4113,execs:2433,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000013,time:63574,execs:16379,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:259,execs:276,op:havoc,rep:2
+Checking queue
+   -> Found 46 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 5 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: ((((((val - len) > 1) && ((val - top1) <= (-1))) || ((((((val - top) - len) > 0) && (((len1 - len) + len1) <= 1)) || ((((((top1 - val) + top1) > 0) && (top1 <= 1)) || (top1 > 1)) && (((len1 - len) + len1) > 1))) && (top1 > 0) && ((val - top1) > (-1)))) && (((len - val) - len) <= (-1))) || (((len - val) - len) > (-1)))
+  inv: ((((flag <= 1) && (len > (-1)) && ((len - flag) <= (-1)) && ((len - flag) <= 0)) || ((top > 0) && ((top - flag) > 0) && ((top - flag) <= 1) && ((len - flag) > 0))) && (((top - flag) - flag) > (-1)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var top Int)
+(declare-var top1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var val Int)
+(declare-rel push (Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= val 9) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 1) (= len 5) (= top1 1) (= len1 5)) (push val top len top1 len1)))
+(rule (=> (and (= val 64) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 2) (= len 1) (= top1 2) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 127) (= top 1) (= len 7) (= top1 1) (= len1 7)) (push val top len top1 len1)))
+
+(rule (=> (and (= val 1) (= top 1) (= len 1) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 2) (= len 1) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 1) (= len 1) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 16) (= top 1) (= len 1) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 20) (= top 2) (= len 10) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 1) (= len 9) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 128) (= len 0) (= top1 2) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 128) (= len 0) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val -128) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 121) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 2) (= len 16) (= top1 1) (= len1 17)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 3) (= top1 1) (= len1 4)) (push val top len top1 len1)))
+(rule (=> (and (= flag 1) (= len 0) (= top MAX) ) (inv top len flag)))
+(rule (=> (and (inv top len flag) (= flag 1) (= val 1) (push val top len top1 len1) (= flag1 0)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (= flag 1)) (= val 2) (push val top len top1 len1) (= flag1 1)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (or (= len 0) (and (=> (= flag 0) (= top 1)) (=> (= flag 1) (= top 2)))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 6 ====================
+TIMEOUT : 120
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/AlternatingList.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_6.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_6.log
+      -> Found 62 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 120-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:522,execs:426,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:159,execs:48,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:3278,execs:1166,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:729,execs:506,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:328,execs:253,op:havoc,rep:4
+Checking queue
+   -> Found 34 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 4 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: ((((((((val + top) - len) <= (-1)) || ((((val - len) <= 0) || ((((len - val) + len1) <= 1) && ((val - len1) <= 0) && ((val - top1) <= 0) && ((val - len) > 0))) && ((val - top1) > (-1)) && (((val + len) - top1) <= 1) && (((val + top) - len) > (-1)))) && ((val - len) <= 1)) || ((val - len) > 1)) && (((len - val) - len) <= (-1))) || (((len - val) - len) > (-1)))
+  inv: (((((len - top) + flag) <= 1) && (top > 0) && ((top - flag) <= 1) && ((top - flag) > 0) && ((top - len) <= 0)) || ((flag <= 1) && (len > (-1)) && ((len - flag) <= (-1)) && ((top - len) > 0)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var top Int)
+(declare-var top1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var val Int)
+(declare-rel push (Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= val 1) (= top 1) (= len 2) (= top1 1) (= len1 3)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 2) (= len 2) (= top1 2) (= len1 3)) (push val top len top1 len1)))
+(rule (=> (and (= val 7) (= top 2) (= len 8) (= top1 2) (= len1 8)) (push val top len top1 len1)))
+
+(rule (=> (and (= val 9) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 1) (= len 5) (= top1 1) (= len1 5)) (push val top len top1 len1)))
+(rule (=> (and (= val 64) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 2) (= len 1) (= top1 2) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 127) (= top 1) (= len 7) (= top1 1) (= len1 7)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 1) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 2) (= len 1) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 1) (= len 1) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 16) (= top 1) (= len 1) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 20) (= top 2) (= len 10) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 1) (= len 9) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 128) (= len 0) (= top1 2) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 128) (= len 0) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val -128) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 121) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 2) (= len 16) (= top1 1) (= len1 17)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 3) (= top1 1) (= len1 4)) (push val top len top1 len1)))
+(rule (=> (and (= flag 1) (= len 0) (= top MAX) ) (inv top len flag)))
+(rule (=> (and (inv top len flag) (= flag 1) (= val 1) (push val top len top1 len1) (= flag1 0)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (= flag 1)) (= val 2) (push val top len top1 len1) (= flag1 1)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (or (= len 0) (and (=> (= flag 0) (= top 1)) (=> (= flag 1) (= top 2)))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 7 ====================
+TIMEOUT : 140
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/AlternatingList.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_7.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_7.log
+      -> Found 49 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 140-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000014,time:3170,execs:14970,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:623,execs:3186,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:890,execs:5361,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:243,execs:1589,op:havoc,rep:3
+Checking queue
+   -> Found 61 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: (((top - len) <= (-1)) || ((((((((val - len) <= 0) || (((val - len1) <= 0) && ((top1 - len1) > (-1)) && ((val - top1) > (-1)) && ((val - len) > 0))) && ((val - len) > (-1)) && ((val - len) <= 1)) || ((val - len) > 1)) && (((len - val) - len) <= (-1))) || (((len - val) - len) > (-1))) && ((top - len) > (-1))))
+  inv: ((((top > 0) && ((top - flag) > 0) && ((len - flag) <= 1) && ((top - len) <= 0)) || ((flag <= 1) && (len > (-1)) && ((len - flag) <= (-1)) && ((top - len) > 0))) && (((top - flag) - flag) > (-1)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var top Int)
+(declare-var top1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var val Int)
+(declare-rel push (Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+(rule (=> (and (= val 3) (= top 2) (= len 2) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 2) (= len 2) (= top1 1) (= len1 3)) (push val top len top1 len1)))
+
+(rule (=> (and (= val 1) (= top 1) (= len 2) (= top1 1) (= len1 3)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 2) (= len 2) (= top1 2) (= len1 3)) (push val top len top1 len1)))
+(rule (=> (and (= val 7) (= top 2) (= len 8) (= top1 2) (= len1 8)) (push val top len top1 len1)))
+(rule (=> (and (= val 9) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 1) (= len 5) (= top1 1) (= len1 5)) (push val top len top1 len1)))
+(rule (=> (and (= val 64) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 2) (= len 1) (= top1 2) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 127) (= top 1) (= len 7) (= top1 1) (= len1 7)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 1) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 2) (= len 1) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 1) (= len 1) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 16) (= top 1) (= len 1) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 20) (= top 2) (= len 10) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 1) (= len 9) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 128) (= len 0) (= top1 2) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 128) (= len 0) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val -128) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 121) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 2) (= len 16) (= top1 1) (= len1 17)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 3) (= top1 1) (= len1 4)) (push val top len top1 len1)))
+(rule (=> (and (= flag 1) (= len 0) (= top MAX) ) (inv top len flag)))
+(rule (=> (and (inv top len flag) (= flag 1) (= val 1) (push val top len top1 len1) (= flag1 0)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (= flag 1)) (= val 2) (push val top len top1 len1) (= flag1 1)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (or (= len 0) (and (=> (= flag 0) (= top 1)) (=> (= flag 1) (= top 2)))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 8 ====================
+TIMEOUT : 160
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/AlternatingList.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_8.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_8.log
+      -> Found 52 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 160-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 69 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: (((((len1 > (-1)) && (len1 <= 0) && (val > 1) && (((len - val) - len) <= (-1))) || (((len - val) - len) > (-1))) && ((val - top1) <= (-1))) || ((((((((val - top1) - top1) > 0) && (((top1 - val) + top1) <= 0)) || (((top1 - val) + top1) > 0)) && (top1 > 0) && (top1 <= 1)) || (top1 > 1)) && ((len - len1) <= 0) && (((len1 - len) - top1) <= 0) && ((val - top1) > (-1))))
+  inv: (((len > (-1)) && (len <= 0)) || (((top - flag) > 0) && ((top - flag) <= 1) && ((top - len) <= 1) && (len > 0)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var top Int)
+(declare-var top1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var val Int)
+(declare-rel push (Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+
+(rule (=> (and (= val 3) (= top 2) (= len 2) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 2) (= len 2) (= top1 1) (= len1 3)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 2) (= top1 1) (= len1 3)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 2) (= len 2) (= top1 2) (= len1 3)) (push val top len top1 len1)))
+(rule (=> (and (= val 7) (= top 2) (= len 8) (= top1 2) (= len1 8)) (push val top len top1 len1)))
+(rule (=> (and (= val 9) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 1) (= len 5) (= top1 1) (= len1 5)) (push val top len top1 len1)))
+(rule (=> (and (= val 64) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 2) (= len 1) (= top1 2) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 127) (= top 1) (= len 7) (= top1 1) (= len1 7)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 1) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 2) (= len 1) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 1) (= len 1) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 16) (= top 1) (= len 1) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 20) (= top 2) (= len 10) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 1) (= len 9) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 128) (= len 0) (= top1 2) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 128) (= len 0) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val -128) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 121) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 2) (= len 16) (= top1 1) (= len1 17)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 3) (= top1 1) (= len1 4)) (push val top len top1 len1)))
+(rule (=> (and (= flag 1) (= len 0) (= top MAX) ) (inv top len flag)))
+(rule (=> (and (inv top len flag) (= flag 1) (= val 1) (push val top len top1 len1) (= flag1 0)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (= flag 1)) (= val 2) (push val top len top1 len1) (= flag1 1)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (or (= len 0) (and (=> (= flag 0) (= top 1)) (=> (= flag 1) (= top 2)))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 9 ====================
+TIMEOUT : 180
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/AlternatingList.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_9.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_9.log
+      -> Found 52 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 180-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/AlternatingList/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 68 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: (((((len1 > (-1)) && (len1 <= 0) && (val > 1) && (((len - val) - len) <= (-1))) || (((len - val) - len) > (-1))) && ((val - top1) <= (-1))) || ((((((((val - top1) - top1) > 0) && (((top1 - val) + top1) <= 0)) || (((top1 - val) + top1) > 0)) && (top1 > 0) && (top1 <= 1)) || (top1 > 1)) && ((len - len1) <= 0) && (((len1 - len) - top1) <= 0) && ((val - top1) > (-1))))
+  inv: (((len > (-1)) && (len <= 0)) || (((top - flag) > 0) && ((top - flag) <= 1) && ((top - len) <= 1) && (len > 0)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var flag Int)
+(declare-var flag1 Int)
+(declare-var top Int)
+(declare-var top1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var val Int)
+(declare-rel push (Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(define-fun MAX () Int 128)
+
+
+(rule (=> (and (= val 3) (= top 2) (= len 2) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 2) (= len 2) (= top1 1) (= len1 3)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 2) (= top1 1) (= len1 3)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 2) (= len 2) (= top1 2) (= len1 3)) (push val top len top1 len1)))
+(rule (=> (and (= val 7) (= top 2) (= len 8) (= top1 2) (= len1 8)) (push val top len top1 len1)))
+(rule (=> (and (= val 9) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 1) (= len 5) (= top1 1) (= len1 5)) (push val top len top1 len1)))
+(rule (=> (and (= val 64) (= top 1) (= len 2) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 3) (= top 2) (= len 1) (= top1 2) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 127) (= top 1) (= len 7) (= top1 1) (= len1 7)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 1) (= top1 1) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 2) (= len 1) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 1) (= len 1) (= top1 2) (= len1 2)) (push val top len top1 len1)))
+(rule (=> (and (= val 16) (= top 1) (= len 1) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 20) (= top 2) (= len 10) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 1) (= len 9) (= top1 2) (= len1 10)) (push val top len top1 len1)))
+(rule (=> (and (= val 2) (= top 128) (= len 0) (= top1 2) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 128) (= len 0) (= top1 1) (= len1 1)) (push val top len top1 len1)))
+(rule (=> (and (= val -128) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 121) (= top 128) (= len 0) (= top1 128) (= len1 0)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 2) (= len 16) (= top1 1) (= len1 17)) (push val top len top1 len1)))
+(rule (=> (and (= val 1) (= top 1) (= len 3) (= top1 1) (= len1 4)) (push val top len top1 len1)))
+(rule (=> (and (= flag 1) (= len 0) (= top MAX) ) (inv top len flag)))
+(rule (=> (and (inv top len flag) (= flag 1) (= val 1) (push val top len top1 len1) (= flag1 0)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (= flag 1)) (= val 2) (push val top len top1 len1) (= flag1 1)) (inv top1 len1 flag1)))
+(rule (=> (and (inv top len flag) (not (or (= len 0) (and (=> (= flag 0) (= top 1)) (=> (= flag 1) (= top 2)))))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 9
+Total Unique Test Cases Found: 23
+Total Internal Iterations: 379
+  - Min: 7
+  - Max: 62
+  - Avg: 42.11
+pipeline.run() took 1.0924 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalHornICE AlternatingList
+PID: 5989
+========================================
+
+
+Total Pipeline Duration: 1367.00s

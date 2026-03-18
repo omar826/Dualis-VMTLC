@@ -1,0 +1,450 @@
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(declare-rel push1 (Int Int Int))
+(declare-rel push (Int Int Int))
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(declare-var E Int)
+(rule (=> (and (= C 1) (= B 0) (= A 0)) (push1 C B A)))
+(rule (=> (and (= C 0) (= B 0) (= A 1)) (push C B A)))
+(rule (=> (and (= B 0) (= A 0)) (inv B A)))
+(rule (=> (and (inv E C) (or (= E 1) (= E 0)) (= D 0) (= E 0) (push D C A) (= B 1))
+    (inv B A)))
+(rule (=> (and (inv B C) (or (= B 1) (= B 0)) (= D 1) (push1 D C A)) (inv B A)))
+(rule (let ((a!1 (not (or (and (= C 0) (= B 0)) (= C 1)))))
+  (=> (and (inv B A) (or (= B 1) (= B 0)) a!1) (inv B A))))
+(rule (let ((a!1 (and (inv B A) (or (= B 1) (= B 0)) (not (=> (= B 1) (= A 1))))))
+  (=> a!1 fail)))
+
+
+Read 7 rules and 1 queries (1)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+(declare-fun push (Int Int Int) Bool)
+(declare-fun push1 (Int Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (= k!2 1) (= k!1 0) (= k!0 0)) (push1 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun push1 (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push1 k!2 k!1 k!0)
+
+ -- CHC
+(=> (and (= k!5 0) (= k!4 0) (= k!3 1)) (push k!5 k!4 k!3))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!5 k!4 k!3)
+
+ -- CHC
+(=> (and (= k!7 0) (= k!6 0)) (inv k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!7 k!6)
+
+ -- CHC
+(=> (and (inv k!12 k!10)
+         (or (= k!12 1) (= k!12 0))
+         (= k!11 0)
+         (= k!12 0)
+         (push k!11 k!10 k!8)
+         (= k!9 1))
+    (inv k!9 k!8))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!11 k!10 k!8)
+(inv k!12 k!10)
+ -- RHS
+(inv k!9 k!8)
+
+ -- CHC
+(=> (and (inv k!14 k!15)
+         (or (= k!14 1) (= k!14 0))
+         (= k!16 1)
+         (push1 k!16 k!15 k!13))
+    (inv k!14 k!13))
+ -- Uninterpreted predicates
+(declare-fun push1 (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push1 k!16 k!15 k!13)
+(inv k!14 k!15)
+ -- RHS
+(inv k!14 k!13)
+
+ -- CHC
+(let ((a!1 (not (or (and (= k!19 0) (= k!18 0)) (= k!19 1)))))
+  (=> (and (inv k!18 k!17) (or (= k!18 1) (= k!18 0)) a!1) (inv k!18 k!17)))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!18 k!17)
+ -- RHS
+(inv k!18 k!17)
+
+ -- CHC
+(let ((a!1 (and (inv k!21 k!20)
+                (or (= k!21 1) (= k!21 0))
+                (not (=> (= k!21 1) (= k!20 1))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!21 k!20)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (= k!2 1) (= k!1 0) (= k!0 0)) (push1 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun push1 (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push1 k!2 k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (= k!5 0) (= k!4 0) (= k!3 1)) (push k!5 k!4 k!3))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!5 k!4 k!3)
+
+chc ::  -- CHC
+(=> (and (= k!7 0) (= k!6 0)) (inv k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!7 k!6)
+
+chc ::  -- CHC
+(=> (and (inv k!12 k!10)
+         (or (= k!12 1) (= k!12 0))
+         (= k!11 0)
+         (= k!12 0)
+         (push k!11 k!10 k!8)
+         (= k!9 1))
+    (inv k!9 k!8))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!11 k!10 k!8)
+(inv k!12 k!10)
+ -- RHS
+(inv k!9 k!8)
+
+chc ::  -- CHC
+(=> (and (inv k!14 k!15)
+         (or (= k!14 1) (= k!14 0))
+         (= k!16 1)
+         (push1 k!16 k!15 k!13))
+    (inv k!14 k!13))
+ -- Uninterpreted predicates
+(declare-fun push1 (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push1 k!16 k!15 k!13)
+(inv k!14 k!15)
+ -- RHS
+(inv k!14 k!13)
+
+chc ::  -- CHC
+(let ((a!1 (not (or (and (= k!19 0) (= k!18 0)) (= k!19 1)))))
+  (=> (and (inv k!18 k!17) (or (= k!18 1) (= k!18 0)) a!1) (inv k!18 k!17)))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!18 k!17)
+ -- RHS
+(inv k!18 k!17)
+
+chc ::  -- CHC
+(let ((a!1 (and (inv k!21 k!20)
+                (or (= k!21 1) (= k!21 0))
+                (not (=> (= k!21 1) (= k!20 1))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!21 k!20)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun inv (Int Int) Bool)
+rel :: (declare-fun push (Int Int Int) Bool)
+rel :: (declare-fun push1 (Int Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+(declare-fun push (Int Int Int) Bool)
+(declare-fun push1 (Int Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun inv (Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun inv (Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv (Int Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : inv#0Int
+add_integer_attribute::Integer Attribute::inv#0
+Attribute Identifier : 3 attribute : inv#1Int
+add_integer_attribute::Integer Attribute::inv#1
+learner_interface :: Relation : (declare-fun push (Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun push (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun push (Int Int Int) Bool) is mapped to baseval :  3
+Attribute Identifier : 4 attribute : push#0Int
+add_integer_attribute::Integer Attribute::push#0
+Attribute Identifier : 5 attribute : push#1Int
+add_integer_attribute::Integer Attribute::push#1
+Attribute Identifier : 6 attribute : push#2Int
+add_integer_attribute::Integer Attribute::push#2
+add_integer_attribute::Integer Attribute::|push#2|-|push#1|
+learner_interface :: Relation : (declare-fun push1 (Int Int Int) Bool) is mapped to CatID :  3
+learner_interfaceCatID : 3 is mapped to Relation : (declare-fun push1 (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun push1 (Int Int Int) Bool) is mapped to baseval :  7
+Attribute Identifier : 8 attribute : push1#0Int
+add_integer_attribute::Integer Attribute::push1#0
+Attribute Identifier : 9 attribute : push1#1Int
+add_integer_attribute::Integer Attribute::push1#1
+Attribute Identifier : 10 attribute : push1#2Int
+add_integer_attribute::Integer Attribute::push1#2
+add_integer_attribute::Integer Attribute::|push1#2|-|push1#1|
+add_integer_attribute::Integer Attribute::|push1#2|-|push1#1|
+===========================================
+Learning Iteration: 0
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+true
+Printing all the counter examples : 1
+Counterexample: {fail@(true)} => {}
+Conjectures
+===========================================
+Learning Iteration: 1
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+ NULL
+Printing all the counter examples : 4
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push1(1, 0, 0)}
+Counterexample: {} => {push(0, 0, 1)}
+Counterexample: {} => {inv(0, 0)}
+Conjectures
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> true
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> true
+(declare-fun push1 (Int Int Int) Bool) => [|push1#0|, |push1#1|, |push1#2|] -> true
+===========================================
+Learning Iteration: 2
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ true
+ true
+Printing all the counter examples : 5
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push1(1, 0, 0)}
+Counterexample: {} => {push(0, 0, 1)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Conjectures
+(declare-fun push1 (Int Int Int) Bool) => [|push1#0|, |push1#1|, |push1#2|] -> false
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> false
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 3
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 0
+  true
+  false
+ true
+ true
+Printing all the counter examples : 6
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push1(1, 0, 0)}
+Counterexample: {} => {push(0, 0, 1)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Counterexample: {push(0, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Conjectures
+(declare-fun push1 (Int Int Int) Bool) => [|push1#0|, |push1#1|, |push1#2|] -> true
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 4
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 0
+  true
+  if x[2] <= 0
+   true
+   false
+ true
+ true
+Printing all the counter examples : 9
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push1(1, 0, 0)}
+Counterexample: {} => {push(0, 0, 1)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Counterexample: {push(0, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(1, 1)}
+Counterexample: {push1(1, 0, 1), inv(1, 0)} => {inv(1, 1)}
+Counterexample: {inv(1, 0)} => {fail@(true)}
+Conjectures
+(declare-fun push1 (Int Int Int) Bool) => [|push1#0|, |push1#1|, |push1#2|] -> true
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (<= |inv#0| 0)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 5
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 0
+  true
+  if x[2] <= 0
+   false
+   if x[2] <= 1
+    true
+    false
+ if x[5] <= 0
+  false
+  true
+ true
+Printing all the counter examples : 11
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push1(1, 0, 0)}
+Counterexample: {} => {push(0, 0, 1)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Counterexample: {push(0, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(1, 1)}
+Counterexample: {push1(1, 0, 1), inv(1, 0)} => {inv(1, 1)}
+Counterexample: {inv(1, 0)} => {fail@(true)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(1, 2)}
+Counterexample: {push1(1, 1, 2), inv(1, 1)} => {inv(1, 2)}
+Conjectures
+(declare-fun push1 (Int Int Int) Bool) => [|push1#0|, |push1#1|, |push1#2|] -> true
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (or (<= |inv#0| 0) (and (<= |inv#1| 0) (> |inv#0| 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 6
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 0
+  true
+  if x[2] <= 0
+   false
+   if x[2] <= 1
+    true
+    false
+ if x[5] <= 0
+  false
+  if x[5] <= 1
+   true
+   false
+ if x[8] <= 0
+  true
+  false
+Printing all the counter examples : 11
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push1(1, 0, 0)}
+Counterexample: {} => {push(0, 0, 1)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(1, 2)} => {fail@(true)}
+Counterexample: {push(0, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(1, 1)}
+Counterexample: {push1(1, 0, 1), inv(1, 0)} => {inv(1, 1)}
+Counterexample: {inv(1, 0)} => {fail@(true)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(1, 2)}
+Counterexample: {push1(1, 1, 2), inv(1, 1)} => {inv(1, 2)}
+Conjectures
+(declare-fun push1 (Int Int Int) Bool) => [|push1#0|, |push1#1|, |push1#2|] -> true
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (> |push#2| 0)
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (or (<= |inv#0| 0) (and (<= |inv#1| 1) (> |inv#1| 0) (> |inv#0| 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+In Naive Check
+Success (checked 43 CHCs, invoked learner 7 times)
+(declare-fun push1 (Int Int Int) Bool) => [|push1#0|, |push1#1|, |push1#2|] -> (<= |push1#1| 0)
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (and (<= |push#2| 1) (> |push#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (or (<= |inv#0| 0) (and (<= |inv#1| 1) (> |inv#1| 0) (> |inv#0| 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 2(declare-fun inv (Int Int) Bool)inv
+Relation : 3(declare-fun push (Int Int Int) Bool)push
+Relation : 3(declare-fun push1 (Int Int Int) Bool)push1
+Final CHCs read
+CHC : (fail@ true)
+CHC : (push k!11 k!10 k!8)
+CHC : (inv k!12 k!10)
+CHC : (push1 k!16 k!15 k!13)
+CHC : (inv k!14 k!15)
+CHC : (inv k!18 k!17)
+CHC : (inv k!21 k!20)
+Total time: 0.54

@@ -1,0 +1,562 @@
+
+========================================
+         Starting Pipeline for: Stack (Mode: ContextualLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'Stack'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/Stack/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 6 internal iterations.
+   -> Writing new specs to harness: Stack_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz.cpp'.
+   -> Starting AFL++(Stack_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz
+   -> AFL++(Stack_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:177,execs:85,op:havoc,rep:1
+Checking queue
+   -> Found 5 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Stack'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: ((N - c) > 0)
+  pu: (false)
+  inv2: (false)
+  po: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= N 1) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 12 internal iterations.
+   -> Writing new specs to harness: Stack_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz.cpp'.
+   -> Starting AFL++(Stack_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz
+   -> AFL++(Stack_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000001,time:568,execs:70,op:havoc,rep:13
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:201,execs:54,op:havoc,rep:10
+Checking queue
+   -> Found 5 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Stack'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  pu: (sl1 > 0)
+  inv1: (((((N - c) > 0) && (sl <= 0)) || (sl > 0)) && (d <= 0))
+  inv2: (sl > 0)
+  po: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= sl 1) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 7) (= sl1 6)) (po sl sl1)))
+
+(rule (=> (and (= N 1) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 37 internal iterations.
+   -> Writing new specs to harness: Stack_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz.cpp'.
+   -> Starting AFL++(Stack_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz
+   -> AFL++(Stack_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:180,execs:110,op:havoc,rep:4
+Checking queue
+   -> Found 6 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Stack'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  po: ((sl - sl1) > 0)
+  pu: ((sl <= 0) && (sl1 > 0) && (N <= 1) && (N > 0) && ((sl1 - sl) <= 1) && ((sl1 - sl) > 0))
+  inv1: ((((c <= 1) && (c > 0) && ((c - sl) <= 0) && ((sl - c) <= 0) && ((N - c) > (-1)) && ((N - c) <= 0)) || ((N - c) > 0)) && (d <= 0) && (d > (-1)))
+  inv2: (((sl <= (-1)) || ((d > (-1)) && (((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (sl > (-1)))) && (N > 0) && (N <= 1))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= N 2) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+
+(rule (=> (and (= sl 1) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 7) (= sl1 6)) (po sl sl1)))
+(rule (=> (and (= N 1) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 31 internal iterations.
+   -> Writing new specs to harness: Stack_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz.cpp'.
+   -> Starting AFL++(Stack_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz
+   -> AFL++(Stack_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:181,execs:383,op:havoc,rep:3
+Checking queue
+   -> Found 6 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Stack'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  pu: ((sl1 <= 1) && ((sl1 - sl) > 0))
+  po: ((sl - sl1) > 0)
+  inv1: (((((d <= 0) && (d > (-1))) && (c <= 1) && (c > 0) && ((N - c) > (-1)) && ((sl - c) <= 0) && ((N - c) <= 0)) || (((((d <= 0) && (d > (-1))) && (N > 0) && (N <= 1)) || (N > 1)) && ((N - c) > 0))) && ((c - sl) <= 0))
+  inv2: (((((N - sl) - d) <= 0) || ((d > 0) && (((N - sl) - d) > 0))) && (((sl + d) - N) <= 0) && (d > (-1)) && (N > 0) && (N <= 1))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= N 7) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+
+(rule (=> (and (= N 2) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= sl 1) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 7) (= sl1 6)) (po sl sl1)))
+(rule (=> (and (= N 1) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_5.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_5.log
+      -> Found 49 internal iterations.
+   -> Writing new specs to harness: Stack_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz.cpp'.
+   -> Starting AFL++(Stack_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz
+   -> AFL++(Stack_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000005,time:664,execs:736,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000004,time:198,execs:462,op:havoc,rep:2
+Checking queue
+   -> Found 6 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Stack'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  pu: (((sl <= 0) || ((sl <= 1) && (N > 2) && (sl > 0))) && ((sl1 - sl) <= 1) && ((sl1 - sl) > 0))
+  po: ((sl - sl1) > 0)
+  inv1: ((((c > 0) && (c <= 1) && ((c - sl) <= 0) && ((sl - c) <= 0) && ((N - c) > (-1)) && ((N - c) <= 0)) || ((N > 0) && ((c - sl) <= 0) && ((N - c) > 0))) && (d > (-1)) && (d > (-2)) && (d <= 0))
+  inv2: (((sl <= (-1)) || ((d > (-1)) && (((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (sl > (-1)))) && (N <= 1) && (N > 0))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= N 3) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+
+(rule (=> (and (= N 7) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= sl 1) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 7) (= sl1 6)) (po sl sl1)))
+(rule (=> (and (= N 1) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 6 ====================
+TIMEOUT : 120
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_6.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_6.log
+      -> Found 39 internal iterations.
+   -> Writing new specs to harness: Stack_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz.cpp'.
+   -> Starting AFL++(Stack_fuzz) with a 120-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz
+   -> AFL++(Stack_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000001,time:145,execs:81,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000004,time:531,execs:499,op:havoc,rep:10
+Checking queue
+   -> Found 6 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Stack'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  pu: ((sl1 - sl) > 0)
+  po: (((sl1 <= 0) || ((sl1 > 1) && (sl1 > 0))) && ((sl - sl1) <= 1) && ((sl - sl1) > 0))
+  inv1: ((N > 0) && ((c - sl) <= 0) && (d > (-1)) && (d <= 0))
+  inv2: ((((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0)) || ((sl > 1) && (((sl + d) - N) > 0))) && (d > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= sl 2) (= sl1 1)) (po sl sl1)))
+
+(rule (=> (and (= N 3) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 7) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= sl 1) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 7) (= sl1 6)) (po sl sl1)))
+(rule (=> (and (= N 1) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 7 ====================
+TIMEOUT : 140
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_7.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_7.log
+      -> Found 34 internal iterations.
+   -> Writing new specs to harness: Stack_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz.cpp'.
+   -> Starting AFL++(Stack_fuzz) with a 140-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz
+   -> AFL++(Stack_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 27 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Stack'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  po: (((sl - sl1) <= 1) && ((sl - sl1) > 0))
+  pu: (((sl1 - sl) <= 1) && ((sl1 - sl) > 0))
+  inv1: (((N - c) > (-1)) && (d > (-1)) && (d <= 0) && ((sl - c) <= 0) && ((sl - c) > (-1)))
+  inv2: ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (d > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+
+(rule (=> (and (= sl 2) (= sl1 1)) (po sl sl1)))
+(rule (=> (and (= N 3) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 7) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= sl 1) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 7) (= sl1 6)) (po sl sl1)))
+(rule (=> (and (= N 1) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 8 ====================
+TIMEOUT : 160
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_8.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_8.log
+      -> Found 34 internal iterations.
+   -> Writing new specs to harness: Stack_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz.cpp'.
+   -> Starting AFL++(Stack_fuzz) with a 160-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Stack/Stack_fuzz
+   -> AFL++(Stack_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 27 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Stack'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  po: (((sl - sl1) <= 1) && ((sl - sl1) > 0))
+  pu: (((sl1 - sl) <= 1) && ((sl1 - sl) > 0))
+  inv1: (((N - c) > (-1)) && (d > (-1)) && (d <= 0) && ((sl - c) <= 0) && ((sl - c) > (-1)))
+  inv2: ((((N - sl) - d) <= 0) && (((sl + d) - N) <= 0) && (d > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var c Int)
+(declare-var c1 Int)
+(declare-var d Int)
+(declare-var d1 Int)
+(declare-var sl Int)
+(declare-var sl1 Int)
+(declare-rel pu (Int Int Int))
+(declare-rel po (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+
+(rule (=> (and (= sl 2) (= sl1 1)) (po sl sl1)))
+(rule (=> (and (= N 3) (= sl 2) (= sl1 3)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 7) (= sl 1) (= sl1 2)) (pu N sl sl1)))
+(rule (=> (and (= N 2) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (= sl 1) (= sl1 0)) (po sl sl1)))
+(rule (=> (and (= sl 7) (= sl1 6)) (po sl sl1)))
+(rule (=> (and (= N 1) (= sl 0) (= sl1 1)) (pu N sl sl1)))
+(rule (=> (and (> N 0) (= c 0) (= d 0) (= sl 0)) (inv1 c N d sl)))
+(rule (=> (and (inv1 c N d sl) (< c N) (pu N sl sl1) (= c1 (+ c 1))) (inv1 c1 N d sl1)))
+(rule (=> (and (inv1 c N d sl) (not (< c N))) (inv2 N d sl)))
+(rule (=> (and (inv2 N d sl) (not (= sl 0)) (po sl sl1) (= d1 (+ d 1))) (inv2 N d1 sl1)))
+(rule (=> (and (inv2 N d sl) (= sl 0) (not (= d N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 8
+Total Unique Test Cases Found: 8
+Total Internal Iterations: 242
+  - Min: 6
+  - Max: 49
+  - Avg: 30.25
+pipeline.run() took 0.2386 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualLLMHornICE Stack
+PID: 6003
+========================================
+
+
+Total Pipeline Duration: 750.68s

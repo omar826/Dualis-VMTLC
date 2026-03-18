@@ -1,0 +1,210 @@
+(declare-rel consume (Int Int Int))
+(declare-rel fail ())
+(declare-rel generateTokens (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(declare-var E Int)
+(declare-var F Int)
+(rule (=> (and (> C 0) (> B 0) (>= C B) (= A 0) (generateTokens C D)) (inv1 D C B A)))
+(rule (=> (and (inv1 F C B E) (>= F B) (consume B F D) (= A (+ E B))) (inv1 D C B A)))
+(rule (=> (and (inv1 D A C B) (not (>= D C)) (not (<= B A))) fail))
+
+
+Read 3 rules and 1 queries (1)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun consume (Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+(declare-fun generateTokens (Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (> k!2 0) (> k!1 0) (>= k!2 k!1) (= k!0 0) (generateTokens k!2 k!3))
+    (inv1 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int Int) Bool)
+(declare-fun generateTokens (Int Int) Bool)
+ -- LHS
+(generateTokens k!2 k!3)
+ -- RHS
+(inv1 k!3 k!2 k!1 k!0)
+
+ -- CHC
+(=> (and (inv1 k!9 k!6 k!5 k!8)
+         (>= k!9 k!5)
+         (consume k!5 k!9 k!7)
+         (= k!4 (+ k!8 k!5)))
+    (inv1 k!7 k!6 k!5 k!4))
+ -- Uninterpreted predicates
+(declare-fun consume (Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+(consume k!5 k!9 k!7)
+(inv1 k!9 k!6 k!5 k!8)
+ -- RHS
+(inv1 k!7 k!6 k!5 k!4)
+
+ -- CHC
+(=> (and (inv1 k!13 k!10 k!12 k!11) (not (>= k!13 k!12)) (not (<= k!11 k!10)))
+    (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+(inv1 k!13 k!10 k!12 k!11)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (> k!2 0) (> k!1 0) (>= k!2 k!1) (= k!0 0) (generateTokens k!2 k!3))
+    (inv1 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int Int) Bool)
+(declare-fun generateTokens (Int Int) Bool)
+ -- LHS
+(generateTokens k!2 k!3)
+ -- RHS
+(inv1 k!3 k!2 k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (inv1 k!9 k!6 k!5 k!8)
+         (>= k!9 k!5)
+         (consume k!5 k!9 k!7)
+         (= k!4 (+ k!8 k!5)))
+    (inv1 k!7 k!6 k!5 k!4))
+ -- Uninterpreted predicates
+(declare-fun consume (Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+(consume k!5 k!9 k!7)
+(inv1 k!9 k!6 k!5 k!8)
+ -- RHS
+(inv1 k!7 k!6 k!5 k!4)
+
+chc ::  -- CHC
+(=> (and (inv1 k!13 k!10 k!12 k!11) (not (>= k!13 k!12)) (not (<= k!11 k!10)))
+    (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+(inv1 k!13 k!10 k!12 k!11)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun consume (Int Int Int) Bool)
+rel :: (declare-fun inv1 (Int Int Int Int) Bool)
+rel :: (declare-fun generateTokens (Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun consume (Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+(declare-fun generateTokens (Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun consume (Int Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun consume (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun consume (Int Int Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : consume#0Int
+add_integer_attribute::Integer Attribute::consume#0
+Attribute Identifier : 3 attribute : consume#1Int
+add_integer_attribute::Integer Attribute::consume#1
+Attribute Identifier : 4 attribute : consume#2Int
+add_integer_attribute::Integer Attribute::consume#2
+add_integer_attribute::Integer Attribute::|consume#1|-|consume#2|-|consume#0|
+learner_interface :: Relation : (declare-fun inv1 (Int Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun inv1 (Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv1 (Int Int Int Int) Bool) is mapped to baseval :  5
+Attribute Identifier : 6 attribute : inv1#0Int
+add_integer_attribute::Integer Attribute::inv1#0
+Attribute Identifier : 7 attribute : inv1#1Int
+add_integer_attribute::Integer Attribute::inv1#1
+Attribute Identifier : 8 attribute : inv1#2Int
+add_integer_attribute::Integer Attribute::inv1#2
+Attribute Identifier : 9 attribute : inv1#3Int
+add_integer_attribute::Integer Attribute::inv1#3
+add_integer_attribute::Integer Attribute::|inv1#0|+|inv1#3|-|inv1#1|
+learner_interface :: Relation : (declare-fun generateTokens (Int Int) Bool) is mapped to CatID :  3
+learner_interfaceCatID : 3 is mapped to Relation : (declare-fun generateTokens (Int Int) Bool)
+learner_interfaceRelation : (declare-fun generateTokens (Int Int) Bool) is mapped to baseval :  10
+Attribute Identifier : 11 attribute : generateTokens#0Int
+add_integer_attribute::Integer Attribute::generateTokens#0
+Attribute Identifier : 12 attribute : generateTokens#1Int
+add_integer_attribute::Integer Attribute::generateTokens#1
+add_integer_attribute::Integer Attribute::|generateTokens#1|-|generateTokens#0|
+add_integer_attribute::Integer Attribute::|generateTokens#0|-|generateTokens#1|
+===========================================
+Learning Iteration: 0
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+true
+Printing all the counter examples : 1
+Counterexample: {fail@(true)} => {}
+Conjectures
+===========================================
+Learning Iteration: 1
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+ NULL
+Printing all the counter examples : 1
+Counterexample: {fail@(true)} => {}
+Conjectures
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> true
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> true
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> true
+In Naive Check
+Success (checked 8 CHCs, invoked learner 2 times)
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> false
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> false
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 3(declare-fun consume (Int Int Int) Bool)consume
+Relation : 4(declare-fun inv1 (Int Int Int Int) Bool)inv1
+Relation : 2(declare-fun generateTokens (Int Int) Bool)generateTokens
+Final CHCs read
+CHC : (fail@ true)
+CHC : (generateTokens k!2 k!3)
+CHC : (consume k!5 k!9 k!7)
+CHC : (inv1 k!9 k!6 k!5 k!8)
+CHC : (inv1 k!13 k!10 k!12 k!11)
+Total time: 0.2

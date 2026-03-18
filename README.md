@@ -213,7 +213,7 @@ In this section we undertake steps to back our claims in the paper.
    the LLM pipelines, we perform an equivalence check between the
    previously obtained specifications and the newly generated ones.
    
-__Note : These steps take approximately 8-10 hrs to complete.__
+__Note : These steps take approximately 10-12 hrs to complete.__
 
 ### Running full evaluation script
 
@@ -227,15 +227,22 @@ __Note : Evaluation is carried by running learners on 20 benchmarks in
 parallel. Ensure that sufficient CPU resources (≈20 cores) are
 available to obtain results within the expected time.__
 
-After 8-10 hrs you will see that the evaluation has ended.
+After 10-12 hrs you will see that the evaluation has ended.
 
 After the evaluation run, the compiled concise results are captured in
-```evaluation_summart.txt```.
+```evaluation_summary.txt```.
 
 ```
 cat evaluation_summary.txt
 ```
 to view results.
+
+Run the script ```summary_table.py``` which builds a summary table
+using ```evaluation_summary.txt```.
+
+```
+python3 summary_table.py
+```
 
 This provides an overview of all the learners across all the
 benchmarks. The evaluation_summary.txt file will contain results from

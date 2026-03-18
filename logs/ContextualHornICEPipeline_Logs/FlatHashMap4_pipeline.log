@@ -1,0 +1,27 @@
+
+========================================
+         Starting Pipeline for: FlatHashMap4 (Mode: ContextualHornICE)
+========================================
+Initializing pipeline for benchmark: 'FlatHashMap4'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/FlatHashMap4/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/FlatHashMap4/FlatHashMap4.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> ERROR: HornICE failed with exit code -11.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 1
+Total Unique Test Cases Found: 0
+pipeline.run() took 0.0013 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualHornICE FlatHashMap4
+PID: 6005
+========================================
+
+
+Total Pipeline Duration: 0.32s

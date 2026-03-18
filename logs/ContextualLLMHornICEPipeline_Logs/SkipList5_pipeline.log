@@ -1,0 +1,319 @@
+
+========================================
+         Starting Pipeline for: SkipList5 (Mode: ContextualLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'SkipList5'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/SkipList5/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/SkipList5/SkipList5.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: SkipList5_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/SkipList5/SkipList5_fuzz.cpp'.
+   -> Starting AFL++(SkipList5_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/SkipList5/SkipList5_fuzz
+   -> AFL++(SkipList5_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000003,time:187,execs:31,op:havoc,rep:6
+Checking queue
+   -> Found 13 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000007,time:0,execs:0,orig:insremlwb
+   -> CRASH REPRODUCED with id:000010,time:0,execs:0,orig:remlwb
+   -> CRASH REPRODUCED with id:000006,time:0,execs:0,orig:insrem
+   -> CRASH REPRODUCED with id:000008,time:0,execs:0,orig:lwbrem
+   -> CRASH REPRODUCED with id:000002,time:0,execs:0,orig:2rem
+   -> CRASH REPRODUCED with id:000004,time:0,execs:0,orig:inslwb
+   -> CRASH REPRODUCED with id:000009,time:0,execs:0,orig:remins
+   -> CRASH REPRODUCED with id:000005,time:0,execs:0,orig:inslwbrem
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:2ins
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2lwb
+Checking hangs
+   -> Converting counterexamples for 'SkipList5'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: (true)
+  insert: (false)
+  lower_bound: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var isPresent Int)
+(declare-var isPresent1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var v Int)
+(declare-var k Int)
+(declare-var lb_ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int))
+(declare-rel lower_bound (Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= v 1) (= isPresent 0) (= min 128) (= max -129) (= len 0) (= isPresent1 1) (= min1 1) (= max1 1) (= len1 1)) (insert v isPresent min max len isPresent1 min1 max1 len1)))
+
+(rule (=> (and (> N 0) (= min MAX) (= max MIN) (= len 0) (= isPresent 0) (= i 0)) (inv1 i N isPresent min max len)))
+(rule (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (< i N) (= v 1) (insert v isPresent min max len isPresent1 min1 max1 len1) (= i1 (+ i 1))) (inv1 i1 N isPresent1 min1 max1 len1)))
+(rule (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (not (< i N)) (= k min)(lower_bound k min max lb_ret1) (not (= lb_ret1 min))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/SkipList5/SkipList5.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: SkipList5_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/SkipList5/SkipList5_fuzz.cpp'.
+   -> Starting AFL++(SkipList5_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/SkipList5/SkipList5_fuzz
+   -> AFL++(SkipList5_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000003,time:414,execs:41,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000003,time:214,execs:34,op:havoc,rep:3
+Checking queue
+   -> Found 13 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000007,time:0,execs:0,orig:insremlwb
+   -> CRASH REPRODUCED with id:000010,time:0,execs:0,orig:remlwb
+   -> CRASH REPRODUCED with id:000006,time:0,execs:0,orig:insrem
+   -> CRASH REPRODUCED with id:000008,time:0,execs:0,orig:lwbrem
+   -> CRASH REPRODUCED with id:000002,time:0,execs:0,orig:2rem
+   -> CRASH REPRODUCED with id:000004,time:0,execs:0,orig:inslwb
+   -> CRASH REPRODUCED with id:000009,time:0,execs:0,orig:remins
+   -> CRASH REPRODUCED with id:000005,time:0,execs:0,orig:inslwbrem
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:2ins
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2lwb
+Checking hangs
+   -> Converting counterexamples for 'SkipList5'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (true)
+  inv1: (true)
+  lower_bound: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var isPresent Int)
+(declare-var isPresent1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var v Int)
+(declare-var k Int)
+(declare-var lb_ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int))
+(declare-rel lower_bound (Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= k 1) (= min 1) (= max 1) (= lb_ret1 1)) (lower_bound k min max lb_ret1)))
+
+(rule (=> (and (= v 1) (= isPresent 0) (= min 128) (= max -129) (= len 0) (= isPresent1 1) (= min1 1) (= max1 1) (= len1 1)) (insert v isPresent min max len isPresent1 min1 max1 len1)))
+(rule (=> (and (> N 0) (= min MAX) (= max MIN) (= len 0) (= isPresent 0) (= i 0)) (inv1 i N isPresent min max len)))
+(rule (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (< i N) (= v 1) (insert v isPresent min max len isPresent1 min1 max1 len1) (= i1 (+ i 1))) (inv1 i1 N isPresent1 min1 max1 len1)))
+(rule (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (not (< i N)) (= k min)(lower_bound k min max lb_ret1) (not (= lb_ret1 min))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/SkipList5/SkipList5.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 12 internal iterations.
+   -> Writing new specs to harness: SkipList5_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/SkipList5/SkipList5_fuzz.cpp'.
+   -> Starting AFL++(SkipList5_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/SkipList5/SkipList5_fuzz
+   -> AFL++(SkipList5_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 35 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'SkipList5'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  lower_bound: (((lb_ret1 - min) <= 0) && ((min - lb_ret1) <= 0) && (max > 0))
+  insert: (true)
+  inv1: (true)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var isPresent Int)
+(declare-var isPresent1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var v Int)
+(declare-var k Int)
+(declare-var lb_ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int))
+(declare-rel lower_bound (Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+
+(rule (=> (and (= k 1) (= min 1) (= max 1) (= lb_ret1 1)) (lower_bound k min max lb_ret1)))
+(rule (=> (and (= v 1) (= isPresent 0) (= min 128) (= max -129) (= len 0) (= isPresent1 1) (= min1 1) (= max1 1) (= len1 1)) (insert v isPresent min max len isPresent1 min1 max1 len1)))
+(rule (=> (and (> N 0) (= min MAX) (= max MIN) (= len 0) (= isPresent 0) (= i 0)) (inv1 i N isPresent min max len)))
+(rule (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (< i N) (= v 1) (insert v isPresent min max len isPresent1 min1 max1 len1) (= i1 (+ i 1))) (inv1 i1 N isPresent1 min1 max1 len1)))
+(rule (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (not (< i N)) (= k min)(lower_bound k min max lb_ret1) (not (= lb_ret1 min))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/SkipList5/SkipList5.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 12 internal iterations.
+   -> Writing new specs to harness: SkipList5_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/SkipList5/SkipList5_fuzz.cpp'.
+   -> Starting AFL++(SkipList5_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/SkipList5/SkipList5_fuzz
+   -> AFL++(SkipList5_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 31 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'SkipList5'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  lower_bound: (((lb_ret1 - min) <= 0) && ((min - lb_ret1) <= 0) && (max > 0))
+  insert: (true)
+  inv1: (true)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var isPresent Int)
+(declare-var isPresent1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var v Int)
+(declare-var k Int)
+(declare-var lb_ret1 Int)
+(declare-rel insert (Int Int Int Int Int Int Int Int Int))
+(declare-rel lower_bound (Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+
+(rule (=> (and (= k 1) (= min 1) (= max 1) (= lb_ret1 1)) (lower_bound k min max lb_ret1)))
+(rule (=> (and (= v 1) (= isPresent 0) (= min 128) (= max -129) (= len 0) (= isPresent1 1) (= min1 1) (= max1 1) (= len1 1)) (insert v isPresent min max len isPresent1 min1 max1 len1)))
+(rule (=> (and (> N 0) (= min MAX) (= max MIN) (= len 0) (= isPresent 0) (= i 0)) (inv1 i N isPresent min max len)))
+(rule (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (< i N) (= v 1) (insert v isPresent min max len isPresent1 min1 max1 len1) (= i1 (+ i 1))) (inv1 i1 N isPresent1 min1 max1 len1)))
+(rule (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (not (< i N)) (= k min)(lower_bound k min max lb_ret1) (not (= lb_ret1 min))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 4
+Total Unique Test Cases Found: 2
+Total Internal Iterations: 30
+  - Min: 3
+  - Max: 12
+  - Avg: 7.50
+pipeline.run() took 0.0769 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualLLMHornICE SkipList5
+PID: 5989
+========================================
+
+
+Total Pipeline Duration: 213.25s

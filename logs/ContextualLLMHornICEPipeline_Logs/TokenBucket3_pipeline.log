@@ -1,0 +1,266 @@
+
+========================================
+         Starting Pipeline for: TokenBucket3 (Mode: ContextualLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'TokenBucket3'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/TokenBucket3/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 2 internal iterations.
+   -> Writing new specs to harness: TokenBucket3_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp'.
+   -> Starting AFL++(TokenBucket3_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz
+   -> ERROR: AFL++(TokenBucket3_fuzz) failed with exit code 1.
+      AFL++ Error Output:
+[1;92m[+] [0mEnabled environment variable AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_NO_UI with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_CMPLOG_ONLY_NEW with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_DEBUG_CHILD with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_IGNORE_PROBLEMS with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_SKIP_CPUFREQ with value 1[0m
+[1;94m[*] [0mSpinning up the fork server...[0m
+[1;92m[+] [0mAll right - new fork server model v1 is up.[0m
+[1;94m[*] [0mTarget map size: 206[0m
+TokenBucket3_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp:50: int main(int, char **): Assertion `expr_generateTokens' failed.
+TokenBucket3_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp:50: int main(int, char **): Assertion `expr_generateTokens' failed.
+TokenBucket3_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp:50: int main(int, char **): Assertion `expr_generateTokens' failed.
+TokenBucket3_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp:50: int main(int, char **): Assertion `expr_generateTokens' failed.
+
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2ins
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:2fin
+   -> CRASH REPRODUCED with id:000003,time:0,execs:0,orig:insfin
+   -> CRASH REPRODUCED with id:000002,time:0,execs:0,orig:finins
+Checking hangs
+   -> Converting counterexamples for 'TokenBucket3'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  generateTokens: (false)
+  inv1: (false)
+  consume: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var b_size Int)
+(declare-var c_rate Int)
+(declare-var avai_tokens Int)
+(declare-var avai_tokens1 Int)
+(declare-var consumed_tokens Int)
+(declare-var consumed_tokens1 Int)
+(declare-var token_counter Int)
+(declare-rel generateTokens (Int Int))
+(declare-rel consume (Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= b_size 255) (= avai_tokens1 255)) (generateTokens b_size avai_tokens1)))
+
+(rule (=> (and (> b_size 0) (> c_rate 0) (>= b_size c_rate) (= consumed_tokens1 0) (generateTokens b_size avai_tokens1)) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
+(rule (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens)   (>= avai_tokens c_rate) (consume c_rate avai_tokens avai_tokens1) (= consumed_tokens1 (+ consumed_tokens c_rate))) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
+(rule (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens) (not (>= avai_tokens c_rate)) (not (<= consumed_tokens b_size) )) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 31 internal iterations.
+   -> Writing new specs to harness: TokenBucket3_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp'.
+   -> Starting AFL++(TokenBucket3_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz
+   -> ERROR: AFL++(TokenBucket3_fuzz) failed with exit code 1.
+      AFL++ Error Output:
+[1;92m[+] [0mEnabled environment variable AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_NO_UI with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_CMPLOG_ONLY_NEW with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_DEBUG_CHILD with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_IGNORE_PROBLEMS with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_SKIP_CPUFREQ with value 1[0m
+[1;94m[*] [0mSpinning up the fork server...[0m
+[1;92m[+] [0mAll right - new fork server model v1 is up.[0m
+[1;94m[*] [0mTarget map size: 209[0m
+TokenBucket3_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp:66: int main(int, char **): Assertion `expr_consume' failed.
+TokenBucket3_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp:66: int main(int, char **): Assertion `expr_consume' failed.
+TokenBucket3_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp:66: int main(int, char **): Assertion `expr_consume' failed.
+TokenBucket3_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp:66: int main(int, char **): Assertion `expr_consume' failed.
+
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2ins
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:2fin
+   -> CRASH REPRODUCED with id:000003,time:0,execs:0,orig:insfin
+   -> CRASH REPRODUCED with id:000002,time:0,execs:0,orig:finins
+Checking hangs
+   -> Converting counterexamples for 'TokenBucket3'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  generateTokens: (true)
+  inv1: ((b_size > (-1)) && (consumed_tokens <= 0) && (c_rate > 0))
+  consume: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var b_size Int)
+(declare-var c_rate Int)
+(declare-var avai_tokens Int)
+(declare-var avai_tokens1 Int)
+(declare-var consumed_tokens Int)
+(declare-var consumed_tokens1 Int)
+(declare-var token_counter Int)
+(declare-rel generateTokens (Int Int))
+(declare-rel consume (Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= c_rate 1) (= avai_tokens 255) (= avai_tokens1 254)) (consume c_rate avai_tokens avai_tokens1)))
+(rule (=> (and (= c_rate 2) (= avai_tokens 255) (= avai_tokens1 253)) (consume c_rate avai_tokens avai_tokens1)))
+
+(rule (=> (and (= b_size 255) (= avai_tokens1 255)) (generateTokens b_size avai_tokens1)))
+(rule (=> (and (> b_size 0) (> c_rate 0) (>= b_size c_rate) (= consumed_tokens1 0) (generateTokens b_size avai_tokens1)) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
+(rule (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens)   (>= avai_tokens c_rate) (consume c_rate avai_tokens avai_tokens1) (= consumed_tokens1 (+ consumed_tokens c_rate))) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
+(rule (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens) (not (>= avai_tokens c_rate)) (not (<= consumed_tokens b_size) )) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 159 internal iterations.
+   -> Writing new specs to harness: TokenBucket3_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp'.
+   -> Starting AFL++(TokenBucket3_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz
+   -> ERROR: AFL++(TokenBucket3_fuzz) failed with exit code 1.
+      AFL++ Error Output:
+[1;92m[+] [0mEnabled environment variable AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_NO_UI with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_CMPLOG_ONLY_NEW with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_DEBUG_CHILD with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_IGNORE_PROBLEMS with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_SKIP_CPUFREQ with value 1[0m
+[1;94m[*] [0mSpinning up the fork server...[0m
+[1;92m[+] [0mAll right - new fork server model v1 is up.[0m
+[1;94m[*] [0mTarget map size: 219[0m
+TokenBucket3_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp:66: int main(int, char **): Assertion `expr_consume' failed.
+TokenBucket3_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp:66: int main(int, char **): Assertion `expr_consume' failed.
+TokenBucket3_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp:66: int main(int, char **): Assertion `expr_consume' failed.
+TokenBucket3_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3_fuzz.cpp:66: int main(int, char **): Assertion `expr_consume' failed.
+
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2ins
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:2fin
+   -> CRASH REPRODUCED with id:000003,time:0,execs:0,orig:insfin
+   -> CRASH REPRODUCED with id:000002,time:0,execs:0,orig:finins
+Checking hangs
+   -> Converting counterexamples for 'TokenBucket3'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  consume: ((c_rate <= 0) || (((((((avai_tokens - avai_tokens1) - c_rate) <= (-5)) || (((((avai_tokens - avai_tokens1) - c_rate) <= (-2)) || ((avai_tokens1 > 0) && (((avai_tokens - avai_tokens1) - c_rate) > (-2)))) && (((avai_tokens - avai_tokens1) - c_rate) > (-5)))) && (c_rate <= 1)) || ((avai_tokens1 > 1) && (c_rate <= 2) && (c_rate > 1))) && (c_rate > 0)))
+  generateTokens: (true)
+  inv1: ((((consumed_tokens <= 1) || ((avai_tokens > 0) && (consumed_tokens > 1))) && (b_size > 0) && (c_rate > 0) && (c_rate <= 1)) || (((consumed_tokens <= 2) || ((avai_tokens > 1) && (c_rate <= 2) && (consumed_tokens > 2))) && (b_size > 1) && (c_rate > 1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var b_size Int)
+(declare-var c_rate Int)
+(declare-var avai_tokens Int)
+(declare-var avai_tokens1 Int)
+(declare-var consumed_tokens Int)
+(declare-var consumed_tokens1 Int)
+(declare-var token_counter Int)
+(declare-rel generateTokens (Int Int))
+(declare-rel consume (Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= c_rate 1) (= avai_tokens 1) (= avai_tokens1 0)) (consume c_rate avai_tokens avai_tokens1)))
+(rule (=> (and (= c_rate 2) (= avai_tokens 3) (= avai_tokens1 1)) (consume c_rate avai_tokens avai_tokens1)))
+
+(rule (=> (and (= c_rate 1) (= avai_tokens 255) (= avai_tokens1 254)) (consume c_rate avai_tokens avai_tokens1)))
+(rule (=> (and (= c_rate 2) (= avai_tokens 255) (= avai_tokens1 253)) (consume c_rate avai_tokens avai_tokens1)))
+(rule (=> (and (= b_size 255) (= avai_tokens1 255)) (generateTokens b_size avai_tokens1)))
+(rule (=> (and (> b_size 0) (> c_rate 0) (>= b_size c_rate) (= consumed_tokens1 0) (generateTokens b_size avai_tokens1)) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
+(rule (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens)   (>= avai_tokens c_rate) (consume c_rate avai_tokens avai_tokens1) (= consumed_tokens1 (+ consumed_tokens c_rate))) (inv1 avai_tokens1 b_size c_rate consumed_tokens1)))
+(rule (=> (and (inv1 avai_tokens b_size c_rate consumed_tokens) (not (>= avai_tokens c_rate)) (not (<= consumed_tokens b_size) )) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/TokenBucket3/TokenBucket3.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 4
+Total Unique Test Cases Found: 5
+Total Internal Iterations: 192
+  - Min: 2
+  - Max: 159
+  - Avg: 64.00
+pipeline.run() took 0.7037 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualLLMHornICE TokenBucket3
+PID: 5992
+========================================
+
+
+Total Pipeline Duration: 1053.42s

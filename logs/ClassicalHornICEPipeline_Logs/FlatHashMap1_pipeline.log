@@ -1,0 +1,961 @@
+
+========================================
+         Starting Pipeline for: FlatHashMap1 (Mode: ClassicalHornICE)
+========================================
+Initializing pipeline for benchmark: 'FlatHashMap1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/FlatHashMap1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/FlatHashMap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 16 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000013,sig:06,src:000000,time:3389,execs:10437,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:271,execs:85,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000011,sig:06,src:000000,time:1321,execs:3927,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000000,time:1253,execs:3477,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:289,execs:219,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:270,execs:80,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000015,sig:06,src:000000,time:13737,execs:32255,op:havoc,rep:14
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:269,execs:76,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:287,execs:199,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000012,sig:06,src:000000,time:3062,execs:10071,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:283,execs:164,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000014,sig:06,src:000000,time:6849,execs:15712,op:havoc,rep:15
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:673,execs:1256,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:277,execs:119,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:269,execs:75,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000000,time:1305,execs:3809,op:havoc,rep:4
+Checking queue
+   -> Found 11 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000007,time:0,execs:0,orig:insersremaremn
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 17 new rules.
+   -> Writing new specs to harness: remove_all_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz.cpp'.
+   -> Starting AFL++(remove_all_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz
+   -> AFL++(remove_all_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 18 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000000,time:1045,execs:146,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:1040,execs:94,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000016,sig:06,src:000000,time:14031,execs:18068,op:havoc,rep:13
+   -> CRASH REPRODUCED with id:000015,sig:06,src:000000,time:7014,execs:10322,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000000,time:1049,execs:182,op:havoc,rep:2
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000000,time:1044,execs:135,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000013,sig:06,src:000000,time:3592,execs:4495,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000012,sig:06,src:000000,time:3282,execs:4181,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:1039,execs:93,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000000,time:1057,execs:289,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000014,sig:06,src:000000,time:5996,execs:8162,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000011,sig:06,src:000000,time:1665,execs:1067,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:487,execs:79,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000000,time:1041,execs:114,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:1041,execs:99,op:havoc,rep:1
+   -> CRASH REPRODUCED with id:000017,sig:06,src:000000,time:15463,execs:20029,op:havoc,rep:10
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:244,execs:77,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000000,time:1044,execs:140,op:havoc,rep:4
+Checking queue
+   -> Found 11 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000007,time:0,execs:0,orig:insersremaremn
+Checking hangs
+   -> Converting counterexamples for 'remove_all'...
+      -> Found and validated 4 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: (true)
+  insert: (false)
+  remove_all: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var remove_count Int)
+(declare-var remove_count1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel remove_all (Int Int Int Int))
+(declare-rel inv1 (Int Int Int ))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 92) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 43) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 121) (= v 92) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 76) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 49) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 61) (= v 27) (= len 3) (= containsk 1) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -120) (= v 50) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 50) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 77) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 52) (= len 3) (= containsk 0) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 51) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v 48) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -20) (= v 50) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= len 0) (= remove_count 0) (= len1 0) (= remove_count1 0)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 4) (= remove_count 0) (= len1 0) (= remove_count1 4)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 1) (= remove_count 0) (= len1 0) (= remove_count1 1)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 5) (= remove_count 0) (= len1 0) (= remove_count1 5)) (remove_all len remove_count len1 remove_count1)))
+
+(rule (=> (and (> N 0) (= i 0) (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len )  (not (< i N)) (= remove_count 0) (remove_all len remove_count len1 remove_count1) (not (and (= remove_count1 N) (= len1 0)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/FlatHashMap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 25 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 14 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000007,time:853,execs:1463,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000007,time:856,execs:1515,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000007,time:33,execs:846,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000013,sig:06,src:000007,time:7833,execs:10032,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000007,time:2556,execs:4405,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000012,sig:06,src:000007,time:7298,execs:9427,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000007,time:1123,execs:1851,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000007,time:36,execs:910,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000007,time:30,execs:801,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000007,time:843,execs:1300,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000007,time:1116,execs:1763,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000007,time:2,execs:117,op:quick,pos:12
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000007,time:23,execs:668,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000011,sig:06,src:000007,time:3406,execs:5043,op:havoc,rep:3
+Checking queue
+   -> Found 88 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 14 new rules.
+   -> Writing new specs to harness: remove_all_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz.cpp'.
+   -> Starting AFL++(remove_all_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz
+   -> AFL++(remove_all_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 160 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'remove_all'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (v > 0)
+  inv1: ((i <= 0) && (N > 0))
+  remove_all: (true)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var remove_count Int)
+(declare-var remove_count1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel remove_all (Int Int Int Int))
+(declare-rel inv1 (Int Int Int ))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 51) (= v -73) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v -49) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -110) (= v -110) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v -128) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -13) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -16) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -9) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -14) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v -1) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 3) (= v -50) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -56) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 64) (= v 0) (= len 3) (= containsk 0) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -102) (= v -102) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+
+(rule (=> (and (= k 92) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 43) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 121) (= v 92) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 76) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 49) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 61) (= v 27) (= len 3) (= containsk 1) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -120) (= v 50) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 50) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 77) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 52) (= len 3) (= containsk 0) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 51) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v 48) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -20) (= v 50) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= len 0) (= remove_count 0) (= len1 0) (= remove_count1 0)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 4) (= remove_count 0) (= len1 0) (= remove_count1 4)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 1) (= remove_count 0) (= len1 0) (= remove_count1 1)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 5) (= remove_count 0) (= len1 0) (= remove_count1 5)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len )  (not (< i N)) (= remove_count 0) (remove_all len remove_count len1 remove_count1) (not (and (= remove_count1 N) (= len1 0)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/FlatHashMap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 34 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 13 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000007,time:575,execs:1005,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000007,time:9465,execs:6893,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000007,time:28987,execs:17496,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000007,time:330,execs:974,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000007,time:1211,execs:1772,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000007,time:21099,execs:13378,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000011,sig:06,src:000007,time:31698,execs:19221,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000007,time:1642,execs:1908,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000007,time:2500,execs:2081,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000007,time:2284,execs:2074,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000007,time:2725,execs:2206,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000012,sig:06,src:000007,time:43793,execs:25041,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000007,time:29873,execs:17855,op:havoc,rep:3
+Checking queue
+   -> Found 90 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 7 new rules.
+   -> Writing new specs to harness: remove_all_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz.cpp'.
+   -> Starting AFL++(remove_all_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz
+   -> AFL++(remove_all_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 199 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'remove_all'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (((((len <= 0) || (((((((((k + v + containsk) <= 0) && (((v - k) - containsk) <= 0)) || (((v - k) - containsk) > 0)) && (((k - v) - containsk) <= 0)) || (((k - v) - containsk) > 0)) && (((len - containsk) - containsk1) <= 0)) || (((len - containsk) - containsk1) > 0)) && (len > 0))) && (containsk <= 0)) || (containsk > 0)) && (((containsk - len) + len1) <= 1) && (((containsk - len) + len1) > 0) && (containsk1 > 0))
+  inv1: (((i - len) > (-1)) && ((i - len) <= 0) && (((len - i) + len) <= 1) && (N > 0))
+  remove_all: ((((len <= 0) || ((len1 <= 0) && ((len + remove_count + len1) > 0) && (remove_count1 > 0) && (((remove_count - len) + remove_count1) <= 0) && (len > 0))) && (len <= 1)) || (len > 1))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var remove_count Int)
+(declare-var remove_count1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel remove_all (Int Int Int Int))
+(declare-rel inv1 (Int Int Int ))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 93) (= v 93) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 51) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 4) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 17) (= v 17) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 48) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 100) (= v 100) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 77) (= v 77) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+
+(rule (=> (and (= k 51) (= v -73) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v -49) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -110) (= v -110) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v -128) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -13) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -16) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -9) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -14) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v -1) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 3) (= v -50) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -56) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 64) (= v 0) (= len 3) (= containsk 0) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -102) (= v -102) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 92) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 43) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 121) (= v 92) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 76) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 49) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 61) (= v 27) (= len 3) (= containsk 1) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -120) (= v 50) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 50) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 77) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 52) (= len 3) (= containsk 0) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 51) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v 48) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -20) (= v 50) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= len 0) (= remove_count 0) (= len1 0) (= remove_count1 0)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 4) (= remove_count 0) (= len1 0) (= remove_count1 4)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 1) (= remove_count 0) (= len1 0) (= remove_count1 1)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 5) (= remove_count 0) (= len1 0) (= remove_count1 5)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len )  (not (< i N)) (= remove_count 0) (remove_all len remove_count len1 remove_count1) (not (and (= remove_count1 N) (= len1 0)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/FlatHashMap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 35 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 16 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000007,time:562,execs:959,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000007,time:2383,execs:2510,op:havoc,rep:13
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000007,time:1089,execs:1227,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000007,time:2754,execs:2607,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000007,time:697,execs:1109,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000015,sig:06,src:000007,time:62452,execs:31259,op:havoc,rep:13
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000007,time:427,execs:884,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000014,sig:06,src:000007,time:51716,execs:25957,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000007,time:25032,execs:12534,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000007,time:1275,execs:1231,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000013,sig:06,src:000007,time:42138,execs:21559,op:havoc,rep:15
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000007,time:218,execs:720,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000011,sig:06,src:000007,time:34955,execs:17027,op:havoc,rep:16
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000007,time:3543,execs:2841,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000007,time:5677,execs:3942,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000012,sig:06,src:000007,time:37859,execs:18719,op:havoc,rep:9
+Checking queue
+   -> Found 96 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 13 new rules.
+   -> Writing new specs to harness: remove_all_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz.cpp'.
+   -> Starting AFL++(remove_all_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz
+   -> AFL++(remove_all_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 170 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'remove_all'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (((((len <= 0) || (((((((k + v + containsk) <= 0) && (((k - len) - containsk) <= 0)) || (((k - len) - containsk) > 0)) && (((len - containsk) - containsk1) <= 0)) || (((len - containsk) - containsk1) > 0)) && (len > 0))) && (containsk <= 0)) || (containsk > 0)) && (((containsk - len) + len1) <= 1) && (((containsk - len) + len1) > 0) && (containsk1 > 0))
+  inv1: (((i - len) <= 0) && (i <= 1) && ((i - len) > (-1)) && (N > 0))
+  remove_all: ((((len <= 0) || ((len1 <= 0) && ((len + remove_count + len1) > 0) && (remove_count1 > 0) && (((remove_count - len) + remove_count1) <= 0) && (len > 0))) && (len <= 1)) || (len > 1))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var remove_count Int)
+(declare-var remove_count1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel remove_all (Int Int Int Int))
+(declare-rel inv1 (Int Int Int ))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 0) (= v 51) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 1) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 127) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -12) (= v 64) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 92) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -113) (= v 121) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 106) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 48) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -3) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 92) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 16) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+
+(rule (=> (and (= k 93) (= v 93) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 51) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 4) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 17) (= v 17) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 48) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 100) (= v 100) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 77) (= v 77) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -73) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v -49) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -110) (= v -110) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v -128) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -13) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -16) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -9) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -14) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v -1) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 3) (= v -50) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -56) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 64) (= v 0) (= len 3) (= containsk 0) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -102) (= v -102) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 92) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 43) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 121) (= v 92) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 76) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 49) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 61) (= v 27) (= len 3) (= containsk 1) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -120) (= v 50) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 50) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 77) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 52) (= len 3) (= containsk 0) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 51) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v 48) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -20) (= v 50) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= len 0) (= remove_count 0) (= len1 0) (= remove_count1 0)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 4) (= remove_count 0) (= len1 0) (= remove_count1 4)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 1) (= remove_count 0) (= len1 0) (= remove_count1 1)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 5) (= remove_count 0) (= len1 0) (= remove_count1 5)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len )  (not (< i N)) (= remove_count 0) (remove_all len remove_count len1 remove_count1) (not (and (= remove_count1 N) (= len1 0)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/FlatHashMap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_5.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_5.log
+      -> Found 29 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 14 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000007,sig:06,src:000072,time:45492,execs:53569,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000011,sig:06,src:000083,time:64614,execs:80677,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000007,time:1455,execs:2071,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000013,sig:06,src:000057,time:71812,execs:109892,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000007,time:1223,execs:1414,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000007,time:4763,execs:5394,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000009,sig:06,src:000072,time:48687,execs:61036,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000008,sig:06,src:000072,time:46346,execs:54628,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000005,sig:06,src:000007,time:5621,execs:7373,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000007,time:4328,execs:4877,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000012,sig:06,src:000083,time:66831,execs:88884,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000010,sig:06,src:000083,time:64179,execs:79358,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000007,time:5186,execs:6520,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000006,sig:06,src:000007,time:7039,execs:12594,op:havoc,rep:3
+Checking queue
+   -> Found 136 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+      -> Found and validated 10 new rules.
+   -> Writing new specs to harness: remove_all_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz.cpp'.
+   -> Starting AFL++(remove_all_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz
+   -> AFL++(remove_all_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 189 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'remove_all'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((((((((k + v) - containsk1) <= 0) && (((k + v) - containsk1) <= 1)) || (((k + v) - containsk1) > 1)) && (containsk <= 0)) || (containsk > 0)) && (((containsk - len) + len1) <= 1) && (((containsk - len) + len1) > 0) && (containsk1 > 0))
+  inv1: ((((((N - i) + len) > 0) && (((i + N) - len) > 0) && (N <= 1)) || (N > 1)) && (i <= 1) && (N > 0))
+  remove_all: ((((len - remove_count) - remove_count1) <= 0) && (((len - remove_count) - remove_count1) > (-1)) && (len1 <= 0) && ((remove_count - len1) <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var remove_count Int)
+(declare-var remove_count1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel remove_all (Int Int Int Int))
+(declare-rel inv1 (Int Int Int ))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(rule (=> (and (= k 2) (= v 0) (= len 5) (= containsk 0) (= len1 6) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 2) (= v 0) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 2) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -59) (= v 61) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -2) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 2) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -115) (= v 117) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -2) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 2) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 1) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+
+(rule (=> (and (= k 0) (= v 51) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 1) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 127) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -12) (= v 64) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 92) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -113) (= v 121) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 106) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 48) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -3) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 92) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 16) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 93) (= v 93) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 51) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 4) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 17) (= v 17) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 48) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 100) (= v 100) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 77) (= v 77) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -73) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v -49) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -110) (= v -110) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v -128) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -13) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -16) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -9) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -14) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v -1) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 3) (= v -50) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -56) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 64) (= v 0) (= len 3) (= containsk 0) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -102) (= v -102) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 92) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 43) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 121) (= v 92) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 76) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 49) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 61) (= v 27) (= len 3) (= containsk 1) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -120) (= v 50) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 50) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 77) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 52) (= len 3) (= containsk 0) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 51) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v 48) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -20) (= v 50) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= len 0) (= remove_count 0) (= len1 0) (= remove_count1 0)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 4) (= remove_count 0) (= len1 0) (= remove_count1 4)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 1) (= remove_count 0) (= len1 0) (= remove_count1 1)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 5) (= remove_count 0) (= len1 0) (= remove_count1 5)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len )  (not (< i N)) (= remove_count 0) (remove_all len remove_count len1 remove_count1) (not (and (= remove_count1 N) (= len1 0)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 6 ====================
+TIMEOUT : 120
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/FlatHashMap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_6.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_6.log
+      -> Found 24 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 120-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 212 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+   -> Writing new specs to harness: remove_all_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz.cpp'.
+   -> Starting AFL++(remove_all_fuzz) with a 120-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz
+   -> AFL++(remove_all_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 201 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'remove_all'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((((containsk - len) + len1) <= 1) && (((containsk - len) + len1) > 0) && (containsk1 > 0))
+  inv1: (((i - N) <= 0) && ((i - len) > (-1)) && ((i - len) <= 0) && (N > 0))
+  remove_all: ((((len - remove_count) - remove_count1) <= 0) && (((len - remove_count) - remove_count1) > (-1)) && (len1 <= 0) && ((remove_count - len1) <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var remove_count Int)
+(declare-var remove_count1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel remove_all (Int Int Int Int))
+(declare-rel inv1 (Int Int Int ))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+
+(rule (=> (and (= k 2) (= v 0) (= len 5) (= containsk 0) (= len1 6) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 2) (= v 0) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 2) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -59) (= v 61) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -2) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 2) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -115) (= v 117) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -2) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 2) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 1) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 51) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 1) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 127) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -12) (= v 64) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 92) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -113) (= v 121) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 106) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 48) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -3) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 92) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 16) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 93) (= v 93) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 51) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 4) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 17) (= v 17) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 48) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 100) (= v 100) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 77) (= v 77) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -73) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v -49) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -110) (= v -110) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v -128) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -13) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -16) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -9) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -14) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v -1) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 3) (= v -50) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -56) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 64) (= v 0) (= len 3) (= containsk 0) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -102) (= v -102) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 92) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 43) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 121) (= v 92) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 76) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 49) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 61) (= v 27) (= len 3) (= containsk 1) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -120) (= v 50) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 50) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 77) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 52) (= len 3) (= containsk 0) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 51) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v 48) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -20) (= v 50) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= len 0) (= remove_count 0) (= len1 0) (= remove_count1 0)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 4) (= remove_count 0) (= len1 0) (= remove_count1 4)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 1) (= remove_count 0) (= len1 0) (= remove_count1 1)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 5) (= remove_count 0) (= len1 0) (= remove_count1 5)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len )  (not (< i N)) (= remove_count 0) (remove_all len remove_count len1 remove_count1) (not (and (= remove_count1 N) (= len1 0)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 7 ====================
+TIMEOUT : 140
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/FlatHashMap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_7.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_7.log
+      -> Found 24 internal iterations.
+   -> Writing new specs to harness: insert_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz.cpp'.
+   -> Starting AFL++(insert_fuzz) with a 140-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/insert_fuzz
+   -> AFL++(insert_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 195 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'insert'...
+   -> Writing new specs to harness: remove_all_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz.cpp'.
+   -> Starting AFL++(remove_all_fuzz) with a 140-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalHornICE_working_temp/FlatHashMap1/remove_all_fuzz
+   -> AFL++(remove_all_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 182 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'remove_all'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: ((((containsk - len) + len1) <= 1) && (((containsk - len) + len1) > 0) && (containsk1 > 0))
+  inv1: (((i - N) <= 0) && ((i - len) > (-1)) && ((i - len) <= 0) && (N > 0))
+  remove_all: ((((len - remove_count) - remove_count1) <= 0) && (((len - remove_count) - remove_count1) > (-1)) && (len1 <= 0) && ((remove_count - len1) <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var containsk Int)
+(declare-var containsk1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var remove_count Int)
+(declare-var remove_count1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel insert (Int Int Int Int Int Int))
+(declare-rel remove_all (Int Int Int Int))
+(declare-rel inv1 (Int Int Int ))
+(declare-rel fail ())
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+
+(rule (=> (and (= k 2) (= v 0) (= len 5) (= containsk 0) (= len1 6) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 2) (= v 0) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 2) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -59) (= v 61) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -2) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 2) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -115) (= v 117) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -2) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 2) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 1) (= v 1) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 51) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 1) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 127) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -12) (= v 64) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 92) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -113) (= v 121) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 106) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 48) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -3) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 92) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 16) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 93) (= v 93) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 51) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 4) (= v 4) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 17) (= v 17) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 48) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 100) (= v 100) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 77) (= v 77) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -73) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v -49) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -110) (= v -110) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v -128) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -13) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -16) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -9) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 0) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 50) (= v -14) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v -1) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 3) (= v -50) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v -56) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 64) (= v 0) (= len 3) (= containsk 0) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -102) (= v -102) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 92) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 43) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 121) (= v 92) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -1) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 76) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 49) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 61) (= v 27) (= len 3) (= containsk 1) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -120) (= v 50) (= len 1) (= containsk 1) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 50) (= len 2) (= containsk 0) (= len1 3) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 77) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 0) (= v 52) (= len 3) (= containsk 0) (= len1 4) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 50) (= len 1) (= containsk 0) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 48) (= v 51) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 120) (= v 48) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k -20) (= v 50) (= len 2) (= containsk 1) (= len1 2) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= k 51) (= v 4) (= len 0) (= containsk 0) (= len1 1) (= containsk1 1)) (insert k v len containsk len1 containsk1)))
+(rule (=> (and (= len 0) (= remove_count 0) (= len1 0) (= remove_count1 0)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 4) (= remove_count 0) (= len1 0) (= remove_count1 4)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 1) (= remove_count 0) (= len1 0) (= remove_count1 1)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (= len 5) (= remove_count 0) (= len1 0) (= remove_count1 5)) (remove_all len remove_count len1 remove_count1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0)) (inv1 i N len )))
+(rule (=> (and (inv1 i N len ) (is_valid containsk1) (< i N) (= k i) (= v i) (insert k v len 0 len1 containsk1) (= i1 (+ i 1))) (inv1 i1 N len1 )))
+(rule (=> (and (inv1 i N len )  (not (< i N)) (= remove_count 0) (remove_all len remove_count len1 remove_count1) (not (and (= remove_count1 N) (= len1 0)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 7
+Total Unique Test Cases Found: 65
+Total Internal Iterations: 174
+  - Min: 3
+  - Max: 35
+  - Avg: 24.86
+pipeline.run() took 1.2539 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalHornICE FlatHashMap1
+PID: 5991
+========================================
+
+
+Total Pipeline Duration: 1394.53s

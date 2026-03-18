@@ -1,0 +1,620 @@
+(declare-rel push1 (Int Int Int))
+(declare-rel fail ())
+(declare-rel inv (Int Int))
+(declare-rel push (Int Int Int))
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(declare-var E Int)
+(rule (=> (and (= B 0) (= A 0)) (inv B A)))
+(rule (=> (and (inv E C) (or (= E 1) (= E 0)) (= D 0) (= E 0) (push D C A) (= B 1))
+    (inv B A)))
+(rule (=> (and (inv B C) (or (= B 1) (= B 0)) (= D 1) (push1 D C A)) (inv B A)))
+(rule (let ((a!1 (not (or (and (= C 0) (= B 0)) (= C 1)))))
+  (=> (and (inv B A) (or (= B 1) (= B 0)) a!1) (inv B A))))
+(rule (let ((a!1 (and (inv B A) (or (= B 1) (= B 0)) (not (=> (= B 1) (= A 1))))))
+  (=> a!1 fail)))
+
+
+Read 5 rules and 1 queries (1)
+
+---------- Query 0 ----------
+(fail@ true)
+SMTlIB :: expr : (fail@ true)
+SMTlIB :: expr_decl : (declare-fun fail@ (Bool) Bool)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+---------- Rule 0 ----------
+(forall ((inserted_blue Int) (bcount Int))
+  (=> (and (= inserted_blue 0) (= bcount 0)) (inv inserted_blue bcount)))
+SMTlIB :: expr : (inv k!1 k!0)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+
+---------- Rule 1 ----------
+(forall ((inserted_blue Int)
+         (color Int)
+         (bcount Int)
+         (inserted_blue1 Int)
+         (bcount1 Int))
+  (=> (and (inv inserted_blue bcount)
+           (or (= inserted_blue 1) (= inserted_blue 0))
+           (= color 0)
+           (= inserted_blue 0)
+           (push color bcount bcount1)
+           (= inserted_blue1 1))
+      (inv inserted_blue1 bcount1)))
+SMTlIB :: expr : (inv k!6 k!4)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+SMTlIB :: expr : (push k!5 k!4 k!2)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int) Bool)
+SMTlIB :: expr : (inv k!3 k!2)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+
+---------- Rule 2 ----------
+(forall ((color Int) (bcount Int) (inserted_blue Int) (bcount1 Int))
+  (=> (and (inv inserted_blue bcount)
+           (or (= inserted_blue 1) (= inserted_blue 0))
+           (= color 1)
+           (push1 color bcount bcount1))
+      (inv inserted_blue bcount1)))
+SMTlIB :: expr : (inv k!8 k!9)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+SMTlIB :: expr : (push1 k!10 k!9 k!7)
+SMTlIB :: expr_decl : (declare-fun push1 (Int Int Int) Bool)
+SMTlIB :: expr : (inv k!8 k!7)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+
+---------- Rule 3 ----------
+(forall ((color Int) (inserted_blue Int) (bcount Int))
+  (let ((a!1 (not (or (and (= color 0) (= inserted_blue 0)) (= color 1)))))
+    (=> (and (inv inserted_blue bcount)
+             (or (= inserted_blue 1) (= inserted_blue 0))
+             a!1)
+        (inv inserted_blue bcount))))
+SMTlIB :: expr : (inv k!12 k!11)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+SMTlIB :: expr : (inv k!12 k!11)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+
+---------- Rule 4 ----------
+(forall ((inserted_blue Int) (bcount Int))
+  (let ((a!1 (and (inv inserted_blue bcount)
+                  (or (= inserted_blue 1) (= inserted_blue 0))
+                  (not (=> (= inserted_blue 1) (= bcount 1))))))
+    (=> a!1 (fail@ true))))
+SMTlIB :: expr : (inv k!15 k!14)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int) Bool)
+SMTlIB :: expr : (fail@ true)
+SMTlIB :: expr_decl : (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun push1 (Int Int Int) Bool)
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (= k!1 0) (= k!0 0)) (inv k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!1 k!0)
+
+ -- CHC
+(=> (and (inv k!6 k!4)
+         (or (= k!6 1) (= k!6 0))
+         (= k!5 0)
+         (= k!6 0)
+         (push k!5 k!4 k!2)
+         (= k!3 1))
+    (inv k!3 k!2))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!5 k!4 k!2)
+(inv k!6 k!4)
+ -- RHS
+(inv k!3 k!2)
+
+ -- CHC
+(=> (and (inv k!8 k!9) (or (= k!8 1) (= k!8 0)) (= k!10 1) (push1 k!10 k!9 k!7))
+    (inv k!8 k!7))
+ -- Uninterpreted predicates
+(declare-fun push1 (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push1 k!10 k!9 k!7)
+(inv k!8 k!9)
+ -- RHS
+(inv k!8 k!7)
+
+ -- CHC
+(let ((a!1 (not (or (and (= k!13 0) (= k!12 0)) (= k!13 1)))))
+  (=> (and (inv k!12 k!11) (or (= k!12 1) (= k!12 0)) a!1) (inv k!12 k!11)))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!12 k!11)
+ -- RHS
+(inv k!12 k!11)
+
+ -- CHC
+(let ((a!1 (and (inv k!15 k!14)
+                (or (= k!15 1) (= k!15 0))
+                (not (=> (= k!15 1) (= k!14 1))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!15 k!14)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (= k!1 0) (= k!0 0)) (inv k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (inv k!6 k!4)
+         (or (= k!6 1) (= k!6 0))
+         (= k!5 0)
+         (= k!6 0)
+         (push k!5 k!4 k!2)
+         (= k!3 1))
+    (inv k!3 k!2))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!5 k!4 k!2)
+(inv k!6 k!4)
+ -- RHS
+(inv k!3 k!2)
+
+chc ::  -- CHC
+(=> (and (inv k!8 k!9) (or (= k!8 1) (= k!8 0)) (= k!10 1) (push1 k!10 k!9 k!7))
+    (inv k!8 k!7))
+ -- Uninterpreted predicates
+(declare-fun push1 (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push1 k!10 k!9 k!7)
+(inv k!8 k!9)
+ -- RHS
+(inv k!8 k!7)
+
+chc ::  -- CHC
+(let ((a!1 (not (or (and (= k!13 0) (= k!12 0)) (= k!13 1)))))
+  (=> (and (inv k!12 k!11) (or (= k!12 1) (= k!12 0)) a!1) (inv k!12 k!11)))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!12 k!11)
+ -- RHS
+(inv k!12 k!11)
+
+chc ::  -- CHC
+(let ((a!1 (and (inv k!15 k!14)
+                (or (= k!15 1) (= k!15 0))
+                (not (=> (= k!15 1) (= k!14 1))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!15 k!14)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun push1 (Int Int Int) Bool)
+rel :: (declare-fun push (Int Int Int) Bool)
+rel :: (declare-fun inv (Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun push1 (Int Int Int) Bool)
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun push1 (Int Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun push1 (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun push1 (Int Int Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : push1#0Int
+add_integer_attribute::Integer Attribute::push1#0
+Attribute Identifier : 3 attribute : push1#1Int
+add_integer_attribute::Integer Attribute::push1#1
+Attribute Identifier : 4 attribute : push1#2Int
+add_integer_attribute::Integer Attribute::push1#2
+add_integer_attribute::Integer Attribute::|push1#0|+|push1#1|+|push1#2|
+learner_interfaceDerived Attribute Identifier : 5 Derived attribute : (+ |push1#0| |push1#1| |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#0|-|push1#1|-|push1#2|
+learner_interfaceDerived Attribute Identifier : 6 Derived attribute : (- (- |push1#0| |push1#1|) |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#0|+|push1#1|-|push1#2|
+learner_interfaceDerived Attribute Identifier : 7 Derived attribute : (- (+ |push1#0| |push1#1|) |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#0|-|push1#1|+|push1#2|
+learner_interfaceDerived Attribute Identifier : 8 Derived attribute : (+ (- |push1#0| |push1#1|) |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#0|+|push1#2|+|push1#1|
+learner_interfaceDerived Attribute Identifier : 9 Derived attribute : (+ |push1#0| |push1#2| |push1#1|)
+add_integer_attribute::Integer Attribute::|push1#0|-|push1#2|-|push1#1|
+learner_interfaceDerived Attribute Identifier : 10 Derived attribute : (- (- |push1#0| |push1#2|) |push1#1|)
+add_integer_attribute::Integer Attribute::|push1#0|+|push1#2|-|push1#1|
+learner_interfaceDerived Attribute Identifier : 11 Derived attribute : (- (+ |push1#0| |push1#2|) |push1#1|)
+add_integer_attribute::Integer Attribute::|push1#0|-|push1#2|+|push1#1|
+learner_interfaceDerived Attribute Identifier : 12 Derived attribute : (+ (- |push1#0| |push1#2|) |push1#1|)
+add_integer_attribute::Integer Attribute::|push1#1|+|push1#0|+|push1#2|
+learner_interfaceDerived Attribute Identifier : 13 Derived attribute : (+ |push1#1| |push1#0| |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#1|-|push1#0|-|push1#2|
+learner_interfaceDerived Attribute Identifier : 14 Derived attribute : (- (- |push1#1| |push1#0|) |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#1|+|push1#0|-|push1#2|
+learner_interfaceDerived Attribute Identifier : 15 Derived attribute : (- (+ |push1#1| |push1#0|) |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#1|-|push1#0|+|push1#2|
+learner_interfaceDerived Attribute Identifier : 16 Derived attribute : (+ (- |push1#1| |push1#0|) |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#1|+|push1#2|+|push1#0|
+learner_interfaceDerived Attribute Identifier : 17 Derived attribute : (+ |push1#1| |push1#2| |push1#0|)
+add_integer_attribute::Integer Attribute::|push1#1|-|push1#2|-|push1#0|
+learner_interfaceDerived Attribute Identifier : 18 Derived attribute : (- (- |push1#1| |push1#2|) |push1#0|)
+add_integer_attribute::Integer Attribute::|push1#1|+|push1#2|-|push1#0|
+learner_interfaceDerived Attribute Identifier : 19 Derived attribute : (- (+ |push1#1| |push1#2|) |push1#0|)
+add_integer_attribute::Integer Attribute::|push1#1|-|push1#2|+|push1#0|
+learner_interfaceDerived Attribute Identifier : 20 Derived attribute : (+ (- |push1#1| |push1#2|) |push1#0|)
+add_integer_attribute::Integer Attribute::|push1#2|+|push1#0|+|push1#1|
+learner_interfaceDerived Attribute Identifier : 21 Derived attribute : (+ |push1#2| |push1#0| |push1#1|)
+add_integer_attribute::Integer Attribute::|push1#2|-|push1#0|-|push1#1|
+learner_interfaceDerived Attribute Identifier : 22 Derived attribute : (- (- |push1#2| |push1#0|) |push1#1|)
+add_integer_attribute::Integer Attribute::|push1#2|+|push1#0|-|push1#1|
+learner_interfaceDerived Attribute Identifier : 23 Derived attribute : (- (+ |push1#2| |push1#0|) |push1#1|)
+add_integer_attribute::Integer Attribute::|push1#2|-|push1#0|+|push1#1|
+learner_interfaceDerived Attribute Identifier : 24 Derived attribute : (+ (- |push1#2| |push1#0|) |push1#1|)
+add_integer_attribute::Integer Attribute::|push1#2|+|push1#1|+|push1#0|
+learner_interfaceDerived Attribute Identifier : 25 Derived attribute : (+ |push1#2| |push1#1| |push1#0|)
+add_integer_attribute::Integer Attribute::|push1#2|-|push1#1|-|push1#0|
+learner_interfaceDerived Attribute Identifier : 26 Derived attribute : (- (- |push1#2| |push1#1|) |push1#0|)
+add_integer_attribute::Integer Attribute::|push1#2|+|push1#1|-|push1#0|
+learner_interfaceDerived Attribute Identifier : 27 Derived attribute : (- (+ |push1#2| |push1#1|) |push1#0|)
+add_integer_attribute::Integer Attribute::|push1#2|-|push1#1|+|push1#0|
+learner_interfaceDerived Attribute Identifier : 28 Derived attribute : (+ (- |push1#2| |push1#1|) |push1#0|)
+add_integer_attribute::Integer Attribute::|push1#0|+|push1#2|+|push1#2|
+learner_interfaceDerived Attribute Identifier : 29 Derived attribute : (+ |push1#0| |push1#2| |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#0|-|push1#2|-|push1#2|
+learner_interfaceDerived Attribute Identifier : 30 Derived attribute : (- (- |push1#0| |push1#2|) |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#0|+|push1#2|-|push1#2|
+learner_interfaceDerived Attribute Identifier : 31 Derived attribute : (- (+ |push1#0| |push1#2|) |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#0|-|push1#2|+|push1#2|
+learner_interfaceDerived Attribute Identifier : 32 Derived attribute : (+ (- |push1#0| |push1#2|) |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#2|+|push1#0|+|push1#2|
+learner_interfaceDerived Attribute Identifier : 33 Derived attribute : (+ |push1#2| |push1#0| |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#2|-|push1#0|-|push1#2|
+learner_interfaceDerived Attribute Identifier : 34 Derived attribute : (- (- |push1#2| |push1#0|) |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#2|+|push1#0|-|push1#2|
+learner_interfaceDerived Attribute Identifier : 35 Derived attribute : (- (+ |push1#2| |push1#0|) |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#2|-|push1#0|+|push1#2|
+learner_interfaceDerived Attribute Identifier : 36 Derived attribute : (+ (- |push1#2| |push1#0|) |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#2|+|push1#2|+|push1#0|
+learner_interfaceDerived Attribute Identifier : 37 Derived attribute : (+ |push1#2| |push1#2| |push1#0|)
+add_integer_attribute::Integer Attribute::|push1#2|-|push1#2|-|push1#0|
+learner_interfaceDerived Attribute Identifier : 38 Derived attribute : (- (- |push1#2| |push1#2|) |push1#0|)
+add_integer_attribute::Integer Attribute::|push1#2|+|push1#2|-|push1#0|
+learner_interfaceDerived Attribute Identifier : 39 Derived attribute : (- (+ |push1#2| |push1#2|) |push1#0|)
+add_integer_attribute::Integer Attribute::|push1#2|-|push1#2|+|push1#0|
+learner_interfaceDerived Attribute Identifier : 40 Derived attribute : (+ (- |push1#2| |push1#2|) |push1#0|)
+add_integer_attribute::Integer Attribute::|push1#0|+|push1#1|
+learner_interfaceDerived Attribute Identifier : 41 Derived attribute : (+ |push1#0| |push1#1|)
+add_integer_attribute::Integer Attribute::|push1#0|-|push1#1|
+learner_interfaceDerived Attribute Identifier : 42 Derived attribute : (- |push1#0| |push1#1|)
+add_integer_attribute::Integer Attribute::|push1#0|+|push1#2|
+learner_interfaceDerived Attribute Identifier : 43 Derived attribute : (+ |push1#0| |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#0|-|push1#2|
+learner_interfaceDerived Attribute Identifier : 44 Derived attribute : (- |push1#0| |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#1|+|push1#2|
+learner_interfaceDerived Attribute Identifier : 45 Derived attribute : (+ |push1#1| |push1#2|)
+add_integer_attribute::Integer Attribute::|push1#1|-|push1#2|
+learner_interfaceDerived Attribute Identifier : 46 Derived attribute : (- |push1#1| |push1#2|)
+learner_interface :: Relation : (declare-fun push (Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun push (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun push (Int Int Int) Bool) is mapped to baseval :  46
+Attribute Identifier : 47 attribute : push#0Int
+add_integer_attribute::Integer Attribute::push#0
+Attribute Identifier : 48 attribute : push#1Int
+add_integer_attribute::Integer Attribute::push#1
+Attribute Identifier : 49 attribute : push#2Int
+add_integer_attribute::Integer Attribute::push#2
+add_integer_attribute::Integer Attribute::|push#0|+|push#1|+|push#2|
+learner_interfaceDerived Attribute Identifier : 50 Derived attribute : (+ |push#0| |push#1| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|-|push#2|
+learner_interfaceDerived Attribute Identifier : 51 Derived attribute : (- (- |push#0| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#1|-|push#2|
+learner_interfaceDerived Attribute Identifier : 52 Derived attribute : (- (+ |push#0| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|+|push#2|
+learner_interfaceDerived Attribute Identifier : 53 Derived attribute : (+ (- |push#0| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|+|push#1|
+learner_interfaceDerived Attribute Identifier : 54 Derived attribute : (+ |push#0| |push#2| |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|-|push#1|
+learner_interfaceDerived Attribute Identifier : 55 Derived attribute : (- (- |push#0| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|-|push#1|
+learner_interfaceDerived Attribute Identifier : 56 Derived attribute : (- (+ |push#0| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|+|push#1|
+learner_interfaceDerived Attribute Identifier : 57 Derived attribute : (+ (- |push#0| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 58 Derived attribute : (+ |push#1| |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 59 Derived attribute : (- (- |push#1| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 60 Derived attribute : (- (+ |push#1| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 61 Derived attribute : (+ (- |push#1| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 62 Derived attribute : (+ |push#1| |push#2| |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 63 Derived attribute : (- (- |push#1| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 64 Derived attribute : (- (+ |push#1| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 65 Derived attribute : (+ (- |push#1| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|+|push#1|
+learner_interfaceDerived Attribute Identifier : 66 Derived attribute : (+ |push#2| |push#0| |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|-|push#1|
+learner_interfaceDerived Attribute Identifier : 67 Derived attribute : (- (- |push#2| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|-|push#1|
+learner_interfaceDerived Attribute Identifier : 68 Derived attribute : (- (+ |push#2| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|+|push#1|
+learner_interfaceDerived Attribute Identifier : 69 Derived attribute : (+ (- |push#2| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#1|+|push#0|
+learner_interfaceDerived Attribute Identifier : 70 Derived attribute : (+ |push#2| |push#1| |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#1|-|push#0|
+learner_interfaceDerived Attribute Identifier : 71 Derived attribute : (- (- |push#2| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#1|-|push#0|
+learner_interfaceDerived Attribute Identifier : 72 Derived attribute : (- (+ |push#2| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#1|+|push#0|
+learner_interfaceDerived Attribute Identifier : 73 Derived attribute : (+ (- |push#2| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|+|push#2|
+learner_interfaceDerived Attribute Identifier : 74 Derived attribute : (+ |push#0| |push#2| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|-|push#2|
+learner_interfaceDerived Attribute Identifier : 75 Derived attribute : (- (- |push#0| |push#2|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|-|push#2|
+learner_interfaceDerived Attribute Identifier : 76 Derived attribute : (- (+ |push#0| |push#2|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|+|push#2|
+learner_interfaceDerived Attribute Identifier : 77 Derived attribute : (+ (- |push#0| |push#2|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 78 Derived attribute : (+ |push#2| |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 79 Derived attribute : (- (- |push#2| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 80 Derived attribute : (- (+ |push#2| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 81 Derived attribute : (+ (- |push#2| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 82 Derived attribute : (+ |push#2| |push#2| |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 83 Derived attribute : (- (- |push#2| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 84 Derived attribute : (- (+ |push#2| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 85 Derived attribute : (+ (- |push#2| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#1|
+learner_interfaceDerived Attribute Identifier : 86 Derived attribute : (+ |push#0| |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|
+learner_interfaceDerived Attribute Identifier : 87 Derived attribute : (- |push#0| |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 88 Derived attribute : (+ |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 89 Derived attribute : (- |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#2|
+learner_interfaceDerived Attribute Identifier : 90 Derived attribute : (+ |push#1| |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|
+learner_interfaceDerived Attribute Identifier : 91 Derived attribute : (- |push#1| |push#2|)
+learner_interface :: Relation : (declare-fun inv (Int Int) Bool) is mapped to CatID :  3
+learner_interfaceCatID : 3 is mapped to Relation : (declare-fun inv (Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv (Int Int) Bool) is mapped to baseval :  91
+Attribute Identifier : 92 attribute : inv#0Int
+add_integer_attribute::Integer Attribute::inv#0
+Attribute Identifier : 93 attribute : inv#1Int
+add_integer_attribute::Integer Attribute::inv#1
+add_integer_attribute::Integer Attribute::|inv#0|+|inv#1|
+learner_interfaceDerived Attribute Identifier : 94 Derived attribute : (+ |inv#0| |inv#1|)
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#1|
+learner_interfaceDerived Attribute Identifier : 95 Derived attribute : (- |inv#0| |inv#1|)
+===========================================
+Learning Iteration: 0
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+get_conjectures:: Printing the Decision Tree
+true
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> true
+Conjecture: (declare-fun push1 (Int Int Int) Bool)[|push1#0|, |push1#1|, |push1#2|] -> true
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> true
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> true
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: fail@(true)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: fail@(true)
+add_counterexample Current teacher datapoint(Negative) : fail@(true)
+===========================================
+Learning Iteration: 1
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (4)
+Integer attributes: In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+ NULL
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> false
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> false
+Conjecture: (declare-fun push1 (Int Int Int) Bool)[|push1#0|, |push1#1|, |push1#2|] -> false
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+add_counterexample Current counterexample : {} => {inv(0, 0)}
+add_counterexample Current teacher datapoint : inv(0, 0)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, 0)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, 0)
+add_counterexample Current teacher datapoint(Positive) : inv(0, 0)
+===========================================
+Learning Iteration: 2
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (4)
+Integer attributes: In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+ true
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> true
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> false
+Conjecture: (declare-fun push1 (Int Int Int) Bool)[|push1#0|, |push1#1|, |push1#2|] -> false
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: fail@(true)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(1, 2)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(1, 2)
+add_counterexample Current teacher datapoint(horn) : {inv(1, 2)} => {fail@(true)}
+===========================================
+Learning Iteration: 3
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (4)
+Integer attributes: In chc run
+In chc run
+In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+ if x[91] <= 0
+  true
+  false
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun inv (Int Int) Bool)[|inv#0|, |inv#1|] -> (<= |inv#0| 0)
+Conjecture: (declare-fun push (Int Int Int) Bool)[|push#0|, |push#1|, |push#2|] -> false
+Conjecture: (declare-fun push1 (Int Int Int) Bool)[|push1#0|, |push1#1|, |push1#2|] -> false
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+Success (checked 22 CHCs, invoked learner 4 times)
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (<= |inv#0| 0)
+Simplified Formual
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> false
+Simplified Formual
+(declare-fun push1 (Int Int Int) Bool) => [|push1#0|, |push1#1|, |push1#2|] -> false
+Simplified Formual
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Simplified Formual
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 3(declare-fun push1 (Int Int Int) Bool)push1
+Relation : 3(declare-fun push (Int Int Int) Bool)push
+Relation : 2(declare-fun inv (Int Int) Bool)inv
+Final CHCs read
+CHC : (fail@ true)
+CHC : (push k!5 k!4 k!2)
+CHC : (inv k!6 k!4)
+CHC : (push1 k!10 k!9 k!7)
+CHC : (inv k!8 k!9)
+CHC : (inv k!12 k!11)
+CHC : (inv k!15 k!14)
+Total time: 0.33

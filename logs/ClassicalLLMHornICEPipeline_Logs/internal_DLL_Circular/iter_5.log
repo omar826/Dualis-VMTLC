@@ -1,0 +1,1509 @@
+(declare-rel fail ())
+(declare-rel push (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(rule (=> (and (= C 127) (= B 125) (= A 127)) (push C B A)))
+(rule (=> (and (= C 31) (= B 29) (= A 31)) (push C B A)))
+(rule (=> (and (= C 3) (= B 1) (= A 3)) (push C B A)))
+(rule (=> (and (= C 6) (= B 5) (= A 6)) (push C B A)))
+(rule (=> (and (= C 2) (= B 1) (= A 2)) (push C B A)))
+(rule (=> (and (= C 1) (= B (- 1)) (= A 1)) (push C B A)))
+(rule (=> (and (= C 1) (= B 0) (= A 1)) (push C B A)))
+(rule (=> (and (= C 0) (= B 0) (= A 0)) (push C B A)))
+(rule (=> (and (= C 4) (= B 0) (= A 4)) (push C B A)))
+(rule (=> (and (= C (- 1)) (= B (- 1)) (= A (- 1))) (push C B A)))
+(rule (=> (and (= C 0) (= B (- 2)) (= A 0)) (push C B A)))
+(rule (=> (and (= C (- 17)) (= B 56) (= A 56)) (push C B A)))
+(rule (=> (and (= C 1) (= B (- 129)) (= A 1)) (push C B A)))
+(rule (=> (and (= C 1) (= B 23) (= A 23)) (push C B A)))
+(rule (=> (and (= C (- 1)) (= B 1) (= A 1)) (push C B A)))
+(rule (=> (and (= C 1) (= B 127) (= A 127)) (push C B A)))
+(rule (=> (and (= B 0) (= A 0)) (inv B A)))
+(rule (=> (and (inv D C) (< D 3) (= B (+ D 1)) (push B C A)) (inv B A)))
+(rule (=> (and (inv B C) (>= B 3) (push B C A)) (inv B A)))
+(rule (=> (and (inv B C) (push B C A)) (inv B A)))
+(rule (let ((a!1 (and (inv B A) (not (and (>= A 0) (<= A 3))))))
+  (=> a!1 fail)))
+
+
+Read 21 rules and 1 queries (1)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+(declare-fun push (Int Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (= k!2 127) (= k!1 125) (= k!0 127)) (push k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!2 k!1 k!0)
+
+ -- CHC
+(=> (and (= k!5 31) (= k!4 29) (= k!3 31)) (push k!5 k!4 k!3))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!5 k!4 k!3)
+
+ -- CHC
+(=> (and (= k!8 3) (= k!7 1) (= k!6 3)) (push k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!8 k!7 k!6)
+
+ -- CHC
+(=> (and (= k!11 6) (= k!10 5) (= k!9 6)) (push k!11 k!10 k!9))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!11 k!10 k!9)
+
+ -- CHC
+(=> (and (= k!14 2) (= k!13 1) (= k!12 2)) (push k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!14 k!13 k!12)
+
+ -- CHC
+(=> (and (= k!17 1) (= k!16 (- 1)) (= k!15 1)) (push k!17 k!16 k!15))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!17 k!16 k!15)
+
+ -- CHC
+(=> (and (= k!20 1) (= k!19 0) (= k!18 1)) (push k!20 k!19 k!18))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!20 k!19 k!18)
+
+ -- CHC
+(=> (and (= k!23 0) (= k!22 0) (= k!21 0)) (push k!23 k!22 k!21))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!23 k!22 k!21)
+
+ -- CHC
+(=> (and (= k!26 4) (= k!25 0) (= k!24 4)) (push k!26 k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!26 k!25 k!24)
+
+ -- CHC
+(=> (and (= k!29 (- 1)) (= k!28 (- 1)) (= k!27 (- 1))) (push k!29 k!28 k!27))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!29 k!28 k!27)
+
+ -- CHC
+(=> (and (= k!32 0) (= k!31 (- 2)) (= k!30 0)) (push k!32 k!31 k!30))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!32 k!31 k!30)
+
+ -- CHC
+(=> (and (= k!35 (- 17)) (= k!34 56) (= k!33 56)) (push k!35 k!34 k!33))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!35 k!34 k!33)
+
+ -- CHC
+(=> (and (= k!38 1) (= k!37 (- 129)) (= k!36 1)) (push k!38 k!37 k!36))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!38 k!37 k!36)
+
+ -- CHC
+(=> (and (= k!41 1) (= k!40 23) (= k!39 23)) (push k!41 k!40 k!39))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!41 k!40 k!39)
+
+ -- CHC
+(=> (and (= k!44 (- 1)) (= k!43 1) (= k!42 1)) (push k!44 k!43 k!42))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!44 k!43 k!42)
+
+ -- CHC
+(=> (and (= k!47 1) (= k!46 127) (= k!45 127)) (push k!47 k!46 k!45))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!47 k!46 k!45)
+
+ -- CHC
+(=> (and (= k!49 0) (= k!48 0)) (inv k!49 k!48))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!49 k!48)
+
+ -- CHC
+(=> (and (inv k!53 k!52) (< k!53 3) (= k!51 (+ k!53 1)) (push k!51 k!52 k!50))
+    (inv k!51 k!50))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!51 k!52 k!50)
+(inv k!53 k!52)
+ -- RHS
+(inv k!51 k!50)
+
+ -- CHC
+(=> (and (inv k!55 k!56) (>= k!55 3) (push k!55 k!56 k!54)) (inv k!55 k!54))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!55 k!56 k!54)
+(inv k!55 k!56)
+ -- RHS
+(inv k!55 k!54)
+
+ -- CHC
+(=> (and (inv k!58 k!59) (push k!58 k!59 k!57)) (inv k!58 k!57))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!58 k!59 k!57)
+(inv k!58 k!59)
+ -- RHS
+(inv k!58 k!57)
+
+ -- CHC
+(let ((a!1 (and (inv k!61 k!60) (not (and (>= k!60 0) (<= k!60 3))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!61 k!60)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (= k!2 127) (= k!1 125) (= k!0 127)) (push k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!2 k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (= k!5 31) (= k!4 29) (= k!3 31)) (push k!5 k!4 k!3))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!5 k!4 k!3)
+
+chc ::  -- CHC
+(=> (and (= k!8 3) (= k!7 1) (= k!6 3)) (push k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!8 k!7 k!6)
+
+chc ::  -- CHC
+(=> (and (= k!11 6) (= k!10 5) (= k!9 6)) (push k!11 k!10 k!9))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!11 k!10 k!9)
+
+chc ::  -- CHC
+(=> (and (= k!14 2) (= k!13 1) (= k!12 2)) (push k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!14 k!13 k!12)
+
+chc ::  -- CHC
+(=> (and (= k!17 1) (= k!16 (- 1)) (= k!15 1)) (push k!17 k!16 k!15))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!17 k!16 k!15)
+
+chc ::  -- CHC
+(=> (and (= k!20 1) (= k!19 0) (= k!18 1)) (push k!20 k!19 k!18))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!20 k!19 k!18)
+
+chc ::  -- CHC
+(=> (and (= k!23 0) (= k!22 0) (= k!21 0)) (push k!23 k!22 k!21))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!23 k!22 k!21)
+
+chc ::  -- CHC
+(=> (and (= k!26 4) (= k!25 0) (= k!24 4)) (push k!26 k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!26 k!25 k!24)
+
+chc ::  -- CHC
+(=> (and (= k!29 (- 1)) (= k!28 (- 1)) (= k!27 (- 1))) (push k!29 k!28 k!27))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!29 k!28 k!27)
+
+chc ::  -- CHC
+(=> (and (= k!32 0) (= k!31 (- 2)) (= k!30 0)) (push k!32 k!31 k!30))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!32 k!31 k!30)
+
+chc ::  -- CHC
+(=> (and (= k!35 (- 17)) (= k!34 56) (= k!33 56)) (push k!35 k!34 k!33))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!35 k!34 k!33)
+
+chc ::  -- CHC
+(=> (and (= k!38 1) (= k!37 (- 129)) (= k!36 1)) (push k!38 k!37 k!36))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!38 k!37 k!36)
+
+chc ::  -- CHC
+(=> (and (= k!41 1) (= k!40 23) (= k!39 23)) (push k!41 k!40 k!39))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!41 k!40 k!39)
+
+chc ::  -- CHC
+(=> (and (= k!44 (- 1)) (= k!43 1) (= k!42 1)) (push k!44 k!43 k!42))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!44 k!43 k!42)
+
+chc ::  -- CHC
+(=> (and (= k!47 1) (= k!46 127) (= k!45 127)) (push k!47 k!46 k!45))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(push k!47 k!46 k!45)
+
+chc ::  -- CHC
+(=> (and (= k!49 0) (= k!48 0)) (inv k!49 k!48))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!49 k!48)
+
+chc ::  -- CHC
+(=> (and (inv k!53 k!52) (< k!53 3) (= k!51 (+ k!53 1)) (push k!51 k!52 k!50))
+    (inv k!51 k!50))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!51 k!52 k!50)
+(inv k!53 k!52)
+ -- RHS
+(inv k!51 k!50)
+
+chc ::  -- CHC
+(=> (and (inv k!55 k!56) (>= k!55 3) (push k!55 k!56 k!54)) (inv k!55 k!54))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!55 k!56 k!54)
+(inv k!55 k!56)
+ -- RHS
+(inv k!55 k!54)
+
+chc ::  -- CHC
+(=> (and (inv k!58 k!59) (push k!58 k!59 k!57)) (inv k!58 k!57))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(push k!58 k!59 k!57)
+(inv k!58 k!59)
+ -- RHS
+(inv k!58 k!57)
+
+chc ::  -- CHC
+(let ((a!1 (and (inv k!61 k!60) (not (and (>= k!60 0) (<= k!60 3))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!61 k!60)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun inv (Int Int) Bool)
+rel :: (declare-fun push (Int Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+(declare-fun push (Int Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun inv (Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun inv (Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv (Int Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : inv#0Int
+add_integer_attribute::Integer Attribute::inv#0
+Attribute Identifier : 3 attribute : inv#1Int
+add_integer_attribute::Integer Attribute::inv#1
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#1|
+add_integer_attribute::Integer Attribute::|inv#1|-|inv#0|
+learner_interface :: Relation : (declare-fun push (Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun push (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun push (Int Int Int) Bool) is mapped to baseval :  5
+Attribute Identifier : 6 attribute : push#0Int
+add_integer_attribute::Integer Attribute::push#0
+Attribute Identifier : 7 attribute : push#1Int
+add_integer_attribute::Integer Attribute::push#1
+Attribute Identifier : 8 attribute : push#2Int
+add_integer_attribute::Integer Attribute::push#2
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|
+add_integer_attribute::Integer Attribute::|push#1|-|push#0|
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|
+add_integer_attribute::Integer Attribute::|push#2|-|push#1|
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|
+===========================================
+Learning Iteration: 0
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+true
+Printing all the counter examples : 1
+Counterexample: {fail@(true)} => {}
+Conjectures
+===========================================
+Learning Iteration: 1
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+Printing all the counter examples : 18
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Conjectures
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> true
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> true
+===========================================
+Learning Iteration: 2
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ true
+Printing all the counter examples : 19
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> false
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 3
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 0
+  true
+  false
+ true
+Printing all the counter examples : 23
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 4
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[3] <= -4
+  false
+  if x[2] <= -1
+   false
+   true
+ true
+Printing all the counter examples : 27
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {inv(1, 4)} => {fail@(true)}
+Counterexample: {push(1, 0, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {push(3, 0, (- 1)), inv(3, 0)} => {inv(3, (- 1))}
+Counterexample: {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (<= |inv#1| 0)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 5
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 1
+  if x[2] <= -1
+   false
+   true
+  false
+ if x[10] <= 0
+  true
+  false
+Printing all the counter examples : 30
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {inv(1, 4)} => {fail@(true)}
+Counterexample: {push(1, 0, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {push(3, 0, (- 1)), inv(3, 0)} => {inv(3, (- 1))}
+Counterexample: {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {push(3, 0, 2), inv(2, 0)} => {inv(3, 2)}
+Counterexample: {push(3, 0, 2), inv(3, 0)} => {inv(3, 2)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(0, 2)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| (- 1)) (> (- |inv#0| |inv#1|) (- 4)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 6
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 2
+  if x[3] <= 0
+   true
+   false
+  false
+ if x[10] <= 0
+  true
+  false
+Printing all the counter examples : 33
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {inv(1, 4)} => {fail@(true)}
+Counterexample: {push(1, 0, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {push(3, 0, (- 1)), inv(3, 0)} => {inv(3, (- 1))}
+Counterexample: {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {push(3, 0, 2), inv(2, 0)} => {inv(3, 2)}
+Counterexample: {push(3, 0, 2), inv(3, 0)} => {inv(3, 2)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(0, 2)}
+Counterexample: {push(1, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 3), inv(0, 0)} => {inv(0, 3)}
+Counterexample: {inv((- 1), (- 1))} => {fail@(true)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (<= (- |push#1| |push#2|) 0)
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| (- 1)) (<= |inv#1| 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 7
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 2
+  if x[2] <= -1
+   false
+   true
+  false
+ if x[10] <= 0
+  if x[11] <= 2
+   true
+   if x[13] <= 0
+    true
+    false
+  false
+Printing all the counter examples : 36
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {inv(1, 4)} => {fail@(true)}
+Counterexample: {push(1, 0, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {push(3, 0, (- 1)), inv(3, 0)} => {inv(3, (- 1))}
+Counterexample: {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {push(3, 0, 2), inv(2, 0)} => {inv(3, 2)}
+Counterexample: {push(3, 0, 2), inv(3, 0)} => {inv(3, 2)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(0, 2)}
+Counterexample: {push(1, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 3), inv(0, 0)} => {inv(0, 3)}
+Counterexample: {inv((- 1), (- 1))} => {fail@(true)}
+Counterexample: {push(1, 1, 3), inv(0, 1)} => {inv(1, 3)}
+Counterexample: {push(0, 1, 3), inv(0, 1)} => {inv(0, 3)}
+Counterexample: {push(3, 2, 4), inv(3, 2)} => {inv(3, 4)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (<= (- |push#1| |push#2|) 0)
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#0| |inv#1|) 0) (<= |inv#1| 2))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 8
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  if x[2] <= 3
+   if x[2] <= -1
+    false
+    if x[1] <= 1
+     true
+     false
+   false
+ if x[10] <= 0
+  true
+  false
+Printing all the counter examples : 38
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {inv(1, 4)} => {fail@(true)}
+Counterexample: {push(1, 0, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {push(3, 0, (- 1)), inv(3, 0)} => {inv(3, (- 1))}
+Counterexample: {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {push(3, 0, 2), inv(2, 0)} => {inv(3, 2)}
+Counterexample: {push(3, 0, 2), inv(3, 0)} => {inv(3, 2)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(0, 2)}
+Counterexample: {push(1, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 3), inv(0, 0)} => {inv(0, 3)}
+Counterexample: {inv((- 1), (- 1))} => {fail@(true)}
+Counterexample: {push(1, 1, 3), inv(0, 1)} => {inv(1, 3)}
+Counterexample: {push(0, 1, 3), inv(0, 1)} => {inv(0, 3)}
+Counterexample: {push(3, 2, 4), inv(3, 2)} => {inv(3, 4)}
+Counterexample: {push(2, 0, 4), inv(1, 0)} => {inv(2, 4)}
+Counterexample: {push(0, 0, 4), inv(0, 0)} => {inv(0, 4)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (let ((a!1 (or (<= (- |push#2| |push#1|) 2) (and (<= (- |push#2| |push#0|) 0) (> (- |push#2| |push#1|) 2))))) (and a!1 (<= (- |push#1| |push#2|) 0)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| (- 1)) (<= |inv#1| 2))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 9
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  if x[1] <= 0
+   if x[2] <= -1
+    false
+    if x[2] <= 0
+     true
+     false
+   false
+ if x[10] <= 0
+  if x[11] <= 2
+   if x[12] <= 0
+    if x[11] <= 0
+     true
+     if x[8] <= 0
+      false
+      true
+    false
+   if x[13] <= 0
+    true
+    false
+  false
+Printing all the counter examples : 39
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {inv(1, 4)} => {fail@(true)}
+Counterexample: {push(1, 0, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {push(3, 0, (- 1)), inv(3, 0)} => {inv(3, (- 1))}
+Counterexample: {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {push(3, 0, 2), inv(2, 0)} => {inv(3, 2)}
+Counterexample: {push(3, 0, 2), inv(3, 0)} => {inv(3, 2)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(0, 2)}
+Counterexample: {push(1, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 3), inv(0, 0)} => {inv(0, 3)}
+Counterexample: {inv((- 1), (- 1))} => {fail@(true)}
+Counterexample: {push(1, 1, 3), inv(0, 1)} => {inv(1, 3)}
+Counterexample: {push(0, 1, 3), inv(0, 1)} => {inv(0, 3)}
+Counterexample: {push(3, 2, 4), inv(3, 2)} => {inv(3, 4)}
+Counterexample: {push(2, 0, 4), inv(1, 0)} => {inv(2, 4)}
+Counterexample: {push(0, 0, 4), inv(0, 0)} => {inv(0, 4)}
+Counterexample: {push(1, 0, 1), inv(0, 0)} => {inv(1, 1)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (<= (- |push#1| |push#2|) 0)
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= |inv#0| 1) (> |inv#1| (- 1)) (<= |inv#1| 3) (> |inv#0| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 10
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  if x[1] <= 0
+   if x[2] <= -1
+    false
+    if x[2] <= 3
+     true
+     false
+   if x[4] <= 2
+    true
+    false
+ if x[10] <= 0
+  if x[11] <= 2
+   true
+   if x[13] <= 0
+    true
+    false
+  false
+Printing all the counter examples : 43
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {inv(1, 4)} => {fail@(true)}
+Counterexample: {push(1, 0, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {push(3, 0, (- 1)), inv(3, 0)} => {inv(3, (- 1))}
+Counterexample: {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {push(3, 0, 2), inv(2, 0)} => {inv(3, 2)}
+Counterexample: {push(3, 0, 2), inv(3, 0)} => {inv(3, 2)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(0, 2)}
+Counterexample: {push(1, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 3), inv(0, 0)} => {inv(0, 3)}
+Counterexample: {inv((- 1), (- 1))} => {fail@(true)}
+Counterexample: {push(1, 1, 3), inv(0, 1)} => {inv(1, 3)}
+Counterexample: {push(0, 1, 3), inv(0, 1)} => {inv(0, 3)}
+Counterexample: {push(3, 2, 4), inv(3, 2)} => {inv(3, 4)}
+Counterexample: {push(2, 0, 4), inv(1, 0)} => {inv(2, 4)}
+Counterexample: {push(0, 0, 4), inv(0, 0)} => {inv(0, 4)}
+Counterexample: {push(1, 0, 1), inv(0, 0)} => {inv(1, 1)}
+Counterexample: {push(1, 3, 4), inv(0, 3)} => {inv(1, 4)}
+Counterexample: {inv(1, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 4, 6), inv(3, 4)} => {inv(3, 6)}
+Counterexample: {push(0, 3, 4), inv(0, 3)} => {inv(0, 4)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (let ((a!1 (or (<= (- |push#2| |push#1|) 0) (and (> (- |push#0| |push#1|) 0) (> (- |push#2| |push#1|) 0))))) (let ((a!2 (or (and a!1 (<= (- |push#0| |push#2|) 0) (<= (- |push#2| |push#1|) 2)) (and (<= (- |push#2| |push#0|) 0) (> (- |push#2| |push#1|) 2))))) (and a!2 (<= (- |push#1| |push#2|) 0))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= |inv#1| 0) (> |inv#1| (- 1)) (<= |inv#0| 0) (> |inv#0| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 11
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 3
+   true
+   false
+ if x[10] <= 0
+  if x[11] <= 2
+   if x[13] <= 0
+    true
+    if x[11] <= 0
+     true
+     false
+   if x[13] <= 0
+    true
+    false
+  false
+Printing all the counter examples : 45
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {inv(1, 4)} => {fail@(true)}
+Counterexample: {push(1, 0, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {push(3, 0, (- 1)), inv(3, 0)} => {inv(3, (- 1))}
+Counterexample: {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {push(3, 0, 2), inv(2, 0)} => {inv(3, 2)}
+Counterexample: {push(3, 0, 2), inv(3, 0)} => {inv(3, 2)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(0, 2)}
+Counterexample: {push(1, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 3), inv(0, 0)} => {inv(0, 3)}
+Counterexample: {inv((- 1), (- 1))} => {fail@(true)}
+Counterexample: {push(1, 1, 3), inv(0, 1)} => {inv(1, 3)}
+Counterexample: {push(0, 1, 3), inv(0, 1)} => {inv(0, 3)}
+Counterexample: {push(3, 2, 4), inv(3, 2)} => {inv(3, 4)}
+Counterexample: {push(2, 0, 4), inv(1, 0)} => {inv(2, 4)}
+Counterexample: {push(0, 0, 4), inv(0, 0)} => {inv(0, 4)}
+Counterexample: {push(1, 0, 1), inv(0, 0)} => {inv(1, 1)}
+Counterexample: {push(1, 3, 4), inv(0, 3)} => {inv(1, 4)}
+Counterexample: {inv(1, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 4, 6), inv(3, 4)} => {inv(3, 6)}
+Counterexample: {push(0, 3, 4), inv(0, 3)} => {inv(0, 4)}
+Counterexample: {push(4, 0, 4), inv(4, 0)} => {inv(4, 4)}
+Counterexample: {push(4, 2, 4), inv(4, 2)} => {inv(4, 4)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (let ((a!1 (or (<= (- |push#2| |push#1|) 2) (and (<= (- |push#2| |push#0|) 0) (> (- |push#2| |push#1|) 2))))) (and a!1 (<= (- |push#1| |push#2|) 0)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (let ((a!1 (or (and (<= |inv#1| 3) (> |inv#1| (- 1)) (<= |inv#0| 0)) (and (<= (- |inv#1| |inv#0|) 2) (> |inv#0| 0))))) (and a!1 (> |inv#0| (- 1))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 12
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 3
+   true
+   if x[4] <= 0
+    true
+    false
+ if x[10] <= 0
+  if x[11] <= 2
+   if x[13] <= 2
+    if x[13] <= 0
+     true
+     if x[13] <= 1
+      false
+      true
+    if x[11] <= 0
+     true
+     false
+   if x[13] <= 0
+    true
+    false
+  false
+Printing all the counter examples : 49
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {inv(1, 4)} => {fail@(true)}
+Counterexample: {push(1, 0, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {push(3, 0, (- 1)), inv(3, 0)} => {inv(3, (- 1))}
+Counterexample: {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {push(3, 0, 2), inv(2, 0)} => {inv(3, 2)}
+Counterexample: {push(3, 0, 2), inv(3, 0)} => {inv(3, 2)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(0, 2)}
+Counterexample: {push(1, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 3), inv(0, 0)} => {inv(0, 3)}
+Counterexample: {inv((- 1), (- 1))} => {fail@(true)}
+Counterexample: {push(1, 1, 3), inv(0, 1)} => {inv(1, 3)}
+Counterexample: {push(0, 1, 3), inv(0, 1)} => {inv(0, 3)}
+Counterexample: {push(3, 2, 4), inv(3, 2)} => {inv(3, 4)}
+Counterexample: {push(2, 0, 4), inv(1, 0)} => {inv(2, 4)}
+Counterexample: {push(0, 0, 4), inv(0, 0)} => {inv(0, 4)}
+Counterexample: {push(1, 0, 1), inv(0, 0)} => {inv(1, 1)}
+Counterexample: {push(1, 3, 4), inv(0, 3)} => {inv(1, 4)}
+Counterexample: {inv(1, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 4, 6), inv(3, 4)} => {inv(3, 6)}
+Counterexample: {push(0, 3, 4), inv(0, 3)} => {inv(0, 4)}
+Counterexample: {push(4, 0, 4), inv(4, 0)} => {inv(4, 4)}
+Counterexample: {push(4, 2, 4), inv(4, 2)} => {inv(4, 4)}
+Counterexample: {push(3, 3, 5), inv(3, 3)} => {inv(3, 5)}
+Counterexample: {push(4, 4, 6), inv(4, 4)} => {inv(4, 6)}
+Counterexample: {push(2, 3, 4), inv(1, 3)} => {inv(2, 4)}
+Counterexample: {inv(4, 4)} => {fail@(true)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (let ((a!1 (or (<= (- |push#2| |push#0|) 0) (and (<= (- |push#2| |push#1|) 0) (> (- |push#2| |push#0|) 0))))) (let ((a!2 (or (and a!1 (<= (- |push#2| |push#1|) 2)) (and (<= (- |push#2| |push#0|) 0) (> (- |push#2| |push#1|) 2))))) (and a!2 (<= (- |push#1| |push#2|) 0))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= |inv#1| 3) (> |inv#1| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 13
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 3
+  if x[2] <= -1
+   false
+   if x[4] <= 2
+    true
+    false
+  false
+ if x[10] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    true
+    if x[13] <= 0
+     true
+     false
+   if x[13] <= 0
+    true
+    false
+  false
+Printing all the counter examples : 50
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {inv(1, 4)} => {fail@(true)}
+Counterexample: {push(1, 0, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {push(3, 0, (- 1)), inv(3, 0)} => {inv(3, (- 1))}
+Counterexample: {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {push(3, 0, 2), inv(2, 0)} => {inv(3, 2)}
+Counterexample: {push(3, 0, 2), inv(3, 0)} => {inv(3, 2)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(0, 2)}
+Counterexample: {push(1, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 3), inv(0, 0)} => {inv(0, 3)}
+Counterexample: {inv((- 1), (- 1))} => {fail@(true)}
+Counterexample: {push(1, 1, 3), inv(0, 1)} => {inv(1, 3)}
+Counterexample: {push(0, 1, 3), inv(0, 1)} => {inv(0, 3)}
+Counterexample: {push(3, 2, 4), inv(3, 2)} => {inv(3, 4)}
+Counterexample: {push(2, 0, 4), inv(1, 0)} => {inv(2, 4)}
+Counterexample: {push(0, 0, 4), inv(0, 0)} => {inv(0, 4)}
+Counterexample: {push(1, 0, 1), inv(0, 0)} => {inv(1, 1)}
+Counterexample: {push(1, 3, 4), inv(0, 3)} => {inv(1, 4)}
+Counterexample: {inv(1, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 4, 6), inv(3, 4)} => {inv(3, 6)}
+Counterexample: {push(0, 3, 4), inv(0, 3)} => {inv(0, 4)}
+Counterexample: {push(4, 0, 4), inv(4, 0)} => {inv(4, 4)}
+Counterexample: {push(4, 2, 4), inv(4, 2)} => {inv(4, 4)}
+Counterexample: {push(3, 3, 5), inv(3, 3)} => {inv(3, 5)}
+Counterexample: {push(4, 4, 6), inv(4, 4)} => {inv(4, 6)}
+Counterexample: {push(2, 3, 4), inv(1, 3)} => {inv(2, 4)}
+Counterexample: {inv(4, 4)} => {fail@(true)}
+Counterexample: {inv(2, 4)} => {fail@(true)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (let ((a!1 (or (<= (- |push#2| |push#0|) 0) (and (> (- |push#2| |push#0|) 1) (> (- |push#2| |push#0|) 0))))) (let ((a!2 (or (and a!1 (<= (- |push#2| |push#0|) 2)) (and (<= (- |push#2| |push#1|) 0) (> (- |push#2| |push#0|) 2))))) (let ((a!3 (or (and a!2 (<= (- |push#2| |push#1|) 2)) (and (<= (- |push#2| |push#0|) 0) (> (- |push#2| |push#1|) 2))))) (and a!3 (<= (- |push#1| |push#2|) 0)))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (let ((a!1 (or (<= |inv#1| 3) (and (<= (- |inv#1| |inv#0|) 0) (> |inv#1| 3))))) (and a!1 (> |inv#1| (- 1))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 14
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 1
+  if x[2] <= -1
+   false
+   if x[2] <= 3
+    true
+    false
+  false
+ if x[10] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    true
+    if x[13] <= 0
+     true
+     false
+   if x[13] <= 0
+    true
+    false
+  false
+Printing all the counter examples : 51
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {inv(1, 4)} => {fail@(true)}
+Counterexample: {push(1, 0, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {push(3, 0, (- 1)), inv(3, 0)} => {inv(3, (- 1))}
+Counterexample: {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {push(3, 0, 2), inv(2, 0)} => {inv(3, 2)}
+Counterexample: {push(3, 0, 2), inv(3, 0)} => {inv(3, 2)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(0, 2)}
+Counterexample: {push(1, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 3), inv(0, 0)} => {inv(0, 3)}
+Counterexample: {inv((- 1), (- 1))} => {fail@(true)}
+Counterexample: {push(1, 1, 3), inv(0, 1)} => {inv(1, 3)}
+Counterexample: {push(0, 1, 3), inv(0, 1)} => {inv(0, 3)}
+Counterexample: {push(3, 2, 4), inv(3, 2)} => {inv(3, 4)}
+Counterexample: {push(2, 0, 4), inv(1, 0)} => {inv(2, 4)}
+Counterexample: {push(0, 0, 4), inv(0, 0)} => {inv(0, 4)}
+Counterexample: {push(1, 0, 1), inv(0, 0)} => {inv(1, 1)}
+Counterexample: {push(1, 3, 4), inv(0, 3)} => {inv(1, 4)}
+Counterexample: {inv(1, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 4, 6), inv(3, 4)} => {inv(3, 6)}
+Counterexample: {push(0, 3, 4), inv(0, 3)} => {inv(0, 4)}
+Counterexample: {push(4, 0, 4), inv(4, 0)} => {inv(4, 4)}
+Counterexample: {push(4, 2, 4), inv(4, 2)} => {inv(4, 4)}
+Counterexample: {push(3, 3, 5), inv(3, 3)} => {inv(3, 5)}
+Counterexample: {push(4, 4, 6), inv(4, 4)} => {inv(4, 6)}
+Counterexample: {push(2, 3, 4), inv(1, 3)} => {inv(2, 4)}
+Counterexample: {inv(4, 4)} => {fail@(true)}
+Counterexample: {inv(2, 4)} => {fail@(true)}
+Counterexample: {push(2, 3, 3), inv(1, 3)} => {inv(2, 3)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (let ((a!1 (or (<= (- |push#2| |push#1|) 0) (and (<= (- |push#2| |push#0|) 0) (> (- |push#2| |push#1|) 0))))) (let ((a!2 (or (and a!1 (<= (- |push#2| |push#1|) 2)) (and (<= (- |push#2| |push#0|) 0) (> (- |push#2| |push#1|) 2))))) (and a!2 (<= (- |push#1| |push#2|) 0))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#1| |inv#0|) 2) (> |inv#1| (- 1)) (<= |inv#0| 3))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 15
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 3
+  if x[1] <= -1
+   false
+   if x[3] <= 0
+    if x[4] <= 0
+     true
+     false
+    false
+  false
+ if x[10] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    if x[8] <= 0
+     true
+     false
+    if x[11] <= 1
+     if x[5] <= 0
+      false
+      true
+     if x[8] <= 0
+      false
+      true
+   if x[13] <= 0
+    true
+    false
+  false
+Printing all the counter examples : 54
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {inv(1, 4)} => {fail@(true)}
+Counterexample: {push(1, 0, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {push(3, 0, (- 1)), inv(3, 0)} => {inv(3, (- 1))}
+Counterexample: {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {push(3, 0, 2), inv(2, 0)} => {inv(3, 2)}
+Counterexample: {push(3, 0, 2), inv(3, 0)} => {inv(3, 2)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(0, 2)}
+Counterexample: {push(1, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 3), inv(0, 0)} => {inv(0, 3)}
+Counterexample: {inv((- 1), (- 1))} => {fail@(true)}
+Counterexample: {push(1, 1, 3), inv(0, 1)} => {inv(1, 3)}
+Counterexample: {push(0, 1, 3), inv(0, 1)} => {inv(0, 3)}
+Counterexample: {push(3, 2, 4), inv(3, 2)} => {inv(3, 4)}
+Counterexample: {push(2, 0, 4), inv(1, 0)} => {inv(2, 4)}
+Counterexample: {push(0, 0, 4), inv(0, 0)} => {inv(0, 4)}
+Counterexample: {push(1, 0, 1), inv(0, 0)} => {inv(1, 1)}
+Counterexample: {push(1, 3, 4), inv(0, 3)} => {inv(1, 4)}
+Counterexample: {inv(1, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 4, 6), inv(3, 4)} => {inv(3, 6)}
+Counterexample: {push(0, 3, 4), inv(0, 3)} => {inv(0, 4)}
+Counterexample: {push(4, 0, 4), inv(4, 0)} => {inv(4, 4)}
+Counterexample: {push(4, 2, 4), inv(4, 2)} => {inv(4, 4)}
+Counterexample: {push(3, 3, 5), inv(3, 3)} => {inv(3, 5)}
+Counterexample: {push(4, 4, 6), inv(4, 4)} => {inv(4, 6)}
+Counterexample: {push(2, 3, 4), inv(1, 3)} => {inv(2, 4)}
+Counterexample: {inv(4, 4)} => {fail@(true)}
+Counterexample: {inv(2, 4)} => {fail@(true)}
+Counterexample: {push(2, 3, 3), inv(1, 3)} => {inv(2, 3)}
+Counterexample: {push(1, 0, 2), inv(0, 0)} => {inv(1, 2)}
+Counterexample: {push(3, 3, 4), inv(3, 3)} => {inv(3, 4)}
+Counterexample: {push(1, 1, 2), inv(1, 1)} => {inv(1, 2)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (let ((a!1 (or (<= (- |push#2| |push#1|) 0) (and (<= (- |push#2| |push#0|) 0) (> (- |push#2| |push#1|) 0))))) (let ((a!2 (or (and a!1 (<= (- |push#2| |push#1|) 2)) (and (<= (- |push#2| |push#0|) 0) (> (- |push#2| |push#1|) 2))))) (and a!2 (<= (- |push#1| |push#2|) 0))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= |inv#1| 3) (> |inv#1| (- 1)) (<= |inv#0| 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 16
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 3
+  if x[1] <= -1
+   false
+   if x[3] <= 0
+    if x[4] <= 0
+     true
+     false
+    false
+  false
+ if x[10] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    if x[8] <= 0
+     true
+     false
+    if x[11] <= 1
+     if x[8] <= 0
+      false
+      true
+     if x[13] <= 0
+      true
+      false
+   if x[13] <= 0
+    true
+    false
+  false
+Printing all the counter examples : 54
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {push(127, 125, 127)}
+Counterexample: {} => {push(31, 29, 31)}
+Counterexample: {} => {push(3, 1, 3)}
+Counterexample: {} => {push(6, 5, 6)}
+Counterexample: {} => {push(2, 1, 2)}
+Counterexample: {} => {push(1, (- 1), 1)}
+Counterexample: {} => {push(1, 0, 1)}
+Counterexample: {} => {push(0, 0, 0)}
+Counterexample: {} => {push(4, 0, 4)}
+Counterexample: {} => {push((- 1), (- 1), (- 1))}
+Counterexample: {} => {push(0, (- 2), 0)}
+Counterexample: {} => {push((- 17), 56, 56)}
+Counterexample: {} => {push(1, (- 129), 1)}
+Counterexample: {} => {push(1, 23, 23)}
+Counterexample: {} => {push((- 1), 1, 1)}
+Counterexample: {} => {push(1, 127, 127)}
+Counterexample: {} => {inv(0, 0)}
+Counterexample: {inv(0, 4)} => {fail@(true)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 0, 1), inv(2, 0)} => {inv(3, 1)}
+Counterexample: {push(3, 0, 1), inv(3, 0)} => {inv(3, 1)}
+Counterexample: {push(0, 0, 1), inv(0, 0)} => {inv(0, 1)}
+Counterexample: {inv(1, 4)} => {fail@(true)}
+Counterexample: {push(1, 0, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {push(3, 0, (- 1)), inv(3, 0)} => {inv(3, (- 1))}
+Counterexample: {push(0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {push(3, 0, 2), inv(2, 0)} => {inv(3, 2)}
+Counterexample: {push(3, 0, 2), inv(3, 0)} => {inv(3, 2)}
+Counterexample: {push(0, 0, 2), inv(0, 0)} => {inv(0, 2)}
+Counterexample: {push(1, 0, 0), inv(0, 0)} => {inv(1, 0)}
+Counterexample: {push(0, 0, 3), inv(0, 0)} => {inv(0, 3)}
+Counterexample: {inv((- 1), (- 1))} => {fail@(true)}
+Counterexample: {push(1, 1, 3), inv(0, 1)} => {inv(1, 3)}
+Counterexample: {push(0, 1, 3), inv(0, 1)} => {inv(0, 3)}
+Counterexample: {push(3, 2, 4), inv(3, 2)} => {inv(3, 4)}
+Counterexample: {push(2, 0, 4), inv(1, 0)} => {inv(2, 4)}
+Counterexample: {push(0, 0, 4), inv(0, 0)} => {inv(0, 4)}
+Counterexample: {push(1, 0, 1), inv(0, 0)} => {inv(1, 1)}
+Counterexample: {push(1, 3, 4), inv(0, 3)} => {inv(1, 4)}
+Counterexample: {inv(1, (- 1))} => {fail@(true)}
+Counterexample: {push(3, 4, 6), inv(3, 4)} => {inv(3, 6)}
+Counterexample: {push(0, 3, 4), inv(0, 3)} => {inv(0, 4)}
+Counterexample: {push(4, 0, 4), inv(4, 0)} => {inv(4, 4)}
+Counterexample: {push(4, 2, 4), inv(4, 2)} => {inv(4, 4)}
+Counterexample: {push(3, 3, 5), inv(3, 3)} => {inv(3, 5)}
+Counterexample: {push(4, 4, 6), inv(4, 4)} => {inv(4, 6)}
+Counterexample: {push(2, 3, 4), inv(1, 3)} => {inv(2, 4)}
+Counterexample: {inv(4, 4)} => {fail@(true)}
+Counterexample: {inv(2, 4)} => {fail@(true)}
+Counterexample: {push(2, 3, 3), inv(1, 3)} => {inv(2, 3)}
+Counterexample: {push(1, 0, 2), inv(0, 0)} => {inv(1, 2)}
+Counterexample: {push(3, 3, 4), inv(3, 3)} => {inv(3, 4)}
+Counterexample: {push(1, 1, 2), inv(1, 1)} => {inv(1, 2)}
+Conjectures
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (let ((a!1 (or (and (> |push#0| 0) (<= (- |push#2| |push#1|) 1)) (and (> (- |push#0| |push#1|) 0) (> (- |push#2| |push#1|) 1))))) (let ((a!2 (or (and (<= (- |push#0| |push#1|) 0) (<= (- |push#2| |push#1|) 0)) (and a!1 (> (- |push#2| |push#1|) 0))))) (let ((a!3 (or (and a!2 (<= (- |push#2| |push#1|) 2)) (and (<= (- |push#2| |push#0|) 0) (> (- |push#2| |push#1|) 2))))) (and a!3 (<= (- |push#1| |push#2|) 0)))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#1| |inv#0|) 0) (<= (- |inv#0| |inv#1|) 0) (> |inv#0| (- 1)) (<= |inv#0| 3))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+In Naive Check
+Success (checked 293 CHCs, invoked learner 17 times)
+(declare-fun push (Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|] -> (let ((a!1 (or (and (> (- |push#0| |push#1|) 0) (<= (- |push#2| |push#1|) 1)) (and (<= (- |push#2| |push#0|) 0) (> (- |push#2| |push#1|) 1))))) (let ((a!2 (or (and (<= (- |push#0| |push#1|) 0) (<= (- |push#2| |push#1|) 0)) (and a!1 (> (- |push#2| |push#1|) 0))))) (let ((a!3 (or (and a!2 (<= (- |push#2| |push#1|) 2)) (and (<= (- |push#2| |push#0|) 0) (> (- |push#2| |push#1|) 2))))) (and a!3 (<= (- |push#1| |push#2|) 0)))))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (<= (- |inv#1| |inv#0|) 0) (<= (- |inv#0| |inv#1|) 0) (> |inv#0| (- 1)) (<= |inv#0| 3))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 2(declare-fun inv (Int Int) Bool)inv
+Relation : 3(declare-fun push (Int Int Int) Bool)push
+Final CHCs read
+CHC : (fail@ true)
+CHC : (push k!51 k!52 k!50)
+CHC : (inv k!53 k!52)
+CHC : (push k!55 k!56 k!54)
+CHC : (inv k!55 k!56)
+CHC : (push k!58 k!59 k!57)
+CHC : (inv k!58 k!59)
+CHC : (inv k!61 k!60)
+Total time: 4.26

@@ -1,0 +1,149 @@
+
+========================================
+         Starting Pipeline for: Multiset1 (Mode: ContextualLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'Multiset1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/Multiset1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multiset1/Multiset1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 6 internal iterations.
+   -> Writing new specs to harness: Multiset1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multiset1/Multiset1_fuzz.cpp'.
+   -> Starting AFL++(Multiset1_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multiset1/Multiset1_fuzz
+   -> AFL++(Multiset1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:213,execs:53,op:havoc,rep:6
+Checking queue
+   -> Found 2 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Multiset1'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: ((N - i) > 0)
+  emplace: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var v Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var countv Int)
+(declare-var countv1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-rel emplace (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= v -83) (= countv 0) (= len 0) (= countv1 1) (= len1 1)) (emplace v countv len countv1 len1)))
+
+(rule (=> (and (> N 0) (= i 0) (= countv 0) (= len 0)) (inv1 i N v countv len)))
+(rule (=> (and (inv1 i N v countv len) (< i N) (emplace v countv len countv1 len1) (= i1 (+ i 1))) (inv1 i1 N v countv1 len1)))
+(rule (=> (and (inv1 i N v countv len) (not (< i N)) (not (and (= len N) (= countv N)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multiset1/Multiset1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 52 internal iterations.
+   -> Writing new specs to harness: Multiset1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multiset1/Multiset1_fuzz.cpp'.
+   -> Starting AFL++(Multiset1_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multiset1/Multiset1_fuzz
+   -> AFL++(Multiset1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:201,execs:22,op:havoc,rep:13
+Checking queue
+   -> Found 3 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Multiset1'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: ((countv <= 0) && (len1 <= 1) && (len1 > 0) && (countv1 <= 1) && (countv1 > 0))
+  inv1: (((i - len) <= 0) && ((len - countv) <= 0) && ((N - countv) > (-1)) && (N > 0))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var v Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var countv Int)
+(declare-var countv1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-rel emplace (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= v 11) (= countv 1) (= len 1) (= countv1 2) (= len1 2)) (emplace v countv len countv1 len1)))
+
+(rule (=> (and (= v -83) (= countv 0) (= len 0) (= countv1 1) (= len1 1)) (emplace v countv len countv1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= countv 0) (= len 0)) (inv1 i N v countv len)))
+(rule (=> (and (inv1 i N v countv len) (< i N) (emplace v countv len countv1 len1) (= i1 (+ i 1))) (inv1 i1 N v countv1 len1)))
+(rule (=> (and (inv1 i N v countv len) (not (< i N)) (not (and (= len N) (= countv N)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multiset1/Multiset1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> ERROR: HornICE timed out. Terminating.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 3
+Total Unique Test Cases Found: 2
+Total Internal Iterations: 58
+  - Min: 6
+  - Max: 52
+  - Avg: 29.00
+pipeline.run() took 0.5794 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualLLMHornICE Multiset1
+PID: 6002
+========================================
+
+
+Total Pipeline Duration: 1069.77s

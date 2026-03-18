@@ -1,0 +1,1482 @@
+(declare-rel push (Int Int Int Int Int))
+(declare-rel inv (Int Int Int))
+(declare-rel fail ())
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(declare-var E Int)
+(declare-var F Int)
+(declare-var G Int)
+(rule (=> (and (= A 1) (= B 0) (= C 128)) (inv C B A)))
+(rule (=> (and (inv E D G) (= G 1) (= F 1) (push F E D C B) (= A 0)) (inv C B A)))
+(rule (=> (and (inv E D G) (not (= G 1)) (= F 2) (push F E D C B) (= A 1))
+    (inv C B A)))
+(rule (let ((a!1 (or (= C 0) (and (=> (= B 0) (= A 1)) (=> (= B 1) (= A 2))))))
+  (=> (and (inv A C B) (not a!1)) fail)))
+
+
+Read 4 rules and 1 queries (1)
+
+---------- Query 0 ----------
+(fail@ true)
+SMTlIB :: expr : (fail@ true)
+SMTlIB :: expr_decl : (declare-fun fail@ (Bool) Bool)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+---------- Rule 0 ----------
+(forall ((top Int) (len Int) (flag Int))
+  (=> (and (= flag 1) (= len 0) (= top 128)) (inv top len flag)))
+SMTlIB :: expr : (inv k!2 k!1 k!0)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int Int) Bool)
+
+---------- Rule 1 ----------
+(forall ((flag Int)
+         (val Int)
+         (top Int)
+         (len Int)
+         (top1 Int)
+         (len1 Int)
+         (flag1 Int))
+  (=> (and (inv top len flag)
+           (= flag 1)
+           (= val 1)
+           (push val top len top1 len1)
+           (= flag1 0))
+      (inv top1 len1 flag1)))
+SMTlIB :: expr : (inv k!7 k!6 k!9)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int Int) Bool)
+SMTlIB :: expr : (push k!8 k!7 k!6 k!5 k!4)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int Int Int) Bool)
+SMTlIB :: expr : (inv k!5 k!4 k!3)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int Int) Bool)
+
+---------- Rule 2 ----------
+(forall ((flag Int)
+         (val Int)
+         (top Int)
+         (len Int)
+         (top1 Int)
+         (len1 Int)
+         (flag1 Int))
+  (=> (and (inv top len flag)
+           (not (= flag 1))
+           (= val 2)
+           (push val top len top1 len1)
+           (= flag1 1))
+      (inv top1 len1 flag1)))
+SMTlIB :: expr : (inv k!14 k!13 k!16)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int Int) Bool)
+SMTlIB :: expr : (push k!15 k!14 k!13 k!12 k!11)
+SMTlIB :: expr_decl : (declare-fun push (Int Int Int Int Int) Bool)
+SMTlIB :: expr : (inv k!12 k!11 k!10)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int Int) Bool)
+
+---------- Rule 3 ----------
+(forall ((len Int) (flag Int) (top Int))
+  (let ((a!1 (or (= len 0)
+                 (and (=> (= flag 0) (= top 1)) (=> (= flag 1) (= top 2))))))
+    (=> (and (inv top len flag) (not a!1)) (fail@ true))))
+SMTlIB :: expr : (inv k!17 k!19 k!18)
+SMTlIB :: expr_decl : (declare-fun inv (Int Int Int) Bool)
+SMTlIB :: expr : (fail@ true)
+SMTlIB :: expr_decl : (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun push (Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (= k!0 1) (= k!1 0) (= k!2 128)) (inv k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!2 k!1 k!0)
+
+ -- CHC
+(=> (and (inv k!7 k!6 k!9)
+         (= k!9 1)
+         (= k!8 1)
+         (push k!8 k!7 k!6 k!5 k!4)
+         (= k!3 0))
+    (inv k!5 k!4 k!3))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int Int) Bool)
+ -- LHS
+(push k!8 k!7 k!6 k!5 k!4)
+(inv k!7 k!6 k!9)
+ -- RHS
+(inv k!5 k!4 k!3)
+
+ -- CHC
+(=> (and (inv k!14 k!13 k!16)
+         (not (= k!16 1))
+         (= k!15 2)
+         (push k!15 k!14 k!13 k!12 k!11)
+         (= k!10 1))
+    (inv k!12 k!11 k!10))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int Int) Bool)
+ -- LHS
+(push k!15 k!14 k!13 k!12 k!11)
+(inv k!14 k!13 k!16)
+ -- RHS
+(inv k!12 k!11 k!10)
+
+ -- CHC
+(let ((a!1 (or (= k!19 0)
+               (and (=> (= k!18 0) (= k!17 1)) (=> (= k!18 1) (= k!17 2))))))
+  (=> (and (inv k!17 k!19 k!18) (not a!1)) (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int Int) Bool)
+ -- LHS
+(inv k!17 k!19 k!18)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (= k!0 1) (= k!1 0) (= k!2 128)) (inv k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!2 k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (inv k!7 k!6 k!9)
+         (= k!9 1)
+         (= k!8 1)
+         (push k!8 k!7 k!6 k!5 k!4)
+         (= k!3 0))
+    (inv k!5 k!4 k!3))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int Int) Bool)
+ -- LHS
+(push k!8 k!7 k!6 k!5 k!4)
+(inv k!7 k!6 k!9)
+ -- RHS
+(inv k!5 k!4 k!3)
+
+chc ::  -- CHC
+(=> (and (inv k!14 k!13 k!16)
+         (not (= k!16 1))
+         (= k!15 2)
+         (push k!15 k!14 k!13 k!12 k!11)
+         (= k!10 1))
+    (inv k!12 k!11 k!10))
+ -- Uninterpreted predicates
+(declare-fun push (Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int Int) Bool)
+ -- LHS
+(push k!15 k!14 k!13 k!12 k!11)
+(inv k!14 k!13 k!16)
+ -- RHS
+(inv k!12 k!11 k!10)
+
+chc ::  -- CHC
+(let ((a!1 (or (= k!19 0)
+               (and (=> (= k!18 0) (= k!17 1)) (=> (= k!18 1) (= k!17 2))))))
+  (=> (and (inv k!17 k!19 k!18) (not a!1)) (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int Int) Bool)
+ -- LHS
+(inv k!17 k!19 k!18)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun push (Int Int Int Int Int) Bool)
+rel :: (declare-fun inv (Int Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun push (Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun push (Int Int Int Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun push (Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun push (Int Int Int Int Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : push#0Int
+add_integer_attribute::Integer Attribute::push#0
+Attribute Identifier : 3 attribute : push#1Int
+add_integer_attribute::Integer Attribute::push#1
+Attribute Identifier : 4 attribute : push#2Int
+add_integer_attribute::Integer Attribute::push#2
+Attribute Identifier : 5 attribute : push#3Int
+add_integer_attribute::Integer Attribute::push#3
+Attribute Identifier : 6 attribute : push#4Int
+add_integer_attribute::Integer Attribute::push#4
+add_integer_attribute::Integer Attribute::|push#0|+|push#1|+|push#2|
+learner_interfaceDerived Attribute Identifier : 7 Derived attribute : (+ |push#0| |push#1| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|-|push#2|
+learner_interfaceDerived Attribute Identifier : 8 Derived attribute : (- (- |push#0| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#1|-|push#2|
+learner_interfaceDerived Attribute Identifier : 9 Derived attribute : (- (+ |push#0| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|+|push#2|
+learner_interfaceDerived Attribute Identifier : 10 Derived attribute : (+ (- |push#0| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|+|push#1|
+learner_interfaceDerived Attribute Identifier : 11 Derived attribute : (+ |push#0| |push#2| |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|-|push#1|
+learner_interfaceDerived Attribute Identifier : 12 Derived attribute : (- (- |push#0| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|-|push#1|
+learner_interfaceDerived Attribute Identifier : 13 Derived attribute : (- (+ |push#0| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|+|push#1|
+learner_interfaceDerived Attribute Identifier : 14 Derived attribute : (+ (- |push#0| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 15 Derived attribute : (+ |push#1| |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 16 Derived attribute : (- (- |push#1| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 17 Derived attribute : (- (+ |push#1| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 18 Derived attribute : (+ (- |push#1| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 19 Derived attribute : (+ |push#1| |push#2| |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 20 Derived attribute : (- (- |push#1| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 21 Derived attribute : (- (+ |push#1| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 22 Derived attribute : (+ (- |push#1| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|+|push#1|
+learner_interfaceDerived Attribute Identifier : 23 Derived attribute : (+ |push#2| |push#0| |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|-|push#1|
+learner_interfaceDerived Attribute Identifier : 24 Derived attribute : (- (- |push#2| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|-|push#1|
+learner_interfaceDerived Attribute Identifier : 25 Derived attribute : (- (+ |push#2| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|+|push#1|
+learner_interfaceDerived Attribute Identifier : 26 Derived attribute : (+ (- |push#2| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#1|+|push#0|
+learner_interfaceDerived Attribute Identifier : 27 Derived attribute : (+ |push#2| |push#1| |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#1|-|push#0|
+learner_interfaceDerived Attribute Identifier : 28 Derived attribute : (- (- |push#2| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#1|-|push#0|
+learner_interfaceDerived Attribute Identifier : 29 Derived attribute : (- (+ |push#2| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#1|+|push#0|
+learner_interfaceDerived Attribute Identifier : 30 Derived attribute : (+ (- |push#2| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#1|+|push#3|
+learner_interfaceDerived Attribute Identifier : 31 Derived attribute : (+ |push#0| |push#1| |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|-|push#3|
+learner_interfaceDerived Attribute Identifier : 32 Derived attribute : (- (- |push#0| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#1|-|push#3|
+learner_interfaceDerived Attribute Identifier : 33 Derived attribute : (- (+ |push#0| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|+|push#3|
+learner_interfaceDerived Attribute Identifier : 34 Derived attribute : (+ (- |push#0| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#3|+|push#1|
+learner_interfaceDerived Attribute Identifier : 35 Derived attribute : (+ |push#0| |push#3| |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#3|-|push#1|
+learner_interfaceDerived Attribute Identifier : 36 Derived attribute : (- (- |push#0| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#3|-|push#1|
+learner_interfaceDerived Attribute Identifier : 37 Derived attribute : (- (+ |push#0| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#3|+|push#1|
+learner_interfaceDerived Attribute Identifier : 38 Derived attribute : (+ (- |push#0| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#0|+|push#3|
+learner_interfaceDerived Attribute Identifier : 39 Derived attribute : (+ |push#1| |push#0| |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#0|-|push#3|
+learner_interfaceDerived Attribute Identifier : 40 Derived attribute : (- (- |push#1| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#0|-|push#3|
+learner_interfaceDerived Attribute Identifier : 41 Derived attribute : (- (+ |push#1| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#0|+|push#3|
+learner_interfaceDerived Attribute Identifier : 42 Derived attribute : (+ (- |push#1| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#3|+|push#0|
+learner_interfaceDerived Attribute Identifier : 43 Derived attribute : (+ |push#1| |push#3| |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#3|-|push#0|
+learner_interfaceDerived Attribute Identifier : 44 Derived attribute : (- (- |push#1| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#3|-|push#0|
+learner_interfaceDerived Attribute Identifier : 45 Derived attribute : (- (+ |push#1| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#3|+|push#0|
+learner_interfaceDerived Attribute Identifier : 46 Derived attribute : (+ (- |push#1| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#0|+|push#1|
+learner_interfaceDerived Attribute Identifier : 47 Derived attribute : (+ |push#3| |push#0| |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#0|-|push#1|
+learner_interfaceDerived Attribute Identifier : 48 Derived attribute : (- (- |push#3| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#0|-|push#1|
+learner_interfaceDerived Attribute Identifier : 49 Derived attribute : (- (+ |push#3| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#0|+|push#1|
+learner_interfaceDerived Attribute Identifier : 50 Derived attribute : (+ (- |push#3| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#1|+|push#0|
+learner_interfaceDerived Attribute Identifier : 51 Derived attribute : (+ |push#3| |push#1| |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#1|-|push#0|
+learner_interfaceDerived Attribute Identifier : 52 Derived attribute : (- (- |push#3| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#1|-|push#0|
+learner_interfaceDerived Attribute Identifier : 53 Derived attribute : (- (+ |push#3| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#1|+|push#0|
+learner_interfaceDerived Attribute Identifier : 54 Derived attribute : (+ (- |push#3| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#1|+|push#4|
+learner_interfaceDerived Attribute Identifier : 55 Derived attribute : (+ |push#0| |push#1| |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|-|push#4|
+learner_interfaceDerived Attribute Identifier : 56 Derived attribute : (- (- |push#0| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#1|-|push#4|
+learner_interfaceDerived Attribute Identifier : 57 Derived attribute : (- (+ |push#0| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|+|push#4|
+learner_interfaceDerived Attribute Identifier : 58 Derived attribute : (+ (- |push#0| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#4|+|push#1|
+learner_interfaceDerived Attribute Identifier : 59 Derived attribute : (+ |push#0| |push#4| |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#4|-|push#1|
+learner_interfaceDerived Attribute Identifier : 60 Derived attribute : (- (- |push#0| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#4|-|push#1|
+learner_interfaceDerived Attribute Identifier : 61 Derived attribute : (- (+ |push#0| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#4|+|push#1|
+learner_interfaceDerived Attribute Identifier : 62 Derived attribute : (+ (- |push#0| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#0|+|push#4|
+learner_interfaceDerived Attribute Identifier : 63 Derived attribute : (+ |push#1| |push#0| |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#0|-|push#4|
+learner_interfaceDerived Attribute Identifier : 64 Derived attribute : (- (- |push#1| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#0|-|push#4|
+learner_interfaceDerived Attribute Identifier : 65 Derived attribute : (- (+ |push#1| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#0|+|push#4|
+learner_interfaceDerived Attribute Identifier : 66 Derived attribute : (+ (- |push#1| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#4|+|push#0|
+learner_interfaceDerived Attribute Identifier : 67 Derived attribute : (+ |push#1| |push#4| |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#4|-|push#0|
+learner_interfaceDerived Attribute Identifier : 68 Derived attribute : (- (- |push#1| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#4|-|push#0|
+learner_interfaceDerived Attribute Identifier : 69 Derived attribute : (- (+ |push#1| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#4|+|push#0|
+learner_interfaceDerived Attribute Identifier : 70 Derived attribute : (+ (- |push#1| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#0|+|push#1|
+learner_interfaceDerived Attribute Identifier : 71 Derived attribute : (+ |push#4| |push#0| |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#0|-|push#1|
+learner_interfaceDerived Attribute Identifier : 72 Derived attribute : (- (- |push#4| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#0|-|push#1|
+learner_interfaceDerived Attribute Identifier : 73 Derived attribute : (- (+ |push#4| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#0|+|push#1|
+learner_interfaceDerived Attribute Identifier : 74 Derived attribute : (+ (- |push#4| |push#0|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#1|+|push#0|
+learner_interfaceDerived Attribute Identifier : 75 Derived attribute : (+ |push#4| |push#1| |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#1|-|push#0|
+learner_interfaceDerived Attribute Identifier : 76 Derived attribute : (- (- |push#4| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#1|-|push#0|
+learner_interfaceDerived Attribute Identifier : 77 Derived attribute : (- (+ |push#4| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#1|+|push#0|
+learner_interfaceDerived Attribute Identifier : 78 Derived attribute : (+ (- |push#4| |push#1|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|+|push#2|
+learner_interfaceDerived Attribute Identifier : 79 Derived attribute : (+ |push#0| |push#2| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|-|push#2|
+learner_interfaceDerived Attribute Identifier : 80 Derived attribute : (- (- |push#0| |push#2|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|-|push#2|
+learner_interfaceDerived Attribute Identifier : 81 Derived attribute : (- (+ |push#0| |push#2|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|+|push#2|
+learner_interfaceDerived Attribute Identifier : 82 Derived attribute : (+ (- |push#0| |push#2|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 83 Derived attribute : (+ |push#2| |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 84 Derived attribute : (- (- |push#2| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 85 Derived attribute : (- (+ |push#2| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 86 Derived attribute : (+ (- |push#2| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 87 Derived attribute : (+ |push#2| |push#2| |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 88 Derived attribute : (- (- |push#2| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 89 Derived attribute : (- (+ |push#2| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 90 Derived attribute : (+ (- |push#2| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|+|push#3|
+learner_interfaceDerived Attribute Identifier : 91 Derived attribute : (+ |push#0| |push#2| |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|-|push#3|
+learner_interfaceDerived Attribute Identifier : 92 Derived attribute : (- (- |push#0| |push#2|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|-|push#3|
+learner_interfaceDerived Attribute Identifier : 93 Derived attribute : (- (+ |push#0| |push#2|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|+|push#3|
+learner_interfaceDerived Attribute Identifier : 94 Derived attribute : (+ (- |push#0| |push#2|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#3|+|push#2|
+learner_interfaceDerived Attribute Identifier : 95 Derived attribute : (+ |push#0| |push#3| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#3|-|push#2|
+learner_interfaceDerived Attribute Identifier : 96 Derived attribute : (- (- |push#0| |push#3|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#3|-|push#2|
+learner_interfaceDerived Attribute Identifier : 97 Derived attribute : (- (+ |push#0| |push#3|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#3|+|push#2|
+learner_interfaceDerived Attribute Identifier : 98 Derived attribute : (+ (- |push#0| |push#3|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|+|push#3|
+learner_interfaceDerived Attribute Identifier : 99 Derived attribute : (+ |push#2| |push#0| |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|-|push#3|
+learner_interfaceDerived Attribute Identifier : 100 Derived attribute : (- (- |push#2| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|-|push#3|
+learner_interfaceDerived Attribute Identifier : 101 Derived attribute : (- (+ |push#2| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|+|push#3|
+learner_interfaceDerived Attribute Identifier : 102 Derived attribute : (+ (- |push#2| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#3|+|push#0|
+learner_interfaceDerived Attribute Identifier : 103 Derived attribute : (+ |push#2| |push#3| |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#3|-|push#0|
+learner_interfaceDerived Attribute Identifier : 104 Derived attribute : (- (- |push#2| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#3|-|push#0|
+learner_interfaceDerived Attribute Identifier : 105 Derived attribute : (- (+ |push#2| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#3|+|push#0|
+learner_interfaceDerived Attribute Identifier : 106 Derived attribute : (+ (- |push#2| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 107 Derived attribute : (+ |push#3| |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 108 Derived attribute : (- (- |push#3| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 109 Derived attribute : (- (+ |push#3| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 110 Derived attribute : (+ (- |push#3| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 111 Derived attribute : (+ |push#3| |push#2| |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 112 Derived attribute : (- (- |push#3| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 113 Derived attribute : (- (+ |push#3| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 114 Derived attribute : (+ (- |push#3| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|+|push#4|
+learner_interfaceDerived Attribute Identifier : 115 Derived attribute : (+ |push#0| |push#2| |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|-|push#4|
+learner_interfaceDerived Attribute Identifier : 116 Derived attribute : (- (- |push#0| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|-|push#4|
+learner_interfaceDerived Attribute Identifier : 117 Derived attribute : (- (+ |push#0| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|+|push#4|
+learner_interfaceDerived Attribute Identifier : 118 Derived attribute : (+ (- |push#0| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#4|+|push#2|
+learner_interfaceDerived Attribute Identifier : 119 Derived attribute : (+ |push#0| |push#4| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#4|-|push#2|
+learner_interfaceDerived Attribute Identifier : 120 Derived attribute : (- (- |push#0| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#4|-|push#2|
+learner_interfaceDerived Attribute Identifier : 121 Derived attribute : (- (+ |push#0| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#4|+|push#2|
+learner_interfaceDerived Attribute Identifier : 122 Derived attribute : (+ (- |push#0| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|+|push#4|
+learner_interfaceDerived Attribute Identifier : 123 Derived attribute : (+ |push#2| |push#0| |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|-|push#4|
+learner_interfaceDerived Attribute Identifier : 124 Derived attribute : (- (- |push#2| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|-|push#4|
+learner_interfaceDerived Attribute Identifier : 125 Derived attribute : (- (+ |push#2| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|+|push#4|
+learner_interfaceDerived Attribute Identifier : 126 Derived attribute : (+ (- |push#2| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#4|+|push#0|
+learner_interfaceDerived Attribute Identifier : 127 Derived attribute : (+ |push#2| |push#4| |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#4|-|push#0|
+learner_interfaceDerived Attribute Identifier : 128 Derived attribute : (- (- |push#2| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#4|-|push#0|
+learner_interfaceDerived Attribute Identifier : 129 Derived attribute : (- (+ |push#2| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#4|+|push#0|
+learner_interfaceDerived Attribute Identifier : 130 Derived attribute : (+ (- |push#2| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 131 Derived attribute : (+ |push#4| |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 132 Derived attribute : (- (- |push#4| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 133 Derived attribute : (- (+ |push#4| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 134 Derived attribute : (+ (- |push#4| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 135 Derived attribute : (+ |push#4| |push#2| |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 136 Derived attribute : (- (- |push#4| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 137 Derived attribute : (- (+ |push#4| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 138 Derived attribute : (+ (- |push#4| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|+|push#3|
+learner_interfaceDerived Attribute Identifier : 139 Derived attribute : (+ |push#0| |push#2| |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|-|push#3|
+learner_interfaceDerived Attribute Identifier : 140 Derived attribute : (- (- |push#0| |push#2|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|-|push#3|
+learner_interfaceDerived Attribute Identifier : 141 Derived attribute : (- (+ |push#0| |push#2|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|+|push#3|
+learner_interfaceDerived Attribute Identifier : 142 Derived attribute : (+ (- |push#0| |push#2|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#3|+|push#2|
+learner_interfaceDerived Attribute Identifier : 143 Derived attribute : (+ |push#0| |push#3| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#3|-|push#2|
+learner_interfaceDerived Attribute Identifier : 144 Derived attribute : (- (- |push#0| |push#3|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#3|-|push#2|
+learner_interfaceDerived Attribute Identifier : 145 Derived attribute : (- (+ |push#0| |push#3|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#3|+|push#2|
+learner_interfaceDerived Attribute Identifier : 146 Derived attribute : (+ (- |push#0| |push#3|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|+|push#3|
+learner_interfaceDerived Attribute Identifier : 147 Derived attribute : (+ |push#2| |push#0| |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|-|push#3|
+learner_interfaceDerived Attribute Identifier : 148 Derived attribute : (- (- |push#2| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|-|push#3|
+learner_interfaceDerived Attribute Identifier : 149 Derived attribute : (- (+ |push#2| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|+|push#3|
+learner_interfaceDerived Attribute Identifier : 150 Derived attribute : (+ (- |push#2| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#3|+|push#0|
+learner_interfaceDerived Attribute Identifier : 151 Derived attribute : (+ |push#2| |push#3| |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#3|-|push#0|
+learner_interfaceDerived Attribute Identifier : 152 Derived attribute : (- (- |push#2| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#3|-|push#0|
+learner_interfaceDerived Attribute Identifier : 153 Derived attribute : (- (+ |push#2| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#3|+|push#0|
+learner_interfaceDerived Attribute Identifier : 154 Derived attribute : (+ (- |push#2| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 155 Derived attribute : (+ |push#3| |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 156 Derived attribute : (- (- |push#3| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 157 Derived attribute : (- (+ |push#3| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 158 Derived attribute : (+ (- |push#3| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 159 Derived attribute : (+ |push#3| |push#2| |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 160 Derived attribute : (- (- |push#3| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 161 Derived attribute : (- (+ |push#3| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 162 Derived attribute : (+ (- |push#3| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#3|+|push#3|
+learner_interfaceDerived Attribute Identifier : 163 Derived attribute : (+ |push#0| |push#3| |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#3|-|push#3|
+learner_interfaceDerived Attribute Identifier : 164 Derived attribute : (- (- |push#0| |push#3|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#3|-|push#3|
+learner_interfaceDerived Attribute Identifier : 165 Derived attribute : (- (+ |push#0| |push#3|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#3|+|push#3|
+learner_interfaceDerived Attribute Identifier : 166 Derived attribute : (+ (- |push#0| |push#3|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#0|+|push#3|
+learner_interfaceDerived Attribute Identifier : 167 Derived attribute : (+ |push#3| |push#0| |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#0|-|push#3|
+learner_interfaceDerived Attribute Identifier : 168 Derived attribute : (- (- |push#3| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#0|-|push#3|
+learner_interfaceDerived Attribute Identifier : 169 Derived attribute : (- (+ |push#3| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#0|+|push#3|
+learner_interfaceDerived Attribute Identifier : 170 Derived attribute : (+ (- |push#3| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#3|+|push#0|
+learner_interfaceDerived Attribute Identifier : 171 Derived attribute : (+ |push#3| |push#3| |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#3|-|push#0|
+learner_interfaceDerived Attribute Identifier : 172 Derived attribute : (- (- |push#3| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#3|-|push#0|
+learner_interfaceDerived Attribute Identifier : 173 Derived attribute : (- (+ |push#3| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#3|+|push#0|
+learner_interfaceDerived Attribute Identifier : 174 Derived attribute : (+ (- |push#3| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#3|+|push#4|
+learner_interfaceDerived Attribute Identifier : 175 Derived attribute : (+ |push#0| |push#3| |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#3|-|push#4|
+learner_interfaceDerived Attribute Identifier : 176 Derived attribute : (- (- |push#0| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#3|-|push#4|
+learner_interfaceDerived Attribute Identifier : 177 Derived attribute : (- (+ |push#0| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#3|+|push#4|
+learner_interfaceDerived Attribute Identifier : 178 Derived attribute : (+ (- |push#0| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#4|+|push#3|
+learner_interfaceDerived Attribute Identifier : 179 Derived attribute : (+ |push#0| |push#4| |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#4|-|push#3|
+learner_interfaceDerived Attribute Identifier : 180 Derived attribute : (- (- |push#0| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#4|-|push#3|
+learner_interfaceDerived Attribute Identifier : 181 Derived attribute : (- (+ |push#0| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#4|+|push#3|
+learner_interfaceDerived Attribute Identifier : 182 Derived attribute : (+ (- |push#0| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#0|+|push#4|
+learner_interfaceDerived Attribute Identifier : 183 Derived attribute : (+ |push#3| |push#0| |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#0|-|push#4|
+learner_interfaceDerived Attribute Identifier : 184 Derived attribute : (- (- |push#3| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#0|-|push#4|
+learner_interfaceDerived Attribute Identifier : 185 Derived attribute : (- (+ |push#3| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#0|+|push#4|
+learner_interfaceDerived Attribute Identifier : 186 Derived attribute : (+ (- |push#3| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#4|+|push#0|
+learner_interfaceDerived Attribute Identifier : 187 Derived attribute : (+ |push#3| |push#4| |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#4|-|push#0|
+learner_interfaceDerived Attribute Identifier : 188 Derived attribute : (- (- |push#3| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#4|-|push#0|
+learner_interfaceDerived Attribute Identifier : 189 Derived attribute : (- (+ |push#3| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#4|+|push#0|
+learner_interfaceDerived Attribute Identifier : 190 Derived attribute : (+ (- |push#3| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#0|+|push#3|
+learner_interfaceDerived Attribute Identifier : 191 Derived attribute : (+ |push#4| |push#0| |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#0|-|push#3|
+learner_interfaceDerived Attribute Identifier : 192 Derived attribute : (- (- |push#4| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#0|-|push#3|
+learner_interfaceDerived Attribute Identifier : 193 Derived attribute : (- (+ |push#4| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#0|+|push#3|
+learner_interfaceDerived Attribute Identifier : 194 Derived attribute : (+ (- |push#4| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#3|+|push#0|
+learner_interfaceDerived Attribute Identifier : 195 Derived attribute : (+ |push#4| |push#3| |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#3|-|push#0|
+learner_interfaceDerived Attribute Identifier : 196 Derived attribute : (- (- |push#4| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#3|-|push#0|
+learner_interfaceDerived Attribute Identifier : 197 Derived attribute : (- (+ |push#4| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#3|+|push#0|
+learner_interfaceDerived Attribute Identifier : 198 Derived attribute : (+ (- |push#4| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|+|push#4|
+learner_interfaceDerived Attribute Identifier : 199 Derived attribute : (+ |push#0| |push#2| |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|-|push#4|
+learner_interfaceDerived Attribute Identifier : 200 Derived attribute : (- (- |push#0| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|-|push#4|
+learner_interfaceDerived Attribute Identifier : 201 Derived attribute : (- (+ |push#0| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|+|push#4|
+learner_interfaceDerived Attribute Identifier : 202 Derived attribute : (+ (- |push#0| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#4|+|push#2|
+learner_interfaceDerived Attribute Identifier : 203 Derived attribute : (+ |push#0| |push#4| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#4|-|push#2|
+learner_interfaceDerived Attribute Identifier : 204 Derived attribute : (- (- |push#0| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#4|-|push#2|
+learner_interfaceDerived Attribute Identifier : 205 Derived attribute : (- (+ |push#0| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#4|+|push#2|
+learner_interfaceDerived Attribute Identifier : 206 Derived attribute : (+ (- |push#0| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|+|push#4|
+learner_interfaceDerived Attribute Identifier : 207 Derived attribute : (+ |push#2| |push#0| |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|-|push#4|
+learner_interfaceDerived Attribute Identifier : 208 Derived attribute : (- (- |push#2| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#0|-|push#4|
+learner_interfaceDerived Attribute Identifier : 209 Derived attribute : (- (+ |push#2| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#0|+|push#4|
+learner_interfaceDerived Attribute Identifier : 210 Derived attribute : (+ (- |push#2| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#4|+|push#0|
+learner_interfaceDerived Attribute Identifier : 211 Derived attribute : (+ |push#2| |push#4| |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#4|-|push#0|
+learner_interfaceDerived Attribute Identifier : 212 Derived attribute : (- (- |push#2| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#4|-|push#0|
+learner_interfaceDerived Attribute Identifier : 213 Derived attribute : (- (+ |push#2| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#4|+|push#0|
+learner_interfaceDerived Attribute Identifier : 214 Derived attribute : (+ (- |push#2| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 215 Derived attribute : (+ |push#4| |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 216 Derived attribute : (- (- |push#4| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 217 Derived attribute : (- (+ |push#4| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 218 Derived attribute : (+ (- |push#4| |push#0|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 219 Derived attribute : (+ |push#4| |push#2| |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 220 Derived attribute : (- (- |push#4| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#2|-|push#0|
+learner_interfaceDerived Attribute Identifier : 221 Derived attribute : (- (+ |push#4| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#2|+|push#0|
+learner_interfaceDerived Attribute Identifier : 222 Derived attribute : (+ (- |push#4| |push#2|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#3|+|push#4|
+learner_interfaceDerived Attribute Identifier : 223 Derived attribute : (+ |push#0| |push#3| |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#3|-|push#4|
+learner_interfaceDerived Attribute Identifier : 224 Derived attribute : (- (- |push#0| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#3|-|push#4|
+learner_interfaceDerived Attribute Identifier : 225 Derived attribute : (- (+ |push#0| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#3|+|push#4|
+learner_interfaceDerived Attribute Identifier : 226 Derived attribute : (+ (- |push#0| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#4|+|push#3|
+learner_interfaceDerived Attribute Identifier : 227 Derived attribute : (+ |push#0| |push#4| |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#4|-|push#3|
+learner_interfaceDerived Attribute Identifier : 228 Derived attribute : (- (- |push#0| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#4|-|push#3|
+learner_interfaceDerived Attribute Identifier : 229 Derived attribute : (- (+ |push#0| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#4|+|push#3|
+learner_interfaceDerived Attribute Identifier : 230 Derived attribute : (+ (- |push#0| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#0|+|push#4|
+learner_interfaceDerived Attribute Identifier : 231 Derived attribute : (+ |push#3| |push#0| |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#0|-|push#4|
+learner_interfaceDerived Attribute Identifier : 232 Derived attribute : (- (- |push#3| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#0|-|push#4|
+learner_interfaceDerived Attribute Identifier : 233 Derived attribute : (- (+ |push#3| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#0|+|push#4|
+learner_interfaceDerived Attribute Identifier : 234 Derived attribute : (+ (- |push#3| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#4|+|push#0|
+learner_interfaceDerived Attribute Identifier : 235 Derived attribute : (+ |push#3| |push#4| |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#4|-|push#0|
+learner_interfaceDerived Attribute Identifier : 236 Derived attribute : (- (- |push#3| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#4|-|push#0|
+learner_interfaceDerived Attribute Identifier : 237 Derived attribute : (- (+ |push#3| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#4|+|push#0|
+learner_interfaceDerived Attribute Identifier : 238 Derived attribute : (+ (- |push#3| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#0|+|push#3|
+learner_interfaceDerived Attribute Identifier : 239 Derived attribute : (+ |push#4| |push#0| |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#0|-|push#3|
+learner_interfaceDerived Attribute Identifier : 240 Derived attribute : (- (- |push#4| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#0|-|push#3|
+learner_interfaceDerived Attribute Identifier : 241 Derived attribute : (- (+ |push#4| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#0|+|push#3|
+learner_interfaceDerived Attribute Identifier : 242 Derived attribute : (+ (- |push#4| |push#0|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#3|+|push#0|
+learner_interfaceDerived Attribute Identifier : 243 Derived attribute : (+ |push#4| |push#3| |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#3|-|push#0|
+learner_interfaceDerived Attribute Identifier : 244 Derived attribute : (- (- |push#4| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#3|-|push#0|
+learner_interfaceDerived Attribute Identifier : 245 Derived attribute : (- (+ |push#4| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#3|+|push#0|
+learner_interfaceDerived Attribute Identifier : 246 Derived attribute : (+ (- |push#4| |push#3|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#4|+|push#4|
+learner_interfaceDerived Attribute Identifier : 247 Derived attribute : (+ |push#0| |push#4| |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#4|-|push#4|
+learner_interfaceDerived Attribute Identifier : 248 Derived attribute : (- (- |push#0| |push#4|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#4|-|push#4|
+learner_interfaceDerived Attribute Identifier : 249 Derived attribute : (- (+ |push#0| |push#4|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#4|+|push#4|
+learner_interfaceDerived Attribute Identifier : 250 Derived attribute : (+ (- |push#0| |push#4|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#0|+|push#4|
+learner_interfaceDerived Attribute Identifier : 251 Derived attribute : (+ |push#4| |push#0| |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#0|-|push#4|
+learner_interfaceDerived Attribute Identifier : 252 Derived attribute : (- (- |push#4| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#0|-|push#4|
+learner_interfaceDerived Attribute Identifier : 253 Derived attribute : (- (+ |push#4| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#0|+|push#4|
+learner_interfaceDerived Attribute Identifier : 254 Derived attribute : (+ (- |push#4| |push#0|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#4|+|push#0|
+learner_interfaceDerived Attribute Identifier : 255 Derived attribute : (+ |push#4| |push#4| |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#4|-|push#0|
+learner_interfaceDerived Attribute Identifier : 256 Derived attribute : (- (- |push#4| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#4|-|push#0|
+learner_interfaceDerived Attribute Identifier : 257 Derived attribute : (- (+ |push#4| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#4|+|push#0|
+learner_interfaceDerived Attribute Identifier : 258 Derived attribute : (+ (- |push#4| |push#4|) |push#0|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#2|+|push#3|
+learner_interfaceDerived Attribute Identifier : 259 Derived attribute : (+ |push#1| |push#2| |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|-|push#3|
+learner_interfaceDerived Attribute Identifier : 260 Derived attribute : (- (- |push#1| |push#2|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#2|-|push#3|
+learner_interfaceDerived Attribute Identifier : 261 Derived attribute : (- (+ |push#1| |push#2|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|+|push#3|
+learner_interfaceDerived Attribute Identifier : 262 Derived attribute : (+ (- |push#1| |push#2|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#3|+|push#2|
+learner_interfaceDerived Attribute Identifier : 263 Derived attribute : (+ |push#1| |push#3| |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#3|-|push#2|
+learner_interfaceDerived Attribute Identifier : 264 Derived attribute : (- (- |push#1| |push#3|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#3|-|push#2|
+learner_interfaceDerived Attribute Identifier : 265 Derived attribute : (- (+ |push#1| |push#3|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#3|+|push#2|
+learner_interfaceDerived Attribute Identifier : 266 Derived attribute : (+ (- |push#1| |push#3|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#1|+|push#3|
+learner_interfaceDerived Attribute Identifier : 267 Derived attribute : (+ |push#2| |push#1| |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#1|-|push#3|
+learner_interfaceDerived Attribute Identifier : 268 Derived attribute : (- (- |push#2| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#1|-|push#3|
+learner_interfaceDerived Attribute Identifier : 269 Derived attribute : (- (+ |push#2| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#1|+|push#3|
+learner_interfaceDerived Attribute Identifier : 270 Derived attribute : (+ (- |push#2| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#3|+|push#1|
+learner_interfaceDerived Attribute Identifier : 271 Derived attribute : (+ |push#2| |push#3| |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#3|-|push#1|
+learner_interfaceDerived Attribute Identifier : 272 Derived attribute : (- (- |push#2| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#3|-|push#1|
+learner_interfaceDerived Attribute Identifier : 273 Derived attribute : (- (+ |push#2| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#3|+|push#1|
+learner_interfaceDerived Attribute Identifier : 274 Derived attribute : (+ (- |push#2| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#1|+|push#2|
+learner_interfaceDerived Attribute Identifier : 275 Derived attribute : (+ |push#3| |push#1| |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#1|-|push#2|
+learner_interfaceDerived Attribute Identifier : 276 Derived attribute : (- (- |push#3| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#1|-|push#2|
+learner_interfaceDerived Attribute Identifier : 277 Derived attribute : (- (+ |push#3| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#1|+|push#2|
+learner_interfaceDerived Attribute Identifier : 278 Derived attribute : (+ (- |push#3| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#2|+|push#1|
+learner_interfaceDerived Attribute Identifier : 279 Derived attribute : (+ |push#3| |push#2| |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#2|-|push#1|
+learner_interfaceDerived Attribute Identifier : 280 Derived attribute : (- (- |push#3| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#2|-|push#1|
+learner_interfaceDerived Attribute Identifier : 281 Derived attribute : (- (+ |push#3| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#2|+|push#1|
+learner_interfaceDerived Attribute Identifier : 282 Derived attribute : (+ (- |push#3| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#2|+|push#4|
+learner_interfaceDerived Attribute Identifier : 283 Derived attribute : (+ |push#1| |push#2| |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|-|push#4|
+learner_interfaceDerived Attribute Identifier : 284 Derived attribute : (- (- |push#1| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#2|-|push#4|
+learner_interfaceDerived Attribute Identifier : 285 Derived attribute : (- (+ |push#1| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|+|push#4|
+learner_interfaceDerived Attribute Identifier : 286 Derived attribute : (+ (- |push#1| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#4|+|push#2|
+learner_interfaceDerived Attribute Identifier : 287 Derived attribute : (+ |push#1| |push#4| |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#4|-|push#2|
+learner_interfaceDerived Attribute Identifier : 288 Derived attribute : (- (- |push#1| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#4|-|push#2|
+learner_interfaceDerived Attribute Identifier : 289 Derived attribute : (- (+ |push#1| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#4|+|push#2|
+learner_interfaceDerived Attribute Identifier : 290 Derived attribute : (+ (- |push#1| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#1|+|push#4|
+learner_interfaceDerived Attribute Identifier : 291 Derived attribute : (+ |push#2| |push#1| |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#1|-|push#4|
+learner_interfaceDerived Attribute Identifier : 292 Derived attribute : (- (- |push#2| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#1|-|push#4|
+learner_interfaceDerived Attribute Identifier : 293 Derived attribute : (- (+ |push#2| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#1|+|push#4|
+learner_interfaceDerived Attribute Identifier : 294 Derived attribute : (+ (- |push#2| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#4|+|push#1|
+learner_interfaceDerived Attribute Identifier : 295 Derived attribute : (+ |push#2| |push#4| |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#4|-|push#1|
+learner_interfaceDerived Attribute Identifier : 296 Derived attribute : (- (- |push#2| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#4|-|push#1|
+learner_interfaceDerived Attribute Identifier : 297 Derived attribute : (- (+ |push#2| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#4|+|push#1|
+learner_interfaceDerived Attribute Identifier : 298 Derived attribute : (+ (- |push#2| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#1|+|push#2|
+learner_interfaceDerived Attribute Identifier : 299 Derived attribute : (+ |push#4| |push#1| |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#1|-|push#2|
+learner_interfaceDerived Attribute Identifier : 300 Derived attribute : (- (- |push#4| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#1|-|push#2|
+learner_interfaceDerived Attribute Identifier : 301 Derived attribute : (- (+ |push#4| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#1|+|push#2|
+learner_interfaceDerived Attribute Identifier : 302 Derived attribute : (+ (- |push#4| |push#1|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#2|+|push#1|
+learner_interfaceDerived Attribute Identifier : 303 Derived attribute : (+ |push#4| |push#2| |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#2|-|push#1|
+learner_interfaceDerived Attribute Identifier : 304 Derived attribute : (- (- |push#4| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#2|-|push#1|
+learner_interfaceDerived Attribute Identifier : 305 Derived attribute : (- (+ |push#4| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#2|+|push#1|
+learner_interfaceDerived Attribute Identifier : 306 Derived attribute : (+ (- |push#4| |push#2|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#3|+|push#3|
+learner_interfaceDerived Attribute Identifier : 307 Derived attribute : (+ |push#1| |push#3| |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#3|-|push#3|
+learner_interfaceDerived Attribute Identifier : 308 Derived attribute : (- (- |push#1| |push#3|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#3|-|push#3|
+learner_interfaceDerived Attribute Identifier : 309 Derived attribute : (- (+ |push#1| |push#3|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#3|+|push#3|
+learner_interfaceDerived Attribute Identifier : 310 Derived attribute : (+ (- |push#1| |push#3|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#1|+|push#3|
+learner_interfaceDerived Attribute Identifier : 311 Derived attribute : (+ |push#3| |push#1| |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#1|-|push#3|
+learner_interfaceDerived Attribute Identifier : 312 Derived attribute : (- (- |push#3| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#1|-|push#3|
+learner_interfaceDerived Attribute Identifier : 313 Derived attribute : (- (+ |push#3| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#1|+|push#3|
+learner_interfaceDerived Attribute Identifier : 314 Derived attribute : (+ (- |push#3| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#3|+|push#1|
+learner_interfaceDerived Attribute Identifier : 315 Derived attribute : (+ |push#3| |push#3| |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#3|-|push#1|
+learner_interfaceDerived Attribute Identifier : 316 Derived attribute : (- (- |push#3| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#3|-|push#1|
+learner_interfaceDerived Attribute Identifier : 317 Derived attribute : (- (+ |push#3| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#3|+|push#1|
+learner_interfaceDerived Attribute Identifier : 318 Derived attribute : (+ (- |push#3| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#3|+|push#4|
+learner_interfaceDerived Attribute Identifier : 319 Derived attribute : (+ |push#1| |push#3| |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#3|-|push#4|
+learner_interfaceDerived Attribute Identifier : 320 Derived attribute : (- (- |push#1| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#3|-|push#4|
+learner_interfaceDerived Attribute Identifier : 321 Derived attribute : (- (+ |push#1| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#3|+|push#4|
+learner_interfaceDerived Attribute Identifier : 322 Derived attribute : (+ (- |push#1| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#4|+|push#3|
+learner_interfaceDerived Attribute Identifier : 323 Derived attribute : (+ |push#1| |push#4| |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#4|-|push#3|
+learner_interfaceDerived Attribute Identifier : 324 Derived attribute : (- (- |push#1| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#4|-|push#3|
+learner_interfaceDerived Attribute Identifier : 325 Derived attribute : (- (+ |push#1| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#4|+|push#3|
+learner_interfaceDerived Attribute Identifier : 326 Derived attribute : (+ (- |push#1| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#1|+|push#4|
+learner_interfaceDerived Attribute Identifier : 327 Derived attribute : (+ |push#3| |push#1| |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#1|-|push#4|
+learner_interfaceDerived Attribute Identifier : 328 Derived attribute : (- (- |push#3| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#1|-|push#4|
+learner_interfaceDerived Attribute Identifier : 329 Derived attribute : (- (+ |push#3| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#1|+|push#4|
+learner_interfaceDerived Attribute Identifier : 330 Derived attribute : (+ (- |push#3| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#4|+|push#1|
+learner_interfaceDerived Attribute Identifier : 331 Derived attribute : (+ |push#3| |push#4| |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#4|-|push#1|
+learner_interfaceDerived Attribute Identifier : 332 Derived attribute : (- (- |push#3| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#4|-|push#1|
+learner_interfaceDerived Attribute Identifier : 333 Derived attribute : (- (+ |push#3| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#4|+|push#1|
+learner_interfaceDerived Attribute Identifier : 334 Derived attribute : (+ (- |push#3| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#1|+|push#3|
+learner_interfaceDerived Attribute Identifier : 335 Derived attribute : (+ |push#4| |push#1| |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#1|-|push#3|
+learner_interfaceDerived Attribute Identifier : 336 Derived attribute : (- (- |push#4| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#1|-|push#3|
+learner_interfaceDerived Attribute Identifier : 337 Derived attribute : (- (+ |push#4| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#1|+|push#3|
+learner_interfaceDerived Attribute Identifier : 338 Derived attribute : (+ (- |push#4| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#3|+|push#1|
+learner_interfaceDerived Attribute Identifier : 339 Derived attribute : (+ |push#4| |push#3| |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#3|-|push#1|
+learner_interfaceDerived Attribute Identifier : 340 Derived attribute : (- (- |push#4| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#3|-|push#1|
+learner_interfaceDerived Attribute Identifier : 341 Derived attribute : (- (+ |push#4| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#3|+|push#1|
+learner_interfaceDerived Attribute Identifier : 342 Derived attribute : (+ (- |push#4| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#3|+|push#4|
+learner_interfaceDerived Attribute Identifier : 343 Derived attribute : (+ |push#1| |push#3| |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#3|-|push#4|
+learner_interfaceDerived Attribute Identifier : 344 Derived attribute : (- (- |push#1| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#3|-|push#4|
+learner_interfaceDerived Attribute Identifier : 345 Derived attribute : (- (+ |push#1| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#3|+|push#4|
+learner_interfaceDerived Attribute Identifier : 346 Derived attribute : (+ (- |push#1| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#4|+|push#3|
+learner_interfaceDerived Attribute Identifier : 347 Derived attribute : (+ |push#1| |push#4| |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#4|-|push#3|
+learner_interfaceDerived Attribute Identifier : 348 Derived attribute : (- (- |push#1| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#4|-|push#3|
+learner_interfaceDerived Attribute Identifier : 349 Derived attribute : (- (+ |push#1| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#4|+|push#3|
+learner_interfaceDerived Attribute Identifier : 350 Derived attribute : (+ (- |push#1| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#1|+|push#4|
+learner_interfaceDerived Attribute Identifier : 351 Derived attribute : (+ |push#3| |push#1| |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#1|-|push#4|
+learner_interfaceDerived Attribute Identifier : 352 Derived attribute : (- (- |push#3| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#1|-|push#4|
+learner_interfaceDerived Attribute Identifier : 353 Derived attribute : (- (+ |push#3| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#1|+|push#4|
+learner_interfaceDerived Attribute Identifier : 354 Derived attribute : (+ (- |push#3| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#4|+|push#1|
+learner_interfaceDerived Attribute Identifier : 355 Derived attribute : (+ |push#3| |push#4| |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#4|-|push#1|
+learner_interfaceDerived Attribute Identifier : 356 Derived attribute : (- (- |push#3| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#4|-|push#1|
+learner_interfaceDerived Attribute Identifier : 357 Derived attribute : (- (+ |push#3| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#4|+|push#1|
+learner_interfaceDerived Attribute Identifier : 358 Derived attribute : (+ (- |push#3| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#1|+|push#3|
+learner_interfaceDerived Attribute Identifier : 359 Derived attribute : (+ |push#4| |push#1| |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#1|-|push#3|
+learner_interfaceDerived Attribute Identifier : 360 Derived attribute : (- (- |push#4| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#1|-|push#3|
+learner_interfaceDerived Attribute Identifier : 361 Derived attribute : (- (+ |push#4| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#1|+|push#3|
+learner_interfaceDerived Attribute Identifier : 362 Derived attribute : (+ (- |push#4| |push#1|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#3|+|push#1|
+learner_interfaceDerived Attribute Identifier : 363 Derived attribute : (+ |push#4| |push#3| |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#3|-|push#1|
+learner_interfaceDerived Attribute Identifier : 364 Derived attribute : (- (- |push#4| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#3|-|push#1|
+learner_interfaceDerived Attribute Identifier : 365 Derived attribute : (- (+ |push#4| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#3|+|push#1|
+learner_interfaceDerived Attribute Identifier : 366 Derived attribute : (+ (- |push#4| |push#3|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#4|+|push#4|
+learner_interfaceDerived Attribute Identifier : 367 Derived attribute : (+ |push#1| |push#4| |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#4|-|push#4|
+learner_interfaceDerived Attribute Identifier : 368 Derived attribute : (- (- |push#1| |push#4|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#4|-|push#4|
+learner_interfaceDerived Attribute Identifier : 369 Derived attribute : (- (+ |push#1| |push#4|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#4|+|push#4|
+learner_interfaceDerived Attribute Identifier : 370 Derived attribute : (+ (- |push#1| |push#4|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#1|+|push#4|
+learner_interfaceDerived Attribute Identifier : 371 Derived attribute : (+ |push#4| |push#1| |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#1|-|push#4|
+learner_interfaceDerived Attribute Identifier : 372 Derived attribute : (- (- |push#4| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#1|-|push#4|
+learner_interfaceDerived Attribute Identifier : 373 Derived attribute : (- (+ |push#4| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#1|+|push#4|
+learner_interfaceDerived Attribute Identifier : 374 Derived attribute : (+ (- |push#4| |push#1|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#4|+|push#1|
+learner_interfaceDerived Attribute Identifier : 375 Derived attribute : (+ |push#4| |push#4| |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#4|-|push#1|
+learner_interfaceDerived Attribute Identifier : 376 Derived attribute : (- (- |push#4| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#4|-|push#1|
+learner_interfaceDerived Attribute Identifier : 377 Derived attribute : (- (+ |push#4| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#4|+|push#1|
+learner_interfaceDerived Attribute Identifier : 378 Derived attribute : (+ (- |push#4| |push#4|) |push#1|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#3|+|push#4|
+learner_interfaceDerived Attribute Identifier : 379 Derived attribute : (+ |push#2| |push#3| |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#3|-|push#4|
+learner_interfaceDerived Attribute Identifier : 380 Derived attribute : (- (- |push#2| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#3|-|push#4|
+learner_interfaceDerived Attribute Identifier : 381 Derived attribute : (- (+ |push#2| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#3|+|push#4|
+learner_interfaceDerived Attribute Identifier : 382 Derived attribute : (+ (- |push#2| |push#3|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#4|+|push#3|
+learner_interfaceDerived Attribute Identifier : 383 Derived attribute : (+ |push#2| |push#4| |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#4|-|push#3|
+learner_interfaceDerived Attribute Identifier : 384 Derived attribute : (- (- |push#2| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#4|-|push#3|
+learner_interfaceDerived Attribute Identifier : 385 Derived attribute : (- (+ |push#2| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#4|+|push#3|
+learner_interfaceDerived Attribute Identifier : 386 Derived attribute : (+ (- |push#2| |push#4|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#2|+|push#4|
+learner_interfaceDerived Attribute Identifier : 387 Derived attribute : (+ |push#3| |push#2| |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#2|-|push#4|
+learner_interfaceDerived Attribute Identifier : 388 Derived attribute : (- (- |push#3| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#2|-|push#4|
+learner_interfaceDerived Attribute Identifier : 389 Derived attribute : (- (+ |push#3| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#2|+|push#4|
+learner_interfaceDerived Attribute Identifier : 390 Derived attribute : (+ (- |push#3| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#4|+|push#2|
+learner_interfaceDerived Attribute Identifier : 391 Derived attribute : (+ |push#3| |push#4| |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#4|-|push#2|
+learner_interfaceDerived Attribute Identifier : 392 Derived attribute : (- (- |push#3| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#4|-|push#2|
+learner_interfaceDerived Attribute Identifier : 393 Derived attribute : (- (+ |push#3| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#4|+|push#2|
+learner_interfaceDerived Attribute Identifier : 394 Derived attribute : (+ (- |push#3| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#2|+|push#3|
+learner_interfaceDerived Attribute Identifier : 395 Derived attribute : (+ |push#4| |push#2| |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#2|-|push#3|
+learner_interfaceDerived Attribute Identifier : 396 Derived attribute : (- (- |push#4| |push#2|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#2|-|push#3|
+learner_interfaceDerived Attribute Identifier : 397 Derived attribute : (- (+ |push#4| |push#2|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#2|+|push#3|
+learner_interfaceDerived Attribute Identifier : 398 Derived attribute : (+ (- |push#4| |push#2|) |push#3|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#3|+|push#2|
+learner_interfaceDerived Attribute Identifier : 399 Derived attribute : (+ |push#4| |push#3| |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#3|-|push#2|
+learner_interfaceDerived Attribute Identifier : 400 Derived attribute : (- (- |push#4| |push#3|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#3|-|push#2|
+learner_interfaceDerived Attribute Identifier : 401 Derived attribute : (- (+ |push#4| |push#3|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#3|+|push#2|
+learner_interfaceDerived Attribute Identifier : 402 Derived attribute : (+ (- |push#4| |push#3|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#4|+|push#4|
+learner_interfaceDerived Attribute Identifier : 403 Derived attribute : (+ |push#2| |push#4| |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#4|-|push#4|
+learner_interfaceDerived Attribute Identifier : 404 Derived attribute : (- (- |push#2| |push#4|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#4|-|push#4|
+learner_interfaceDerived Attribute Identifier : 405 Derived attribute : (- (+ |push#2| |push#4|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#4|+|push#4|
+learner_interfaceDerived Attribute Identifier : 406 Derived attribute : (+ (- |push#2| |push#4|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#2|+|push#4|
+learner_interfaceDerived Attribute Identifier : 407 Derived attribute : (+ |push#4| |push#2| |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#2|-|push#4|
+learner_interfaceDerived Attribute Identifier : 408 Derived attribute : (- (- |push#4| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#2|-|push#4|
+learner_interfaceDerived Attribute Identifier : 409 Derived attribute : (- (+ |push#4| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#2|+|push#4|
+learner_interfaceDerived Attribute Identifier : 410 Derived attribute : (+ (- |push#4| |push#2|) |push#4|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#4|+|push#2|
+learner_interfaceDerived Attribute Identifier : 411 Derived attribute : (+ |push#4| |push#4| |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#4|-|push#2|
+learner_interfaceDerived Attribute Identifier : 412 Derived attribute : (- (- |push#4| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|+|push#4|-|push#2|
+learner_interfaceDerived Attribute Identifier : 413 Derived attribute : (- (+ |push#4| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#4|-|push#4|+|push#2|
+learner_interfaceDerived Attribute Identifier : 414 Derived attribute : (+ (- |push#4| |push#4|) |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#1|
+learner_interfaceDerived Attribute Identifier : 415 Derived attribute : (+ |push#0| |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#1|
+learner_interfaceDerived Attribute Identifier : 416 Derived attribute : (- |push#0| |push#1|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#2|
+learner_interfaceDerived Attribute Identifier : 417 Derived attribute : (+ |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#2|
+learner_interfaceDerived Attribute Identifier : 418 Derived attribute : (- |push#0| |push#2|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#3|
+learner_interfaceDerived Attribute Identifier : 419 Derived attribute : (+ |push#0| |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#3|
+learner_interfaceDerived Attribute Identifier : 420 Derived attribute : (- |push#0| |push#3|)
+add_integer_attribute::Integer Attribute::|push#0|+|push#4|
+learner_interfaceDerived Attribute Identifier : 421 Derived attribute : (+ |push#0| |push#4|)
+add_integer_attribute::Integer Attribute::|push#0|-|push#4|
+learner_interfaceDerived Attribute Identifier : 422 Derived attribute : (- |push#0| |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#2|
+learner_interfaceDerived Attribute Identifier : 423 Derived attribute : (+ |push#1| |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#2|
+learner_interfaceDerived Attribute Identifier : 424 Derived attribute : (- |push#1| |push#2|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#3|
+learner_interfaceDerived Attribute Identifier : 425 Derived attribute : (+ |push#1| |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#3|
+learner_interfaceDerived Attribute Identifier : 426 Derived attribute : (- |push#1| |push#3|)
+add_integer_attribute::Integer Attribute::|push#1|+|push#4|
+learner_interfaceDerived Attribute Identifier : 427 Derived attribute : (+ |push#1| |push#4|)
+add_integer_attribute::Integer Attribute::|push#1|-|push#4|
+learner_interfaceDerived Attribute Identifier : 428 Derived attribute : (- |push#1| |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#3|
+learner_interfaceDerived Attribute Identifier : 429 Derived attribute : (+ |push#2| |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#3|
+learner_interfaceDerived Attribute Identifier : 430 Derived attribute : (- |push#2| |push#3|)
+add_integer_attribute::Integer Attribute::|push#2|+|push#4|
+learner_interfaceDerived Attribute Identifier : 431 Derived attribute : (+ |push#2| |push#4|)
+add_integer_attribute::Integer Attribute::|push#2|-|push#4|
+learner_interfaceDerived Attribute Identifier : 432 Derived attribute : (- |push#2| |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|+|push#4|
+learner_interfaceDerived Attribute Identifier : 433 Derived attribute : (+ |push#3| |push#4|)
+add_integer_attribute::Integer Attribute::|push#3|-|push#4|
+learner_interfaceDerived Attribute Identifier : 434 Derived attribute : (- |push#3| |push#4|)
+learner_interface :: Relation : (declare-fun inv (Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun inv (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv (Int Int Int) Bool) is mapped to baseval :  434
+Attribute Identifier : 435 attribute : inv#0Int
+add_integer_attribute::Integer Attribute::inv#0
+Attribute Identifier : 436 attribute : inv#1Int
+add_integer_attribute::Integer Attribute::inv#1
+Attribute Identifier : 437 attribute : inv#2Int
+add_integer_attribute::Integer Attribute::inv#2
+add_integer_attribute::Integer Attribute::|inv#0|+|inv#1|+|inv#2|
+learner_interfaceDerived Attribute Identifier : 438 Derived attribute : (+ |inv#0| |inv#1| |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#1|-|inv#2|
+learner_interfaceDerived Attribute Identifier : 439 Derived attribute : (- (- |inv#0| |inv#1|) |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#0|+|inv#1|-|inv#2|
+learner_interfaceDerived Attribute Identifier : 440 Derived attribute : (- (+ |inv#0| |inv#1|) |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#1|+|inv#2|
+learner_interfaceDerived Attribute Identifier : 441 Derived attribute : (+ (- |inv#0| |inv#1|) |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#0|+|inv#2|+|inv#1|
+learner_interfaceDerived Attribute Identifier : 442 Derived attribute : (+ |inv#0| |inv#2| |inv#1|)
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#2|-|inv#1|
+learner_interfaceDerived Attribute Identifier : 443 Derived attribute : (- (- |inv#0| |inv#2|) |inv#1|)
+add_integer_attribute::Integer Attribute::|inv#0|+|inv#2|-|inv#1|
+learner_interfaceDerived Attribute Identifier : 444 Derived attribute : (- (+ |inv#0| |inv#2|) |inv#1|)
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#2|+|inv#1|
+learner_interfaceDerived Attribute Identifier : 445 Derived attribute : (+ (- |inv#0| |inv#2|) |inv#1|)
+add_integer_attribute::Integer Attribute::|inv#1|+|inv#0|+|inv#2|
+learner_interfaceDerived Attribute Identifier : 446 Derived attribute : (+ |inv#1| |inv#0| |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#1|-|inv#0|-|inv#2|
+learner_interfaceDerived Attribute Identifier : 447 Derived attribute : (- (- |inv#1| |inv#0|) |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#1|+|inv#0|-|inv#2|
+learner_interfaceDerived Attribute Identifier : 448 Derived attribute : (- (+ |inv#1| |inv#0|) |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#1|-|inv#0|+|inv#2|
+learner_interfaceDerived Attribute Identifier : 449 Derived attribute : (+ (- |inv#1| |inv#0|) |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#1|+|inv#2|+|inv#0|
+learner_interfaceDerived Attribute Identifier : 450 Derived attribute : (+ |inv#1| |inv#2| |inv#0|)
+add_integer_attribute::Integer Attribute::|inv#1|-|inv#2|-|inv#0|
+learner_interfaceDerived Attribute Identifier : 451 Derived attribute : (- (- |inv#1| |inv#2|) |inv#0|)
+add_integer_attribute::Integer Attribute::|inv#1|+|inv#2|-|inv#0|
+learner_interfaceDerived Attribute Identifier : 452 Derived attribute : (- (+ |inv#1| |inv#2|) |inv#0|)
+add_integer_attribute::Integer Attribute::|inv#1|-|inv#2|+|inv#0|
+learner_interfaceDerived Attribute Identifier : 453 Derived attribute : (+ (- |inv#1| |inv#2|) |inv#0|)
+add_integer_attribute::Integer Attribute::|inv#2|+|inv#0|+|inv#1|
+learner_interfaceDerived Attribute Identifier : 454 Derived attribute : (+ |inv#2| |inv#0| |inv#1|)
+add_integer_attribute::Integer Attribute::|inv#2|-|inv#0|-|inv#1|
+learner_interfaceDerived Attribute Identifier : 455 Derived attribute : (- (- |inv#2| |inv#0|) |inv#1|)
+add_integer_attribute::Integer Attribute::|inv#2|+|inv#0|-|inv#1|
+learner_interfaceDerived Attribute Identifier : 456 Derived attribute : (- (+ |inv#2| |inv#0|) |inv#1|)
+add_integer_attribute::Integer Attribute::|inv#2|-|inv#0|+|inv#1|
+learner_interfaceDerived Attribute Identifier : 457 Derived attribute : (+ (- |inv#2| |inv#0|) |inv#1|)
+add_integer_attribute::Integer Attribute::|inv#2|+|inv#1|+|inv#0|
+learner_interfaceDerived Attribute Identifier : 458 Derived attribute : (+ |inv#2| |inv#1| |inv#0|)
+add_integer_attribute::Integer Attribute::|inv#2|-|inv#1|-|inv#0|
+learner_interfaceDerived Attribute Identifier : 459 Derived attribute : (- (- |inv#2| |inv#1|) |inv#0|)
+add_integer_attribute::Integer Attribute::|inv#2|+|inv#1|-|inv#0|
+learner_interfaceDerived Attribute Identifier : 460 Derived attribute : (- (+ |inv#2| |inv#1|) |inv#0|)
+add_integer_attribute::Integer Attribute::|inv#2|-|inv#1|+|inv#0|
+learner_interfaceDerived Attribute Identifier : 461 Derived attribute : (+ (- |inv#2| |inv#1|) |inv#0|)
+add_integer_attribute::Integer Attribute::|inv#0|+|inv#2|+|inv#2|
+learner_interfaceDerived Attribute Identifier : 462 Derived attribute : (+ |inv#0| |inv#2| |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#2|-|inv#2|
+learner_interfaceDerived Attribute Identifier : 463 Derived attribute : (- (- |inv#0| |inv#2|) |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#0|+|inv#2|-|inv#2|
+learner_interfaceDerived Attribute Identifier : 464 Derived attribute : (- (+ |inv#0| |inv#2|) |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#2|+|inv#2|
+learner_interfaceDerived Attribute Identifier : 465 Derived attribute : (+ (- |inv#0| |inv#2|) |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#2|+|inv#0|+|inv#2|
+learner_interfaceDerived Attribute Identifier : 466 Derived attribute : (+ |inv#2| |inv#0| |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#2|-|inv#0|-|inv#2|
+learner_interfaceDerived Attribute Identifier : 467 Derived attribute : (- (- |inv#2| |inv#0|) |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#2|+|inv#0|-|inv#2|
+learner_interfaceDerived Attribute Identifier : 468 Derived attribute : (- (+ |inv#2| |inv#0|) |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#2|-|inv#0|+|inv#2|
+learner_interfaceDerived Attribute Identifier : 469 Derived attribute : (+ (- |inv#2| |inv#0|) |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#2|+|inv#2|+|inv#0|
+learner_interfaceDerived Attribute Identifier : 470 Derived attribute : (+ |inv#2| |inv#2| |inv#0|)
+add_integer_attribute::Integer Attribute::|inv#2|-|inv#2|-|inv#0|
+learner_interfaceDerived Attribute Identifier : 471 Derived attribute : (- (- |inv#2| |inv#2|) |inv#0|)
+add_integer_attribute::Integer Attribute::|inv#2|+|inv#2|-|inv#0|
+learner_interfaceDerived Attribute Identifier : 472 Derived attribute : (- (+ |inv#2| |inv#2|) |inv#0|)
+add_integer_attribute::Integer Attribute::|inv#2|-|inv#2|+|inv#0|
+learner_interfaceDerived Attribute Identifier : 473 Derived attribute : (+ (- |inv#2| |inv#2|) |inv#0|)
+add_integer_attribute::Integer Attribute::|inv#0|+|inv#1|
+learner_interfaceDerived Attribute Identifier : 474 Derived attribute : (+ |inv#0| |inv#1|)
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#1|
+learner_interfaceDerived Attribute Identifier : 475 Derived attribute : (- |inv#0| |inv#1|)
+add_integer_attribute::Integer Attribute::|inv#0|+|inv#2|
+learner_interfaceDerived Attribute Identifier : 476 Derived attribute : (+ |inv#0| |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#0|-|inv#2|
+learner_interfaceDerived Attribute Identifier : 477 Derived attribute : (- |inv#0| |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#1|+|inv#2|
+learner_interfaceDerived Attribute Identifier : 478 Derived attribute : (+ |inv#1| |inv#2|)
+add_integer_attribute::Integer Attribute::|inv#1|-|inv#2|
+learner_interfaceDerived Attribute Identifier : 479 Derived attribute : (- |inv#1| |inv#2|)
+===========================================
+Learning Iteration: 0
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+get_conjectures:: Printing the Decision Tree
+true
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> true
+Conjecture: (declare-fun push (Int Int Int Int Int) Bool)[|push#0|, |push#1|, |push#2|, |push#3|, |push#4|] -> true
+Conjecture: (declare-fun inv (Int Int Int) Bool)[|inv#0|, |inv#1|, |inv#2|] -> true
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: fail@(true)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: fail@(true)
+add_counterexample Current teacher datapoint(Negative) : fail@(true)
+===========================================
+Learning Iteration: 1
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun inv (Int Int Int) Bool)[|inv#0|, |inv#1|, |inv#2|] -> false
+Conjecture: (declare-fun push (Int Int Int Int Int) Bool)[|push#0|, |push#1|, |push#2|, |push#3|, |push#4|] -> false
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+add_counterexample Current counterexample : {} => {inv(128, 0, 1)}
+add_counterexample Current teacher datapoint : inv(128, 0, 1)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(128, 0, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(128, 0, 1)
+add_counterexample Current teacher datapoint(Positive) : inv(128, 0, 1)
+===========================================
+Learning Iteration: 2
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun inv (Int Int Int) Bool)[|inv#0|, |inv#1|, |inv#2|] -> true
+Conjecture: (declare-fun push (Int Int Int Int Int) Bool)[|push#0|, |push#1|, |push#2|, |push#3|, |push#4|] -> false
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: fail@(true)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(0, 1, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(0, 1, 1)
+add_counterexample Current teacher datapoint(horn) : {inv(0, 1, 1)} => {fail@(true)}
+===========================================
+Learning Iteration: 3
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+In chc run
+In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ if x[434] <= 0
+  false
+  true
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun inv (Int Int Int) Bool)[|inv#0|, |inv#1|, |inv#2|] -> (> |inv#0| 0)
+Conjecture: (declare-fun push (Int Int Int Int Int) Bool)[|push#0|, |push#1|, |push#2|, |push#3|, |push#4|] -> false
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: fail@(true)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(3, 1, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(3, 1, 1)
+add_counterexample Current teacher datapoint(horn) : {inv(3, 1, 1)} => {fail@(true)}
+===========================================
+Learning Iteration: 4
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+In chc run
+In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ if x[435] <= 0
+  true
+  false
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun inv (Int Int Int) Bool)[|inv#0|, |inv#1|, |inv#2|] -> (<= |inv#1| 0)
+Conjecture: (declare-fun push (Int Int Int Int Int) Bool)[|push#0|, |push#1|, |push#2|, |push#3|, |push#4|] -> false
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: fail@(true)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(3, (- 1), 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(3, (- 1), 1)
+add_counterexample Current teacher datapoint(horn) : {inv(3, (- 1), 1)} => {fail@(true)}
+===========================================
+Learning Iteration: 5
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+In chc run
+In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ if x[462] <= 1
+  false
+  true
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun inv (Int Int Int) Bool)[|inv#0|, |inv#1|, |inv#2|] -> (> (- (- |inv#0| |inv#2|) |inv#2|) 1)
+Conjecture: (declare-fun push (Int Int Int Int Int) Bool)[|push#0|, |push#1|, |push#2|, |push#3|, |push#4|] -> false
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+In::add_counterexample
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: fail@(true)
+In::get_unique_learner_datapoint
+=============
+get_unique_learner_datapoint::Current Teacher Datapoint: inv(4, 1, 1)
+get_int_data::Printing integer attributes
+get_unique_learner_datapoint:: Current Teacher Datapoint: inv(4, 1, 1)
+add_counterexample Current teacher datapoint(horn) : {inv(4, 1, 1)} => {fail@(true)}
+===========================================
+Learning Iteration: 6
+===========================================
+In :: get_conjectures
+In :: learn_decision_tree
+In :: horn_verification::learner<JobManager>::learner(const JobManager&) [with JobManager = horn_verification::complex_job_manager]
+In:: learn
+In  chc run
+run::New Categorical Node  attribute: 0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical node child :0
+run::Categorical Node Metadata 
+Categorical attributes: $func (3)
+Integer attributes: In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+In chc run
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ if x[435] <= 0
+  if x[477] <= 0
+   false
+   true
+  false
+Return from map_dt_z3
+In::get_unordered_map
+
+=========================
+Printing the conjectures
+Conjecture: (declare-fun inv (Int Int Int) Bool)[|inv#0|, |inv#1|, |inv#2|] -> (and (> (+ |inv#1| |inv#2|) 0) (<= |inv#1| 0))
+Conjecture: (declare-fun push (Int Int Int Int Int) Bool)[|push#0|, |push#1|, |push#2|, |push#3|, |push#4|] -> false
+Conjecture: (declare-fun fail@ (Bool) Bool)[|fail@#0|] -> false
+=========================
+Success (checked 30 CHCs, invoked learner 7 times)
+(declare-fun inv (Int Int Int) Bool) => [|inv#0|, |inv#1|, |inv#2|] -> (and (> (+ |inv#1| |inv#2|) 0) (<= |inv#1| 0))
+Simplified Formual
+(declare-fun push (Int Int Int Int Int) Bool) => [|push#0|, |push#1|, |push#2|, |push#3|, |push#4|] -> false
+Simplified Formual
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Simplified Formual
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 5(declare-fun push (Int Int Int Int Int) Bool)push
+Relation : 3(declare-fun inv (Int Int Int) Bool)inv
+Final CHCs read
+CHC : (fail@ true)
+CHC : (push k!8 k!7 k!6 k!5 k!4)
+CHC : (inv k!7 k!6 k!9)
+CHC : (push k!15 k!14 k!13 k!12 k!11)
+CHC : (inv k!14 k!13 k!16)
+CHC : (inv k!17 k!19 k!18)
+Total time: 0.42

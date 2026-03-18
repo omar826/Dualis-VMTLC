@@ -1,0 +1,340 @@
+
+========================================
+         Starting Pipeline for: BlueWhite (Mode: ClassicalLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'BlueWhite'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/BlueWhite/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/BlueWhite.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 4 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:4146,execs:70,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:386,execs:22,op:havoc,rep:7
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:1130,execs:31,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000000,time:4360,execs:77,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:188,execs:21,op:havoc,rep:8
+Checking queue
+   -> Found 1 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 5 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv: (inserted_blue <= 0)
+  push: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-rel inv (Int Int Int))
+(declare-rel push (Int Int Int))
+(declare-rel fail ())
+(declare-var color Int)
+(declare-var color1 Int)
+(declare-var inserted_blue Int)
+(declare-var inserted_blue1 Int)
+(declare-var bcount Int)
+(declare-var bcount1 Int)
+
+(rule (=> (and (= color 0) (= bcount 3) (= bcount1 4)) (push color bcount bcount1)))
+(rule (=> (and (= color 127) (= bcount 1) (= bcount1 1)) (push color bcount bcount1)))
+(rule (=> (and (= color 1) (= bcount 0) (= bcount1 0)) (push color bcount bcount1)))
+(rule (=> (and (= color -1) (= bcount 0) (= bcount1 0)) (push color bcount bcount1)))
+(rule (=> (and (= color 1) (= bcount 1) (= bcount1 1)) (push color bcount bcount1)))
+
+(rule (=> (and (= inserted_blue1 0) (= bcount1 0)) (inv inserted_blue1 bcount1 color)))
+(rule (=> (and (inv inserted_blue bcount color) (and (= color 0) (= inserted_blue 0)) (push color bcount bcount1) (= inserted_blue1 1)) (inv inserted_blue1 bcount1 color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (and (= color 0) (= inserted_blue 0))) (= color 1) (push color bcount bcount1)) (inv inserted_blue bcount1 color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (and (= color 0) (= inserted_blue 0))) (not (= color 1))) (inv inserted_blue bcount color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (=> (= inserted_blue 1) (= bcount 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/BlueWhite.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 12 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:223,execs:93,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:638,execs:152,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000000,time:1041,execs:186,op:havoc,rep:12
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:442,execs:95,op:havoc,rep:11
+Checking queue
+   -> Found 20 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: (((((color <= (-1)) && (color <= 0)) || (color > 0)) && ((bcount1 - bcount) <= 0)) || ((bcount > 0) && ((bcount1 - bcount) > 0)))
+  inv: ((bcount <= 0) && (inserted_blue <= 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-rel inv (Int Int Int))
+(declare-rel push (Int Int Int))
+(declare-rel fail ())
+(declare-var color Int)
+(declare-var color1 Int)
+(declare-var inserted_blue Int)
+(declare-var inserted_blue1 Int)
+(declare-var bcount Int)
+(declare-var bcount1 Int)
+
+(rule (=> (and (= color 0) (= bcount 0) (= bcount1 1)) (push color bcount bcount1)))
+
+(rule (=> (and (= color 0) (= bcount 3) (= bcount1 4)) (push color bcount bcount1)))
+(rule (=> (and (= color 127) (= bcount 1) (= bcount1 1)) (push color bcount bcount1)))
+(rule (=> (and (= color 1) (= bcount 0) (= bcount1 0)) (push color bcount bcount1)))
+(rule (=> (and (= color -1) (= bcount 0) (= bcount1 0)) (push color bcount bcount1)))
+(rule (=> (and (= color 1) (= bcount 1) (= bcount1 1)) (push color bcount bcount1)))
+(rule (=> (and (= inserted_blue1 0) (= bcount1 0)) (inv inserted_blue1 bcount1 color)))
+(rule (=> (and (inv inserted_blue bcount color) (and (= color 0) (= inserted_blue 0)) (push color bcount bcount1) (= inserted_blue1 1)) (inv inserted_blue1 bcount1 color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (and (= color 0) (= inserted_blue 0))) (= color 1) (push color bcount bcount1)) (inv inserted_blue bcount1 color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (and (= color 0) (= inserted_blue 0))) (not (= color 1))) (inv inserted_blue bcount color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (=> (= inserted_blue 1) (= bcount 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/BlueWhite.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 12 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:413,execs:185,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:216,execs:27,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:602,execs:232,op:havoc,rep:5
+Checking queue
+   -> Found 21 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: ((((((color <= (-1)) && (color <= 0)) || (color > 0)) && ((bcount1 - bcount) <= 0)) || (((bcount <= 0) || ((bcount > 1) && (bcount > 0))) && (bcount1 > 0) && (color <= 0) && ((bcount1 - bcount) > 0))) && ((bcount1 - bcount) <= 1) && ((bcount1 - bcount) > (-1)))
+  inv: (((inserted_blue <= 0) || ((bcount > 0) && (inserted_blue > 0))) && (bcount <= 1))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-rel inv (Int Int Int))
+(declare-rel push (Int Int Int))
+(declare-rel fail ())
+(declare-var color Int)
+(declare-var color1 Int)
+(declare-var inserted_blue Int)
+(declare-var inserted_blue1 Int)
+(declare-var bcount Int)
+(declare-var bcount1 Int)
+
+(rule (=> (and (= color 0) (= bcount 1) (= bcount1 2)) (push color bcount bcount1)))
+
+(rule (=> (and (= color 0) (= bcount 0) (= bcount1 1)) (push color bcount bcount1)))
+(rule (=> (and (= color 0) (= bcount 3) (= bcount1 4)) (push color bcount bcount1)))
+(rule (=> (and (= color 127) (= bcount 1) (= bcount1 1)) (push color bcount bcount1)))
+(rule (=> (and (= color 1) (= bcount 0) (= bcount1 0)) (push color bcount bcount1)))
+(rule (=> (and (= color -1) (= bcount 0) (= bcount1 0)) (push color bcount bcount1)))
+(rule (=> (and (= color 1) (= bcount 1) (= bcount1 1)) (push color bcount bcount1)))
+(rule (=> (and (= inserted_blue1 0) (= bcount1 0)) (inv inserted_blue1 bcount1 color)))
+(rule (=> (and (inv inserted_blue bcount color) (and (= color 0) (= inserted_blue 0)) (push color bcount bcount1) (= inserted_blue1 1)) (inv inserted_blue1 bcount1 color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (and (= color 0) (= inserted_blue 0))) (= color 1) (push color bcount bcount1)) (inv inserted_blue bcount1 color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (and (= color 0) (= inserted_blue 0))) (not (= color 1))) (inv inserted_blue bcount color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (=> (= inserted_blue 1) (= bcount 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/BlueWhite.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 9 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 37 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: (((((color <= (-1)) || ((color > 0) && (color > (-1)))) && (bcount <= 0) && ((bcount1 - bcount) <= 0) && (bcount1 <= 0)) || ((((color <= 0) && (bcount <= 0)) || ((((bcount1 - bcount) <= 0) || ((color <= 0) && ((bcount1 - bcount) > 0))) && (bcount > 0))) && (bcount1 > 0))) && ((bcount1 - bcount) <= 1))
+  inv: (((bcount <= 0) && (inserted_blue <= 0)) || ((bcount <= 1) && (bcount > 0) && (inserted_blue > 0)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-rel inv (Int Int Int))
+(declare-rel push (Int Int Int))
+(declare-rel fail ())
+(declare-var color Int)
+(declare-var color1 Int)
+(declare-var inserted_blue Int)
+(declare-var inserted_blue1 Int)
+(declare-var bcount Int)
+(declare-var bcount1 Int)
+
+
+(rule (=> (and (= color 0) (= bcount 1) (= bcount1 2)) (push color bcount bcount1)))
+(rule (=> (and (= color 0) (= bcount 0) (= bcount1 1)) (push color bcount bcount1)))
+(rule (=> (and (= color 0) (= bcount 3) (= bcount1 4)) (push color bcount bcount1)))
+(rule (=> (and (= color 127) (= bcount 1) (= bcount1 1)) (push color bcount bcount1)))
+(rule (=> (and (= color 1) (= bcount 0) (= bcount1 0)) (push color bcount bcount1)))
+(rule (=> (and (= color -1) (= bcount 0) (= bcount1 0)) (push color bcount bcount1)))
+(rule (=> (and (= color 1) (= bcount 1) (= bcount1 1)) (push color bcount bcount1)))
+(rule (=> (and (= inserted_blue1 0) (= bcount1 0)) (inv inserted_blue1 bcount1 color)))
+(rule (=> (and (inv inserted_blue bcount color) (and (= color 0) (= inserted_blue 0)) (push color bcount bcount1) (= inserted_blue1 1)) (inv inserted_blue1 bcount1 color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (and (= color 0) (= inserted_blue 0))) (= color 1) (push color bcount bcount1)) (inv inserted_blue bcount1 color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (and (= color 0) (= inserted_blue 0))) (not (= color 1))) (inv inserted_blue bcount color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (=> (= inserted_blue 1) (= bcount 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/BlueWhite.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_5.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_5.log
+      -> Found 9 internal iterations.
+   -> Writing new specs to harness: push_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/push_fuzz.cpp'.
+   -> Starting AFL++(push_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/BlueWhite/push_fuzz
+   -> AFL++(push_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 50 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'push'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  push: (((((color <= (-1)) || ((color > 0) && (color > (-1)))) && (bcount <= 0) && ((bcount1 - bcount) <= 0) && (bcount1 <= 0)) || ((((color <= 0) && (bcount <= 0)) || ((((bcount1 - bcount) <= 0) || ((color <= 0) && ((bcount1 - bcount) > 0))) && (bcount > 0))) && (bcount1 > 0))) && ((bcount1 - bcount) <= 1))
+  inv: (((bcount <= 0) && (inserted_blue <= 0)) || ((bcount <= 1) && (bcount > 0) && (inserted_blue > 0)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-rel inv (Int Int Int))
+(declare-rel push (Int Int Int))
+(declare-rel fail ())
+(declare-var color Int)
+(declare-var color1 Int)
+(declare-var inserted_blue Int)
+(declare-var inserted_blue1 Int)
+(declare-var bcount Int)
+(declare-var bcount1 Int)
+
+
+(rule (=> (and (= color 0) (= bcount 1) (= bcount1 2)) (push color bcount bcount1)))
+(rule (=> (and (= color 0) (= bcount 0) (= bcount1 1)) (push color bcount bcount1)))
+(rule (=> (and (= color 0) (= bcount 3) (= bcount1 4)) (push color bcount bcount1)))
+(rule (=> (and (= color 127) (= bcount 1) (= bcount1 1)) (push color bcount bcount1)))
+(rule (=> (and (= color 1) (= bcount 0) (= bcount1 0)) (push color bcount bcount1)))
+(rule (=> (and (= color -1) (= bcount 0) (= bcount1 0)) (push color bcount bcount1)))
+(rule (=> (and (= color 1) (= bcount 1) (= bcount1 1)) (push color bcount bcount1)))
+(rule (=> (and (= inserted_blue1 0) (= bcount1 0)) (inv inserted_blue1 bcount1 color)))
+(rule (=> (and (inv inserted_blue bcount color) (and (= color 0) (= inserted_blue 0)) (push color bcount bcount1) (= inserted_blue1 1)) (inv inserted_blue1 bcount1 color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (and (= color 0) (= inserted_blue 0))) (= color 1) (push color bcount bcount1)) (inv inserted_blue bcount1 color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (and (= color 0) (= inserted_blue 0))) (not (= color 1))) (inv inserted_blue bcount color1)))
+(rule (=> (and (inv inserted_blue bcount color) (not (=> (= inserted_blue 1) (= bcount 1)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 5
+Total Unique Test Cases Found: 7
+Total Internal Iterations: 46
+  - Min: 4
+  - Max: 12
+  - Avg: 9.20
+pipeline.run() took 0.1130 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalLLMHornICE BlueWhite
+PID: 5998
+========================================
+
+
+Total Pipeline Duration: 316.87s

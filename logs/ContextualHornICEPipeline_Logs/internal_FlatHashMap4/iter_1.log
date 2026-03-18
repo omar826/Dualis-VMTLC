@@ -1,0 +1,2 @@
+(error "line 25 column 108: Wrong number of arguments (5) passed to function (declare-fun insert (Int Int Int Int Int Int) Bool)")
+

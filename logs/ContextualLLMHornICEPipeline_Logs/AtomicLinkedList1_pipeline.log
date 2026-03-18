@@ -1,0 +1,426 @@
+
+========================================
+         Starting Pipeline for: AtomicLinkedList1 (Mode: ContextualLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'AtomicLinkedList1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/AtomicLinkedList1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 6 internal iterations.
+   -> Writing new specs to harness: AtomicLinkedList1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1_fuzz.cpp'.
+   -> Starting AFL++(AtomicLinkedList1_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1_fuzz
+   -> AFL++(AtomicLinkedList1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:200,execs:39,op:havoc,rep:2
+Checking queue
+   -> Found 5 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'AtomicLinkedList1'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: ((N - k) > 0)
+  insertHead: (false)
+  inv2: (false)
+  popHead: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var k Int)
+(declare-var k1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var items_processed Int)
+(declare-var items_processed1 Int)
+(declare-var ret1 Int)
+(declare-rel insertHead (Int Int Int))
+(declare-rel popHead (Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 0) (= len 0) (= len1 1)) (insertHead k len len1)))
+
+(rule (=> (and (> N 0) (= k1 0) (= len1 0)) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (< k N) (insertHead k len len1) (= k1 (+ k 1))) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (not (< k N)) (= items_processed 0)) (inv2 len items_processed N)))
+(rule (=> (and (inv2 len items_processed N) (not (= len 0)) (popHead len ret1 len1) (= items_processed1 (+ items_processed 1))) (inv2 len1 items_processed1 N)))
+(rule (=> (and (inv2 len items_processed N) (= len 0) (not (= items_processed N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 14 internal iterations.
+   -> Writing new specs to harness: AtomicLinkedList1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1_fuzz.cpp'.
+   -> Starting AFL++(AtomicLinkedList1_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1_fuzz
+   -> AFL++(AtomicLinkedList1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:2290,execs:78,op:havoc,rep:9
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:168,execs:35,op:havoc,rep:16
+Checking queue
+   -> Found 5 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'AtomicLinkedList1'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insertHead: ((k <= 0) && (len1 > 0))
+  inv1: ((N > 0) && ((k - len) <= 0))
+  inv2: (len > 0)
+  popHead: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var k Int)
+(declare-var k1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var items_processed Int)
+(declare-var items_processed1 Int)
+(declare-var ret1 Int)
+(declare-rel insertHead (Int Int Int))
+(declare-rel popHead (Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= len 1) (= ret1 0) (= len1 0)) (popHead len ret1 len1)))
+(rule (=> (and (= k 1) (= len 1) (= len1 2)) (insertHead k len len1)))
+
+(rule (=> (and (= k 0) (= len 0) (= len1 1)) (insertHead k len len1)))
+(rule (=> (and (> N 0) (= k1 0) (= len1 0)) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (< k N) (insertHead k len len1) (= k1 (+ k 1))) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (not (< k N)) (= items_processed 0)) (inv2 len items_processed N)))
+(rule (=> (and (inv2 len items_processed N) (not (= len 0)) (popHead len ret1 len1) (= items_processed1 (+ items_processed 1))) (inv2 len1 items_processed1 N)))
+(rule (=> (and (inv2 len items_processed N) (= len 0) (not (= items_processed N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 46 internal iterations.
+   -> Writing new specs to harness: AtomicLinkedList1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1_fuzz.cpp'.
+   -> Starting AFL++(AtomicLinkedList1_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1_fuzz
+   -> AFL++(AtomicLinkedList1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:463,execs:83,op:havoc,rep:11
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:223,execs:71,op:havoc,rep:10
+Checking queue
+   -> Found 6 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'AtomicLinkedList1'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  popHead: (((len1 <= (-3)) || (((len1 <= (-1)) || ((len <= 1) && (len > (-1)) && (len1 > (-1)))) && (len1 > (-3)))) && (len1 <= 0))
+  insertHead: ((k <= 1) && ((len1 - len) > 0))
+  inv1: ((N > 0) && (k <= 2) && ((k - len) <= 0))
+  inv2: (((((len <= (-1)) || ((((len > 0) && (items_processed <= 0)) || ((len <= 0) && (items_processed > 0))) && ((items_processed - N) <= 0) && (len > (-1)))) && (items_processed > (-1)) && (N <= 1)) || ((((N - len) <= 0) || ((len <= (-1)) && ((N - len) > 0))) && (N > 1))) && (N > 0) && (N <= 2))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var k Int)
+(declare-var k1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var items_processed Int)
+(declare-var items_processed1 Int)
+(declare-var ret1 Int)
+(declare-rel insertHead (Int Int Int))
+(declare-rel popHead (Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 2) (= len 2) (= len1 3)) (insertHead k len len1)))
+(rule (=> (and (= len 2) (= ret1 1) (= len1 1)) (popHead len ret1 len1)))
+
+(rule (=> (and (= len 1) (= ret1 0) (= len1 0)) (popHead len ret1 len1)))
+(rule (=> (and (= k 1) (= len 1) (= len1 2)) (insertHead k len len1)))
+(rule (=> (and (= k 0) (= len 0) (= len1 1)) (insertHead k len len1)))
+(rule (=> (and (> N 0) (= k1 0) (= len1 0)) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (< k N) (insertHead k len len1) (= k1 (+ k 1))) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (not (< k N)) (= items_processed 0)) (inv2 len items_processed N)))
+(rule (=> (and (inv2 len items_processed N) (not (= len 0)) (popHead len ret1 len1) (= items_processed1 (+ items_processed 1))) (inv2 len1 items_processed1 N)))
+(rule (=> (and (inv2 len items_processed N) (= len 0) (not (= items_processed N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 161 internal iterations.
+   -> Writing new specs to harness: AtomicLinkedList1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1_fuzz.cpp'.
+   -> Starting AFL++(AtomicLinkedList1_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1_fuzz
+   -> AFL++(AtomicLinkedList1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:227,execs:38,op:havoc,rep:7
+Checking queue
+   -> Found 8 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'AtomicLinkedList1'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insertHead: ((k <= 2) && ((len1 - len) <= 1) && ((len1 - len) > 0))
+  popHead: ((((len <= (-10)) || (((len <= (-5)) || (((len <= (-4)) || (((len <= (-3)) || (((len <= (-1)) || ((len1 > (-1)) && (len > (-1)))) && (len1 <= 0) && (len > (-3)))) && (len > (-4)))) && (len > (-5)))) && (len > (-10)))) && (len <= 1) && (ret1 <= 0)) || (((len - len1) <= 1) && ((len - len1) > 0) && (ret1 > 0)))
+  inv1: (((((k - N) <= 0) && (N > 0) && (N <= 1)) || (((k - N) <= 0) && (N > 1))) && (k <= 3) && ((k - len) <= 0) && ((len - k) <= 0))
+  inv2: ((((((((((len + items_processed) - N) <= 0) && (len > 0) && (items_processed <= 0)) || ((len > (-1)) && (((len + items_processed) - N) <= 0) && ((items_processed - N) <= 3) && (items_processed > 0))) && ((items_processed - N) <= 4) && (N <= 1)) || (((items_processed - N) <= 0) && (len > (-3)) && (len > (-10)) && (((N - len) - items_processed) <= 0) && (((len + items_processed) - N) <= 0) && (N > 1))) && (N <= 2)) || (((items_processed - N) <= 0) && (((N - len) - items_processed) <= 0) && (((len + items_processed) - N) <= 0) && (N > 2))) && (N > 0) && (items_processed > (-1)) && (N <= 3))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var k Int)
+(declare-var k1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var items_processed Int)
+(declare-var items_processed1 Int)
+(declare-var ret1 Int)
+(declare-rel insertHead (Int Int Int))
+(declare-rel popHead (Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 3) (= len 3) (= len1 4)) (insertHead k len len1)))
+
+(rule (=> (and (= k 2) (= len 2) (= len1 3)) (insertHead k len len1)))
+(rule (=> (and (= len 2) (= ret1 1) (= len1 1)) (popHead len ret1 len1)))
+(rule (=> (and (= len 1) (= ret1 0) (= len1 0)) (popHead len ret1 len1)))
+(rule (=> (and (= k 1) (= len 1) (= len1 2)) (insertHead k len len1)))
+(rule (=> (and (= k 0) (= len 0) (= len1 1)) (insertHead k len len1)))
+(rule (=> (and (> N 0) (= k1 0) (= len1 0)) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (< k N) (insertHead k len len1) (= k1 (+ k 1))) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (not (< k N)) (= items_processed 0)) (inv2 len items_processed N)))
+(rule (=> (and (inv2 len items_processed N) (not (= len 0)) (popHead len ret1 len1) (= items_processed1 (+ items_processed 1))) (inv2 len1 items_processed1 N)))
+(rule (=> (and (inv2 len items_processed N) (= len 0) (not (= items_processed N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_5.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_5.log
+      -> Found 98 internal iterations.
+   -> Writing new specs to harness: AtomicLinkedList1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1_fuzz.cpp'.
+   -> Starting AFL++(AtomicLinkedList1_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1_fuzz
+   -> AFL++(AtomicLinkedList1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 48 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'AtomicLinkedList1'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insertHead: (((len1 - len) <= 1) && ((len1 - len) > 0))
+  popHead: (((len1 > (-1)) && (len > (-1)) && (len1 <= 0) && (len <= 1) && (ret1 <= 0)) || (((len - len1) <= 1) && ((len - len1) > 0) && (ret1 > 0)))
+  inv1: ((N > 0) && ((k - N) <= 0) && ((len - k) <= 0) && ((k - len) <= 0))
+  inv2: ((((N - len) - items_processed) <= 0) && (((len + items_processed) - N) <= 0) && (N > 0) && (items_processed > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var k Int)
+(declare-var k1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var items_processed Int)
+(declare-var items_processed1 Int)
+(declare-var ret1 Int)
+(declare-rel insertHead (Int Int Int))
+(declare-rel popHead (Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+
+(rule (=> (and (= k 3) (= len 3) (= len1 4)) (insertHead k len len1)))
+(rule (=> (and (= k 2) (= len 2) (= len1 3)) (insertHead k len len1)))
+(rule (=> (and (= len 2) (= ret1 1) (= len1 1)) (popHead len ret1 len1)))
+(rule (=> (and (= len 1) (= ret1 0) (= len1 0)) (popHead len ret1 len1)))
+(rule (=> (and (= k 1) (= len 1) (= len1 2)) (insertHead k len len1)))
+(rule (=> (and (= k 0) (= len 0) (= len1 1)) (insertHead k len len1)))
+(rule (=> (and (> N 0) (= k1 0) (= len1 0)) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (< k N) (insertHead k len len1) (= k1 (+ k 1))) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (not (< k N)) (= items_processed 0)) (inv2 len items_processed N)))
+(rule (=> (and (inv2 len items_processed N) (not (= len 0)) (popHead len ret1 len1) (= items_processed1 (+ items_processed 1))) (inv2 len1 items_processed1 N)))
+(rule (=> (and (inv2 len items_processed N) (= len 0) (not (= items_processed N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 6 ====================
+TIMEOUT : 120
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_6.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_6.log
+      -> Found 98 internal iterations.
+   -> Writing new specs to harness: AtomicLinkedList1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1_fuzz.cpp'.
+   -> Starting AFL++(AtomicLinkedList1_fuzz) with a 120-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/AtomicLinkedList1/AtomicLinkedList1_fuzz
+   -> AFL++(AtomicLinkedList1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 48 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'AtomicLinkedList1'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insertHead: (((len1 - len) <= 1) && ((len1 - len) > 0))
+  popHead: (((len1 > (-1)) && (len > (-1)) && (len1 <= 0) && (len <= 1) && (ret1 <= 0)) || (((len - len1) <= 1) && ((len - len1) > 0) && (ret1 > 0)))
+  inv1: ((N > 0) && ((k - N) <= 0) && ((len - k) <= 0) && ((k - len) <= 0))
+  inv2: ((((N - len) - items_processed) <= 0) && (((len + items_processed) - N) <= 0) && (N > 0) && (items_processed > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var k Int)
+(declare-var k1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var items_processed Int)
+(declare-var items_processed1 Int)
+(declare-var ret1 Int)
+(declare-rel insertHead (Int Int Int))
+(declare-rel popHead (Int Int Int))
+(declare-rel inv1 (Int Int Int))
+(declare-rel inv2 (Int Int Int))
+(declare-rel fail ())
+
+
+(rule (=> (and (= k 3) (= len 3) (= len1 4)) (insertHead k len len1)))
+(rule (=> (and (= k 2) (= len 2) (= len1 3)) (insertHead k len len1)))
+(rule (=> (and (= len 2) (= ret1 1) (= len1 1)) (popHead len ret1 len1)))
+(rule (=> (and (= len 1) (= ret1 0) (= len1 0)) (popHead len ret1 len1)))
+(rule (=> (and (= k 1) (= len 1) (= len1 2)) (insertHead k len len1)))
+(rule (=> (and (= k 0) (= len 0) (= len1 1)) (insertHead k len len1)))
+(rule (=> (and (> N 0) (= k1 0) (= len1 0)) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (< k N) (insertHead k len len1) (= k1 (+ k 1))) (inv1 k1 N len1)))
+(rule (=> (and (inv1 k N len) (not (< k N)) (= items_processed 0)) (inv2 len items_processed N)))
+(rule (=> (and (inv2 len items_processed N) (not (= len 0)) (popHead len ret1 len1) (= items_processed1 (+ items_processed 1))) (inv2 len1 items_processed1 N)))
+(rule (=> (and (inv2 len items_processed N) (= len 0) (not (= items_processed N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 6
+Total Unique Test Cases Found: 6
+Total Internal Iterations: 423
+  - Min: 6
+  - Max: 161
+  - Avg: 70.50
+pipeline.run() took 0.2692 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualLLMHornICE AtomicLinkedList1
+PID: 6005
+========================================
+
+
+Total Pipeline Duration: 596.11s

@@ -1,0 +1,2784 @@
+(declare-rel consume (Int Int Int))
+(declare-rel fail ())
+(declare-rel generateTokens (Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(declare-var E Int)
+(declare-var F Int)
+(rule (=> (and (= B 0) (= A 0)) (generateTokens B A)))
+(rule (=> (and (= B 3) (= A 3)) (generateTokens B A)))
+(rule (=> (and (= C 1) (= B 127) (= A 126)) (consume C B A)))
+(rule (=> (and (= C 2) (= B 127) (= A 125)) (consume C B A)))
+(rule (=> (and (= B 127) (= A 127)) (generateTokens B A)))
+(rule (=> (and (> C 0) (> B 0) (>= C B) (= A 0) (generateTokens C D)) (inv1 D C B A)))
+(rule (=> (and (inv1 F C B E) (>= F B) (consume B F D) (= A (+ E B))) (inv1 D C B A)))
+(rule (=> (and (inv1 A D B C) (not (>= A B)) (not (>= A 0))) fail))
+
+
+Read 8 rules and 1 queries (1)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+(declare-fun consume (Int Int Int) Bool)
+(declare-fun generateTokens (Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (= k!1 0) (= k!0 0)) (generateTokens k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun generateTokens (Int Int) Bool)
+ -- LHS
+ -- RHS
+(generateTokens k!1 k!0)
+
+ -- CHC
+(=> (and (= k!3 3) (= k!2 3)) (generateTokens k!3 k!2))
+ -- Uninterpreted predicates
+(declare-fun generateTokens (Int Int) Bool)
+ -- LHS
+ -- RHS
+(generateTokens k!3 k!2)
+
+ -- CHC
+(=> (and (= k!6 1) (= k!5 127) (= k!4 126)) (consume k!6 k!5 k!4))
+ -- Uninterpreted predicates
+(declare-fun consume (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(consume k!6 k!5 k!4)
+
+ -- CHC
+(=> (and (= k!9 2) (= k!8 127) (= k!7 125)) (consume k!9 k!8 k!7))
+ -- Uninterpreted predicates
+(declare-fun consume (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(consume k!9 k!8 k!7)
+
+ -- CHC
+(=> (and (= k!11 127) (= k!10 127)) (generateTokens k!11 k!10))
+ -- Uninterpreted predicates
+(declare-fun generateTokens (Int Int) Bool)
+ -- LHS
+ -- RHS
+(generateTokens k!11 k!10)
+
+ -- CHC
+(=> (and (> k!14 0)
+         (> k!13 0)
+         (>= k!14 k!13)
+         (= k!12 0)
+         (generateTokens k!14 k!15))
+    (inv1 k!15 k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int Int) Bool)
+(declare-fun generateTokens (Int Int) Bool)
+ -- LHS
+(generateTokens k!14 k!15)
+ -- RHS
+(inv1 k!15 k!14 k!13 k!12)
+
+ -- CHC
+(=> (and (inv1 k!21 k!18 k!17 k!20)
+         (>= k!21 k!17)
+         (consume k!17 k!21 k!19)
+         (= k!16 (+ k!20 k!17)))
+    (inv1 k!19 k!18 k!17 k!16))
+ -- Uninterpreted predicates
+(declare-fun consume (Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+(consume k!17 k!21 k!19)
+(inv1 k!21 k!18 k!17 k!20)
+ -- RHS
+(inv1 k!19 k!18 k!17 k!16)
+
+ -- CHC
+(=> (and (inv1 k!22 k!25 k!23 k!24) (not (>= k!22 k!23)) (not (>= k!22 0)))
+    (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+(inv1 k!22 k!25 k!23 k!24)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (= k!1 0) (= k!0 0)) (generateTokens k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun generateTokens (Int Int) Bool)
+ -- LHS
+ -- RHS
+(generateTokens k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (= k!3 3) (= k!2 3)) (generateTokens k!3 k!2))
+ -- Uninterpreted predicates
+(declare-fun generateTokens (Int Int) Bool)
+ -- LHS
+ -- RHS
+(generateTokens k!3 k!2)
+
+chc ::  -- CHC
+(=> (and (= k!6 1) (= k!5 127) (= k!4 126)) (consume k!6 k!5 k!4))
+ -- Uninterpreted predicates
+(declare-fun consume (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(consume k!6 k!5 k!4)
+
+chc ::  -- CHC
+(=> (and (= k!9 2) (= k!8 127) (= k!7 125)) (consume k!9 k!8 k!7))
+ -- Uninterpreted predicates
+(declare-fun consume (Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(consume k!9 k!8 k!7)
+
+chc ::  -- CHC
+(=> (and (= k!11 127) (= k!10 127)) (generateTokens k!11 k!10))
+ -- Uninterpreted predicates
+(declare-fun generateTokens (Int Int) Bool)
+ -- LHS
+ -- RHS
+(generateTokens k!11 k!10)
+
+chc ::  -- CHC
+(=> (and (> k!14 0)
+         (> k!13 0)
+         (>= k!14 k!13)
+         (= k!12 0)
+         (generateTokens k!14 k!15))
+    (inv1 k!15 k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun inv1 (Int Int Int Int) Bool)
+(declare-fun generateTokens (Int Int) Bool)
+ -- LHS
+(generateTokens k!14 k!15)
+ -- RHS
+(inv1 k!15 k!14 k!13 k!12)
+
+chc ::  -- CHC
+(=> (and (inv1 k!21 k!18 k!17 k!20)
+         (>= k!21 k!17)
+         (consume k!17 k!21 k!19)
+         (= k!16 (+ k!20 k!17)))
+    (inv1 k!19 k!18 k!17 k!16))
+ -- Uninterpreted predicates
+(declare-fun consume (Int Int Int) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+(consume k!17 k!21 k!19)
+(inv1 k!21 k!18 k!17 k!20)
+ -- RHS
+(inv1 k!19 k!18 k!17 k!16)
+
+chc ::  -- CHC
+(=> (and (inv1 k!22 k!25 k!23 k!24) (not (>= k!22 k!23)) (not (>= k!22 0)))
+    (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+ -- LHS
+(inv1 k!22 k!25 k!23 k!24)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun inv1 (Int Int Int Int) Bool)
+rel :: (declare-fun consume (Int Int Int) Bool)
+rel :: (declare-fun generateTokens (Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv1 (Int Int Int Int) Bool)
+(declare-fun consume (Int Int Int) Bool)
+(declare-fun generateTokens (Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun inv1 (Int Int Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun inv1 (Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv1 (Int Int Int Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : inv1#0Int
+add_integer_attribute::Integer Attribute::inv1#0
+Attribute Identifier : 3 attribute : inv1#1Int
+add_integer_attribute::Integer Attribute::inv1#1
+Attribute Identifier : 4 attribute : inv1#2Int
+add_integer_attribute::Integer Attribute::inv1#2
+Attribute Identifier : 5 attribute : inv1#3Int
+add_integer_attribute::Integer Attribute::inv1#3
+add_integer_attribute::Integer Attribute::|inv1#0|+|inv1#3|-|inv1#1|
+learner_interface :: Relation : (declare-fun consume (Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun consume (Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun consume (Int Int Int) Bool) is mapped to baseval :  6
+Attribute Identifier : 7 attribute : consume#0Int
+add_integer_attribute::Integer Attribute::consume#0
+Attribute Identifier : 8 attribute : consume#1Int
+add_integer_attribute::Integer Attribute::consume#1
+Attribute Identifier : 9 attribute : consume#2Int
+add_integer_attribute::Integer Attribute::consume#2
+add_integer_attribute::Integer Attribute::|consume#1|-|consume#2|-|consume#0|
+add_integer_attribute::Integer Attribute::|consume#2|-|consume#1|+|consume#0|
+learner_interface :: Relation : (declare-fun generateTokens (Int Int) Bool) is mapped to CatID :  3
+learner_interfaceCatID : 3 is mapped to Relation : (declare-fun generateTokens (Int Int) Bool)
+learner_interfaceRelation : (declare-fun generateTokens (Int Int) Bool) is mapped to baseval :  11
+Attribute Identifier : 12 attribute : generateTokens#0Int
+add_integer_attribute::Integer Attribute::generateTokens#0
+Attribute Identifier : 13 attribute : generateTokens#1Int
+add_integer_attribute::Integer Attribute::generateTokens#1
+add_integer_attribute::Integer Attribute::|generateTokens#1|-|generateTokens#0|
+add_integer_attribute::Integer Attribute::|generateTokens#0|-|generateTokens#1|
+===========================================
+Learning Iteration: 0
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+true
+Printing all the counter examples : 1
+Counterexample: {fail@(true)} => {}
+Conjectures
+===========================================
+Learning Iteration: 1
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+ NULL
+Printing all the counter examples : 6
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Conjectures
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> true
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> true
+===========================================
+Learning Iteration: 2
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ true
+ true
+Printing all the counter examples : 7
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> false
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> false
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 3
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ true
+ true
+Printing all the counter examples : 8
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> true
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 4
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ false
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 9
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> true
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 5
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ false
+ true
+ if x[14] <= 0
+  if x[11] <= 1
+   if x[11] <= 0
+    true
+    false
+   true
+  false
+Printing all the counter examples : 10
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 6
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ false
+ true
+ if x[14] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    true
+    false
+   true
+  false
+Printing all the counter examples : 11
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (and (or (and (<= |generateTokens#0| 0) (<= |generateTokens#0| 1)) (> |generateTokens#0| 1)) (<= (- |generateTokens#0| |generateTokens#1|) 0))
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 7
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[3] <= 0
+  false
+  true
+ true
+ true
+Printing all the counter examples : 12
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (and (or (and (<= |generateTokens#0| 0) (<= |generateTokens#0| 2)) (> |generateTokens#0| 2)) (<= (- |generateTokens#0| |generateTokens#1|) 0))
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 8
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[5] <= -1
+  if x[2] <= 0
+   false
+   true
+  true
+ true
+ true
+Printing all the counter examples : 14
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> true
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (> |inv1#2| 0)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 9
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[5] <= -1
+  if x[1] <= -1
+   false
+   true
+  if x[3] <= 0
+   false
+   true
+ true
+ true
+Printing all the counter examples : 17
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> true
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (> |inv1#1| 0) (<= (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 1))))) (or a!1 (> (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 1))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 10
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 1
+  if x[2] <= 0
+   false
+   if x[3] <= 0
+    false
+    true
+  true
+ true
+ true
+Printing all the counter examples : 18
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> true
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (> |inv1#0| (- 1)) (<= (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 1)))) (a!2 (and (> |inv1#2| 0) (> (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 1))))) (or a!1 a!2))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 11
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 2
+  if x[2] <= 0
+   false
+   if x[3] <= 0
+    false
+    if x[5] <= -3
+     false
+     true
+  true
+ true
+ true
+Printing all the counter examples : 21
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> true
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (or (and (> |inv1#2| 0) (> |inv1#1| 0) (<= |inv1#1| 1)) (> |inv1#1| 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 12
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 1
+  if x[3] <= 0
+   false
+   if x[2] <= 0
+    false
+    if x[2] <= 1
+     true
+     false
+  true
+ true
+ true
+Printing all the counter examples : 24
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> true
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (> (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 3)) (> |inv1#2| 0) (> |inv1#1| 0) (<= |inv1#1| 2)))) (or a!1 (> |inv1#1| 2)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 13
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 2
+  false
+  true
+ true
+ if x[14] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    true
+    false
+   true
+  false
+Printing all the counter examples : 25
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> true
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (or (and (<= |inv1#1| 1) (> |inv1#1| 0) (> |inv1#2| 0) (<= |inv1#0| 1)) (> |inv1#0| 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 14
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 0
+  false
+  if x[2] <= 1
+   if x[4] <= -2
+    false
+    true
+   true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 26
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (and (or (and (<= |generateTokens#0| 0) (<= |generateTokens#0| 2)) (> |generateTokens#0| 2)) (<= (- |generateTokens#0| |generateTokens#1|) 0))
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (> |inv1#0| 2)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 15
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 0
+  false
+  if x[2] <= 1
+   if x[4] <= -1
+    false
+    true
+   true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 27
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (or (and (> |inv1#3| (- 2)) (<= |inv1#1| 1)) (> |inv1#1| 1)) (> |inv1#0| 0))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 16
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 0
+  false
+  if x[2] <= 1
+   if x[4] <= -2
+    false
+    if x[3] <= -1
+     false
+     true
+   true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 28
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (or (and (> |inv1#3| (- 1)) (<= |inv1#1| 1)) (> |inv1#1| 1)) (> |inv1#0| 0))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 17
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 2
+  false
+  if x[4] <= 0
+   true
+   false
+ true
+ if x[14] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    true
+    false
+   true
+  false
+Printing all the counter examples : 30
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (or (and (> |inv1#2| (- 1)) (> |inv1#3| (- 2)) (<= |inv1#1| 1)) (> |inv1#1| 1)) (> |inv1#0| 0))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 18
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  if x[2] <= 1
+   if x[2] <= 0
+    false
+    if x[4] <= -2
+     false
+     if x[3] <= -1
+      false
+      true
+   true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 31
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (and (or (and (<= |generateTokens#0| 0) (<= |generateTokens#0| 2)) (> |generateTokens#0| 2)) (<= (- |generateTokens#0| |generateTokens#1|) 0))
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (<= |inv1#3| 0) (> |inv1#1| 2))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 19
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 1
+  false
+  if x[1] <= 2
+   false
+   if x[2] <= 0
+    false
+    true
+ true
+ if x[14] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    true
+    false
+   true
+  false
+Printing all the counter examples : 32
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (or (and (> |inv1#2| (- 1)) (> |inv1#3| (- 2)) (> |inv1#1| 0) (<= |inv1#1| 1)) (> |inv1#1| 1)) (> |inv1#0| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 20
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 1
+  false
+  if x[1] <= 2
+   false
+   if x[5] <= 0
+    true
+    false
+ true
+ if x[14] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    true
+    false
+   true
+  false
+Printing all the counter examples : 34
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (and (or (and (<= |generateTokens#0| 0) (<= |generateTokens#0| 2)) (> |generateTokens#0| 2)) (<= (- |generateTokens#0| |generateTokens#1|) 0))
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (> |inv1#1| 0) (> |inv1#0| 2) (> |inv1#0| 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 21
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 1
+  false
+  if x[2] <= 2
+   false
+   true
+ true
+ if x[14] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    true
+    false
+   true
+  false
+Printing all the counter examples : 35
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (and (or (and (<= |generateTokens#0| 0) (<= |generateTokens#0| 2)) (> |generateTokens#0| 2)) (<= (- |generateTokens#0| |generateTokens#1|) 0))
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (<= (- (+ |inv1#0| |inv1#3|) |inv1#1|) 0) (> |inv1#0| 2) (> |inv1#0| 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 22
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 2
+  false
+  if x[5] <= -2
+   false
+   true
+ true
+ if x[14] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    true
+    false
+   true
+  false
+Printing all the counter examples : 37
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (and (or (and (<= |generateTokens#0| 0) (<= |generateTokens#0| 2)) (> |generateTokens#0| 2)) (<= (- |generateTokens#0| |generateTokens#1|) 0))
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (> |inv1#1| 2) (> |inv1#0| 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 23
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 2
+  false
+  if x[5] <= -1
+   false
+   true
+ true
+ if x[14] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    true
+    false
+   true
+  false
+Printing all the counter examples : 39
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (and (or (and (<= |generateTokens#0| 0) (<= |generateTokens#0| 2)) (> |generateTokens#0| 2)) (<= (- |generateTokens#0| |generateTokens#1|) 0))
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (> (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 2)) (> |inv1#1| 2))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 24
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 2
+  false
+  if x[1] <= 2
+   false
+   true
+ true
+ if x[14] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    true
+    false
+   true
+  false
+Printing all the counter examples : 40
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (and (or (and (<= |generateTokens#0| 0) (<= |generateTokens#0| 2)) (> |generateTokens#0| 2)) (<= (- |generateTokens#0| |generateTokens#1|) 0))
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (> (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 1)) (> |inv1#1| 2))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 25
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 2
+  false
+  if x[3] <= 0
+   false
+   if x[5] <= -2
+    false
+    true
+ true
+ if x[14] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    true
+    false
+   true
+  false
+Printing all the counter examples : 42
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (and (or (and (<= |generateTokens#0| 0) (<= |generateTokens#0| 2)) (> |generateTokens#0| 2)) (<= (- |generateTokens#0| |generateTokens#1|) 0))
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (> |inv1#0| 2) (> |inv1#1| 2))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 26
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 2
+  false
+  if x[1] <= 1
+   false
+   if x[3] <= 1
+    true
+    false
+ true
+ if x[14] <= 0
+  if x[11] <= 2
+   if x[11] <= 0
+    true
+    false
+   true
+  false
+Printing all the counter examples : 44
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (and (or (and (<= |generateTokens#0| 0) (<= |generateTokens#0| 2)) (> |generateTokens#0| 2)) (<= (- |generateTokens#0| |generateTokens#1|) 0))
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (> (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 2)) (> |inv1#2| 0) (> |inv1#1| 2))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 27
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 0
+  false
+  if x[1] <= 1
+   if x[5] <= -1
+    if x[3] <= 0
+     true
+     false
+    if x[3] <= 0
+     false
+     true
+   true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 45
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (and (or (and (<= |generateTokens#0| 0) (<= |generateTokens#0| 2)) (> |generateTokens#0| 2)) (<= (- |generateTokens#0| |generateTokens#1|) 0))
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (<= |inv1#2| 1) (> |inv1#0| 1) (> |inv1#1| 2))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 28
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 0
+  false
+  if x[1] <= 2
+   if x[2] <= 2
+    if x[3] <= 0
+     false
+     if x[4] <= -2
+      false
+      true
+    if x[3] <= 1
+     false
+     true
+   true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 46
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (<= |inv1#2| 0) (<= (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 1)))) (a!2 (and (> |inv1#2| 0) (> (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 1))))) (and (or (and (or a!1 a!2) (<= |inv1#0| 1)) (> |inv1#0| 1)) (> |inv1#0| 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 29
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= 0
+  false
+  if x[1] <= 2
+   if x[2] <= 2
+    if x[2] <= 1
+     if x[4] <= 0
+      if x[3] <= 0
+       false
+       if x[4] <= -2
+        false
+        true
+      true
+     true
+    if x[3] <= 1
+     false
+     true
+   true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 47
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Counterexample: {consume(2, 3, 0), inv1(3, 2, 2, 1)} => {inv1(0, 2, 2, 3)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (or (and (> |inv1#3| (- 2)) (> |inv1#2| 0) (<= |inv1#1| 2)) (and (> |inv1#2| 1) (> |inv1#1| 2))) (<= |inv1#0| 2)))) (and (or a!1 (> |inv1#0| 2)) (> |inv1#0| 0)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 30
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[3] <= 1
+  if x[1] <= 2
+   if x[1] <= 0
+    false
+    if x[2] <= 2
+     if x[2] <= 1
+      if x[3] <= 0
+       false
+       if x[4] <= -2
+        false
+        true
+      true
+     false
+   true
+  true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 49
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Counterexample: {consume(2, 3, 0), inv1(3, 2, 2, 1)} => {inv1(0, 2, 2, 3)}
+Counterexample: {consume(0, 3, 1), inv1(3, 0, 0, 0)} => {inv1(1, 0, 0, 0)}
+Counterexample: {inv1((- 1), 3, 2, (- 1))} => {fail@(true)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (or (and (> |inv1#3| (- 2)) (> |inv1#2| 0) (<= |inv1#3| 0)) (> |inv1#3| 0)) (<= |inv1#1| 1)))) (let ((a!2 (or (and (or a!1 (> |inv1#1| 1)) (<= |inv1#1| 2)) (and (> |inv1#2| 1) (> |inv1#1| 2))))) (and (or (and a!2 (<= |inv1#0| 2)) (> |inv1#0| 2)) (> |inv1#0| 0))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 31
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  if x[3] <= 0
+   false
+   if x[5] <= -1
+    false
+    true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 50
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Counterexample: {consume(2, 3, 0), inv1(3, 2, 2, 1)} => {inv1(0, 2, 2, 3)}
+Counterexample: {consume(0, 3, 1), inv1(3, 0, 0, 0)} => {inv1(1, 0, 0, 0)}
+Counterexample: {inv1((- 1), 3, 2, (- 1))} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 0, 1, 0)} => {inv1((- 1), 0, 1, 1)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (or (and (> |inv1#3| (- 2)) (> |inv1#2| 0) (<= |inv1#1| 1)) (> |inv1#1| 1)) (<= |inv1#1| 2) (> |inv1#0| 0) (<= |inv1#0| 2)))) (or (and (or a!1 (> |inv1#0| 2)) (<= |inv1#2| 1)) (> |inv1#2| 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 32
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  if x[3] <= 1
+   if x[3] <= 0
+    false
+    if x[4] <= -2
+     false
+     if x[2] <= 0
+      false
+      if x[5] <= -1
+       false
+       true
+   true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 51
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Counterexample: {consume(2, 3, 0), inv1(3, 2, 2, 1)} => {inv1(0, 2, 2, 3)}
+Counterexample: {consume(0, 3, 1), inv1(3, 0, 0, 0)} => {inv1(1, 0, 0, 0)}
+Counterexample: {inv1((- 1), 3, 2, (- 1))} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 0, 1, 0)} => {inv1((- 1), 0, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 1, 1, (- 1))} => {inv1(0, 1, 1, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (and (> (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 1)) (> |inv1#2| 0) (> |inv1#0| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 33
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  if x[3] <= 1
+   if x[3] <= 0
+    false
+    if x[5] <= -1
+     false
+     if x[4] <= -1
+      false
+      if x[2] <= 0
+       false
+       true
+   true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 52
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Counterexample: {consume(2, 3, 0), inv1(3, 2, 2, 1)} => {inv1(0, 2, 2, 3)}
+Counterexample: {consume(0, 3, 1), inv1(3, 0, 0, 0)} => {inv1(1, 0, 0, 0)}
+Counterexample: {inv1((- 1), 3, 2, (- 1))} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 0, 1, 0)} => {inv1((- 1), 0, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 1, 1, (- 1))} => {inv1(0, 1, 1, 0)}
+Counterexample: {consume(1, 2, 0), inv1(2, 2, 1, 0)} => {inv1(0, 2, 1, 1)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (> (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 1)) (> |inv1#1| 0) (> |inv1#3| (- 2)) (> |inv1#2| 0) (<= |inv1#2| 1)))) (and (or a!1 (> |inv1#2| 1)) (> |inv1#0| (- 1))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 34
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  if x[3] <= 1
+   if x[3] <= 0
+    false
+    if x[2] <= 0
+     false
+     if x[4] <= -2
+      false
+      if x[2] <= 2
+       true
+       if x[1] <= 1
+        false
+        true
+   true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 53
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Counterexample: {consume(2, 3, 0), inv1(3, 2, 2, 1)} => {inv1(0, 2, 2, 3)}
+Counterexample: {consume(0, 3, 1), inv1(3, 0, 0, 0)} => {inv1(1, 0, 0, 0)}
+Counterexample: {inv1((- 1), 3, 2, (- 1))} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 0, 1, 0)} => {inv1((- 1), 0, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 1, 1, (- 1))} => {inv1(0, 1, 1, 0)}
+Counterexample: {consume(1, 2, 0), inv1(2, 2, 1, 0)} => {inv1(0, 2, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (> |inv1#1| 0) (> |inv1#3| (- 1)) (> (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 1)) (> |inv1#2| 0) (<= |inv1#2| 1)))) (and (or a!1 (> |inv1#2| 1)) (> |inv1#0| (- 1))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 35
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  if x[3] <= 1
+   if x[3] <= 0
+    false
+    if x[2] <= 0
+     false
+     if x[4] <= -2
+      false
+      if x[2] <= 2
+       true
+       if x[5] <= -1
+        false
+        true
+   true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 54
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Counterexample: {consume(2, 3, 0), inv1(3, 2, 2, 1)} => {inv1(0, 2, 2, 3)}
+Counterexample: {consume(0, 3, 1), inv1(3, 0, 0, 0)} => {inv1(1, 0, 0, 0)}
+Counterexample: {inv1((- 1), 3, 2, (- 1))} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 0, 1, 0)} => {inv1((- 1), 0, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 1, 1, (- 1))} => {inv1(0, 1, 1, 0)}
+Counterexample: {consume(1, 2, 0), inv1(2, 2, 1, 0)} => {inv1(0, 2, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 1)} => {inv1(0, 3, 1, 2)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (or (<= |inv1#1| 2) (and (> |inv1#0| 1) (> |inv1#1| 2))) (> |inv1#3| (- 2)) (> |inv1#1| 0) (> |inv1#2| 0) (<= |inv1#2| 1)))) (and (or a!1 (> |inv1#2| 1)) (> |inv1#0| (- 1))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 36
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  if x[3] <= 1
+   if x[3] <= 0
+    false
+    if x[2] <= 0
+     false
+     if x[4] <= -2
+      false
+      if x[2] <= 2
+       true
+       if x[1] <= 2
+        false
+        true
+   true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 55
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Counterexample: {consume(2, 3, 0), inv1(3, 2, 2, 1)} => {inv1(0, 2, 2, 3)}
+Counterexample: {consume(0, 3, 1), inv1(3, 0, 0, 0)} => {inv1(1, 0, 0, 0)}
+Counterexample: {inv1((- 1), 3, 2, (- 1))} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 0, 1, 0)} => {inv1((- 1), 0, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 1, 1, (- 1))} => {inv1(0, 1, 1, 0)}
+Counterexample: {consume(1, 2, 0), inv1(2, 2, 1, 0)} => {inv1(0, 2, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 1)} => {inv1(0, 3, 1, 2)}
+Counterexample: {consume(1, 3, 0), inv1(3, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (> (- (+ |inv1#0| |inv1#3|) |inv1#1|) (- 1)) (> |inv1#1| 2)))) (let ((a!2 (or (and (or (<= |inv1#1| 2) a!1) (> |inv1#3| (- 2)) (> |inv1#1| 0) (> |inv1#2| 0) (<= |inv1#2| 1)) (> |inv1#2| 1)))) (and a!2 (> |inv1#0| (- 1)))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 37
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  if x[2] <= 2
+   if x[2] <= 0
+    false
+    if x[4] <= -1
+     false
+     if x[3] <= -1
+      false
+      true
+   if x[3] <= 0
+    false
+    if x[3] <= 1
+     if x[4] <= 0
+      true
+      if x[1] <= 0
+       true
+       false
+     true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 56
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Counterexample: {consume(2, 3, 0), inv1(3, 2, 2, 1)} => {inv1(0, 2, 2, 3)}
+Counterexample: {consume(0, 3, 1), inv1(3, 0, 0, 0)} => {inv1(1, 0, 0, 0)}
+Counterexample: {inv1((- 1), 3, 2, (- 1))} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 0, 1, 0)} => {inv1((- 1), 0, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 1, 1, (- 1))} => {inv1(0, 1, 1, 0)}
+Counterexample: {consume(1, 2, 0), inv1(2, 2, 1, 0)} => {inv1(0, 2, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 1)} => {inv1(0, 3, 1, 2)}
+Counterexample: {consume(1, 3, 0), inv1(3, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {consume(2, 2, (- 1)), inv1(2, 3, 2, 1)} => {inv1((- 1), 3, 2, 3)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (or (<= |inv1#1| 2) (and (> |inv1#0| 2) (> |inv1#1| 2))) (> |inv1#3| (- 2)) (> |inv1#1| 0) (> |inv1#2| 0) (<= |inv1#2| 1)))) (and (or a!1 (> |inv1#2| 1)) (> |inv1#0| (- 1))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 38
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  if x[2] <= 2
+   if x[2] <= 0
+    false
+    if x[4] <= -1
+     false
+     if x[3] <= -1
+      false
+      true
+   if x[3] <= 0
+    false
+    if x[1] <= 2
+     if x[1] <= 0
+      true
+      if x[5] <= 0
+       false
+       true
+     true
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 57
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Counterexample: {consume(2, 3, 0), inv1(3, 2, 2, 1)} => {inv1(0, 2, 2, 3)}
+Counterexample: {consume(0, 3, 1), inv1(3, 0, 0, 0)} => {inv1(1, 0, 0, 0)}
+Counterexample: {inv1((- 1), 3, 2, (- 1))} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 0, 1, 0)} => {inv1((- 1), 0, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 1, 1, (- 1))} => {inv1(0, 1, 1, 0)}
+Counterexample: {consume(1, 2, 0), inv1(2, 2, 1, 0)} => {inv1(0, 2, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 1)} => {inv1(0, 3, 1, 2)}
+Counterexample: {consume(1, 3, 0), inv1(3, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {consume(2, 2, (- 1)), inv1(2, 3, 2, 1)} => {inv1((- 1), 3, 2, 3)}
+Counterexample: {consume(1, 4, 2), inv1(4, 3, 1, 0)} => {inv1(2, 3, 1, 1)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (or (<= |inv1#3| 0) (and (<= |inv1#0| 0) (> |inv1#3| 0))) (<= |inv1#2| 1)))) (let ((a!2 (or (and (> |inv1#2| (- 1)) (> |inv1#3| (- 1)) (> |inv1#1| 0) (<= |inv1#1| 2)) (and (or a!1 (> |inv1#2| 1)) (> |inv1#2| 0) (> |inv1#1| 2))))) (and a!2 (> |inv1#0| (- 1)))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 39
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  if x[2] <= 2
+   if x[2] <= 0
+    false
+    if x[4] <= -1
+     false
+     if x[3] <= -1
+      false
+      true
+   if x[3] <= 0
+    false
+    if x[3] <= 1
+     if x[4] <= 0
+      true
+      if x[4] <= 1
+       if x[1] <= 0
+        true
+        if x[1] <= 1
+         false
+         true
+       true
+     if x[1] <= 2
+      false
+      if x[3] <= 2
+       true
+       false
+ true
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 59
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Counterexample: {consume(2, 3, 0), inv1(3, 2, 2, 1)} => {inv1(0, 2, 2, 3)}
+Counterexample: {consume(0, 3, 1), inv1(3, 0, 0, 0)} => {inv1(1, 0, 0, 0)}
+Counterexample: {inv1((- 1), 3, 2, (- 1))} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 0, 1, 0)} => {inv1((- 1), 0, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 1, 1, (- 1))} => {inv1(0, 1, 1, 0)}
+Counterexample: {consume(1, 2, 0), inv1(2, 2, 1, 0)} => {inv1(0, 2, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 1)} => {inv1(0, 3, 1, 2)}
+Counterexample: {consume(1, 3, 0), inv1(3, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {consume(2, 2, (- 1)), inv1(2, 3, 2, 1)} => {inv1((- 1), 3, 2, 3)}
+Counterexample: {consume(1, 4, 2), inv1(4, 3, 1, 0)} => {inv1(2, 3, 1, 1)}
+Counterexample: {consume(1, 3, 1), inv1(3, 3, 1, 0)} => {inv1(1, 3, 1, 1)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 3, 0)}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (> (- (+ |inv1#0| |inv1#3|) |inv1#1|) 0) (> |inv1#0| 0)))) (let ((a!2 (or (and (or (<= |inv1#0| 0) a!1) (<= |inv1#0| 2)) (> |inv1#0| 2)))) (and (or (and (> |inv1#2| (- 1)) (> |inv1#3| (- 1)) (> |inv1#1| 0) (<= |inv1#1| 2)) (and a!2 (> |inv1#2| 0) (> |inv1#1| 2))) (> |inv1#0| (- 1)))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 40
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  true
+ if x[6] <= -1
+  true
+  if x[9] <= 0
+   true
+   false
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 60
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Counterexample: {consume(2, 3, 0), inv1(3, 2, 2, 1)} => {inv1(0, 2, 2, 3)}
+Counterexample: {consume(0, 3, 1), inv1(3, 0, 0, 0)} => {inv1(1, 0, 0, 0)}
+Counterexample: {inv1((- 1), 3, 2, (- 1))} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 0, 1, 0)} => {inv1((- 1), 0, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 1, 1, (- 1))} => {inv1(0, 1, 1, 0)}
+Counterexample: {consume(1, 2, 0), inv1(2, 2, 1, 0)} => {inv1(0, 2, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 1)} => {inv1(0, 3, 1, 2)}
+Counterexample: {consume(1, 3, 0), inv1(3, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {consume(2, 2, (- 1)), inv1(2, 3, 2, 1)} => {inv1((- 1), 3, 2, 3)}
+Counterexample: {consume(1, 4, 2), inv1(4, 3, 1, 0)} => {inv1(2, 3, 1, 1)}
+Counterexample: {consume(1, 3, 1), inv1(3, 3, 1, 0)} => {inv1(1, 3, 1, 1)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 3, 0)}
+Counterexample: {consume((- 1), 0, (- 1)), inv1(0, 0, (- 1), 0)} => {inv1((- 1), 0, (- 1), (- 1))}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> true
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (let ((a!1 (and (or (<= |inv1#0| 0) (and (> |inv1#0| 1) (> |inv1#0| 0))) (<= |inv1#3| 1)))) (let ((a!2 (or (<= |inv1#3| 0) (and (or a!1 (> |inv1#3| 1)) (> |inv1#3| 0))))) (let ((a!3 (and (or (and a!2 (<= |inv1#2| 1)) (and (<= |inv1#2| 2) (> |inv1#0| 2) (> |inv1#2| 1))) (> |inv1#2| 0) (> |inv1#1| 2)))) (and (or (and (> |inv1#2| (- 1)) (> |inv1#3| (- 1)) (> |inv1#1| 0) (<= |inv1#1| 2)) a!3) (> |inv1#0| (- 1))))))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 41
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[1] <= -1
+  false
+  true
+ if x[6] <= -1
+  false
+  if x[9] <= 0
+   true
+   false
+ if x[14] <= 0
+  true
+  false
+Printing all the counter examples : 60
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {generateTokens(0, 0)}
+Counterexample: {} => {generateTokens(3, 3)}
+Counterexample: {} => {consume(1, 127, 126)}
+Counterexample: {} => {consume(2, 127, 125)}
+Counterexample: {} => {generateTokens(127, 127)}
+Counterexample: {generateTokens(1, 0)} => {inv1(0, 1, 1, 0)}
+Counterexample: {inv1((- 1), 0, 0, 0)} => {fail@(true)}
+Counterexample: {generateTokens(1, 1)} => {inv1(1, 1, 1, 0)}
+Counterexample: {generateTokens(2, 2)} => {inv1(2, 2, 1, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 1, 0)}
+Counterexample: {inv1((- 1), 0, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 1, 0, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 0, 0, 0)} => {inv1((- 1), 0, 0, 0)}
+Counterexample: {inv1((- 1), 0, 1, 1)} => {fail@(true)}
+Counterexample: {consume(0, 0, 1), inv1(0, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {generateTokens(1, (- 1))} => {inv1((- 1), 1, 1, 0)}
+Counterexample: {inv1((- 1), 2, 1, 0)} => {fail@(true)}
+Counterexample: {inv1((- 1), 3, 1, 2)} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 1, 1, (- 2))} => {inv1((- 1), 1, 1, (- 1))}
+Counterexample: {generateTokens(1, (- 2))} => {inv1((- 2), 1, 1, 0)}
+Counterexample: {inv1((- 1), 1, 1, 0)} => {fail@(true)}
+Counterexample: {consume(1, 2, 1), inv1(2, 2, 1, 0)} => {inv1(1, 2, 1, 1)}
+Counterexample: {generateTokens(2, 1)} => {inv1(1, 2, 1, 0)}
+Counterexample: {consume(3, 3, 2), inv1(3, 0, 3, 0)} => {inv1(2, 0, 3, 3)}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), (- 1))} => {inv1(1, 1, (- 1), (- 2))}
+Counterexample: {consume((- 1), 1, 1), inv1(1, 1, (- 1), 0)} => {inv1(1, 1, (- 1), (- 1))}
+Counterexample: {consume(0, 1, 0), inv1(1, 1, 0, 0)} => {inv1(0, 1, 0, 0)}
+Counterexample: {consume(1, 1, 0), inv1(1, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {inv1((- 1), 3, 0, 0)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 2, 0, (- 2))} => {inv1((- 1), 2, 0, (- 2))}
+Counterexample: {consume(3, 3, 2), inv1(3, 1, 3, 0)} => {inv1(2, 1, 3, 3)}
+Counterexample: {consume(0, 3, 4), inv1(3, 0, 0, (- 3))} => {inv1(4, 0, 0, (- 3))}
+Counterexample: {generateTokens(3, 4)} => {inv1(4, 3, 1, 0)}
+Counterexample: {consume(2, 2, 1), inv1(2, 3, 2, 0)} => {inv1(1, 3, 2, 2)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 2)} => {inv1((- 1), 3, 0, 2)}
+Counterexample: {inv1((- 1), 3, 0, 3)} => {fail@(true)}
+Counterexample: {consume(0, 0, (- 1)), inv1(0, 3, 0, 3)} => {inv1((- 1), 3, 0, 3)}
+Counterexample: {inv1((- 1), 3, 0, 4)} => {fail@(true)}
+Counterexample: {consume(3, 3, 2), inv1(3, 3, 3, 0)} => {inv1(2, 3, 3, 3)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 3, 1, 1)} => {inv1((- 1), 3, 1, 2)}
+Counterexample: {inv1((- 1), 3, 1, 3)} => {fail@(true)}
+Counterexample: {consume(0, 2, 1), inv1(2, 3, 0, 0)} => {inv1(1, 3, 0, 0)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 2, 0)}
+Counterexample: {consume(0, 2, 1), inv1(2, 0, 0, (- 1))} => {inv1(1, 0, 0, (- 1))}
+Counterexample: {consume(0, 3, 1), inv1(3, 2, 0, 0)} => {inv1(1, 2, 0, 0)}
+Counterexample: {consume(2, 3, 0), inv1(3, 2, 2, 1)} => {inv1(0, 2, 2, 3)}
+Counterexample: {consume(0, 3, 1), inv1(3, 0, 0, 0)} => {inv1(1, 0, 0, 0)}
+Counterexample: {inv1((- 1), 3, 2, (- 1))} => {fail@(true)}
+Counterexample: {consume(1, 1, (- 1)), inv1(1, 0, 1, 0)} => {inv1((- 1), 0, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 1, 1, (- 1))} => {inv1(0, 1, 1, 0)}
+Counterexample: {consume(1, 2, 0), inv1(2, 2, 1, 0)} => {inv1(0, 2, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {consume(1, 2, 0), inv1(2, 3, 1, 1)} => {inv1(0, 3, 1, 2)}
+Counterexample: {consume(1, 3, 0), inv1(3, 3, 1, 0)} => {inv1(0, 3, 1, 1)}
+Counterexample: {consume(2, 2, (- 1)), inv1(2, 3, 2, 1)} => {inv1((- 1), 3, 2, 3)}
+Counterexample: {consume(1, 4, 2), inv1(4, 3, 1, 0)} => {inv1(2, 3, 1, 1)}
+Counterexample: {consume(1, 3, 1), inv1(3, 3, 1, 0)} => {inv1(1, 3, 1, 1)}
+Counterexample: {generateTokens(3, 3)} => {inv1(3, 3, 3, 0)}
+Counterexample: {consume((- 1), 0, (- 1)), inv1(0, 0, (- 1), 0)} => {inv1((- 1), 0, (- 1), (- 1))}
+Conjectures
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> (let ((a!1 (and (<= (- (- |consume#1| |consume#2|) |consume#0|) 0) (> |consume#0| (- 1))))) (or (<= |consume#0| (- 1)) a!1))
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (> |inv1#0| (- 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+In Naive Check
+Success (checked 170 CHCs, invoked learner 42 times)
+(declare-fun generateTokens (Int Int) Bool) => [|generateTokens#0|, |generateTokens#1|] -> (<= (- |generateTokens#0| |generateTokens#1|) 0)
+(declare-fun consume (Int Int Int) Bool) => [|consume#0|, |consume#1|, |consume#2|] -> (and (<= (- (- |consume#1| |consume#2|) |consume#0|) 0) (> |consume#0| (- 1)))
+(declare-fun inv1 (Int Int Int Int) Bool) => [|inv1#0|, |inv1#1|, |inv1#2|, |inv1#3|] -> (> |inv1#0| (- 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 4(declare-fun inv1 (Int Int Int Int) Bool)inv1
+Relation : 3(declare-fun consume (Int Int Int) Bool)consume
+Relation : 2(declare-fun generateTokens (Int Int) Bool)generateTokens
+Final CHCs read
+CHC : (fail@ true)
+CHC : (generateTokens k!14 k!15)
+CHC : (consume k!17 k!21 k!19)
+CHC : (inv1 k!21 k!18 k!17 k!20)
+CHC : (inv1 k!22 k!25 k!23 k!24)
+Total time: 1.72

@@ -1,0 +1,335 @@
+
+========================================
+         Starting Pipeline for: RedBlackTree (Mode: ContextualLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'RedBlackTree'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/RedBlackTree/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: RedBlackTree_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz.cpp'.
+   -> Starting AFL++(RedBlackTree_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz
+   -> ERROR: AFL++(RedBlackTree_fuzz) failed with exit code 1.
+      AFL++ Error Output:
+[1;92m[+] [0mEnabled environment variable AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_NO_UI with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_CMPLOG_ONLY_NEW with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_DEBUG_CHILD with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_IGNORE_PROBLEMS with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_SKIP_CPUFREQ with value 1[0m
+[1;94m[*] [0mSpinning up the fork server...[0m
+[1;92m[+] [0mAll right - new fork server model v1 is up.[0m
+[1;94m[*] [0mTarget map size: 386[0m
+RedBlackTree_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz.cpp:46: int main(int, char **): Assertion `expr_insert' failed.
+RedBlackTree_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz.cpp:46: int main(int, char **): Assertion `expr_insert' failed.
+RedBlackTree_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz.cpp:46: int main(int, char **): Assertion `expr_insert' failed.
+RedBlackTree_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz.cpp:46: int main(int, char **): Assertion `expr_insert' failed.
+
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,time:0,execs:0,orig:serins
+   -> CRASH REPRODUCED with id:000002,time:0,execs:0,orig:insser
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2ser
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:2ins
+Checking hangs
+   -> Converting counterexamples for 'RedBlackTree'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv: (true)
+  insert: (false)
+  search: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-rel inv (Int Int Int Int Int Int))
+(declare-rel insert (Int Int Int Int Int Int Int Int Int))
+(declare-rel search (Int Int Int Int Int Int))
+(declare-rel fail ())
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var N Int)
+(declare-var noDup Int)
+(declare-var noDup1 Int)
+(declare-var data Int)
+(declare-var ret1 Int)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= i 1702063721) (= max -130) (= max1 0) (= min 128) (= min1 0) (= len 0) (= len1 1) (= noDup 1) (= noDup1 1)) (insert i max max1 min min1 len len1 noDup noDup1)))
+
+(rule (=> (and (> N 0) (= i1 0) (= max1 MIN) (= min1 MAX) (= noDup1 1) ) (inv i1 max1 min1 len1 noDup1 N)))
+(rule(=> (and (inv i max min len noDup N) (is_valid noDup) (< i N) (insert i max max1 min min1 len len1 noDup noDup1) ( = i1 (+ i 1))) (inv i1 max1 min1 len1 noDup1 N)))
+(rule(=> (and (inv i max min len noDup N) (is_valid noDup) (>= i N) (>= data 0) (< data N) (search data max min len noDup ret1) (= ret1 0)) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 3 internal iterations.
+   -> Writing new specs to harness: RedBlackTree_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz.cpp'.
+   -> Starting AFL++(RedBlackTree_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz
+   -> ERROR: AFL++(RedBlackTree_fuzz) failed with exit code 1.
+      AFL++ Error Output:
+[1;92m[+] [0mEnabled environment variable AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_NO_UI with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_CMPLOG_ONLY_NEW with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_DEBUG_CHILD with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_IGNORE_PROBLEMS with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_SKIP_CPUFREQ with value 1[0m
+[1;94m[*] [0mSpinning up the fork server...[0m
+[1;92m[+] [0mAll right - new fork server model v1 is up.[0m
+[1;94m[*] [0mTarget map size: 385[0m
+RedBlackTree_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz.cpp:62: int main(int, char **): Assertion `expr_search' failed.
+RedBlackTree_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz.cpp:62: int main(int, char **): Assertion `expr_search' failed.
+RedBlackTree_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz.cpp:62: int main(int, char **): Assertion `expr_search' failed.
+RedBlackTree_fuzz: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz.cpp:62: int main(int, char **): Assertion `expr_search' failed.
+
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000003,time:0,execs:0,orig:serins
+   -> CRASH REPRODUCED with id:000002,time:0,execs:0,orig:insser
+   -> CRASH REPRODUCED with id:000001,time:0,execs:0,orig:2ser
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:2ins
+Checking hangs
+   -> Converting counterexamples for 'RedBlackTree'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  insert: (true)
+  inv: (true)
+  search: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-rel inv (Int Int Int Int Int Int))
+(declare-rel insert (Int Int Int Int Int Int Int Int Int))
+(declare-rel search (Int Int Int Int Int Int))
+(declare-rel fail ())
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var N Int)
+(declare-var noDup Int)
+(declare-var noDup1 Int)
+(declare-var data Int)
+(declare-var ret1 Int)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= data 1) (= max 253) (= min 0) (= len 254) (= noDup 1) (= ret1 1)) (search data max min len noDup ret1)))
+(rule (=> (and (= data 2) (= max 253) (= min 0) (= len 254) (= noDup 1) (= ret1 1)) (search data max min len noDup ret1)))
+
+(rule (=> (and (= i 1702063721) (= max -130) (= max1 0) (= min 128) (= min1 0) (= len 0) (= len1 1) (= noDup 1) (= noDup1 1)) (insert i max max1 min min1 len len1 noDup noDup1)))
+(rule (=> (and (> N 0) (= i1 0) (= max1 MIN) (= min1 MAX) (= noDup1 1) ) (inv i1 max1 min1 len1 noDup1 N)))
+(rule(=> (and (inv i max min len noDup N) (is_valid noDup) (< i N) (insert i max max1 min min1 len len1 noDup noDup1) ( = i1 (+ i 1))) (inv i1 max1 min1 len1 noDup1 N)))
+(rule(=> (and (inv i max min len noDup N) (is_valid noDup) (>= i N) (>= data 0) (< data N) (search data max min len noDup ret1) (= ret1 0)) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 7 internal iterations.
+   -> Writing new specs to harness: RedBlackTree_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz.cpp'.
+   -> Starting AFL++(RedBlackTree_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz
+   -> AFL++(RedBlackTree_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 69 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:40,execs:30,op:(null),pos:0,+cov
+   -> CRASH REPRODUCED with id:000005,src:000001,time:118,execs:39,op:(null),pos:0
+Checking hangs
+   -> Converting counterexamples for 'RedBlackTree'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  search: (ret1 > 0)
+  insert: (true)
+  inv: (true)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-rel inv (Int Int Int Int Int Int))
+(declare-rel insert (Int Int Int Int Int Int Int Int Int))
+(declare-rel search (Int Int Int Int Int Int))
+(declare-rel fail ())
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var N Int)
+(declare-var noDup Int)
+(declare-var noDup1 Int)
+(declare-var data Int)
+(declare-var ret1 Int)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+
+(rule (=> (and (= data 1) (= max 253) (= min 0) (= len 254) (= noDup 1) (= ret1 1)) (search data max min len noDup ret1)))
+(rule (=> (and (= data 2) (= max 253) (= min 0) (= len 254) (= noDup 1) (= ret1 1)) (search data max min len noDup ret1)))
+(rule (=> (and (= i 1702063721) (= max -130) (= max1 0) (= min 128) (= min1 0) (= len 0) (= len1 1) (= noDup 1) (= noDup1 1)) (insert i max max1 min min1 len len1 noDup noDup1)))
+(rule (=> (and (> N 0) (= i1 0) (= max1 MIN) (= min1 MAX) (= noDup1 1) ) (inv i1 max1 min1 len1 noDup1 N)))
+(rule(=> (and (inv i max min len noDup N) (is_valid noDup) (< i N) (insert i max max1 min min1 len len1 noDup noDup1) ( = i1 (+ i 1))) (inv i1 max1 min1 len1 noDup1 N)))
+(rule(=> (and (inv i max min len noDup N) (is_valid noDup) (>= i N) (>= data 0) (< data N) (search data max min len noDup ret1) (= ret1 0)) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 7 internal iterations.
+   -> Writing new specs to harness: RedBlackTree_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz.cpp'.
+   -> Starting AFL++(RedBlackTree_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/RedBlackTree/RedBlackTree_fuzz
+   -> AFL++(RedBlackTree_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 80 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000004,src:000001,time:39,execs:30,op:(null),pos:0,+cov
+   -> CRASH REPRODUCED with id:000005,src:000001,time:118,execs:39,op:(null),pos:0
+Checking hangs
+   -> Converting counterexamples for 'RedBlackTree'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  search: (ret1 > 0)
+  insert: (true)
+  inv: (true)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-rel inv (Int Int Int Int Int Int))
+(declare-rel insert (Int Int Int Int Int Int Int Int Int))
+(declare-rel search (Int Int Int Int Int Int))
+(declare-rel fail ())
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var max Int)
+(declare-var max1 Int)
+(declare-var min Int)
+(declare-var min1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var N Int)
+(declare-var noDup Int)
+(declare-var noDup1 Int)
+(declare-var data Int)
+(declare-var ret1 Int)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+
+(rule (=> (and (= data 1) (= max 253) (= min 0) (= len 254) (= noDup 1) (= ret1 1)) (search data max min len noDup ret1)))
+(rule (=> (and (= data 2) (= max 253) (= min 0) (= len 254) (= noDup 1) (= ret1 1)) (search data max min len noDup ret1)))
+(rule (=> (and (= i 1702063721) (= max -130) (= max1 0) (= min 128) (= min1 0) (= len 0) (= len1 1) (= noDup 1) (= noDup1 1)) (insert i max max1 min min1 len len1 noDup noDup1)))
+(rule (=> (and (> N 0) (= i1 0) (= max1 MIN) (= min1 MAX) (= noDup1 1) ) (inv i1 max1 min1 len1 noDup1 N)))
+(rule(=> (and (inv i max min len noDup N) (is_valid noDup) (< i N) (insert i max max1 min min1 len len1 noDup noDup1) ( = i1 (+ i 1))) (inv i1 max1 min1 len1 noDup1 N)))
+(rule(=> (and (inv i max min len noDup N) (is_valid noDup) (>= i N) (>= data 0) (< data N) (search data max min len noDup ret1) (= ret1 0)) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 4
+Total Unique Test Cases Found: 3
+Total Internal Iterations: 20
+  - Min: 3
+  - Max: 7
+  - Avg: 5.00
+pipeline.run() took 0.0752 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualLLMHornICE RedBlackTree
+PID: 5999
+========================================
+
+
+Total Pipeline Duration: 155.67s

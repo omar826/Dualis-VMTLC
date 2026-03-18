@@ -1,0 +1,268 @@
+
+========================================
+         Starting Pipeline for: Multiset1 (Mode: ClassicalLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'Multiset1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/Multiset1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multiset1/Multiset1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 6 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multiset1/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multiset1/emplace_fuzz
+   -> ERROR: AFL++(emplace_fuzz) failed with exit code 1.
+      AFL++ Error Output:
+[1;92m[+] [0mEnabled environment variable AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_NO_UI with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_CMPLOG_ONLY_NEW with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_DEBUG_CHILD with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_IGNORE_PROBLEMS with value 1[0m
+[1;92m[+] [0mEnabled environment variable AFL_SKIP_CPUFREQ with value 1[0m
+[1;94m[*] [0mSpinning up the fork server...[0m
+[1;92m[+] [0mAll right - new fork server model v1 is up.[0m
+[1;94m[*] [0mTarget map size: 315[0m
+emplace_fuzz: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multiset1/emplace_fuzz.cpp:40: int main(int, char **): Assertion `expr' failed.
+
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,time:0,execs:0,orig:2push
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: ((N - i) > 0)
+  emplace: (false)
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var v Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var countv Int)
+(declare-var countv1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-rel emplace (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= v -1) (= countv 1) (= len 1) (= countv1 2) (= len1 2)) (emplace v countv len countv1 len1)))
+
+(rule (=> (and (> N 0) (= i 0) (= countv 0) (= len 0)) (inv1 i N v countv len)))
+(rule (=> (and (inv1 i N v countv len) (< i N) (emplace v countv len countv1 len1) (= i1 (+ i 1))) (inv1 i1 N v countv1 len1)))
+(rule (=> (and (inv1 i N v countv len) (not (< i N)) (not (and (= len N) (= countv N)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multiset1/Multiset1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 42 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multiset1/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multiset1/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 2 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:199,execs:20,op:quick,pos:0
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:535,execs:266,op:havoc,rep:3
+Checking queue
+   -> Found 42 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:2,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+      -> Found and validated 2 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (len > 0)
+  inv1: ((len <= 0) && ((N - i) > 0) && (N > 0))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var v Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var countv Int)
+(declare-var countv1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-rel emplace (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= v -1) (= countv 0) (= len 0) (= countv1 1) (= len1 1)) (emplace v countv len countv1 len1)))
+(rule (=> (and (= v 16) (= countv 0) (= len 0) (= countv1 1) (= len1 1)) (emplace v countv len countv1 len1)))
+
+(rule (=> (and (= v -1) (= countv 1) (= len 1) (= countv1 2) (= len1 2)) (emplace v countv len countv1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= countv 0) (= len 0)) (inv1 i N v countv len)))
+(rule (=> (and (inv1 i N v countv len) (< i N) (emplace v countv len countv1 len1) (= i1 (+ i 1))) (inv1 i1 N v countv1 len1)))
+(rule (=> (and (inv1 i N v countv len) (not (< i N)) (not (and (= len N) (= countv N)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multiset1/Multiset1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 134 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multiset1/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multiset1/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 86 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:0,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (((len1 - len) <= 1) && ((len1 - len) > 0) && ((countv1 - countv) <= 1) && ((countv1 - countv) > 0))
+  inv1: (((((i - countv) <= 0) && ((len - i) <= 0) && ((countv - len) <= 0) && (N <= 1)) || (((i - countv) <= 0) && ((countv - i) <= 0) && ((countv - len) <= 0) && ((len - countv) <= 0) && (N > 1))) && (N > 0) && ((N - countv) > (-2)) && ((len - i) <= 2) && ((N - i) > (-1)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var v Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var countv Int)
+(declare-var countv1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-rel emplace (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+
+(rule (=> (and (= v -1) (= countv 0) (= len 0) (= countv1 1) (= len1 1)) (emplace v countv len countv1 len1)))
+(rule (=> (and (= v 16) (= countv 0) (= len 0) (= countv1 1) (= len1 1)) (emplace v countv len countv1 len1)))
+(rule (=> (and (= v -1) (= countv 1) (= len 1) (= countv1 2) (= len1 2)) (emplace v countv len countv1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= countv 0) (= len 0)) (inv1 i N v countv len)))
+(rule (=> (and (inv1 i N v countv len) (< i N) (emplace v countv len countv1 len1) (= i1 (+ i 1))) (inv1 i1 N v countv1 len1)))
+(rule (=> (and (inv1 i N v countv len) (not (< i N)) (not (and (= len N) (= countv N)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multiset1/Multiset1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 134 internal iterations.
+   -> Writing new specs to harness: emplace_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multiset1/emplace_fuzz.cpp'.
+   -> Starting AFL++(emplace_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ClassicalLLMHornICE_working_temp/Multiset1/emplace_fuzz
+   -> AFL++(emplace_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 86 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:0,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'emplace'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (((len1 - len) <= 1) && ((len1 - len) > 0) && ((countv1 - countv) <= 1) && ((countv1 - countv) > 0))
+  inv1: (((((i - countv) <= 0) && ((len - i) <= 0) && ((countv - len) <= 0) && (N <= 1)) || (((i - countv) <= 0) && ((countv - i) <= 0) && ((countv - len) <= 0) && ((len - countv) <= 0) && (N > 1))) && (N > 0) && ((N - countv) > (-2)) && ((len - i) <= 2) && ((N - i) > (-1)))
+
+--- New Test Cases Found ---
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var v Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var countv Int)
+(declare-var countv1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-rel emplace (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
+(declare-rel fail ())
+
+
+(rule (=> (and (= v -1) (= countv 0) (= len 0) (= countv1 1) (= len1 1)) (emplace v countv len countv1 len1)))
+(rule (=> (and (= v 16) (= countv 0) (= len 0) (= countv1 1) (= len1 1)) (emplace v countv len countv1 len1)))
+(rule (=> (and (= v -1) (= countv 1) (= len 1) (= countv1 2) (= len1 2)) (emplace v countv len countv1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= countv 0) (= len 0)) (inv1 i N v countv len)))
+(rule (=> (and (inv1 i N v countv len) (< i N) (emplace v countv len countv1 len1) (= i1 (+ i 1))) (inv1 i1 N v countv1 len1)))
+(rule (=> (and (inv1 i N v countv len) (not (< i N)) (not (and (= len N) (= countv N)))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 4
+Total Unique Test Cases Found: 3
+Total Internal Iterations: 316
+  - Min: 6
+  - Max: 134
+  - Avg: 79.00
+pipeline.run() took 0.1880 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ClassicalLLMHornICE Multiset1
+PID: 5992
+========================================
+
+
+Total Pipeline Duration: 304.90s

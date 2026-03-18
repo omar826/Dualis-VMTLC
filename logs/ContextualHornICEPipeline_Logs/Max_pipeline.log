@@ -1,0 +1,332 @@
+
+========================================
+         Starting Pipeline for: Max (Mode: ContextualHornICE)
+========================================
+Initializing pipeline for benchmark: 'Max'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/Max/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 6 internal iterations.
+   -> Writing new specs to harness: Max_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max_fuzz.cpp'.
+   -> Starting AFL++(Max_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max_fuzz
+   -> AFL++(Max_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:1,execs:46,op:havoc,rep:8
+Checking queue
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:0,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Max'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv: (((lmax - gmax) <= 0) && ((lmax - gmax) > (-1)))
+  append: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmax Int)
+(declare-var lmax1 Int)
+(declare-var gmax Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= v -1) (= lmax -129) (= lmax1 -1)) (append v lmax lmax1)))
+
+(rule (=> (and (= lmax MIN) (= gmax MIN)) (inv lmax gmax)))
+(rule (=> (and (inv lmax gmax) (append v lmax lmax1) (< gmax v)) (inv lmax1 v)))
+(rule (=> (and (inv lmax gmax) (append v lmax lmax1) (not (< gmax v))) (inv lmax1 gmax)))
+(rule (=> (and (inv lmax gmax) (not (= gmax lmax))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 10 internal iterations.
+   -> Writing new specs to harness: Max_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max_fuzz.cpp'.
+   -> Starting AFL++(Max_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max_fuzz
+   -> AFL++(Max_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 3 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:446,execs:162,op:havoc,rep:6
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:201,execs:26,op:havoc,rep:5
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000000,time:1210,execs:537,op:havoc,rep:6
+Checking queue
+   -> Found 23 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:1,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Max'...
+      -> Found and validated 3 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: (((v - lmax) > (-1)) && ((v - lmax1) <= 0) && ((v - lmax1) > (-1)))
+  inv: (((lmax - gmax) > (-1)) && ((lmax - gmax) <= 0))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmax Int)
+(declare-var lmax1 Int)
+(declare-var gmax Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= v 92) (= lmax 110) (= lmax1 110)) (append v lmax lmax1)))
+(rule (=> (and (= v -1) (= lmax 127) (= lmax1 127)) (append v lmax lmax1)))
+(rule (=> (and (= v 17) (= lmax 60) (= lmax1 60)) (append v lmax lmax1)))
+
+(rule (=> (and (= v -1) (= lmax -129) (= lmax1 -1)) (append v lmax lmax1)))
+(rule (=> (and (= lmax MIN) (= gmax MIN)) (inv lmax gmax)))
+(rule (=> (and (inv lmax gmax) (append v lmax lmax1) (< gmax v)) (inv lmax1 v)))
+(rule (=> (and (inv lmax gmax) (append v lmax lmax1) (not (< gmax v))) (inv lmax1 gmax)))
+(rule (=> (and (inv lmax gmax) (not (= gmax lmax))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 25 internal iterations.
+   -> Writing new specs to harness: Max_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max_fuzz.cpp'.
+   -> Starting AFL++(Max_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max_fuzz
+   -> AFL++(Max_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 5 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000002,sig:06,src:000002,time:12995,execs:3018,op:havoc,rep:4
+   -> CRASH REPRODUCED with id:000003,sig:06,src:000003,time:21373,execs:3807,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:213,execs:25,op:havoc,rep:3
+   -> CRASH REPRODUCED with id:000004,sig:06,src:000003,time:27537,execs:3984,op:havoc,rep:8
+   -> CRASH REPRODUCED with id:000001,sig:06,src:000000,time:411,execs:50,op:havoc,rep:2
+Checking queue
+   -> Found 4 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:0,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Max'...
+      -> Found and validated 5 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: ((((v - lmax1) > (-1)) && (((v - lmax1) - lmax1) <= 1) && (((v - lmax) + lmax1) > 1) && (lmax1 <= (-1)) && (lmax1 <= 1)) || (((lmax - lmax1) > (-1)) && (lmax1 > 1)))
+  inv: (((lmax - gmax) <= 0) && ((lmax - gmax) > (-1)) && (lmax <= (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmax Int)
+(declare-var lmax1 Int)
+(declare-var gmax Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MIN () Int -129)
+
+(rule (=> (and (= v 5) (= lmax -1) (= lmax1 5)) (append v lmax lmax1)))
+(rule (=> (and (= v -1) (= lmax -1) (= lmax1 -1)) (append v lmax lmax1)))
+(rule (=> (and (= v 1) (= lmax -129) (= lmax1 1)) (append v lmax lmax1)))
+(rule (=> (and (= v -6) (= lmax -1) (= lmax1 -1)) (append v lmax lmax1)))
+(rule (=> (and (= v -109) (= lmax -129) (= lmax1 -109)) (append v lmax lmax1)))
+
+(rule (=> (and (= v 92) (= lmax 110) (= lmax1 110)) (append v lmax lmax1)))
+(rule (=> (and (= v -1) (= lmax 127) (= lmax1 127)) (append v lmax lmax1)))
+(rule (=> (and (= v 17) (= lmax 60) (= lmax1 60)) (append v lmax lmax1)))
+(rule (=> (and (= v -1) (= lmax -129) (= lmax1 -1)) (append v lmax lmax1)))
+(rule (=> (and (= lmax MIN) (= gmax MIN)) (inv lmax gmax)))
+(rule (=> (and (inv lmax gmax) (append v lmax lmax1) (< gmax v)) (inv lmax1 v)))
+(rule (=> (and (inv lmax gmax) (append v lmax lmax1) (not (< gmax v))) (inv lmax1 gmax)))
+(rule (=> (and (inv lmax gmax) (not (= gmax lmax))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 17 internal iterations.
+   -> Writing new specs to harness: Max_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max_fuzz.cpp'.
+   -> Starting AFL++(Max_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max_fuzz
+   -> AFL++(Max_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 36 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:0,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Max'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: (((((lmax - lmax1) > (-1)) && ((v - lmax1) <= (-1))) || ((v - lmax1) > (-1))) && ((v - lmax1) <= 0) && ((lmax - lmax1) <= 0))
+  inv: (((lmax - gmax) <= 0) && ((lmax - gmax) > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmax Int)
+(declare-var lmax1 Int)
+(declare-var gmax Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MIN () Int -129)
+
+
+(rule (=> (and (= v 5) (= lmax -1) (= lmax1 5)) (append v lmax lmax1)))
+(rule (=> (and (= v -1) (= lmax -1) (= lmax1 -1)) (append v lmax lmax1)))
+(rule (=> (and (= v 1) (= lmax -129) (= lmax1 1)) (append v lmax lmax1)))
+(rule (=> (and (= v -6) (= lmax -1) (= lmax1 -1)) (append v lmax lmax1)))
+(rule (=> (and (= v -109) (= lmax -129) (= lmax1 -109)) (append v lmax lmax1)))
+(rule (=> (and (= v 92) (= lmax 110) (= lmax1 110)) (append v lmax lmax1)))
+(rule (=> (and (= v -1) (= lmax 127) (= lmax1 127)) (append v lmax lmax1)))
+(rule (=> (and (= v 17) (= lmax 60) (= lmax1 60)) (append v lmax lmax1)))
+(rule (=> (and (= v -1) (= lmax -129) (= lmax1 -1)) (append v lmax lmax1)))
+(rule (=> (and (= lmax MIN) (= gmax MIN)) (inv lmax gmax)))
+(rule (=> (and (inv lmax gmax) (append v lmax lmax1) (< gmax v)) (inv lmax1 v)))
+(rule (=> (and (inv lmax gmax) (append v lmax lmax1) (not (< gmax v))) (inv lmax1 gmax)))
+(rule (=> (and (inv lmax gmax) (not (= gmax lmax))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 5 ====================
+TIMEOUT : 100
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Logging HornICE output to iter_5.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_5.log
+      -> Found 17 internal iterations.
+   -> Writing new specs to harness: Max_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max_fuzz.cpp'.
+   -> Starting AFL++(Max_fuzz) with a 100-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualHornICE_working_temp/Max/Max_fuzz
+   -> AFL++(Max_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 35 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000001,src:000000,time:0,execs:9,op:(null),pos:0,+cov
+Checking hangs
+   -> Converting counterexamples for 'Max'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  append: (((((lmax - lmax1) > (-1)) && ((v - lmax1) <= (-1))) || ((v - lmax1) > (-1))) && ((v - lmax1) <= 0) && ((lmax - lmax1) <= 0))
+  inv: (((lmax - gmax) <= 0) && ((lmax - gmax) > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var lmax Int)
+(declare-var lmax1 Int)
+(declare-var gmax Int)
+(declare-var v Int)
+(declare-rel append (Int Int Int))
+(declare-rel inv (Int Int))
+(declare-rel fail ())
+(define-fun MIN () Int -129)
+
+
+(rule (=> (and (= v 5) (= lmax -1) (= lmax1 5)) (append v lmax lmax1)))
+(rule (=> (and (= v -1) (= lmax -1) (= lmax1 -1)) (append v lmax lmax1)))
+(rule (=> (and (= v 1) (= lmax -129) (= lmax1 1)) (append v lmax lmax1)))
+(rule (=> (and (= v -6) (= lmax -1) (= lmax1 -1)) (append v lmax lmax1)))
+(rule (=> (and (= v -109) (= lmax -129) (= lmax1 -109)) (append v lmax lmax1)))
+(rule (=> (and (= v 92) (= lmax 110) (= lmax1 110)) (append v lmax lmax1)))
+(rule (=> (and (= v -1) (= lmax 127) (= lmax1 127)) (append v lmax lmax1)))
+(rule (=> (and (= v 17) (= lmax 60) (= lmax1 60)) (append v lmax lmax1)))
+(rule (=> (and (= v -1) (= lmax -129) (= lmax1 -1)) (append v lmax lmax1)))
+(rule (=> (and (= lmax MIN) (= gmax MIN)) (inv lmax gmax)))
+(rule (=> (and (inv lmax gmax) (append v lmax lmax1) (< gmax v)) (inv lmax1 v)))
+(rule (=> (and (inv lmax gmax) (append v lmax lmax1) (not (< gmax v))) (inv lmax1 gmax)))
+(rule (=> (and (inv lmax gmax) (not (= gmax lmax))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 5
+Total Unique Test Cases Found: 9
+Total Internal Iterations: 75
+  - Min: 6
+  - Max: 25
+  - Avg: 15.00
+pipeline.run() took 0.5023 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualHornICE Max
+PID: 6005
+========================================
+
+
+Total Pipeline Duration: 317.59s

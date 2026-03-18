@@ -1,0 +1,2543 @@
+(declare-rel fail ())
+(declare-rel addStockOrder (Int Int Int Int Int Int))
+(declare-rel inv (Int Int))
+(declare-var A Int)
+(declare-var B Int)
+(declare-var C Int)
+(declare-var D Int)
+(declare-var E Int)
+(declare-var F Int)
+(rule (=> (and (= F 1) (= E 1) (= D 1) (= C 2) (= B 0) (= A 0))
+    (addStockOrder F E D C B A)))
+(rule (=> (and (= F 27) (= E 1) (= D 1) (= C 2) (= B 22) (= A 22))
+    (addStockOrder F E D C B A)))
+(rule (=> (and (= F 30) (= E 0) (= D 1) (= C 2) (= B 32) (= A 30))
+    (addStockOrder F E D C B A)))
+(rule (=> (and (= F 28) (= E 1) (= D 0) (= C 1) (= B 128) (= A 27))
+    (addStockOrder F E D C B A)))
+(rule (=> (and (= F 76) (= E 76) (= D 0) (= C 1) (= B 128) (= A 0))
+    (addStockOrder F E D C B A)))
+(rule (=> (and (= F 60) (= E 60) (= D 0) (= C 1) (= B 128) (= A 0))
+    (addStockOrder F E D C B A)))
+(rule (=> (and (= B 0) (= A 128)) (inv B A)))
+(rule (=> (and (inv D C) (>= F 0) (>= E 0) (<= E F) (addStockOrder F E D C B A))
+    (inv B A)))
+(rule (let ((a!1 (and (inv B A) (not (and (>= C 0) (>= D 0) (<= D C))))))
+  (=> a!1 (inv B A))))
+(rule (let ((a!1 (and (inv B A) (not (=> (>= B 0) (>= A 0))))))
+  (=> a!1 fail)))
+
+
+Read 10 rules and 1 queries (1)
+chc_declarations: (declare-fun fail@ (Bool) Bool)
+
+ Printing processed queries 
+main::parsed 
+---------- Relations to synthesize ----------
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+---------- CHCs ----------
+ -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+ -- CHC
+(=> (and (= k!5 1) (= k!4 1) (= k!3 1) (= k!2 2) (= k!1 0) (= k!0 0))
+    (addStockOrder k!5 k!4 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(addStockOrder k!5 k!4 k!3 k!2 k!1 k!0)
+
+ -- CHC
+(=> (and (= k!11 27) (= k!10 1) (= k!9 1) (= k!8 2) (= k!7 22) (= k!6 22))
+    (addStockOrder k!11 k!10 k!9 k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(addStockOrder k!11 k!10 k!9 k!8 k!7 k!6)
+
+ -- CHC
+(=> (and (= k!17 30) (= k!16 0) (= k!15 1) (= k!14 2) (= k!13 32) (= k!12 30))
+    (addStockOrder k!17 k!16 k!15 k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(addStockOrder k!17 k!16 k!15 k!14 k!13 k!12)
+
+ -- CHC
+(=> (and (= k!23 28) (= k!22 1) (= k!21 0) (= k!20 1) (= k!19 128) (= k!18 27))
+    (addStockOrder k!23 k!22 k!21 k!20 k!19 k!18))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(addStockOrder k!23 k!22 k!21 k!20 k!19 k!18)
+
+ -- CHC
+(=> (and (= k!29 76) (= k!28 76) (= k!27 0) (= k!26 1) (= k!25 128) (= k!24 0))
+    (addStockOrder k!29 k!28 k!27 k!26 k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(addStockOrder k!29 k!28 k!27 k!26 k!25 k!24)
+
+ -- CHC
+(=> (and (= k!35 60) (= k!34 60) (= k!33 0) (= k!32 1) (= k!31 128) (= k!30 0))
+    (addStockOrder k!35 k!34 k!33 k!32 k!31 k!30))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(addStockOrder k!35 k!34 k!33 k!32 k!31 k!30)
+
+ -- CHC
+(=> (and (= k!37 0) (= k!36 128)) (inv k!37 k!36))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!37 k!36)
+
+ -- CHC
+(=> (and (inv k!41 k!40)
+         (>= k!43 0)
+         (>= k!42 0)
+         (<= k!42 k!43)
+         (addStockOrder k!43 k!42 k!41 k!40 k!39 k!38))
+    (inv k!39 k!38))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(addStockOrder k!43 k!42 k!41 k!40 k!39 k!38)
+(inv k!41 k!40)
+ -- RHS
+(inv k!39 k!38)
+
+ -- CHC
+(let ((a!1 (and (inv k!45 k!44)
+                (not (and (>= k!46 0) (>= k!47 0) (<= k!47 k!46))))))
+  (=> a!1 (inv k!45 k!44)))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!45 k!44)
+ -- RHS
+(inv k!45 k!44)
+
+ -- CHC
+(let ((a!1 (and (inv k!49 k!48) (not (=> (>= k!49 0) (>= k!48 0))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!49 k!48)
+ -- RHS
+(fail@ true)
+
+
+Printing parse CHCs and relations
+chc ::  -- CHC
+(not (fail@ true))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+ -- LHS
+(fail@ true)
+ -- RHS
+
+chc ::  -- CHC
+(=> (and (= k!5 1) (= k!4 1) (= k!3 1) (= k!2 2) (= k!1 0) (= k!0 0))
+    (addStockOrder k!5 k!4 k!3 k!2 k!1 k!0))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(addStockOrder k!5 k!4 k!3 k!2 k!1 k!0)
+
+chc ::  -- CHC
+(=> (and (= k!11 27) (= k!10 1) (= k!9 1) (= k!8 2) (= k!7 22) (= k!6 22))
+    (addStockOrder k!11 k!10 k!9 k!8 k!7 k!6))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(addStockOrder k!11 k!10 k!9 k!8 k!7 k!6)
+
+chc ::  -- CHC
+(=> (and (= k!17 30) (= k!16 0) (= k!15 1) (= k!14 2) (= k!13 32) (= k!12 30))
+    (addStockOrder k!17 k!16 k!15 k!14 k!13 k!12))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(addStockOrder k!17 k!16 k!15 k!14 k!13 k!12)
+
+chc ::  -- CHC
+(=> (and (= k!23 28) (= k!22 1) (= k!21 0) (= k!20 1) (= k!19 128) (= k!18 27))
+    (addStockOrder k!23 k!22 k!21 k!20 k!19 k!18))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(addStockOrder k!23 k!22 k!21 k!20 k!19 k!18)
+
+chc ::  -- CHC
+(=> (and (= k!29 76) (= k!28 76) (= k!27 0) (= k!26 1) (= k!25 128) (= k!24 0))
+    (addStockOrder k!29 k!28 k!27 k!26 k!25 k!24))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(addStockOrder k!29 k!28 k!27 k!26 k!25 k!24)
+
+chc ::  -- CHC
+(=> (and (= k!35 60) (= k!34 60) (= k!33 0) (= k!32 1) (= k!31 128) (= k!30 0))
+    (addStockOrder k!35 k!34 k!33 k!32 k!31 k!30))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+ -- LHS
+ -- RHS
+(addStockOrder k!35 k!34 k!33 k!32 k!31 k!30)
+
+chc ::  -- CHC
+(=> (and (= k!37 0) (= k!36 128)) (inv k!37 k!36))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+ -- RHS
+(inv k!37 k!36)
+
+chc ::  -- CHC
+(=> (and (inv k!41 k!40)
+         (>= k!43 0)
+         (>= k!42 0)
+         (<= k!42 k!43)
+         (addStockOrder k!43 k!42 k!41 k!40 k!39 k!38))
+    (inv k!39 k!38))
+ -- Uninterpreted predicates
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(addStockOrder k!43 k!42 k!41 k!40 k!39 k!38)
+(inv k!41 k!40)
+ -- RHS
+(inv k!39 k!38)
+
+chc ::  -- CHC
+(let ((a!1 (and (inv k!45 k!44)
+                (not (and (>= k!46 0) (>= k!47 0) (<= k!47 k!46))))))
+  (=> a!1 (inv k!45 k!44)))
+ -- Uninterpreted predicates
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!45 k!44)
+ -- RHS
+(inv k!45 k!44)
+
+chc ::  -- CHC
+(let ((a!1 (and (inv k!49 k!48) (not (=> (>= k!49 0) (>= k!48 0))))))
+  (=> a!1 (fail@ true)))
+ -- Uninterpreted predicates
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+ -- LHS
+(inv k!49 k!48)
+ -- RHS
+(fail@ true)
+
+rel :: (declare-fun fail@ (Bool) Bool)
+rel :: (declare-fun inv (Int Int) Bool)
+rel :: (declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+In learn2
+In learner_interface
+In configure_learner
+learner_interface:: relations in the CHCs : 
+(declare-fun fail@ (Bool) Bool)
+(declare-fun inv (Int Int) Bool)
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+learner_interface :: Relation : (declare-fun fail@ (Bool) Bool) is mapped to CatID :  0
+learner_interfaceCatID : 0 is mapped to Relation : (declare-fun fail@ (Bool) Bool)
+learner_interfaceRelation : (declare-fun fail@ (Bool) Bool) is mapped to baseval :  0
+Attribute Identifier : 1 attribute : fail@#0Bool
+add_integer_attribute::Integer Attribute::fail@#0
+learner_interface :: Relation : (declare-fun inv (Int Int) Bool) is mapped to CatID :  1
+learner_interfaceCatID : 1 is mapped to Relation : (declare-fun inv (Int Int) Bool)
+learner_interfaceRelation : (declare-fun inv (Int Int) Bool) is mapped to baseval :  1
+Attribute Identifier : 2 attribute : inv#0Int
+add_integer_attribute::Integer Attribute::inv#0
+Attribute Identifier : 3 attribute : inv#1Int
+add_integer_attribute::Integer Attribute::inv#1
+learner_interface :: Relation : (declare-fun addStockOrder (Int Int Int Int Int Int) Bool) is mapped to CatID :  2
+learner_interfaceCatID : 2 is mapped to Relation : (declare-fun addStockOrder (Int Int Int Int Int Int) Bool)
+learner_interfaceRelation : (declare-fun addStockOrder (Int Int Int Int Int Int) Bool) is mapped to baseval :  3
+Attribute Identifier : 4 attribute : addStockOrder#0Int
+add_integer_attribute::Integer Attribute::addStockOrder#0
+Attribute Identifier : 5 attribute : addStockOrder#1Int
+add_integer_attribute::Integer Attribute::addStockOrder#1
+Attribute Identifier : 6 attribute : addStockOrder#2Int
+add_integer_attribute::Integer Attribute::addStockOrder#2
+Attribute Identifier : 7 attribute : addStockOrder#3Int
+add_integer_attribute::Integer Attribute::addStockOrder#3
+Attribute Identifier : 8 attribute : addStockOrder#4Int
+add_integer_attribute::Integer Attribute::addStockOrder#4
+Attribute Identifier : 9 attribute : addStockOrder#5Int
+add_integer_attribute::Integer Attribute::addStockOrder#5
+add_integer_attribute::Integer Attribute::|addStockOrder#3|-|addStockOrder#2|
+add_integer_attribute::Integer Attribute::|addStockOrder#5|-|addStockOrder#4|
+add_integer_attribute::Integer Attribute::|addStockOrder#5|-|addStockOrder#0|+|addStockOrder#1|
+add_integer_attribute::Integer Attribute::|addStockOrder#4|-|addStockOrder#0|+|addStockOrder#1|
+===========================================
+Learning Iteration: 0
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+true
+Printing all the counter examples : 1
+Counterexample: {fail@(true)} => {}
+Conjectures
+===========================================
+Learning Iteration: 1
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ NULL
+ NULL
+Printing all the counter examples : 8
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Conjectures
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> true
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+===========================================
+Learning Iteration: 2
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ true
+ true
+Printing all the counter examples : 9
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> false
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> false
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 3
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  true
+ true
+Printing all the counter examples : 10
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> true
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 4
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 0
+   false
+   true
+ true
+Printing all the counter examples : 11
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| (- 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 5
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 1
+   false
+   true
+ true
+Printing all the counter examples : 12
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| 0) (> |inv#1| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 6
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 2
+   false
+   true
+ true
+Printing all the counter examples : 13
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| 1) (> |inv#1| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 7
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 3
+   false
+   true
+ true
+Printing all the counter examples : 14
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| 2) (> |inv#1| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 8
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 4
+   false
+   true
+ true
+Printing all the counter examples : 15
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| 3) (> |inv#1| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 9
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 5
+   false
+   true
+ true
+Printing all the counter examples : 16
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| 4) (> |inv#1| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 10
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 6
+   false
+   true
+ true
+Printing all the counter examples : 17
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| 5) (> |inv#1| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 11
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 7
+   false
+   true
+ true
+Printing all the counter examples : 18
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| 6) (> |inv#1| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 12
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 8
+   false
+   true
+ true
+Printing all the counter examples : 19
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| 7) (> |inv#1| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 13
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 9
+   false
+   true
+ true
+Printing all the counter examples : 20
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| 8) (> |inv#1| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 14
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  if x[2] <= 10
+   false
+   true
+ true
+Printing all the counter examples : 21
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| 9) (> |inv#1| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 15
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  true
+ if x[5] <= 0
+  if x[7] <= 0
+   false
+   true
+  true
+Printing all the counter examples : 22
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> true
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (and (> |inv#1| 10) (> |inv#1| (- 1)))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 16
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[3] <= 0
+   false
+   true
+  true
+Printing all the counter examples : 23
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#4| 0) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| (- 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 17
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[7] <= 0
+   false
+   true
+  true
+Printing all the counter examples : 24
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#0| 0) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 18
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[7] <= 1
+   false
+   true
+  true
+Printing all the counter examples : 25
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#4| 0) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 19
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[7] <= 2
+   false
+   true
+  true
+Printing all the counter examples : 26
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#4| 1) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 20
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[7] <= 3
+   false
+   true
+  true
+Printing all the counter examples : 27
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#4| 2) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 21
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[7] <= 4
+   false
+   true
+  true
+Printing all the counter examples : 28
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#4| 3) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 22
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[7] <= 5
+   false
+   true
+  true
+Printing all the counter examples : 29
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#4| 4) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 23
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[7] <= 6
+   false
+   true
+  true
+Printing all the counter examples : 30
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#4| 5) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 24
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[7] <= 7
+   false
+   true
+  true
+Printing all the counter examples : 31
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#4| 6) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 25
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[7] <= 8
+   false
+   true
+  true
+Printing all the counter examples : 32
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#4| 7) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 26
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[7] <= 9
+   false
+   true
+  true
+Printing all the counter examples : 33
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#4| 8) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 27
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[7] <= 10
+   false
+   true
+  true
+Printing all the counter examples : 34
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#4| 9) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 28
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[3] <= 1
+   false
+   true
+  true
+Printing all the counter examples : 35
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#4| 10) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 29
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[3] <= 2
+   false
+   true
+  true
+Printing all the counter examples : 36
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#0| 1) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 30
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[4] <= 0
+   false
+   true
+  true
+Printing all the counter examples : 37
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#0| 2) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 31
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[3] <= 3
+   false
+   true
+  true
+Printing all the counter examples : 38
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#1| 0) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 32
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[3] <= 4
+   false
+   true
+  true
+Printing all the counter examples : 39
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#0| 3) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 33
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[3] <= 5
+   false
+   true
+  true
+Printing all the counter examples : 40
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(6, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#0| 4) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 34
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[3] <= 6
+   false
+   true
+  true
+Printing all the counter examples : 41
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(6, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(7, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#0| 5) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 35
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[3] <= 7
+   false
+   true
+  true
+Printing all the counter examples : 42
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(6, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(7, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(8, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#0| 6) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 36
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[3] <= 8
+   false
+   true
+  true
+Printing all the counter examples : 43
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(6, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(7, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(8, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(9, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#0| 7) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 37
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[3] <= 9
+   false
+   true
+  true
+Printing all the counter examples : 44
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(6, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(7, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(8, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(9, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(10, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#0| 8) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 38
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[3] <= 10
+   false
+   true
+  true
+Printing all the counter examples : 45
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(6, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(7, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(8, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(9, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(10, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(11, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#0| 9) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 39
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= 10
+  false
+  true
+ if x[5] <= 0
+  if x[6] <= 1
+   true
+   false
+  true
+Printing all the counter examples : 46
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(6, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(7, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(8, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(9, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(10, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(11, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 1, 11, 0, 10), inv(1, 11)} => {inv(0, 10)}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#0| 10) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 40
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  true
+ if x[5] <= 0
+  if x[4] <= 0
+   false
+   true
+  true
+Printing all the counter examples : 47
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(6, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(7, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(8, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(9, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(10, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(11, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 1, 11, 0, 10), inv(1, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (<= |addStockOrder#3| 1) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| 10)
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 41
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  true
+ if x[5] <= 0
+  if x[8] <= -1
+   false
+   true
+  true
+Printing all the counter examples : 48
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(6, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(7, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(8, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(9, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(10, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(11, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 1, 11, 0, 10), inv(1, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 1, 0, 0, (- 1)), inv(1, 0)} => {inv(0, (- 1))}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#1| 0) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| (- 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 42
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  true
+ if x[5] <= 0
+  if x[8] <= -1
+   false
+   true
+  if x[6] <= 0
+   false
+   true
+Printing all the counter examples : 49
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(6, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(7, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(8, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(9, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(10, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(11, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 1, 11, 0, 10), inv(1, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 1, 0, 0, (- 1)), inv(1, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 1, 1, 0, (- 1)), inv(1, 1)} => {inv(0, (- 1))}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#5| (- 1)) (<= |addStockOrder#2| 0)) (> |addStockOrder#2| 0))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| (- 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 43
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  true
+ if x[5] <= 0
+  if x[8] <= -1
+   false
+   true
+  if x[3] <= 0
+   false
+   true
+Printing all the counter examples : 50
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(6, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(7, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(8, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(9, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(10, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(11, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 1, 11, 0, 10), inv(1, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 1, 0, 0, (- 1)), inv(1, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 1, 1, 0, (- 1)), inv(1, 1)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(1, 0, 1, 0, 0, (- 1)), inv(1, 0)} => {inv(0, (- 1))}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#5| (- 1)) (<= |addStockOrder#2| 0)) (and (> |addStockOrder#3| 0) (> |addStockOrder#2| 0)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| (- 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 44
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  true
+ if x[5] <= 0
+  if x[8] <= -1
+   false
+   true
+  if x[9] <= 0
+   false
+   true
+Printing all the counter examples : 51
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(6, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(7, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(8, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(9, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(10, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(11, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 1, 11, 0, 10), inv(1, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 1, 0, 0, (- 1)), inv(1, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 1, 1, 0, (- 1)), inv(1, 1)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(1, 0, 1, 0, 0, (- 1)), inv(1, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 1, 2, 0, (- 1)), inv(1, 2)} => {inv(0, (- 1))}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#5| (- 1)) (<= |addStockOrder#2| 0)) (and (> |addStockOrder#0| 0) (> |addStockOrder#2| 0)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| (- 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+===========================================
+Learning Iteration: 45
+===========================================
+The bound is :: 10
+get_conjectures:: Printing the Decision Tree
+switch x[0]
+ false
+ if x[2] <= -1
+  false
+  true
+ if x[5] <= 0
+  if x[8] <= -1
+   false
+   true
+  if x[8] <= -1
+   false
+   true
+Printing all the counter examples : 51
+Counterexample: {fail@(true)} => {}
+Counterexample: {} => {addStockOrder(1, 1, 1, 2, 0, 0)}
+Counterexample: {} => {addStockOrder(27, 1, 1, 2, 22, 22)}
+Counterexample: {} => {addStockOrder(30, 0, 1, 2, 32, 30)}
+Counterexample: {} => {addStockOrder(28, 1, 0, 1, 128, 27)}
+Counterexample: {} => {addStockOrder(76, 76, 0, 1, 128, 0)}
+Counterexample: {} => {addStockOrder(60, 60, 0, 1, 128, 0)}
+Counterexample: {} => {inv(0, 128)}
+Counterexample: {inv(0, (- 1))} => {fail@(true)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 0, 1, 0, 0), inv(0, 1)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 2, 0, 0), inv(0, 2)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 3, 0, 0), inv(0, 3)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 4, 0, 0), inv(0, 4)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 5, 0, 0), inv(0, 5)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 6, 0, 0), inv(0, 6)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 7, 0, 0), inv(0, 7)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 8, 0, 0), inv(0, 8)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 9, 0, 0), inv(0, 9)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 10, 0, 0), inv(0, 10)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 0, 0), inv(0, 11)} => {inv(0, 0)}
+Counterexample: {addStockOrder(0, 0, 0, 0, 1, (- 1)), inv(0, 0)} => {inv(1, (- 1))}
+Counterexample: {addStockOrder(1, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 1, 10), inv(0, 11)} => {inv(1, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 2, 10), inv(0, 11)} => {inv(2, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 3, 10), inv(0, 11)} => {inv(3, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 4, 10), inv(0, 11)} => {inv(4, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 5, 10), inv(0, 11)} => {inv(5, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 6, 10), inv(0, 11)} => {inv(6, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 7, 10), inv(0, 11)} => {inv(7, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 8, 10), inv(0, 11)} => {inv(8, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 9, 10), inv(0, 11)} => {inv(9, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 10, 10), inv(0, 11)} => {inv(10, 10)}
+Counterexample: {addStockOrder(0, 0, 0, 11, 11, 10), inv(0, 11)} => {inv(11, 10)}
+Counterexample: {addStockOrder(2, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(3, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(4, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(5, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(6, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(7, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(8, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(9, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(10, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(11, 0, 0, 11, 0, 10), inv(0, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(0, 0, 1, 11, 0, 10), inv(1, 11)} => {inv(0, 10)}
+Counterexample: {addStockOrder(1, 1, 0, 0, 0, (- 1)), inv(0, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 1, 0, 0, (- 1)), inv(1, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 1, 1, 0, (- 1)), inv(1, 1)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(1, 0, 1, 0, 0, (- 1)), inv(1, 0)} => {inv(0, (- 1))}
+Counterexample: {addStockOrder(0, 0, 1, 2, 0, (- 1)), inv(1, 2)} => {inv(0, (- 1))}
+Conjectures
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#5| (- 1)) (<= |addStockOrder#2| 0)) (and (> (- |addStockOrder#3| |addStockOrder#2|) 0) (> |addStockOrder#2| 0)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| (- 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+In Naive Check
+Success (checked 306 CHCs, invoked learner 46 times)
+(declare-fun addStockOrder (Int Int Int Int Int Int) Bool) => [|addStockOrder#0|, |addStockOrder#1|, |addStockOrder#2|, |addStockOrder#3|, |addStockOrder#4|, |addStockOrder#5|] -> (or (and (> |addStockOrder#5| (- 1)) (<= |addStockOrder#2| 0)) (and (> |addStockOrder#5| (- 1)) (> |addStockOrder#2| 0)))
+(declare-fun inv (Int Int) Bool) => [|inv#0|, |inv#1|] -> (> |inv#1| (- 1))
+(declare-fun fail@ (Bool) Bool) => [|fail@#0|] -> false
+Final Relations read
+Relation : 1(declare-fun fail@ (Bool) Bool)fail@
+Relation : 2(declare-fun inv (Int Int) Bool)inv
+Relation : 6(declare-fun addStockOrder (Int Int Int Int Int Int) Bool)addStockOrder
+Final CHCs read
+CHC : (fail@ true)
+CHC : (addStockOrder k!43 k!42 k!41 k!40 k!39 k!38)
+CHC : (inv k!41 k!40)
+CHC : (inv k!45 k!44)
+CHC : (inv k!49 k!48)
+Total time: 4.03

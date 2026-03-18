@@ -1,0 +1,258 @@
+
+========================================
+         Starting Pipeline for: Multimap1 (Mode: ContextualLLMHornICE)
+========================================
+Initializing pipeline for benchmark: 'Multimap1'
+   -> Loading and validating attributes from: /Dualis/scripts/../benchmarks/Classical/Multimap1/Attributes.txt
+      -> Validation successful. Attribute file is consistent.
+
+==================== Iteration: 1 ====================
+TIMEOUT : 20
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multimap1/Multimap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_1.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_1.log
+      -> Found 7 internal iterations.
+   -> Writing new specs to harness: Multimap1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multimap1/Multimap1_fuzz.cpp'.
+   -> Starting AFL++(Multimap1_fuzz) with a 20-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multimap1/Multimap1_fuzz
+   -> AFL++(Multimap1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:172,execs:20,op:havoc,rep:3
+Checking queue
+   -> Found 2 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Multimap1'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  inv1: ((N - i) > 0)
+  emplace: (false)
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 1) (= v 104) (= countko 0) (= len 0) (= countko1 1) (= len1 1)) (emplace k v countko len countko1 len1)))
+
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0)) (inv1 i N countko len)))
+(rule (=> (and (inv1 i N countko len) (< i N) (= k 1) (emplace k v countko len countko1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 len1)))
+(rule (=> (and (inv1 i N countko len) (not (< i N)) (not (= countko N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 2 ====================
+TIMEOUT : 40
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multimap1/Multimap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_2.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_2.log
+      -> Found 75 internal iterations.
+   -> Writing new specs to harness: Multimap1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multimap1/Multimap1_fuzz.cpp'.
+   -> Starting AFL++(Multimap1_fuzz) with a 40-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multimap1/Multimap1_fuzz
+   -> AFL++(Multimap1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+   -> Found 1 crash reports. Testing reproducibility...
+   -> CRASH REPRODUCED with id:000000,sig:06,src:000000,time:163,execs:36,op:havoc,rep:8
+Checking queue
+   -> Found 3 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Multimap1'...
+      -> Found and validated 1 new rules.
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: ((countko <= 0) && (len1 > 0) && (countko1 <= 1) && (countko1 > 0))
+  inv1: (((i - countko) <= 0) && (N > 0) && (countko <= 1))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel fail ())
+
+(rule (=> (and (= k 1) (= v -68) (= countko 1) (= len 1) (= countko1 2) (= len1 2)) (emplace k v countko len countko1 len1)))
+
+(rule (=> (and (= k 1) (= v 104) (= countko 0) (= len 0) (= countko1 1) (= len1 1)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0)) (inv1 i N countko len)))
+(rule (=> (and (inv1 i N countko len) (< i N) (= k 1) (emplace k v countko len countko1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 len1)))
+(rule (=> (and (inv1 i N countko len) (not (< i N)) (not (= countko N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 3 ====================
+TIMEOUT : 60
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multimap1/Multimap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_3.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_3.log
+      -> Found 57 internal iterations.
+   -> Writing new specs to harness: Multimap1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multimap1/Multimap1_fuzz.cpp'.
+   -> Starting AFL++(Multimap1_fuzz) with a 60-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multimap1/Multimap1_fuzz
+   -> AFL++(Multimap1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 33 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Multimap1'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (((countko1 - countko) <= 1) && ((countko1 - countko) > 0))
+  inv1: (((i - countko) <= 0) && ((countko - i) <= 0) && ((N - i) > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel fail ())
+
+
+(rule (=> (and (= k 1) (= v -68) (= countko 1) (= len 1) (= countko1 2) (= len1 2)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 1) (= v 104) (= countko 0) (= len 0) (= countko1 1) (= len1 1)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0)) (inv1 i N countko len)))
+(rule (=> (and (inv1 i N countko len) (< i N) (= k 1) (emplace k v countko len countko1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 len1)))
+(rule (=> (and (inv1 i N countko len) (not (< i N)) (not (= countko N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are different. Continuing iteration.
+
+==================== Iteration: 4 ====================
+TIMEOUT : 80
+   -> Parsing CHC file: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multimap1/Multimap1.smt2
+   -> Starting HornICE with a 1000-second timeout...
+      -> Found derived attributes. Creating temporary Attributes.txt  file.
+      -> Logging HornICE output to iter_4.log
+   -> HornICE completed successfully.
+   -> Analyzing HornICE log file: iter_4.log
+      -> Found 57 internal iterations.
+   -> Writing new specs to harness: Multimap1_fuzz.cpp...
+      -> Successfully created working copy '/Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multimap1/Multimap1_fuzz.cpp'.
+   -> Starting AFL++(Multimap1_fuzz) with a 80-second timeout...
+   -> Building AFL-instrumented binary: /Dualis/scripts/../benchmarks/ContextualLLMHornICE_working_temp/Multimap1/Multimap1_fuzz
+   -> AFL++(Multimap1_fuzz) finished its fuzzing session.
+   -> Checking fuzzing outputs for counterexamples...
+Checking crashes
+Checking queue
+   -> Found 31 crash reports. Testing reproducibility...
+Checking hangs
+   -> Converting counterexamples for 'Multimap1'...
+   -> Updating CHC file with new counterexamples...
+
+=============== Artifacts This Iteration ===============
+
+--- Generated Specs ---
+  emplace: (((countko1 - countko) <= 1) && ((countko1 - countko) > 0))
+  inv1: (((i - countko) <= 0) && ((countko - i) <= 0) && ((N - i) > (-1)))
+
+--- New Test Cases Found ---
+  (None)
+
+--- Updated CHCs (for next iteration) ---
+(declare-var N Int)
+(declare-var i Int)
+(declare-var i1 Int)
+(declare-var len Int)
+(declare-var len1 Int)
+(declare-var countko Int)
+(declare-var countko1 Int)
+(declare-var k Int)
+(declare-var v Int)
+(declare-rel emplace (Int Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int))
+(declare-rel fail ())
+
+
+(rule (=> (and (= k 1) (= v -68) (= countko 1) (= len 1) (= countko1 2) (= len1 2)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (= k 1) (= v 104) (= countko 0) (= len 0) (= countko1 1) (= len1 1)) (emplace k v countko len countko1 len1)))
+(rule (=> (and (> N 0) (= i 0) (= len 0) (= countko 0)) (inv1 i N countko len)))
+(rule (=> (and (inv1 i N countko len) (< i N) (= k 1) (emplace k v countko len countko1 len1) (= i1 (+ i 1))) (inv1 i1 N countko1 len1)))
+(rule (=> (and (inv1 i N countko len) (not (< i N)) (not (= countko N))) fail))
+
+(query fail :print-certificate true)
+==============================================================
+   -> Checking if specs have changed...
+      -> CHC files are identical. Pipeline has converged.
+   -> 15-minute deep fuzzing converged. Pipeline complete.
+
+==================== Finalizing Pipeline ====================
+
+====================== Pipeline Finished =====================
+Total External Iterations: 4
+Total Unique Test Cases Found: 2
+Total Internal Iterations: 196
+  - Min: 7
+  - Max: 75
+  - Avg: 49.00
+pipeline.run() took 0.0645 seconds.
+Running command: /usr/bin/python3 chcverifynfuzz.py ContextualLLMHornICE Multimap1
+PID: 5993
+========================================
+
+
+Total Pipeline Duration: 216.39s
