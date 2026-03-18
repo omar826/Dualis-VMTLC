@@ -5,13 +5,11 @@
 #include <algorithm>
 #include <climits>
 #include <cassert>
-#include <cstdint>  // Added for specific integer types
-#include <unistd.h>   // Added for ssize_t (matching previous example)
+#include <cstdint>
+#include <unistd.h>
 
 #define MIN -129
 #define MAX 128
-
-// --- Generated Macros from Harnesses ---
 
 #define DECLARE_PQ_INSERT_STATE_VARS()		\
   int nexttime;					\

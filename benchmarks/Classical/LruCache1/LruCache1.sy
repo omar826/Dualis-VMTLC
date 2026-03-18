@@ -1,8 +1,8 @@
 (set-logic LIA)
 
-(synth-fun insert_or_assign ((k Int) (v Int) (len Int) (lru Int) (size Int) (containslru Int) (len1 Int) (lru1 Int) (containslru1 Int) (ret1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) k v len lru size containslru len1 lru1 containslru1 ret1))))
-(synth-fun find ((k Int) (containsk Int) (lru1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) k containsk lru1))))
-(synth-fun inv1 ((i Int) (N Int) (len Int) (lru Int) (size Int) (containslru Int) (containsk Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) i N len lru size containslru containsk))))
+(synth-fun insert_or_assign ((k Int) (v Int) (len Int) (lru Int) (size Int) (containslru Int) (len1 Int) (lru1 Int) (containslru1 Int) (ret1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) k v len lru size containslru len1 lru1 containslru1 ret1))))
+(synth-fun find ((k Int) (containsk Int) (lru1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) k containsk lru1))))
+(synth-fun inv1 ((i Int) (N Int) (len Int) (lru Int) (size Int) (containslru Int) (containsk Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) i N len lru size containslru containsk))))
 
 (declare-var N Int)
 (declare-var size Int)
@@ -19,8 +19,11 @@
 (declare-var v Int)
 (declare-var ret1 Int)
 
-(constraint (=> (and (>= N 3) (= size N) (= len 0) (= i 0) (= containslru 0) (= containsk 0) (= lru 10)) (inv1 i N len lru size containslru containsk)))
-(constraint (=> (and (inv1 i N len lru size containslru containsk) (or (= containslru 1) (= containslru 0)) (< i N) (= k i) (= v i) (insert_or_assign k v len lru size containslru len1 lru1 containslru1 ret1) (= i1 (+ i 1))) (inv1 i1 N len1 lru1 size containslru1 containsk)))
-(constraint (=> (and (inv1 i N len lru size containslru containsk) (or (= containslru 1) (= containslru 0)) (or (= containsk 1) (= containsk 0)) (not (< i N)) (<= 0 k) (< k N) (find k containsk lru1)) (= lru1 k)))
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+
+(constraint (=> (and (>= N 3) (= size N) (= len 0) (= i 0) (= containslru 0) (= containsk 0) (= lru MAX)) (inv1 i N len lru size containslru containsk)))
+(constraint (=> (and (inv1 i N len lru size containslru containsk) (is_valid containslru) (< i N) (= k i) (= v i) (insert_or_assign k v len lru size containslru len1 lru1 containslru1 ret1) (= i1 (+ i 1))) (inv1 i1 N len1 lru1 size containslru1 containsk)))
+(constraint (=> (and (inv1 i N len lru size containslru containsk) (is_valid containslru) (is_valid containsk) (not (< i N)) (<= 0 k) (< k N) (find k containsk lru1)) (not (= lru1 (MAX)))))
 
 (check-synth)

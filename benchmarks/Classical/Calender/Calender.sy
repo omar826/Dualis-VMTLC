@@ -10,7 +10,9 @@
 (declare-var ev1 Int)
 (declare-var ev2 Int)
 
-(constraint (=> (and (= len 0) (= maxDiff -10)) (inv len maxDiff)))
+(define-fun MIN () Int -129)
+
+(constraint (=> (and (= len 0) (= maxDiff MIN)) (inv len maxDiff)))
 (constraint (=> (and (inv len maxDiff) (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (- ev1 ev2) 2)) (insert len ev1 ev2 maxDiff len1 maxDiff1)) (inv len1 maxDiff1)))
 (constraint (=> (and (inv len maxDiff) (not (and (>= ev1 0) (<= ev1 3) (>= ev2 0) (<= ev2 3) (< (- ev1 ev2) 2)))) (inv len maxDiff)))
 (constraint (=> (inv len maxDiff) (=> (> len 0) (< maxDiff 2))))

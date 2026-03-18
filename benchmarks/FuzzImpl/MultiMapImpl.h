@@ -1,19 +1,17 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <map>       // The header for std::multimap
-#include <utility>   // For std::pair
-#include <cstdint>   // Added for fuzzer types
-#include <unistd.h>    // Added for ssize_t
-#include <string>    // Added for std::string
-#include <algorithm> // Added for std::min/max
-#include <climits>   // Added for INT_MAX/MIN
+#include <map>
+#include <utility>
+#include <cstdint>
+#include <unistd.h>
+#include <string>
+#include <algorithm>
+#include <climits>
 #include <cassert>
 
 #define MIN -129
 #define MAX 128
-
-// --- Generated Macros from Harnesses ---
 
 #define DECLARE_MM_EMPLACE_STATE_VARS()		\
   int k, v, k_one = 1;				\
@@ -123,8 +121,6 @@
     target_var_name = read_int8(valptr_##target_var_name);		\
   } while(0)
 
-
-// --- Injected Fuzzer Utilities (Standardized) ---
 
 constexpr uint8_t CMD_EMPLACE = 0x01;
 

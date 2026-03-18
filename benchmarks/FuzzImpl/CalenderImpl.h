@@ -6,8 +6,8 @@
 #include <climits>
 #include <cassert>
 #include <unistd.h>
-#include <utility>   // Added for std::pair
-#include <cstdint>   // Added for fuzzer types
+#include <utility>
+#include <cstdint>
 #include <cassert>
 
 #define MIN 0
@@ -15,7 +15,6 @@
 
 using namespace std;
 
-// --- Generated Macros from Harnesses ---
 
 #define DECLARE_CAL_INSERT_STATE_VARS()		\
   int ev1, ev2;					\
@@ -60,14 +59,11 @@ using namespace std;
     target_var_name = read_int8(valptr_##target_var_name);		\
   } while(0)
 
-// Add this to your library file
 #define READ_UINT8_FROM_FUZZBUF(buffer_ptr, offset, target_var_name)  \
   do {                                                                \
     const uint8_t *valptr_##target_var_name = &(buffer_ptr)[offset];  \
     target_var_name = read_uint8(valptr_##target_var_name);           \
   } while(0)
-
-// --- Transformed Class Definition ---
 
 class Cal {
 private:
@@ -91,7 +87,7 @@ public:
     }else if(abs(evp.first - evp.second) >= md){
       md = abs(evp.first - evp.second);
     }
-    cal.push_back(evp); // Note: Implicit narrowing from pair<int,int> to pair<int,int>
+    cal.push_back(evp);
   }
 
   int len() const {

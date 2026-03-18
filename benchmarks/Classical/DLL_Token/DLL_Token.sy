@@ -10,8 +10,11 @@
 (declare-var min1 Int)
 (declare-var max Int)
 (declare-var max1 Int)
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
 
-(constraint (=> (and (= len 0) (= min 10) (= max -11)) (inv len min max)))
+
+(constraint (=> (and (= len 0) (= min MAX) (= max MIN)) (inv len min max)))
 (constraint (=> (and (inv len min max) (= val 0) (push val min len max min1 len1 max1)) (inv len1 min1 max1)))
 (constraint (=> (inv len min max) (or (= len 0) (and (= min 0) (= max 0)))))
 

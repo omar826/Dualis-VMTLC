@@ -1,7 +1,10 @@
 (set-logic LIA)
-(synth-fun insert ((v Int) (isPresent Int) (min Int) (max Int) (len Int) (isPresent1 Int) (min1 Int) (max1 Int) (len1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) v isPresent min max len isPresent1 min1 max1 len1))))
-(synth-fun remove ((k Int) (len Int) (len1 Int) (ret1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) k len len1 ret1))))
-(synth-fun inv1 ((i Int) (N Int) (isPresent Int) (min Int) (max Int) (len Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) i N isPresent min max len))))
+
+(synth-fun insert ((v Int) (isPresent Int) (min Int) (max Int) (len Int) (isPresent1 Int) (min1 Int) (max1 Int) (len1 Int)) Bool((Start Bool) (Expr Int))((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start)))(Expr Int (v isPresent min max len isPresent1 min1 max1 len1 (+ Expr Expr) (- Expr Expr)))))
+
+(synth-fun remove ((k Int) (min Int) (max Int) (len Int) (min1 Int) (max1 Int) (len1 Int) (ret1 Int)) Bool((Start Bool) (Expr Int))((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start)))(Expr Int (k min max len min1 max1 len1 ret1 (+ Expr Expr) (- Expr Expr)))))
+
+(synth-fun inv1 ((i Int) (N Int) (isPresent Int) (min Int) (max Int) (len Int)) Bool((Start Bool) (Expr Int))((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start)))(Expr Int (i N isPresent min max len (+ Expr Expr) (- Expr Expr)))))
 
 (declare-var N Int)
 (declare-var i Int)
@@ -18,8 +21,14 @@
 (declare-var k Int)
 (declare-var ret1 Int)
 
-(constraint (=> (and (> N 0) (= min 10) (= max -10) (= len 0) (= isPresent 0) (= i 0)) (inv1 i N isPresent min max len)))
-(constraint (=> (and (inv1 i N isPresent min max len) (or (= isPresent 1) (= isPresent 0)) (< i N) (= v 1) (insert v isPresent min max len isPresent1 min1 max1 len1) (= i1 (+ i 1))) (inv1 i1 N isPresent1 min1 max1 len1)))
-(constraint (=> (and (inv1 i N isPresent min max len) (or (= isPresent 1) (= isPresent 0)) (not (< i N)) (= k 1) (remove k len len1 ret1)) (= len1 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+
+(constraint (=> (and (> N 0) (= min MAX) (= max MIN) (= len 0) (= isPresent 0) (= i 0)) (inv1 i N isPresent min max len)))
+
+(constraint (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (< i N) (= v 1) (insert v isPresent min max len isPresent1 min1 max1 len1) (= i1 (+ i 1))) (inv1 i1 N isPresent1 min1 max1 len1)))
+
+(constraint (=> (and (inv1 i N isPresent min max len) (is_valid isPresent) (not (< i N)) (= k 1) (remove k min max len min1 max1 len1 ret1)) (= len1 0)))
 
 (check-synth)
