@@ -5,13 +5,11 @@
 #include <string>
 #include <algorithm>
 #include <unistd.h>
-#include <cstdint>   // Added for fuzzer types
-#include <climits>   // Added for C++ limits
+#include <cstdint>
+#include <climits>
 
 #define MIN -129
 #define MAX 128
-
-// --- Generated Macros from Harnesses ---
 
 #define DECLARE_STACK_PUSH_STATE_VARS()		\
   short N;					\
@@ -126,17 +124,17 @@ static uint32_t read_uint8(const uint8_t *b) {
 void init(Stack &st, std::vector<uint8_t>& buf, ssize_t initLen){
   for (ssize_t i = 0; i < initLen; i++) {
     uint8_t command = buf[i] % 3; // 0=default, 1=push, 2=pop
-    short v; // value for insertion
+    short v;
 
     switch (command) {
     case CMD_PUSH: {
-      if ((i+1+1) > initLen) { // Need 1 byte for parameter
+      if ((i+1+1) > initLen) {
 	i = initLen;
 	break;
       }
       READ_INT8_FROM_FUZZBUF(buf, i+1, v);
       st.push(v);
-      i += 1; // Consumed 1 param byte
+      i += 1;
       break;
     }
     case CMD_POP: {

@@ -1,8 +1,8 @@
 (set-logic LIA)
 
-(synth-fun append ((prio Int) (packetSize Int) (len Int) (minPrio Int) (maxPacketSize Int) (len1 Int) (minPrio1 Int) (maxPacketSize1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) prio packetSize len minPrio maxPacketSize len1 minPrio1 maxPacketSize1))))
-(synth-fun processQueue ((len Int) (minPrio Int) (maxPacketSize Int) (len1 Int) (minPrio1 Int) (maxPacketSize1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len minPrio maxPacketSize len1 minPrio1 maxPacketSize1))))
-(synth-fun inv ((len Int) (minPrio Int) (maxPacketSize Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len minPrio maxPacketSize))))
+(synth-fun append ((prio Int) (packetSize Int) (len Int) (minPrio Int) (maxPacketSize Int) (len1 Int) (minPrio1 Int) (maxPacketSize1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) prio packetSize len minPrio maxPacketSize len1 minPrio1 maxPacketSize1))))
+(synth-fun processQueue ((len Int) (minPrio Int) (maxPacketSize Int) (len1 Int) (minPrio1 Int) (maxPacketSize1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) len minPrio maxPacketSize len1 minPrio1 maxPacketSize1))))
+(synth-fun inv ((len Int) (minPrio Int) (maxPacketSize Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) len minPrio maxPacketSize))))
 
 (declare-var len Int)
 (declare-var len1 Int)
@@ -13,9 +13,9 @@
 (declare-var packetSize Int)
 (declare-var prio Int)
 
-(constraint (=> (and (= len 0) (= minPrio 2) (= maxPacketSize 0)) (inv len minPrio maxPacketSize)))
-(constraint (=> (and (inv len minPrio maxPacketSize) (and (= prio 1) (> packetSize 0) (< packetSize 500)) (append prio packetSize len minPrio maxPacketSize len1 minPrio1 maxPacketSize1)) (inv len1 minPrio1 maxPacketSize1)))
+(constraint (=> (and (= len 0) (= minPrio -1) (= maxPacketSize -1)) (inv len minPrio maxPacketSize)))
+(constraint (=> (and (inv len minPrio maxPacketSize) (= prio 1) (> packetSize 0) (< packetSize 500) (append prio packetSize len minPrio maxPacketSize len1 minPrio1 maxPacketSize1)) (inv len1 minPrio1 maxPacketSize1)))
 (constraint (=> (and (inv len minPrio maxPacketSize) (not (and (= prio 1) (> packetSize 0) (< packetSize 500)))) (inv len minPrio maxPacketSize)))
-(constraint (=> (and (inv len minPrio maxPacketSize) (processQueue len minPrio maxPacketSize len1 minPrio1 maxPacketSize1)) (=> (= len1 0) (and (= minPrio1 minPrio) (= maxPacketSize1 maxPacketSize)))))
+(constraint (=> (and (inv len minPrio maxPacketSize) (processQueue len minPrio maxPacketSize len1 minPrio1 maxPacketSize1)) (=> (= len1 0) (and (= minPrio1 -1) (= maxPacketSize1 -1)))))
 
 (check-synth)

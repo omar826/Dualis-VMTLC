@@ -2,16 +2,14 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include <algorithm> // For std::find, std::count
+#include <algorithm>
 #include <climits>
-#include <cstdint>   // Added for fuzzer types
-#include <unistd.h>    // Added for fuzzer types (ssize_t)
+#include <cstdint>
+#include <unistd.h>
 #include <cassert>
 
 #define MIN -129
 #define MAX 128
-
-// --- Generated Macros from Harness ---
 
 #define DECLARE_BWL_PUSH_STATE_VARS()		\
   int color;					\

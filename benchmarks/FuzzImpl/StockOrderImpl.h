@@ -1,21 +1,19 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <limits.h> // for INT_MAX
+#include <limits.h>
 #include <filesystem>
-#include <utility>   // Added for std::pair
-#include <cmath>     // Added for std::abs
-#include <cstdint>   // Added for fuzzer types
-#include <unistd.h>    // Added for ssize_t
-#include <string>    // Added for std::string
+#include <utility>
+#include <cmath>
+#include <cstdint>
+#include <unistd.h>
+#include <string>
 #include <cassert>
 
 using namespace std;
 
 #define MIN -129
 #define MAX 128
-
-// --- Generated Macros from Harnesses ---
 
 #define DECLARE_SO_ADDSTOCKORDER_STATE_VARS()	\
   int stock, order;				\

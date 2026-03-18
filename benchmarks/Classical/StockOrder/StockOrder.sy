@@ -1,7 +1,8 @@
 (set-logic LIA)
 
-(synth-fun addStockOrder ((stock Int) (order Int) (len Int) (minDiff Int) (len1 Int) (minDiff1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) stock order len minDiff len1 minDiff1))))
-(synth-fun inv ((len Int) (minDiff Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len minDiff))))
+(synth-fun addStockOrder ((stock Int) (order Int) (len Int) (minDiff Int) (len1 Int) (minDiff1 Int)) Bool((Start Bool) (Expr Int))((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start)))(Expr Int (stock order len minDiff len1 minDiff1 (+ Expr Expr) (- Expr Expr)))))
+
+(synth-fun inv ((len Int) (minDiff Int)) Bool((Start Bool) (Expr Int))((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start)))(Expr Int (len minDiff (+ Expr Expr) (- Expr Expr)))))
 
 (declare-var len Int)
 (declare-var len1 Int)
@@ -10,9 +11,15 @@
 (declare-var stock Int)
 (declare-var order Int)
 
-(constraint (=> (and (= len 0) (= minDiff 11)) (inv len minDiff)))
-(constraint (=> (and (inv len minDiff) (and (>= stock 0) (>= order 0) (<= order stock)) (addStockOrder stock order len minDiff len1 minDiff1)) (inv len1 minDiff1)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(constraint (=> (and (= len 0) (= minDiff MAX)) (inv len minDiff)))
+
+(constraint (=> (and (inv len minDiff) (>= stock 0) (>= order 0) (<= order stock) (addStockOrder stock order len minDiff len1 minDiff1)) (inv len1 minDiff1)))
+
 (constraint (=> (and (inv len minDiff) (not (and (>= stock 0) (>= order 0) (<= order stock)))) (inv len minDiff)))
+
 (constraint (=> (inv len minDiff) (=> (>= len 0) (>= minDiff 0))))
 
 (check-synth)

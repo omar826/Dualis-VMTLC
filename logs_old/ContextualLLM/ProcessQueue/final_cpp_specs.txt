@@ -1,7 +1,0 @@
-insert
-(placeholder for declaration)
-((len1 == len + 1) && (min_ttw1 == (len == 0 ? nexttime : (min_ttw < nexttime ? min_ttw : nexttime))))
-
-choosenext
-(placeholder for declaration)
-((len1 == len - 1) && (len1 == 0 ? min_ttw1 == 128 : min_ttw1 >= min_ttw))

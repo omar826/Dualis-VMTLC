@@ -14,7 +14,10 @@
 (declare-var v Int)
 (declare-var ret1 Int)
 
-(constraint (=> (and (= isEmpty 1) (= min 10)) (inv min isEmpty)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(constraint (=> (and (= isEmpty 1) (= min MAX)) (inv min isEmpty)))
 
 (constraint (=> (and (inv min isEmpty) (>= n 0) (insert n min min1 isEmpty isEmpty1))(inv min1 isEmpty1)))
 

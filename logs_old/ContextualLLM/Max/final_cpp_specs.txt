@@ -1,3 +1,0 @@
-append
-(placeholder for declaration)
-lmax1 == (v > lmax ? v : lmax)

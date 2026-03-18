@@ -1,7 +1,0 @@
-insert
-(placeholder for declaration)
-((len1 == len + 1) && (max1 == (i_loop > max ? i_loop : max)) && (min1 == (i_loop < min ? i_loop : min)) && (noDup1 == noDup))
-
-search
-(placeholder for declaration)
-(ret1 == ((data >= min && data <= max) ? 1 : 0))

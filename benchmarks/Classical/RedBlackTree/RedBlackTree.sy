@@ -1,8 +1,8 @@
 (set-logic LIA)
 
-(synth-fun insert ((i Int) (max Int) (max1 Int) (min Int) (min1 Int) (len Int) (len1 Int) (noDup Int) (noDup1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) i max max1 min min1 len len1 noDup noDup1))))
-(synth-fun search ((data Int) (max Int) (min Int) (len Int) (noDup Int) (ret1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) data max min len noDup ret1))))
-(synth-fun inv ((i Int) (max Int) (min Int) (len Int) (noDup Int) (N Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) i max min len noDup N))))
+(synth-fun insert ((i Int) (max Int) (max1 Int) (min Int) (min1 Int) (len Int) (len1 Int) (noDup Int) (noDup1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) i max max1 min min1 len len1 noDup noDup1))))
+(synth-fun search ((data Int) (max Int) (min Int) (len Int) (noDup Int) (ret1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) data max min len noDup ret1))))
+(synth-fun inv ((i Int) (max Int) (min Int) (len Int) (noDup Int) (N Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) i max min len noDup N))))
 
 (declare-var i Int)
 (declare-var i1 Int)
@@ -18,7 +18,12 @@
 (declare-var data Int)
 (declare-var ret1 Int)
 
-(constraint (=> (and (> N 0) (= i1 0) (= max1 -11) (= min1 10) (= noDup1 1)) (inv i1 max1 min1 len1 noDup1 N)))
-(constraint (=> (and (inv i max min len noDup N) (or (= noDup 1) (= noDup 0)) (< i N) (insert i max max1 min min1 len len1 noDup noDup1) (= i1 (+ i 1))) (inv i1 max1 min1 len1 noDup1 N)))
-(constraint (=> (and (inv i max min len noDup N) (or (= noDup 1) (= noDup 0)) (>= i N) (>= data 0) (< data N) (search data max min len noDup ret1)) (not (= ret1 0))))
+(define-fun is_valid ((x Int)) Bool (or (= x 1) (= x 0)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(constraint (=> (and (> N 0) (= i1 0) (= max1 MIN) (= min1 MAX) (= noDup1 1)) (inv i1 max1 min1 len1 noDup1 N)))
+(constraint (=> (and (inv i max min len noDup N) (is_valid noDup) (< i N) (insert i max max1 min min1 len len1 noDup noDup1) (= i1 (+ i 1))) (inv i1 max1 min1 len1 noDup1 N)))
+(constraint (=> (and (inv i max min len noDup N) (is_valid noDup) (>= i N) (>= data 0) (< data N) (search data max min len noDup ret1)) (not (= ret1 0))))
+
 (check-synth)

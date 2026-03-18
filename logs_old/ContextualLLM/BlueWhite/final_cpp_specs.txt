@@ -1,7 +1,0 @@
-push
-(placeholder for declaration)
-bcount1 == (color == 0 ? bcount + 1 : bcount)
-
-push1
-(placeholder for declaration)
-bcount1 == bcount

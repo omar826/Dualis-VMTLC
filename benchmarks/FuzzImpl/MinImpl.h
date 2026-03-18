@@ -1,20 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <climits> // for INT_MAX (C++ header)
+#include <climits>
 #include <filesystem>
 #include <algorithm>
 #include <cassert>
 #include <unistd.h>
-#include <cstdint>   // Added for fuzzer types
-#include <string>    // Added for std::string
+#include <cstdint>
+#include <string>
 
 #define MIN -129
 #define MAX 128
 
 using namespace std;
-
-// --- Generated Macros from Harnesses ---
 
 #define DECLARE_MIN_APPEND_STATE_VARS()		\
   short v;					\
@@ -52,14 +50,13 @@ using namespace std;
   } while(0)
 
 
-// --- Transformed Class Definition ---
 
 class Min {
 private:
-  vector<short> ml;  // Vector to hold the queue elements
+  vector<short> ml; 
 
 public:
-  Min() = default; // Added default constructor
+  Min() = default;
 
   Min(vector<short> elements) {
     for (auto e : elements) {
@@ -77,15 +74,12 @@ public:
 
   int minElem()  {
     if (ml.empty()) {
-      // cerr << "list is empty!" << endl; // Silenced for fuzzing
       return MAX;
     }
     auto result = *min_element(ml.cbegin(), ml.cend());
     return result;
   }
 };
-
-// --- Injected Fuzzer Utilities (Standardized) ---
 
 constexpr uint8_t CMD_APPEND = 0x01;
 

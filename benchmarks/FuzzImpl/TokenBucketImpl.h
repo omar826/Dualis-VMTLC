@@ -1,11 +1,11 @@
 #include <iostream>
 #include <fstream>
-#include <algorithm> // For std::min
+#include <algorithm>
 #include <vector>
 #include <filesystem>
-#include <cstdint>   // Added for fuzzer types
-#include <unistd.h>    // Added for ssize_t
-#include <string>    // Added for std::string
+#include <cstdint>
+#include <unistd.h>
+#include <string>
 #include <cassert>
 
 using namespace std;

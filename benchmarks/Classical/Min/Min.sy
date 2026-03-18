@@ -1,14 +1,16 @@
 (set-logic LIA)
 
-(synth-fun append ((v Int) (lmin Int) (lmin1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((and Start Start) (or Start Start) (not Start) (= Expr Expr) (<= Expr Expr) (>= Expr Expr))) (Expr Int (v lmin lmin1 0 1 (+ Expr Expr) (- Expr Expr)))))
-(synth-fun inv ((lmin Int) (gmin Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((and Start Start) (or Start Start) (not Start) (= Expr Expr) (<= Expr Expr) (>= Expr Expr))) (Expr Int (lmin gmin 0 1 (+ Expr Expr) (- Expr Expr)))))
+(synth-fun append ((v Int) (lmin Int) (lmin1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((and Start Start) (or Start Start) (not Start) (= Expr Expr) (<= Expr Expr) (>= Expr Expr))) (Expr Int (v lmin lmin1 (+ Expr Expr) (- Expr Expr)))))
+(synth-fun inv ((lmin Int) (gmin Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((and Start Start) (or Start Start) (not Start) (= Expr Expr) (<= Expr Expr) (>= Expr Expr))) (Expr Int (lmin gmin (+ Expr Expr) (- Expr Expr)))))
 
 (declare-var lmin Int)
 (declare-var lmin1 Int)
 (declare-var gmin Int)
 (declare-var v Int)
 
-(constraint (=> (and (= lmin 11) (= gmin 11)) (inv lmin gmin)))
+(define-fun MAX () Int 128)
+
+(constraint (=> (and (= lmin MAX) (= gmin MAX)) (inv lmin gmin)))
 (constraint (=> (and (inv lmin gmin) (append v lmin lmin1) (> gmin v)) (inv lmin1 v)))
 (constraint (=> (and (inv lmin gmin) (append v lmin lmin1) (not (> gmin v))) (inv lmin1 gmin)))
 (constraint (=> (inv lmin gmin) (= gmin lmin)))

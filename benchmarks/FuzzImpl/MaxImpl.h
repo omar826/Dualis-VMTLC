@@ -1,12 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <climits> // for INT_MAX (C++ header)
+#include <climits>
 #include <filesystem>
 #include <algorithm>
-#include <cstdint>   // Added for fuzzer types
-#include <unistd.h>    // Added for ssize_t
-#include <string>    // Added for std::string
+#include <cstdint>
+#include <unistd.h>
+#include <string>
 #include <cassert>
 
 #define MIN -129

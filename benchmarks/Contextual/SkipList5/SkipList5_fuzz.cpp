@@ -3,8 +3,8 @@
 #include <fstream>
 #include <iostream>
 #include <cassert>
-#include <cstdint> // For uint8_t
-#include <unistd.h>  // For read
+#include <cstdint>
+#include <unistd.h>
 
 int main(int argc, char *argv[]) {
   bool fuzzer_mode = getenv("FUZZING") != nullptr;
@@ -30,7 +30,6 @@ int main(int argc, char *argv[]) {
     uint8_t N_raw;
     READ_UINT8_FROM_FUZZBUF(fuzzBuf, fuzzLen - 1, N_raw);
     
-    // Apply your fix: Cap N at 127
     uint8_t N = N_raw % 128;
     
     if (N <= 0){

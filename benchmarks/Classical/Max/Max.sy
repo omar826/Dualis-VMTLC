@@ -1,14 +1,16 @@
 (set-logic LIA)
 
-(synth-fun append ((v Int) (lmax Int) (lmax1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((and Start Start) (or Start Start) (not Start) (= Expr Expr) (<= Expr Expr) (>= Expr Expr))) (Expr Int (v lmax lmax1 0 1 (+ Expr Expr) (- Expr Expr)))))
-(synth-fun inv ((lmax Int) (gmax Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((and Start Start) (or Start Start) (not Start) (= Expr Expr) (<= Expr Expr) (>= Expr Expr))) (Expr Int (lmax gmax 0 1 (+ Expr Expr) (- Expr Expr)))))
+(synth-fun append ((v Int) (lmax Int) (lmax1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((and Start Start) (or Start Start) (not Start) (= Expr Expr) (<= Expr Expr) (>= Expr Expr))) (Expr Int (v lmax lmax1 (+ Expr Expr) (- Expr Expr)))))
+(synth-fun inv ((lmax Int) (gmax Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((and Start Start) (or Start Start) (not Start) (= Expr Expr) (<= Expr Expr) (>= Expr Expr))) (Expr Int (lmax gmax (+ Expr Expr) (- Expr Expr)))))
 
 (declare-var lmax Int)
 (declare-var lmax1 Int)
 (declare-var gmax Int)
 (declare-var v Int)
 
-(constraint (=> (and (= lmax -11) (= gmax -11)) (inv lmax gmax)))
+(define-fun MIN () Int -129)
+
+(constraint (=> (and (= lmax MIN) (= gmax MIN)) (inv lmax gmax)))
 (constraint (=> (and (inv lmax gmax) (append v lmax lmax1) (< gmax v)) (inv lmax1 v)))
 (constraint (=> (and (inv lmax gmax) (append v lmax lmax1) (not (< gmax v))) (inv lmax1 gmax)))
 (constraint (=> (inv lmax gmax) (= gmax lmax)))

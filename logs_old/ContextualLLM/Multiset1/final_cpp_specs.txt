@@ -1,3 +1,0 @@
-emplace
-(placeholder for declaration)
-(countv1 == countv + 1 && len1 == len + 1)

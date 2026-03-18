@@ -17,10 +17,13 @@
 (declare-var max Int)
 (declare-var max1 Int)
 
-(constraint (=> (and (> N 0) (= k1 0) (= len1 0)) (inv1 k1 N len1)))
-(constraint (=> (and (inv1 k N len) (< k N) (insertHead k len len1) (= k1 (+ k 1))) (inv1 k1 N len1)))
-(constraint (=> (and (inv1 k N len) (not (< k N)) (= items_processed 0) (= ret1 10) (= max1 -10)) (inv2 len items_processed max1 ret1)))
-(constraint (=> (and (inv2 len items_processed max ret) (not (= len 0)) (popHead len len1 max1 ret1) (= items_processed1 (+ items_processed 1))) (inv2 len1 items_processed1 max1 ret1)))
-(constraint (=> (and (inv2 len items_processed max ret) (= len 0)) (= ret max)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(constraint (=> (and (> N 0) (= k 0) (= len 0) (= min MAX) (= max MIN)) (inv1 k N min max len1)))
+(constraint (=> (and (inv1 k N min max len) (< k N) (insertHead k min max len min1 max1 len1) (= k1 (+ k 1))) (inv1 k1 N min1 max1 len1)))
+(constraint (=> (and (inv1 k N min max len) (not (< k N)) (= items_processed 0) (= ret1 MAX)) (inv2 min max len items_processed ret1)))
+(constraint (=> (and (inv2 min max len items_processed ret) (not (= len 0)) (popHead min max len min1 max1 len1 ret1) (= items_processed1 (+ items_processed 1))) (inv2 min1 max1 len1 items_processed1 ret1)))
+(constraint (=> (and (inv2 min max len items_processed ret) (= len 0) (= ret 0))))
 
 (check-synth)

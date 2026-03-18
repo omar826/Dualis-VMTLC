@@ -1,19 +1,22 @@
 (set-logic LIA)
 
-(synth-fun insert ((nexttime Int) (len Int) (len1 Int) (min_ttw Int) (min_ttw1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) nexttime len len1 min_ttw min_ttw1))))
-(synth-fun choosenext ((len Int) (len1 Int) (min_ttw Int) (min_ttw1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) len len1 min_ttw min_ttw1))))
-(synth-fun inv ((nexttime Int) (len Int) (min_ttw Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr)(>= Expr Expr)(= Expr Expr)(and Start Start)(or Start Start)(not Start)))(Expr Int ((+ Expr Expr)(- Expr Expr) nexttime len min_ttw))))
+(synth-fun insert ((nexttime Int) (len Int) (len1 Int) (min_ttw Int) (min_ttw1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) nexttime len len1 min_ttw min_ttw1))))
+(synth-fun choosenext ((len Int) (len1 Int) (min_ttw Int) (min_ttw1 Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) len len1 min_ttw min_ttw1))))
+(synth-fun inv ((nexttime Int) (len Int) (min_ttw Int)) Bool ((Start Bool) (Expr Int)) ((Start Bool ((<= Expr Expr) (>= Expr Expr) (= Expr Expr) (and Start Start) (or Start Start) (not Start))) (Expr Int ((+ Expr Expr) (- Expr Expr) nexttime len min_ttw))))
 
 (declare-var nexttime Int)
-(declare-var len Int)
-(declare-var min_ttw Int)
 (declare-var nexttime1 Int)
+(declare-var len Int)
 (declare-var len1 Int)
+(declare-var min_ttw Int)
 (declare-var min_ttw1 Int)
 
-(constraint (=> (and (= len1 0) (= nexttime1 1) (= min_ttw1 10)) (inv nexttime1 len1 min_ttw1)))
+(define-fun MAX () Int 128)
+(define-fun MIN () Int -129)
+
+(constraint (=> (and (= len1 0) (= nexttime1 1) (= min_ttw1 MAX)) (inv nexttime1 len1 min_ttw1)))
 (constraint (=> (and (inv nexttime len min_ttw) (insert nexttime len len1 min_ttw min_ttw1) (= nexttime1 (+ nexttime 1))) (inv nexttime1 len1 min_ttw1)))
-(constraint (=> (and (inv nexttime len min_ttw) (and (> nexttime 1) (choosenext len len1 min_ttw min_ttw1) (= nexttime1 (- nexttime 1)))) (inv nexttime1 len1 min_ttw1)))
+(constraint (=> (and (inv nexttime len min_ttw) (> nexttime 1) (choosenext len len1 min_ttw min_ttw1) (= nexttime1 (- nexttime 1))) (inv nexttime1 len1 min_ttw1)))
 (constraint (=> (and (inv nexttime len min_ttw) (<= nexttime 1)) (inv nexttime len min_ttw)))
 (constraint (=> (inv nexttime len min_ttw) (=> (> len 0) (>= min_ttw 1))))
 
