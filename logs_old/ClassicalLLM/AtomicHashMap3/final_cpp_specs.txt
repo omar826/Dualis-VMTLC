@@ -1,3 +1,0 @@
-insert
-(placeholder for declaration)
-(len1 == ((0 <= k && k < len) ? len : len + 1) && min1 == ((0 <= k && k < len) ? min : (k < min ? k : min)) && max1 == ((0 <= k && k < len) ? max : (k > max ? k : max)) && kveq1 == ((0 <= k && k < len) ? kveq : ((kveq == 1 && k == v) ? 1 : 0)))

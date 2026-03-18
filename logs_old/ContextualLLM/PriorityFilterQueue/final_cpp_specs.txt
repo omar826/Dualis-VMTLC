@@ -1,7 +1,0 @@
-append
-(placeholder for declaration)
-((len1 == len + 1) && (minPrio1 == 1) && (len == 0 ? (maxPacketSize1 == packetSize) : (maxPacketSize1 == (packetSize > maxPacketSize ? packetSize : maxPacketSize))))
-
-processQueue
-(placeholder for declaration)
-(len1 == 0 && minPrio1 == -1 && maxPacketSize1 == -1)

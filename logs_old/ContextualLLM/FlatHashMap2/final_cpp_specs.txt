@@ -1,7 +1,0 @@
-insert
-(placeholder for declaration)
-(len1 == len + 1 && containsk1 == 1)
-
-remove_none
-(placeholder for declaration)
-(len1 == len && remove_count1 == remove_count)

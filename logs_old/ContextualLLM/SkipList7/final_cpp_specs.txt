@@ -1,7 +1,0 @@
-insert
-(placeholder for declaration)
-(min1 == (v < min ? v : min) && max1 == (v > max ? v : max))
-
-lower_bound
-(placeholder for declaration)
-lb_ret1 == k

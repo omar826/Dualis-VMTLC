@@ -1,7 +1,0 @@
-insert
-(placeholder for declaration)
-((len1 == len + 1) && (isPresent1 == 1) && (min1 == (i < min ? i : min)) && (max1 == (i > max ? i : max)))
-
-remove
-(placeholder for declaration)
-(len1 == len - 1)
