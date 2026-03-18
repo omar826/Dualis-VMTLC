@@ -206,7 +206,7 @@ __Note : These steps take approximately 8-10 hrs to complete.__
 and run the bash script
 
 ```
-./full_evaluation.sh #processors (default is 20)
+./fullevaluation.sh #processors (default is 20)
 ```
 
 __Note : Evaluation is carried by running learners on 20 benchmarks in
