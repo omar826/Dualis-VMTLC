@@ -1,4 +1,4 @@
-def generateTokens(b_size, avai_tokens): 
+def generateTokens(b_size, avai_tokens1): 
 
 def consume(c_rate, avai_tokens, avai_tokens1): 
 
