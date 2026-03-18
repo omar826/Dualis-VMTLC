@@ -304,6 +304,17 @@ search
 ((!(isEmpty == 1) || (ret1 == 0)) && (!((isEmpty == 0) && (ret1 == 1)) || (v >= min)))
 ```
 
+#### LLM Prompt Templates
+
+The prompt templates used for synthesizing contextual and modular
+specifications are given in ```/Dualis/script/templates```.
+
+1. ```template_contextual.txt``` is used for
+   ```ContextualLLMPipeline``` and
+
+2.```Template.txt``` is used for ```ClassicalLLMPipeline```.
+
+
 ### HornICELLM
 To run specific benchmarks of your interest for modular (classical)
 specifications, run the following command.
@@ -351,6 +362,19 @@ for the following files for BinaryTree.
 External (E) iterations capture the interaction of tester, learner
 while Internal (I) iterations capture the interaction between learner
 and verifier.
+
+#### LLM Prompt Templates
+
+The prompt templates used for building initial set of expressions over
+which contextual and modular specifications are synthesized are given
+in ```/Dualis/script/templates```.
+
+1. ```template_express_contextual.txt``` is used for
+   ```ContextualLLMHornicePipeline``` and
+
+2.```Template_expression.txt``` is used for
+```ClassicalLLMHornICEPipeline```.
+
 
 ### HornICE
 
