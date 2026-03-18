@@ -136,7 +136,7 @@ and were also passed _correct_ by the tester.
 To reproduce the results from the paper, execute the
 ```fullevaluation.sh`` script. This step generates VMTLC proofs 43
 benchmarks using prviously mentioned learners and takes approximately
-__8-10 hours__.
+__10-12 hours__.
 
 ### Benchmarks & Parallel Execution
 
@@ -272,7 +272,7 @@ sections.
 ### Learner:LLM
 
 To run specific benchmarks of interest for modular (classical)
-specifications, execute:
+specifications, execute (Pass the exact names of the benchmarks you want to test as space-separated arguments):
 
 ```
 python3 classicalllmpipeline.py BinaryTree Stack
