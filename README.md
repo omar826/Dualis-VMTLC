@@ -19,9 +19,8 @@
 ## Getting Started Guide
 
 This guide walks you through setting up the Docker environment and
-performing a basic "kick-the-tyres" test to verify the artifact
-functions correctly. This initial phase is designed to take approx.
-30 minutes to complete.
+performing a basic "kick-the-tyre" test to verify that the artifact
+functions correctly. This phase takes approximately 30 minutes.
 
 ### Prerequisites
 * **Docker:** Ensure Docker is installed and running on your host
@@ -29,8 +28,8 @@ functions correctly. This initial phase is designed to take approx.
 * **OS Compatibility:** Compatible with Linux.
 
 ### Environment Setup
-Navigate to the directory (Dualis) of the artifact (where the `Dockerfile`
-is located) and build the image:
+Navigate to the artifact root directory (```/Dualis``), where the
+`Dockerfile` is located. Then build the image:
 
 ```bash
 docker image build \
@@ -38,7 +37,7 @@ docker image build \
   --build-arg GROUP_ID=$(id -g) \
   -t dualis:latest .
 ```
-and run the image :
+and run the container :
 
 ```bash
 docker run -u $(id -u):$(id -g) -it --rm \
@@ -52,15 +51,14 @@ docker run -u $(id -u):$(id -g) -it --rm \
 Before running the evaluation pipeline with the LLM learner, you must
 provide a Gemini API key.
 
-Get in to ``/Dualis/scripts`` directory (ignore if already) using
+Navigate to the ``/Dualis/scripts`` directory (skip if already there):
 
 ```
 cd /Dualis/scripts
 ```
 
 
-You are required to enter the API_KEY that will be used by LLM
-(Gemini) in the .env file. Replace the string
+Add your GEMINI API_KEY to the .env file by replacing the string
 "alphanumeric-string-here" with the actual key.
 
 ```
@@ -72,8 +70,8 @@ chairs.**
 
 ### Running Basic Tests (kick the tyres)
 
-In this phase we run all the three learners, **LLM**, **HornICELLM**
-and, **HornICE** on **BinaryTree** benchmark.
+In this phase all three learners, **LLM**, **HornICELLM** and,
+**HornICE** on **BinaryTree** are executed on the benchmarks.
 
 Before we proceed to execute the proof pipeline, following are the
 details on the benchmark:
@@ -81,8 +79,8 @@ details on the benchmark:
 #### BinaryTree
 
 The client uses an implementation of **BinaryTree** (library). It
-executes a loop for `N` iterations (where `N` is chosen
-nondeterministically), in which it inserts a value `n` (also chosen
+executes a loop for `N` iterations, where `N` is chosen
+nondeterministically, in which it inserts a value `n` (also chosen
 nondeterministically) only if it is non-negative (`n >= 0`). After the
 loop, it searches for a value `v` (chosen nondeterministically) and
 asserts that the returned value `ret` is always `false`. The abstract
@@ -106,15 +104,16 @@ assert (ret == false);
 
 #### Synthesizing VMTLC proofs
 
-Run the command
+Run the following command
 ```
 bash ./kickthetyres.sh
 ```
-in the ``Dualis/scripts
-directory`` to synthesize the specifications (Modular and Contextual)
-with LLM, HornICELLM and HornICE as the learners for BinaryTree.
 
-The output of the run is present in ``evaluation_summary.txt``.
+in the ``Dualis/scripts``` directory to synthesize the specifications
+(Modular and Contextual) with LLM, HornICELLM and HornICE as the
+learners for BinaryTree.
+
+The output of the run is located in ``evaluation_summary.txt``.
 
 Run
 ```
@@ -124,7 +123,7 @@ cat /Dualis/scripts/evaluation_summary.txt
 to view the status of the run and the final specifications for
 functions and loop invariants.
 
-## Step-by-Step instructions for full evaluations
+## Full Evaluation
 
 To reproduce the results from the paper, execute the full evaluation
 script. This process covers 43 benchmarks and takes approximately __7-8
@@ -148,7 +147,7 @@ Here are the list of benchmarks
         "SkipList7", "Stack", "StockOrder", "TokenBucket1", "TokenBucket2", "TokenBucket3"
 ```
 
-Benchmarks are present in ```/Dualis/benchmarks``` under
+Benchmarks are located in ```/Dualis/benchmarks``` under
 ```Contextual``` and ```Classical``` directories.
 
 Under these directories, each benchmark has a sub-directory. For
@@ -177,31 +176,30 @@ BinaryTree_sea.cpp
 
 along with other files.
 
-We run the evaluation over the benchmarks for each pipeline that did
-not timeout as per Table1 in the paper.
+We have configured the evaluation for all the pipelines to run on the
+benchmarks that did not timeout as per Table1 in the paper.
 
-With LLM as the learner we run each benchmark for each pipeline
-(classical and contextual) sequentially, while for HornICE and
-HornICELLM we run for several applications in parallel (configured to
-run 20 applications in parallel).
+With LLM as the learner each benchmark for each pipeline (classical
+and contextual) is executed sequentially, while for HornICE and
+HornICELLM several applications are executed in parallel (configured to run 20
+applications in parallel).
 
-### Running Full Evaluation Script
+### Running the Full Evaluation Script
 
 In this section,
 
-1. We try to reproduce Table 1 in the paper by 
+1. This step reproduces Table 1 in the paper by:
 
-	[-] Running all the learners, HornICE, HornICELLM and LLM for
+	[-] Running all learners, HornICE, HornICELLM and LLM for
     contextual and modular (classical) pipelines on benchmarks that did
     not __timeout__.
 2. Also the numbers used in RQs to present our case.
    
-   [-] Comparing with CVC5 as a learner.
+   [-] Comparing with CVC5.
    
-   [-] Comparing with SeaHorn as automated verifier of library +
-   client.
+   [-] Comparing with SeaHorn.
    
-__Note : These steps take approximately 7-8 hrs to complete.__
+__Note : These steps take approximately 8-10 hrs to complete.__
 
 ### Running full evaluation script
 
@@ -211,12 +209,11 @@ and run the bash script
 ./full_evaluation.sh #processors (default is 20)
 ```
 
-__Note : We are running learners for 20 benchmarks at once. Please
-make sure to give similar/more resources (processors) to get results
-in time. These resources will be used by HornICE and HornICELLM
-learners__
+__Note : Evaluation is carried by running learners on 20 benchmarks in
+parallel. Ensure that sufficient CPU resources (≈20 cores) are
+available to obtain results within the expected time.__
 
-After 7-8 hrs you will see that the evaluation has ended.
+After 8-10 hrs you will see that the evaluation has ended.
 
 After the evaluation run,
 
@@ -224,26 +221,27 @@ After the evaluation run,
 cat evaluation_summary.txt
 ```
 
-To get an overview of the evaluation for all the learners across all
-the benchmarks. The evaluate_summary.txt file will contain results
-from table 1 in the paper.
+This provides an overview of all the learners across all the
+benchmarks. The evaluate_summary.txt file will contain results from
+table 1 in the paper.
 
 During the evaluation for each pipeline, the intermediate temporary
-files are present in ```pipeline_working_temp```. For example, one
+files are located in ```pipeline_working_temp```. For example, one
 such folder can be ```ContextualHornICE_working_temp```. These
-benchmark specific directory in each pipeline working temp folder will
+benchmark-specific directories in each pipeline working temp folder will
 have fuzzer results, seeds, executables of fuzzer harness and
 generated specs when learning is in progress and when it ends. These
 directories are deleted before every full evaluation.
 
-Also you can view the status of the run by spawing another terminal in docker like,
+Also you can view the status of the run by spawning another terminal
+in docker like,
 
 ```
 docker exec -it Dualis /bin/bash
 ```
 and checking the ```evaluation_summary.txt```.
 
-To add more **visibility** to the results we have accumulated, we give
+To add more **visibility** to the results we have accumulated, we provide
  the following set of useful commands for each learner. You could run
  them to get results as explained below.
 
@@ -261,12 +259,12 @@ Similarly for contextual specifications, run the following command.
 python3 contextualllmpipeline.py BinaryTree Stack
 ```
 
-Results of both the commands will be on the standard output (STDOUT).
+Results are printed to standard output (STDOUT).
 
-Since the LLM behavior may vary across multiple runs, we show that the
-results that we manually vetted (previously) for LLM during our runs
-are __equivalent__ to the ones produced in this run. To see that run
-the following script (in ```/Dualis/scripts``` folder)
+Since LLM outputs may vary across runs, we verify that the generated
+specifications are equivalent to previously vetted ones. To check the
+equivalence execute the following script (in ```/Dualis/scripts```
+folder)
 
 ```
 python check_implications.py
@@ -279,7 +277,7 @@ cat /Dualis/scripts/implication_report.txt
 to see the contents.
 
 #### Log Contents
-The logs for run using LLM are present in 
+The logs for this run are located in 
 
 ```/Dualis/logs/ClassicalLLMPipeline_logs``` for modular (classical) and,
 
@@ -329,7 +327,7 @@ Similarly for contextual specifications, run the following command.
 python3 run_all.py -m ContextualLLMHornICE -b Stack BinaryTree -p 2
 ```
 
-Results of both the commands will in
+Results will be available in
 ```/Dualis/logs/ClassicalLLMHornICEPipeline_Logs``` and
 ```/Dualis/logs/ContextualLLMHornICEPipeline_Logs``` respectively.
 
@@ -346,11 +344,11 @@ Following are all possible modes,
 ```
 
 #### Log Contents
-The logs for run using LLM are present in 
+The logs for this run are located in 
 
-```/Dualis/logs/ClassicalHornICEPipeline_logs``` for modular (classical) and,
+```/Dualis/logs/ClassicalLLMHornICEPipeline_logs``` for modular (classical) and,
 
-```/Dualis/logs/ContextualHornICEPipeline_logs``` for contextual.
+```/Dualis/logs/ContextualLLMHornICEPipeline_logs``` for contextual.
 
 Under those pipeline log folder for an application of interest look
 for the following files for BinaryTree.
@@ -383,17 +381,17 @@ To run specific benchmarks of your interest for modular (classical)
 specifications, run the following command.
 
 ```
-python3 run_all.py -m ClassicalLLMHornICE -b Stack BinaryTree -p 2
+python3 run_all.py -m ClassicalHornICE -b Stack BinaryTree -p 2
 ```
 
 Similarly for contextual specifications, run the following command.
 ```
-python3 run_all.py -m ContextualLLMHornICE -b Stack BinaryTree -p 2
+python3 run_all.py -m ContextualMHornICE -b Stack BinaryTree -p 2
 ```
 
-Results of both the commands will in
-```/Dualis/logs/ClassicalLLMHornICEPipeline_Logs``` and
-```/Dualis/logs/ContextualLLMHornICEPipeline_Logs``` respectively.
+Results will be available in
+```/Dualis/logs/ClassicalHornICEPipeline_Logs``` and
+```/Dualis/logs/ContextualHornICEPipeline_Logs``` respectively.
 
 Following are all possible modes,
 
@@ -408,7 +406,7 @@ Following are all possible modes,
 ```
 
 #### Log Contents
-The logs for run using LLM are present in 
+The logs for this run are located in 
 
 ```/Dualis/logs/ClassicalHornICEPipeline_logs``` for modular (classical) and,
 
@@ -459,7 +457,7 @@ afl-fuzz -i afl_in -o afl_out -t 2000 -p exploit ./BinaryTree_fuzz cex.txt
 ```
 
 While the fuzzer is running, you will see the standard AFL++ status
-screen. Pay attention to the "saved crashes" metric in the top right.
+screen. Monitor the "saved crashes" metric in the top right.
 
 Once you terminate the fuzzer, you can manually inspect any
 counterexamples (crashes) it found by navigating to the output
@@ -471,7 +469,7 @@ ls -l afl_out/default/crashes/
 
 ### Old Logs (Precomputed Results)
 
-If you wish to compare your fresh runs against our original results,
+To compare your fresh runs against our original results,
 you can review the pre-computed logs. 
 
 These are located in:
@@ -500,7 +498,7 @@ Vetted_Specs - log contains vetted specs due LLM
 
 ### Comparing with CVC5 and SeaHorn
 
-In this section we evaluate the benchmarks to determine whether,
+In this section we evaluate the benchmarks to evaluate whether,
 
 1. CVC5 can successfully synthesize specs and produce a VMTLC proof.
 2. SeaHorn can successfully prove client+library for the assertion.
@@ -525,7 +523,8 @@ For CVC5: Open cvc5_summary.txt to see if the specifications were
 successfully generated.
 
 For SeaHorn: Open seahorn_summary.txt to see if the proofs were
-successfully generated (Result: UNSAT/SAT).
+successfully generated Result: UNSAT (proof successful) or SAT
+(counterexample found).
 
 If you wish to inspect the exact stdout/stderr, tracebacks, or the
 precise timeout points for any individual run, detailed logs are saved

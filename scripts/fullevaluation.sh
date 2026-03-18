@@ -8,12 +8,12 @@ PARAM=${1:-20}
 > seahorn_summary.txt
 > cvc5_summary.txt
 
-# rm -rf ../logs/ClassicalHornICEPipeline_Logs \
-#     ../logs/ClassicalLLMHornICEFUZZPipeline_Logs \
-#     ../logs/ClassicalLLMHornICEPipeline_Logs \
-#     ../logs/ContextualHornICEPipeline_Logs \
-#     ../logs/ContextualLLMHornICEFUZZPipeline_Logs \
-#     ../logs/ContextualLLMHornICEPipeline_Logs
+rm -rf ../logs/ClassicalHornICEPipeline_Logs \
+    ../logs/ClassicalLLMHornICEFUZZPipeline_Logs \
+    ../logs/ClassicalLLMHornICEPipeline_Logs \
+    ../logs/ContextualHornICEPipeline_Logs \
+    ../logs/ContextualLLMHornICEFUZZPipeline_Logs \
+    ../logs/ContextualLLMHornICEPipeline_Logs
 
 rm -rf ../benchmarks/ClassicalHornICE_working_temp \
     ../benchmarks/ContextualHornICE_working_temp \
@@ -24,8 +24,8 @@ rm -rf ../benchmarks/ClassicalHornICE_working_temp \
 
 echo "Running pipelines with parameter: $PARAM"
 
-# python3 contextualllmpipeline.py all
-# python3 classicalllmpipeline.py all
+python3 contextualllmpipeline.py all
+python3 classicalllmpipeline.py all
 
 python3 run_all.py -m \
     ClassicalHornICE \
