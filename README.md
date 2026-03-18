@@ -1,3 +1,21 @@
+# Table of Contents
+* [Getting Started Guide](#getting-started-guide)
+  * [Prerequisites](#prerequisites)
+  * [Environment Setup](#environment-setup)
+  * [Running Basic Tests](#running-basic-tests)
+    * [BinaryTree](#binarytree)
+  * [Learning specifications for a VMTLC Proof](#synthesizing-vmtlc-proof)
+* [Step-by-Step Instructions for Evaluations](#step-by-step-instructions-for-evaluations)
+  * [Benchmarks & Parallel Execution](#benchmarks--parallel-execution)
+  * [Running Full Evaluation Script](#running-full-evaluation-script)
+  * [Learner: LLM](#learner-llm)
+    * [Log Contents (LLM)](#log-contents-llm)
+  * [Learner: HornICELLM](#learner-hornicellm)
+    * [Log Contents (HornICELLM)](#log-contents-hornicellm)
+  * [Learner: HornICE](#learner-hornice)
+    * [Log Contents (HornICE)](#log-contents-hornice)
+  * [Comparing with CVC5 and SeaHorn](#comparing-with-CVC5-and-SeaHorn)
+
 ## Getting Started Guide
 
 This guide walks you through setting up the Docker environment and
@@ -5,12 +23,12 @@ performing a basic "kick-the-tires" test to verify the artifact
 functions correctly. This initial phase is designed to take approx.
 30 minutes to complete.
 
-### 1. Prerequisites
+### Prerequisites
 * **Docker:** Ensure Docker is installed and running on your host
   machine.
 * **OS Compatibility:** Compatible with Linux.
 
-### 2. Environment Setup
+### Environment Setup
 Navigate to the directory (Dualis) of the artifact (where the `Dockerfile`
 is located) and build the image:
 
@@ -30,7 +48,7 @@ docker run -u $(id -u):$(id -g) -it --rm \
   dualis:latest
 ```
 
-### 3. Running Basic Tests
+### Running Basic Tests
 
 In this phase we run all the three learners, **LLM**, **HornICELLM**
 and, **HornICE** on **BinaryTree** benchmark.
@@ -86,12 +104,69 @@ functions and loop invariants.
 
 ## Step-by-Step instructions for evaluations
 
+### Benchmarks & Parallel Execution
+
+We have a set of 43 benchmarks for which we give VMTLC proof using
+Modular (Classical) and Contextual Specifications.
+
+Here are the list of benchmarks
+```
+        "AlternatingList", "AtomicHashMap1", "AtomicHashMap2", "AtomicHashMap3",
+        "AtomicHashMap4", "AtomicHashMap5", "AtomicLinkedList1", "AtomicLinkedList2",
+        "BinaryHeap1", "BinaryHeap2", "BinaryTree", "BlueWhite", "Calender",
+        "DLL_Circular", "DLL_Token", "FlatHashMap1", "FlatHashMap2", "FlatHashMap3",
+        "FlatHashMap4", "FlatHashSet", "LruCache1", "Max", "Min", "Multimap1",
+        "Multimap2", "Multiset1", "Multiset2", "NormalFilterQueue",
+        "PriorityFilterQueue", "ProcessQueue", "RedBlackTree", "SkipList1",
+        "SkipList2", "SkipList3", "SkipList4", "SkipList5", "SkipList6",
+        "SkipList7", "Stack", "StockOrder", "TokenBucket1", "TokenBucket2", "TokenBucket3"
+```
+
+Benchmarks are present in ```/Dualis/benchmarks``` under
+```Contextual``` and ```Classical``` directories.
+
+Under these directories, each benchmark has a sub-directory. For
+example, BinaryTree directory (under Classical) has following files :
+
+```
+Abstract.txt    - abstract client program
+Attributes.txt  - derived and primary attributes for HornICELLM learner
+BinaryTree.smt2 - CHC file for HornICE, HornICELLM and LLM 
+BinaryTree.sy   - Constraint file for CVC5.
+in              - fuzzer seeds
+insert_fuzz.cpp - fuzzer harness (for each function called in the client)
+llm_definitions.py - LLM specifications for verifier
+validity_check_gen_ds.py - verifer (z3 based) for LLM.
+```
+
+while under Contextual BinaryTree directory will have a single client test harness as
+
+```
+BinaryTree_fuzz.cpp
+```
+and verification harness for Seahorn as,
+```
+BinaryTree_sea.cpp
+```
+
+along with other files.
+
+We run the evaluation over the benchmarks for each pipeline that did
+not timeout as per Table1 in the paper.
+
+With LLM as the learner we run each benchmark for each pipeline
+(classical and contextual) sequentially, while for HornICE and
+HornICELLM we run for several applications in parallel (configured to
+run 20 applictions in parallel).
+
+### Running Full Evaluation Script
+
 In this section,
 
 1. We try to reproduce Table 1 in the paper by 
 
 	[-] Running all the learners, HornICE, HornICELLM and LLM for
-    contextual and modular (classical) modes on benchmarks that did
+    contextual and modular (classical) pipelines on benchmarks that did
     not __timeout__.
 2. Also the numbers used in RQs to present our case.
    
@@ -100,7 +175,7 @@ In this section,
    [-] Comparing with SeaHorn as automated verifier of library +
    client.
    
-__Note : These steps take approximately 4-5 hrs to complete.__
+__Note : These steps take approximately 7-8 hrs to complete.__
 
 ### Running full evaluation script
 
@@ -124,27 +199,36 @@ API-KEY = "<alphanumric-string>"
 and run the bash script
 
 ```
-./full_evaluation.sh
+./full_evaluation.sh #processors (default is 20)
 ```
 
 __Note : We are running learners for 20 benchmarks at once. Please
-make sure to give similar/more resources to get results in time. These
-resources will be used by HornICE and HornICELLM learners__
+make sure to give similar/more resources (processors) to get results
+in time. These resources will be used by HornICE and HornICELLM
+learners__
 
-After 4-5 hrs you will see that all the evaluation has ended.
+After 7-8 hrs you will see that the evaluation has ended.
 
 After the evaluation run,
 
 ```
-cat evaluation_.txt
+cat evaluation_summary.txt
 ```
 
-to get an overview of the evaluation for all the learners across all
+To get an overview of the evaluation for all the learners across all
 the benchmarks. This .txt file will contain results from table 1 in
 the paper.
 
+During the evaluation for each pipeline, the intermediate temporary
+files are present in ```pipleline_working_temp```. For example, one
+such folder can be ```ContextualHornICE_working_temp```. These
+benchmark specific directory in each pipeline working temp folder will
+have fuzzer results, seeds, executables of fuzzer harness and
+generated specs when learning is in progress and when it ends. These
+directories are deleted before every full evaluation.
+
 To add more **visibility** to the results that we have accumulated, we
- give th following set of useful commands for each learner. You could
+ give the following set of useful commands for each learner. You could
  run them to get results as explained below.
 
 ### LLM
@@ -153,32 +237,182 @@ To run specific benchmarks of your interest for modular (classical)
 specifications, run the following command.
 
 ```
+python3 classicalllmpipeline.py BinaryTree Stack
 ```
 
 Similarly for contextual specifications, run the following command.
 ```
+python3 contextualllmpipeline.py BinaryTree Stack
 ```
 
 Results of both the commands will be on the standard output (STDOUT).
 
-We also show that the results that we manually whetted for LLM during
-our runs are __equivalent__ to the ones produced in this run. To see that
-run the following script (in ```/Dualis/scripts``` folder).
+Since the LLM behavior may vary across multiple runs, we show that the
+results that we manually vetted (previously) for LLM during our runs
+are __equivalent__ to the ones produced in this run. To see that run
+the following script (in ```/Dualis/scripts``` folder)
 
 ```
 python check_implications.py
 ```
+to see a report at ```/Dualis/scripts/implication_report.txt```.
 
+```
+cat /Dualis/scripts/implication_report.txt
+```
+to see the contents.
+
+#### Log Contents
+The logs for run using LLM are present in 
+
+```/Dualis/logs/ClassicalLLMPipeline_logs``` for modular (classical) and,
+
+```/Dualis/logs/ContextualLLMPipeline_logs``` for contextual.
+
+Each directory contains a dedicated sub-directory for each benchmark. For example,
+
+```
+BinaryTree
+  --> converstation_history.json
+  --> final_cpp_specs.txt
+```
+
+the ```converstation_history.json``` file full converstaion with the
+LLM and the ```final_cpp_specs.txt``` contains the final learns
+specifications for loop invariants and functions for example,
+
+```
+insert
+((isEmpty1 == 0) && (min1 == (isEmpty == 1 ? n : (n < min ? n : min))))
+
+search
+((!(isEmpty == 1) || (ret1 == 0)) && (!((isEmpty == 0) && (ret1 == 1)) || (v >= min)))
+```
 
 ### HornICELLM
+To run specific benchmarks of your interest for modular (classical)
+specifications, run the following command.
+
+```
+python3 run_all.py -m ClassicalLLMHornICE -b Stack BinaryTree -p 2
+```
+
+Similarly for contextual specifications, run the following command.
+```
+python3 run_all.py -m ContextualLLMHornICE -b Stack BinaryTree -p 2
+```
+
+Results of both the commands will in
+```/Dualis/logs/ClassicalLLMHornICEPipeline_Logs``` and
+```/Dualis/logs/ContextualLLMHornICEPipeline_Logs``` respectively.
+
+Following are all possible modes,
+
+```
+'ClassicalHornICE',
+'ClassicalLLMHornICE',
+'ContextualHornICE',
+'ContextualLLMHornICE',
+'ClassicalCVC5',
+'ContextualCVC5',
+'ContextualSeaHorn'
+```
+
+#### Log Contents
+The logs for run using LLM are present in 
+
+```/Dualis/logs/ClassicalHornICEPipeline_logs``` for modular (classical) and,
+
+```/Dualis/logs/ContextualHornICEPipeline_logs``` for contextual.
+
+Under those pipeline log folder for an application of interest look for the following files for BinaryTree.
+```
+  --> BinaryTree_pipeline.log - contains all the external iterations
+  --> internal_BinaryTree, this is a directory that hosts logs of internal iterations.
+```
+
+External (E) iterations capture the interaction of tester, learner
+while Internal (I) iterations capture the interation between learner
+and verifier.
 
 ### HornICE
+To run specific benchmarks of your interest for modular (classical)
+specifications, run the following command.
+
+```
+python3 run_all.py -m ClassicalLLMHornICE -b Stack BinaryTree -p 2
+```
+
+Similarly for contextual specifications, run the following command.
+```
+python3 run_all.py -m ContextualLLMHornICE -b Stack BinaryTree -p 2
+```
+
+Results of both the commands will in
+```/Dualis/logs/ClassicalLLMHornICEPipeline_Logs``` and
+```/Dualis/logs/ContextualLLMHornICEPipeline_Logs``` respectively.
+
+Following are all possible modes,
+
+```
+'ClassicalHornICE',
+'ClassicalLLMHornICE',
+'ContextualHornICE',
+'ContextualLLMHornICE',
+'ClassicalCVC5',
+'ContextualCVC5',
+'ContextualSeaHorn'
+```
+
+#### Log Contents
+The logs for run using LLM are present in 
+
+```/Dualis/logs/ClassicalHornICEPipeline_logs``` for modular (classical) and,
+
+```/Dualis/logs/ContextualHornICEPipeline_logs``` for contextual.
+
+Under those pipeline log folder for an application of interest look for the following files for BinaryTree.
+```
+  --> BinaryTree_pipeline.log - contains all the external iterations
+  --> internal_BinaryTree, this is a directory that hosts logs of internal iterations.
+```
+
+External (E) iterations capture the interaction of tester, learner
+while Internal (I) iterations capture the interation between learner
+and verifier.
+
+### Old Logs
+
+Old Logs are also present at 
+
+```
+\Dualis\logs_old
+```
+and the folders are
+
+```
+ClassicalLLM 
+ClassicalLLMHornICEPipeline_Logs 
+ClassicalLLMHornICEFUZZPipeline_Logs 
+ClassicalHornICEPipeline_Logs 
+ClassicalCVC5Pipeline_Logs 
+ContextualCVC5Pipeline_Logs 
+ContextualHornICEPipeline_Logs 
+ContextualLLMHornICEFUZZPipeline_Logs 
+ContextualLLMHornICEPipeline_Logs 
+ContextualSeaHorn 
+ContextualLLM 
+ContextualSeaHornPipeline_Logs 
+kick_the_tyres_old_logs 
+Vetted_Specs
+```
 
 
 
-Note : We have run all the learner only on benchmarks that passed (did
-not time out). But if you wish to run on all of them
 
 
-Note : We have run all the learner only on benchmarks that passed (did
-not time out). But if you wish to run on all of them 
+# python3 run_all.py -m \
+#     ContextualSeaHorn \
+#     ContextualCVC5 \
+#     ClassicalCVC5 \
+#     -b all -p 20
