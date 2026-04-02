@@ -22,6 +22,9 @@
     interest](#Using-Fuzzer-to-test-specific-benchmarks-of-interest)
   * [Old Logs](#old-logs)
   * [Comparing with CVC5 and SeaHorn](#comparing-with-CVC5-and-SeaHorn)
+* [Use alternative tools in VMTLC framework](#using-alternativ-tools-in-vmtlc-framework)
+  * [Tester](#tester)
+  * [Learner](#learner)
 
 ## Getting Started Guide
 
@@ -572,3 +575,12 @@ Inside these folders, you will find an individual text file for each
 benchmark (e.g., Stack_pipeline.log). These files contain the exact
 command executed, the raw terminal output from the solver, and the
 total pipeline duration.
+
+## Using alternative tools in VMTLC framework
+	We could use other alternative tools for tester and learner.
+### Tester
+	We could use **libfuzzer** and other well known fuzzers, with
+    minimal changes to the harnesses of the benchmarks and the script
+    file, ``chcverifynfuzz.py``.
+
+### Learner
