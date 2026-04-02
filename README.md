@@ -588,7 +588,7 @@ Dualis Currently uses AFL++. But one could use **libfuzzer** and other well know
 ### Learner
 The interactions with the LLM are heavily abstracted. Dualis does not rely on model-specific features, it relies purely on text-in/text-out prompting. 
 
-How to switch: Navigate to the pipeline scripts (classicalllmpipeline.py or contextualllmpipeline.py). Locate the get_gemini_definitions() function call in get_llm_response and replace it with an equivalent function for any other LLM provider SDKs.
+How to switch: Navigate to the pipeline scripts (classicalllmpipeline.py or contextualllmpipeline.py). Locate the get_gemini_definitions() function call in get_llm_response and replace it with an equivalent function for any other LLM provider SDK.
 
 Prompts: The prompt templates located in scripts/templates/ are model agnostic and will work out-of-the-box with any modern model.
 
