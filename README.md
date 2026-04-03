@@ -579,17 +579,53 @@ total pipeline duration.
 ## Using alternative tools in VMTLC framework
 
 We could use other alternative tools for tester and learner.
+
 ### Tester
 
-Dualis Currently uses AFL++. But one could use **libfuzzer** and other well known fuzzers, with
-    minimal changes to the harnesses of the benchmarks and the script
-    file, ``chcverifynfuzz.py``.
+Dualis currently uses AFL++. However, other fuzzers such as
+**libfuzzer** can be integrated with minimal changes to the fuzz
+harnesses and the script file, ``chcverifynfuzz.py``.
+
+**Changes to harnesses** : Navigate to the ``benchmarks`` directory
+  which contains two sub-directories: ``Contextual`` and
+  ``Classical``. Each contains benchmark-specific directories.
+  
+- In ``Classical``, each benchmark directory includes files of the
+  form ``<function_name>_fuzz.cpp``, which serve as per-function
+  fuzz harnesses for testing modular contracts. These can be adapted
+  to work with alternative fuzzers.
+
+- In ``Contextual``, each benchmark directory contains a file of the
+  form ``<benchmark_name>_fuzz.cpp``, which should be modified
+  similarly.
+
+Both harnesses rely on a shared implementation under
+``benchmarks/FuzzImpl``, which provides utilities to construct data
+structure states (in a context-insensitive manner) for testing
+synthesized modular contracts.
+
+**Changes to the script file** The compilation and fuzzing is
+implemented in ``Dualis/scripts/chcverifynfuzz.py``. The base class
+``BasePipeline`` defines a method ``run_fuzz`` that handles harness
+compilation and fuzzing using AFL++.
+
+To integrate another fuzzer, extend this class by adding a new method
+that invokes the desired fuzzer and generates counterexamples in the
+expected format at the following files:
+- ``<benchmark_name>_CE.txt`` for contextual pipelines
+- ``<function_name>_CE.txt`` for modular pipelines
 
 ### Learner
-The interactions with the LLM are heavily abstracted. Dualis does not rely on model-specific features, it relies purely on text-in/text-out prompting. 
 
-How to switch: Navigate to the pipeline scripts (classicalllmpipeline.py or contextualllmpipeline.py). Locate the get_gemini_definitions() function call in get_llm_response and replace it with an equivalent function for any other LLM provider SDK.
+The interactions with the LLM are heavily abstracted. Dualis does not
+rely on model-specific features, it relies purely on text-in/text-out
+prompting.
 
-Prompts: The prompt templates located in scripts/templates/ are model agnostic and will work out-of-the-box with any modern model.
+**How to switch**: Navigate to the pipeline scripts
+(classicalllmpipeline.py or contextualllmpipeline.py). Locate the
+get_gemini_definitions() function call in get_llm_response and
+replace it with an equivalent function for any other LLM provider
+SDK.
 
-	
+**Prompts**: The prompt templates located in scripts/templates/ are
+model agnostic and will work out-of-the-box with any modern model.
