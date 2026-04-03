@@ -57,6 +57,8 @@ docker run -u $(id -u):$(id -g) -it --rm \
   dualis:latest
 ```
 
+It also contains prebuilt docker image as ``Dualis.tgz``.
+
 ### LLM Configuration
 Before running the evaluation pipeline with the LLM learner, you must
 provide a Gemini API key.
