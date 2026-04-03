@@ -57,7 +57,16 @@ docker run -u $(id -u):$(id -g) -it --rm \
   dualis:latest
 ```
 
-It also contains prebuilt docker image as ``Dualis.tgz``.
+It also contains prebuilt docker image as ``Dualis.tgz`` in the main
+directory.
+
+Dualis image can be loaded using,
+
+```bash
+docker load < Dualis.tar.gz
+```
+
+and can run it using the earlier run instruction.
 
 ### LLM Configuration
 Before running the evaluation pipeline with the LLM learner, you must
