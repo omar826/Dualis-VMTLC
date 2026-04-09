@@ -1,4 +1,3 @@
-# --- Replace the main function in run_llm_fuzz_test.py on the SERVER ---
 
 import sys
 import os
