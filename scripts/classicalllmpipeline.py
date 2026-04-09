@@ -74,7 +74,7 @@ def get_gemini_definitions(prompt_data, model_name="gemini-2.5-flash"):
 
         
         if isinstance(prompt_data, list):
-            # CASE 1: Input is a chat history (from refinement_loop)
+            #  Input is a chat history (from refinement_loop)
             print("--- Detected chat history. Translating to Gemini format and using conversational mode. ---")
             
 
@@ -265,8 +265,7 @@ def run_single_fuzz_test(benchmark_name, spec_to_test, spec_to_inject, mode, tim
         # 3. Analyze Results by checking the local CE file
         print("\n--- Analyzing execution results by checking CE file ---")
         
-        # NOTE: Mak e sure this path correctly points to where the fuzzer outputs the CE!
-        # Assuming working_temp is generated inside your BENCHMARKS_DIR
+
         ce_path = os.path.join(PROJECT_ROOT, "benchmarks", "ClassicalLLMHornICEFUZZ_working_temp", benchmark_name, f"{spec_to_test}CE.txt")   
         try:
             with open(ce_path, 'r', encoding='utf-8') as f:
@@ -484,11 +483,6 @@ def z3_refinement_cycle(conversation_history, model_to_use, benchmark_name):
         print(f"\n--- Z3 Refinement Attempt {attempt}/{MAX_ATTEMPTS} ---")
 
 
-        # import json
-        # print("\n" + "-"*20 + " CONVERSATION HISTORY (SENT TO LLM) " + "-"*20)
-
-        # print(json.dumps(conversation_history, indent=2))
-        # print("-" * 65 + "\n")
 
 
         llm_code = get_llm_response(conversation_history, model_to_use)
@@ -521,7 +515,7 @@ def save_final_logs(benchmark_name, conversation_history, passed):
     target_dir = os.path.join(LOGS_DIR, benchmark_name)
     os.makedirs(target_dir, exist_ok=True)
 
-    # 1. Save the conversation history as a formatted JSON file
+    # Save the conversation history as a formatted JSON file
     chat_file_path = os.path.join(target_dir, "conversation_history.json")
     try:
         with open(chat_file_path, 'w', encoding='utf-8') as f:
@@ -529,7 +523,7 @@ def save_final_logs(benchmark_name, conversation_history, passed):
     except Exception as e:
         print(f"Error saving conversation history: {e}")
 
-    # 2. Copy the final C++ specs from the benchmark folder
+    # Copy the final C++ specs from the benchmark folder
     # We grab RewrittenSpecs.txt which was generated in Phase 2
     source_specs_path = os.path.join(BENCHMARKS_DIR, benchmark_name, "RewrittenSpecs.txt")
     target_specs_path = os.path.join(target_dir, "final_cpp_specs.txt")
