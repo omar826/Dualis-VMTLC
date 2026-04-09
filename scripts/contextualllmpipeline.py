@@ -78,7 +78,7 @@ def get_gemini_definitions(prompt_data, model_name="gemini-2.5-flash"):
 
         
         if isinstance(prompt_data, list):
-            # CASE 1: Input is a chat history (from refinement_loop)
+            # Input is a chat history (from refinement_loop)
             print("--- Detected chat history. Translating to Gemini format and using conversational mode. ---")
 
             gemini_history = []
@@ -506,7 +506,7 @@ def save_final_logs(benchmark_name, conversation_history, passed):
     target_dir = os.path.join(LOGS_DIR, benchmark_name)
     os.makedirs(target_dir, exist_ok=True)
 
-    # 1. Save the conversation history as a formatted JSON file
+    # Save the conversation history as a formatted JSON file
     chat_file_path = os.path.join(target_dir, "conversation_history.json")
     try:
         with open(chat_file_path, 'w', encoding='utf-8') as f:
@@ -514,7 +514,7 @@ def save_final_logs(benchmark_name, conversation_history, passed):
     except Exception as e:
         print(f"Error saving conversation history: {e}")
 
-    # 2. Copy the final C++ specs from the benchmark folder
+    # Copy the final C++ specs from the benchmark folder
     # We grab RewrittenSpecs.txt which was generated in Phase 2
     source_specs_path = os.path.join(BENCHMARKS_DIR, benchmark_name, "RewrittenSpecs.txt")
     target_specs_path = os.path.join(target_dir, "final_cpp_specs.txt")
