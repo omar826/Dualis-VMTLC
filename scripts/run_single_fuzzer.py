@@ -1,4 +1,3 @@
-# File: /home/omarmuhammad/RapNLearn/scripts/run_single_fuzzer.py
 
 import sys
 import os
