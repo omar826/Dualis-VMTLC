@@ -134,7 +134,6 @@ def chk_val_invariant2():
     print("Checking for loop-2 inductiveness")
     print("===============================")
     antecedent = And(inv2(n, d, sl) , 
-                        (sl == 0),
                         Not (sl == 0),
                         po(sl, sl1),
                         (d1 == d + 1)
