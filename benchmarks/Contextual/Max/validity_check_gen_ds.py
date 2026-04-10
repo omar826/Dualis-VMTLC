@@ -10,8 +10,8 @@ len1 = Int('len1')
 v = Int('v')
 v1 = Int('v1')
 
-INT_MAX = 32767
-INT_MIN = -32768
+INT_MAX = 128
+INT_MIN = -129
 
 try:
     from llm_definitions import inv, append
