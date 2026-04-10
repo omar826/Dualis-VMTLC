@@ -9,7 +9,7 @@ maxDiff = Int('maxDiff')
 maxDiff1 = Int('maxDiff1')
 
 # Define constants from CHC
-INT_MIN = 0
+INT_MIN = -129
 
 # Global flag to track if all checks pass
 chckval = 1
