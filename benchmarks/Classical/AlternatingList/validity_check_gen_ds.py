@@ -11,7 +11,7 @@ val = Int('val')
 val1 = Int('val1')
 
 # Define constants from CHC
-MAX = 10
+MAX = 128
 
 # Global flag to track if all checks pass
 chckval = 1
