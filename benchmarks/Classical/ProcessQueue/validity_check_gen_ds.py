@@ -9,8 +9,8 @@ len1 = Int('len1')
 min_ttw1 = Int('min_ttw1')
 
 # Define constants from CHC
-INT_MAX = 10
-INT_MIN = -10
+INT_MAX = 128
+INT_MIN = -129
 
 # Global flag to track if all checks pass
 chckval = 1
