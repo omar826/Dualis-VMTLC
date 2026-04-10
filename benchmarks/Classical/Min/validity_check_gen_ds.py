@@ -1,8 +1,8 @@
 from z3 import *
 
 # Define constants
-INT_MAX = 32767
-INT_MIN = -32768
+INT_MAX = 128
+INT_MIN = -129
 
 # Define variables
 v = Int('v')
