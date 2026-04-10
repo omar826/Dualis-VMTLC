@@ -640,3 +640,10 @@ SDK.
 
 **Prompts**: The prompt templates located in scripts/templates/ are
 model agnostic and will work out-of-the-box with any modern model.
+
+
+## Adding a New Benchmark
+
+## Scripts
+
+## Artifact Availability
