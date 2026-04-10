@@ -2,7 +2,7 @@
 (declare-rel insert (Int Int Int Int Int Int))
 (declare-rel fail ())
 (define-fun absl ((x Int)) Int (ite (>= x 0) x (- x)))
-(define-fun INT_MIN () Int 0)
+(define-fun INT_MIN () Int -129)
 (declare-var len Int)
 (declare-var len1 Int)
 (declare-var ev1 Int)
