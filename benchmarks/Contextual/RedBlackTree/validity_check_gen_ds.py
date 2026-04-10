@@ -47,7 +47,7 @@ def chk_val_initial_conditions():
     print("Checking if initial conditions imply loop invariant")
     print("="*53)
     # CHC Rule: (=> (and (> N 0) (= max MIN) (= min MAX) (= len 0) (= noDup 1) (= i 0)) (inv1 i N max min len noDup))
-    ic_antecedent = And(N > 0, max_var == -10, min_var == 10, len_var == 0, noDup == 1, i == 0)
+    ic_antecedent = And(N > 0, max_var == -129, min_var == 128, len_var == 0, noDup == 1, i == 0)
     ic_consequent = inv1(i, N, max_var, min_var, len_var, noDup)
     ic_implication = Implies(ic_antecedent, ic_consequent)
 
