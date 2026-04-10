@@ -8,7 +8,7 @@
 (declare-rel push (Int Int Int Int Int))
 (declare-rel inv (Int Int Int))
 (declare-rel fail ())
-(define-fun MAX () Int 10)
+(define-fun MAX () Int 128)
 
 
 (rule (=> (and (= flag 1) (= len 0) (= top MAX) ) (inv top len flag)))
