@@ -27,9 +27,7 @@ def fail():
     return z3.BoolVal(False)  # This relation always returns False, indicating failure.
 
 def is_valid(a):
-    if a==0 or a==1:
-        return True
-    return False
+    return Or(a == 0, a == 1)
 
 # Create a single solver
 s = Solver()
@@ -197,7 +195,7 @@ def chk_post():
         (v < 0),
         search(v, min, isEmpty, ret1),
         is_valid(isEmpty),
-        (ret1 == 0)
+        Not(ret1 == 0)
     )
     ic_consequent = fail()
     ic_implication = Implies(ic_antecedent, ic_consequent)
