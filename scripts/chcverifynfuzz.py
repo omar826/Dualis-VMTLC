@@ -1,3 +1,37 @@
+"""Verification-Modulo-Testing (VMT) Pipeline Framework
+
+USAGE:
+python <script_name>.py <mode> <benchmark_name> [--deep-fuzz] [--test-only]
+
+AVAILABLE MODES:
+- ClassicalHornICE      : Uses HornICE verifier for standard CHC solving.
+- ClassicalLLMHornICE   : Uses HornICE verifier with LLM-derived attributes.
+- ContextualHornICE     : Uses HornICE for contextual contract synthesis.
+- ContextualLLMHornICE  : Uses HornICE with LLM features for contextual contracts.
+- ClassicalCVC5         : Uses CVC5 for SyGuS-based invariant synthesis.
+- ContextualCVC5        : Uses CVC5 for SyGuS-based contextual synthesis.
+- ContextualSeaHorn     : Runs SeaHorn as a direct baseline verification check.
+
+FLAGS:
+--deep-fuzz : Explicitly triggers an extended 15-minute deep fuzzing phase 
+              after the primary learning loop converges to ensure robustness.
+--test-only : Exclusively runs the fuzzing phase on previously generated executables.
+
+Expected Directory Structure:
+The script assumes it is running within a specific structural layout:
+../benchmarks/Classical/<benchmark_name>/     (Standard SMT2)
+../benchmarks/Contextual/<benchmark_name>/    (Contextual SMT2)
+../logs/                                      (Auto-generated execution logs)
+
+Expected files inside a specific benchmark directory:
+- <benchmark>.smt2 or .sy : The base specification file.
+- <benchmark>_sea.cpp     : The C++ source (if using SeaHorn).
+- *_fuzz.cpp              : C++ harness files for AFL++ instrumentation.
+- in/                     : A directory containing initial seed inputs for the fuzzer.
+- Attributes.txt          : Configuration for primary variables and derived expressions.
+
+"""
+
 import os
 import subprocess
 import sys
@@ -994,8 +1028,6 @@ class SeaHornPipeline(BasePipeline):
 
         self.working_c_file = os.path.join(self.working_dir, f"{self.benchmark_name}_sea.cpp")
 
-        # self.seahorn_log_file = os.path.join(self.logs_path, "seahorn_baselines.log")
-
         self.mode_log_dir = os.path.join(self.logs_path, self.mode)
         os.makedirs(self.mode_log_dir, exist_ok=True)
         self.benchmark_log_file = os.path.join(self.mode_log_dir, f"{self.benchmark_name}.log")
@@ -1078,10 +1110,6 @@ class SeaHornPipeline(BasePipeline):
         result = self._run_seahorn()
 
         log_entry = f"Benchmark: {self.benchmark_name} | Mode: {self.contract_type} | Result: {result}\n"
-        # with open(self.seahorn_log_file, "a") as log_file:
-        #     log_file.write(log_entry)
-
-        # print(f"   -> Result logged to {self.seahorn_log_file}")
         print("\n" + "="*22 + " Pipeline Finished " + "="*21)
 
 
