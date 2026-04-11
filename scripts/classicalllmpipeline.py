@@ -1,3 +1,10 @@
+"""
+This script orchestrates the complete VMTLC loop for standard, modular contracts.
+It prompts the LLM as a learner to generate invariants and modular contracts. 
+It handles the internal and external feedback loops between the LLM, the SMT solver, and the tester.
+
+"""
+
 import os
 import re
 import google.generativeai as genai
@@ -579,7 +586,7 @@ def run_complete_pipeline(model_to_use, benchmark_name):
     
     conversation_history = [{'role': 'user', 'content': initial_prompt}]
     
-    MAX_PIPELINE_ITERATIONS = 15
+    MAX_PIPELINE_ITERATIONS = 15 #outer loop attempts
     for i in range(1, MAX_PIPELINE_ITERATIONS + 1):
         print("\n\n" + "="*25 + f" PIPELINE ITERATION {i} " + "="*25)
         
