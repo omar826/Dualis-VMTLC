@@ -1,3 +1,9 @@
+"""
+This script orchestrates the complete VMTLC loop for contextual contracts. 
+It prompts the LLM as a learner to generate invariants and contextual contracts.
+It handles the internal and external feedback loops between the LLM, the SMT solver, and the tester.
+"""
+
 import os
 import re
 import google.generativeai as genai
