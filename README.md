@@ -715,13 +715,12 @@ client.
 
 For each benchmark, add an ``in`` directory containing a set of seeds
 to be used by the fuzzer. These seeds are minimal-length binary
-encodings of operations and their operands. For example, in Classical
+encodings of operations and their operands. In Classical
 (modular) benchmarks, the ``in`` directory contains seeds representing
-permutations of operations. If the benchmark is Stack, the binary
-encodes operations such as two pushes (each operation has an ID) along
-with their operands (integers), while a pop operation is represented
-only by its operation ID. In contrast, for Contextual benchmarks, the
-seed should be of minimal length, just sufficient to allow
+permutations of operations. For example if the benchmark is Stack, the binary
+encodes a sequence of operations such as push, pop (each operation has an ID) along
+with their operands (integers) if any. In contrast, for Contextual benchmarks, the
+seed should be of minimal length, to allow
 nondeterministic values to be assigned to the variables.
 
 For more details on how to add test harnesses, refer to the
