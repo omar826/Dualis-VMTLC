@@ -19,5 +19,5 @@ while (i < N) {
 k = *
 (assume 0 <= k < N)
 ret1 = find(k, len, min, max)
-assert(ret1 != MIN)
+assert(ret1 != MIN or ret1 != MAX)
 

@@ -28,6 +28,6 @@
 
 (rule (=> (and (> N 0) (= len 0) (= i 0) (= min MAX) (= max MIN) ) (inv1 i N len min max)))
 (rule (=> (and (inv1 i N len min max) (is_valid) (< i N) (= k i) (= v i) (insert k v len min max len1 min1 max1) (= v1 (+ i 1)) (insert1 k v1 len1 min1 max1 len2 min2 max2) (= i1 (+ i 1))) (inv1 i1 N len2 min2 max2)))
-(rule (=> (and (inv1 i N len min max) (is_valid) (not (< i N)) (<= 0 k) (< k N) (find k len min max ret1) (= ret1 MIN)) fail))
+(rule (=> (and (inv1 i N len min max) (is_valid) (not (< i N)) (<= 0 k) (< k N) (find k len min max ret1) (or (= ret1 MAX) (= ret1 MIN))) fail))
 
 (query fail :print-certificate true)

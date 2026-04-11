@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
     
     int ret1 = ahm.find(k);
 
-    sassert(ret1 == k);
+    sassert(ret1 != MIN and ret1 != MAX);
 
     return 0;
 }

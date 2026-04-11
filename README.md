@@ -7,10 +7,10 @@
     * [BinaryTree Description](#binarytree-description)
 	  * [Synthesizing VMTLC Proof](#synthesizing-vmtlc-proof)
 * [Complete Evaluation](#complete-evaluation)
-  * [Benchmarks & Parallel Execution](#benchmarks--parallel-execution)
-  * [Running Full Evaluation Script](#running-full-evaluation-script)
+  * [Benchmarks and Parallel Execution](#benchmarks-and-parallel-execution)
+  * [Running Full Evaluation](#running-full-evaluation)
   * [Learner: LLM](#learner-llm)
-	* [Available Modes](#available-modes)  
+	* [Available Modes](#available-modes)
     * [Log Contents (LLM)](#log-contents-llm)
   * [Learner: HornICELLM](#learner-hornicellm)
 	* [Available Modes](#available-modes)
@@ -25,7 +25,9 @@
 * [Use alternative tools in VMTLC framework](#using-alternativ-tools-in-vmtlc-framework)
   * [Tester](#tester)
   * [Learner](#learner)
-
+* [Adding a New Benchmark](#adding-a-new-benchmark)
+* [Scripts Overview](#scripts-overview)
+* [Artifact Availability](#artifact-availability)
 ## Getting Started Guide
 
 This guide walks you through setting up the Docker environment and
@@ -152,7 +154,7 @@ To reproduce the results from the paper, execute the
 benchmarks using prviously mentioned learners and takes approximately
 __10-12 hours__.
 
-### Benchmarks & Parallel Execution
+### Benchmarks and Parallel Execution
 
 We have a set of 43 benchmarks for which we give VMTLC proofs using
 Modular (Classical) and Contextual Specifications.
@@ -207,20 +209,20 @@ for each pipeline (classical and contextual). In contrast, for
 **HornICE** and **HornICELLM**, multiple benchmarks are executed in
 parallel (configured to run 20 benchmarks simultaneously).
 
-### Running Full Evaluation Script
+### Running Full Evaluation
 
 In this section we undertake steps to back our claims in the paper.
 
 1. This step reproduces Table 1 in the paper by:
 
-	[-] Running all learners, HornICE, HornICELLM and LLM for
+	- Running all learners, HornICE, HornICELLM and LLM for
     contextual and modular (classical) pipelines on benchmarks that did
     not __timeout__.
 2. Also the numbers used in RQs to present our case.
    
-   [-] Comparing with CVC5.
+   - Comparing with CVC5.
    
-   [-] Comparing with SeaHorn.
+   - Comparing with SeaHorn.
    
 3. Note that we claim our manually vetted specifications are
    correct. We do not provide any additional guarantees; however, for
@@ -229,7 +231,7 @@ In this section we undertake steps to back our claims in the paper.
    
 __Note : These steps take approximately 10-12 hrs to complete.__
 
-### Running full evaluation script
+#### Running full evaluation script
 
 Run the following bash script
 
@@ -251,11 +253,11 @@ cat evaluation_summary.txt
 ```
 to view results.
 
-Run the script ```summary_table.py``` which builds a summary table
+Run the script ```summarytable.py``` which builds a summary table
 using ```evaluation_summary.txt```.
 
 ```
-python3 summary_table.py
+python3 summarytable.py
 ```
 
 This provides an overview of all the learners across all the
@@ -293,7 +295,8 @@ sections.
 ### Learner:LLM
 
 To run specific benchmarks of interest for modular (classical)
-specifications, execute (Pass the exact names of the benchmarks you want to test as space-separated arguments):
+specifications, execute (Pass the exact names of the benchmarks you
+want to test as space-separated arguments):
 
 ```
 python3 classicalllmpipeline.py BinaryTree Stack
@@ -465,8 +468,10 @@ can be found:
   --> BinaryTree_pipeline.log - contains all the external iterations
   --> internal_BinaryTree, this is a directory that hosts logs of internal iterations.
 ```
-- **External (E) iterations** capture the interaction between the tester and the learner.
-- **Internal (I) iterations** capture the interaction between the learner and the verifier.
+- **External (E) iterations** capture the interaction between the
+  tester and the learner.
+- **Internal (I) iterations** capture the interaction between the
+  learner and the verifier.
 
 ### Using Fuzzer to test specific benchmarks of interest
 
@@ -514,8 +519,8 @@ ls -l afl_out/default/crashes/
 
 ### Old Logs
 
-To compare your fresh runs against our original results,
-you can review the pre-computed logs. 
+To compare your fresh runs against our original results, you can
+review the pre-computed logs.
 
 These are located in:
 
@@ -548,7 +553,9 @@ In this section we evaluate the benchmarks to evaluate whether,
 1. CVC5 can successfully synthesize specs and produce a VMTLC proof.
 2. SeaHorn can successfully prove client+library for the assertion.
 
-To run these, execute the following command from within the ```/Dualis/scripts``` directory
+To run these, execute the following command from within the
+```/Dualis/scripts``` directory
+
 ```
  python3 run_all.py -m \
      ContextualSeaHorn \
@@ -591,7 +598,7 @@ total pipeline duration.
 
 We could use other alternative tools for tester and learner.
 
-### Tester
+### Tester {#tester}
 
 Dualis currently uses AFL++. However, other fuzzers such as
 **libfuzzer** can be integrated with minimal changes to the fuzz
@@ -644,24 +651,78 @@ model agnostic and will work out-of-the-box with any modern model.
 
 ## Adding a New Benchmark
 
-Dualis is designed to evaluate new libraries and client programs. To add a new benchmark, you must create a new directory inside `/Dualis/benchmarks/Classical` or `/Dualis/benchmarks/Contextual`.
+Dualis is designed to evaluate new libraries and client programs. To
+add a new benchmark, you must create a new directory inside
+`/Dualis/benchmarks/Classical` or `/Dualis/benchmarks/Contextual`.
+
+### HornICE and HornICE-LLM learner
+The HornICE and HornICELLM pripelines require following files for
+VMTLC using Contextual and Classical contracts.
+
+## Classical (Modular)
+* `<benchmark_name>.smt2` : Contains CHCs that are used by both these
+  learners.
+  
+## Contextual
+* `<benchmark_name>.smt2` : This file is required only if the
+  Contextual CHCs differ form Classical (Modular) CHCs. Else the CHC
+  from the Classical directory is used.
 
 ### LLM Learner
 
-The LLM pipeline requires the following additional files to be added to the new directory. These will be given to the LLM in the prompt:
+The LLM pipeline requires the following additional files to be added
+to the new directory. These will be given to the LLM in the prompt:
 
-* `Abstract.txt`: A simplified, C-like abstract representation of your client program, including the final `assert()` property to be verified.
-* `Signature.txt`: The function signatures of the library methods and the invariants that the LLM needs to synthesize contracts for (eg. insert(n, min, min1, isEmpty, isEmpty1)).
-* `CHC.smt2`: The Constrained Horn Clauses of the program's control flow, written in SMT-LIB v2 format.
+* `Abstract.txt`: A simplified, C-like abstract representation of your
+  client program, including the final `assert()` property to be
+  verified.
+* `Signature.txt`: The function signatures of the library methods and
+  the invariants that the LLM needs to synthesize contracts for
+  (eg. insert(n, min, min1, isEmpty, isEmpty1)).
+* `CHC.smt2`: The Constrained Horn Clauses of the program's control
+  flow, written in SMT-LIB v2 format.
 
-The LLM generates the contracts and invariants in z3 format in a file called 'llm_definitions.py'. You need to write a python script named 'validity_check_gen_ds.py' that checks whether the generated specs satisfy the CHCs.
+The LLM generates the contracts and invariants in z3 format in a file
+called 'llm_definitions.py'. You need to write a python script named
+'validity_check_gen_ds.py' that checks whether the generated specs
+satisfy the CHCs.
 
-## Core Script Overview
+### Tester
 
-* `classicalllmpipeline.py`: This script orchestrates the complete VMTLC loop for standard, modular contracts. It prompts the LLM as a learner to generate invariants and modular contracts. It handles the internal and external feedback loops between the LLM, the SMT solver, and the tester.
-* `contextualllmpipeline.py`: This script orchestrates the complete VMTLC loop for contextual contracts. It prompts the LLM as a learner to generate invariants and contextual contracts. It handles the internal and external feedback loops between the LLM, the SMT solver, and the tester.
-* `run_single_fuzzer.py`: This script is invoked by `classicalllmpipeline.py`. It takes in the contracts generated by the LLM, injects them into the benchmark's test harness, and executes AFL++ for a given time budget.
-* `run_llm_fuzz_test.py`: this script is invoked by `contextualllmpipeline.py`, and functions similar to `run_single_fuzzer.py`.
+Both these pipelines require fuzzer harnesses to test the
+specifications generated by the learners. Each benchmark is requried
+to have test harnesses for each function in the client for Classical
+(Modular) and for the whole client in Contextual.
+
+For more details on how to added these test harnesses refer to the
+[section](#tester)
+
+## Script Overview
+* `chcverifynfuzz,py` : this script hosts pipelines for HornICE,
+  HornICE and SeaHorn and CVC5. Furthermore, this script also invokes
+  the fuzzer and create supporting files to collect counterexamples
+  during the run of the benchmarks. All the other script use this to
+  run the fuzzer.
+
+* `classicalllmpipeline.py`: This script orchestrates the complete
+  VMTLC loop for standard, modular contracts. It prompts the LLM as a
+  learner to generate invariants and modular contracts. It handles the
+  internal and external feedback loops between the LLM, the SMT
+  solver, and the tester.
+* `contextualllmpipeline.py`: This script orchestrates the complete
+  VMTLC loop for contextual contracts. It prompts the LLM as a learner
+  to generate invariants and contextual contracts. It handles the
+  internal and external feedback loops between the LLM, the SMT
+  solver, and the tester.
+* `run_single_fuzzer.py`: This script is invoked by
+  `classicalllmpipeline.py`. It takes in the contracts generated by
+  the LLM, injects them into the benchmark's test harness, and
+  executes AFL++ for a given time budget.
+* `run_llm_fuzz_test.py`: this script is invoked by
+  `contextualllmpipeline.py`, and functions similar to
+  `run_single_fuzzer.py`.
 
 ## Artifact Availability
-Upon publication of the paper, the entire Dualis framework, including all benchmark data, scripts, and evaluation environments, will be open-sourced on GitHub and and permanently archived on Zenodo.
+Upon publication of the paper, the entire Dualis framework, including
+all benchmark data, scripts, and evaluation environments, will be
+open-sourced on GitHub and permanently archived on Zenodo.

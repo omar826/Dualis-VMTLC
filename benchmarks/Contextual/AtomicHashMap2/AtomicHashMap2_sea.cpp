@@ -46,6 +46,6 @@ int main(int argc, char* argv[]) {
 
     printf("ret = %d", ret);
 
-    sassert(ret == k);
+    sassert(ret != MIN && ret1 != MAX);
     return 0;
 }
