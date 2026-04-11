@@ -81,8 +81,8 @@ cd /Dualis/scripts
 ```
 
 
-Add your Gemini API key to the .env file by replacing the string
-"alphanumeric-string-here" with the actual key.
+Add your Gemini API key to the .env file in ``/Dualis/`` directory by
+replacing the string "alphanumeric-string-here" with the actual key.
 
 ```
 API_KEY = "alphanumeric-string-here"
