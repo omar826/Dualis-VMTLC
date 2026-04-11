@@ -669,15 +669,16 @@ VMTLC using Contextual and Classical contracts.
   from the Classical directory is used.
 
 ### Common Files
-* Both the above learner modes use attributes (octogonal constraints)
-  over attributes of the relation. HornICE generates them internally,
-  while HornICELLM gets them from the LLM which are populated in
-  ``Attributes.txt``. We use the templates in the
-  ``/Dualis/templates`` directory for contextual and modular
-  (classical) attributes once for a benchmarks and populate the
-  ``attributes.txt`` file. Note the pattern in the ``Attributes.txt``
-  file. It has primary attributes (attributes of the relations) and
-  their linear combinations (derived attributes).
+* Both of the above learner modes use attributes (**octagonal** expressions)
+  over the attributes of the relation. HornICE generates these internally,
+  while HornICELLM obtains them from the LLM, which are then populated in
+  ``Attributes.txt``. We use templates from the
+  ``/Dualis/templates`` directory (``Template_expression.txt`` for Classical
+  (Modular) and ``template_contextual.txt`` for Contextual) to generate
+  contextual and modular (classical) attributes for each benchmark, and
+  populate the ``Attributes.txt`` file accordingly. Note the structure of the
+  ``Attributes.txt`` file: it contains primary attributes (attributes of the
+  relations) as well as their linear combinations (derived attributes).
 
 ### CVC5 files
 * This learner was used just for comparision against our
