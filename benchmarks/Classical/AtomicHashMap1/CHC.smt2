@@ -17,9 +17,9 @@
 (declare-var v Int)
 (declare-var v1 Int)
 (declare-var ret1 Int)
-(declare-rel insert (Int Int Int Int Int Int Int Int Int Int))
-(declare-rel find (Int Int Int Int Int Int))
-(declare-rel inv1 (Int Int Int Int Int Int))
+(declare-rel insert (Int Int Int Int Int Int Int Int))
+(declare-rel find (Int Int Int Int Int))
+(declare-rel inv1 (Int Int Int Int Int))
 (declare-rel fail ())
 
 (define-fun MAX () Int 128)
